@@ -232,6 +232,7 @@ export async function resolve(input: Partial<Keys>, deps: ResolveDeps): Promise<
       const report: AdapterRunReport = { adapter: id, status: 'ok', ms: Date.now() - t0, facts_count: outFacts.length, stage: stageNo };
       if (requestUrl) report.request_url = requestUrl;
       const rec: Parameters<FactStore['saveAdapterRun']>[0] = {
+        version: adapter.manifest.version ?? 1,
         run_id,
         adapter: id,
         subject,
@@ -263,6 +264,7 @@ export async function resolve(input: Partial<Keys>, deps: ResolveDeps): Promise<
       const url = (err as { url?: string })?.url;
       if (url) report.request_url = url;
       const rec: Parameters<FactStore['saveAdapterRun']>[0] = {
+        version: adapter.manifest.version ?? 1,
         run_id,
         adapter: id,
         subject: subjectNow,
