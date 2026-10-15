@@ -1,0 +1,48 @@
+{
+  "name": "@grundpass/core",
+  "version": "0.1.0",
+  "description": "Das Hirn von grundpass.ch: Resolver und Adapter für offene Schweizer Grundstücksdaten (GWR, AV, Sonnendach, ÖV, Radon, Lärm). Adresse rein, Fakten mit Quelle und Stand raus.",
+  "author": "Jannis Meierhofer (vugg.ch)",
+  "license": "AGPL-3.0-or-later",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/noshitjannis/grundpass-core"
+  },
+  "type": "module",
+  "engines": {
+    "node": ">=20"
+  },
+  "main": "./src/index.ts",
+  "exports": {
+    ".": "./src/index.ts"
+  },
+  "bin": {
+    "gp": "./src/cli.ts"
+  },
+  "scripts": {
+    "dev": "tsx watch src/api/server.ts",
+    "start": "tsx src/api/server.ts",
+    "gp": "tsx src/cli.ts",
+    "canary": "tsx src/canary/cli.ts",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "test:live": "LIVE=1 vitest run test/live",
+    "check": "pnpm typecheck && pnpm test"
+  },
+  "dependencies": {
+    "@electric-sql/pglite": "^0.5.10",
+    "@hono/node-server": "^2.1.5",
+    "hono": "^4.13.13",
+    "pg": "^8.23.1",
+    "zod": "^4.6.7"
+  },
+  "devDependencies": {
+    "@types/node": "^26.6.5",
+    "@types/pg": "^8.15.0",
+    "tsx": "^4.23.15",
+    "typescript": "^5.9.3",
+    "vitest": "^5.0.4"
+  },
+  "packageManager": "pnpm@10.28.0"
+}

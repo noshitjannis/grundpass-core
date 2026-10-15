@@ -1,0 +1,23 @@
+{
+  "_hinweis": "Aus Live-Antwort vom 15.10.2026 übertragen. attrs.y ist Ost (E), attrs.x ist Nord (N).",
+  "results": [
+    {
+      "id": 1052423,
+      "weight": 100,
+      "attrs": {
+        "origin": "address",
+        "label": "Maygutstrasse 26 <b>3084 Wabern</b>",
+        "detail": "maygutstrasse 26 3084 wabern 355 koeniz ch be",
+        "featureId": "1271632_0",
+        "num": 26,
+        "rank": 7,
+        "zoomlevel": 10,
+        "objectclass": "",
+        "lat": 46.92716979980469,
+        "lon": 7.4613938331604,
+        "x": 1197341.75,
+        "y": 2601733.5
+      }
+    }
+  ]
+}

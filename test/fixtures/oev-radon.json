@@ -1,0 +1,25 @@
+{
+  "_hinweis": "Aus Live-Antwort vom 15.10.2026 (identify mit beiden Layern). Die Tests splitten nach Layer.",
+  "results": [
+    {
+      "layerBodId": "ch.are.gueteklassen_oev",
+      "featureId": 3885,
+      "id": 3885,
+      "attributes": {
+        "klasse_de": "D - geringe Erschliessung",
+        "klasse_fr": "D - faible desserte",
+        "label": "D - geringe Erschliessung"
+      }
+    },
+    {
+      "layerBodId": "ch.bag.radonkarte",
+      "featureId": 59651,
+      "id": 59651,
+      "attributes": {
+        "probability_prozent": 21,
+        "confidence": 427.82,
+        "label": 21
+      }
+    }
+  ]
+}

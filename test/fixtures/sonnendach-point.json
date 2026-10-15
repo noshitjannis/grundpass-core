@@ -1,0 +1,49 @@
+{
+  "_hinweis": "Aus Live-Antwort vom 15.10.2026 (identify tolerance=0 am Gebäudepunkt). Arrays gekürzt.",
+  "results": [
+    {
+      "layerBodId": "ch.bfe.solarenergie-eignung-daecher",
+      "featureId": 14608689,
+      "id": 14608689,
+      "attributes": {
+        "building_id": 1131629,
+        "bedarf_heizung": 18154,
+        "bedarf_warmwasser": 3600,
+        "datum_aenderung": "13.04.2020",
+        "datum_erstellung": "13.04.2020",
+        "dg_heizung": 26,
+        "dg_waermebedarf": 30,
+        "flaeche_kollektoren": 18.3164638846,
+        "gstrahlung": 103697,
+        "mstrahlung": 1380,
+        "sb_objektart": 1,
+        "volumen_speicher": 1400,
+        "waermeertrag": 6529,
+        "klasse": 4,
+        "flaeche": 75.1426060066,
+        "ausrichtung": 40,
+        "finanzertrag": 1659.2,
+        "stromertrag": 16592,
+        "stromertrag_winterhalbjahr": 5132,
+        "stromertrag_sommerhalbjahr": 11460,
+        "klasse_text": "Sehr gut##Trés bonne##Molto buona##Very good##Sehr gut",
+        "gwr_egid": 1271632,
+        "df_nummer": 2,
+        "neigung": 26,
+        "label": 14608689
+      }
+    },
+    {
+      "layerBodId": "ch.bfe.solarenergie-eignung-daecher",
+      "featureId": -99,
+      "id": -99,
+      "attributes": {
+        "de": "Die grüne Fläche zeigt, welche Hausdächer abrufbar sind.",
+        "fr": "La surface verte montre quelles toitures sont disponibles.",
+        "it": "Le aree in verde indicano le zone per cui sono disponibili informazioni sui tetti.",
+        "en": "The green colouring indicates those roofs that can be called up online.",
+        "label": -99
+      }
+    }
+  ]
+}

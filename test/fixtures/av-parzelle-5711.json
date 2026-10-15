@@ -1,0 +1,34 @@
+{
+  "_hinweis": "Attribute aus Live-Antwort vom 15.10.2026. Die Geometrie ist ein Platzhalter-Rechteck von 26.5 x 28.7 m (~761 m²), weil die echte Geometrie nicht übertragen wurde.",
+  "results": [
+    {
+      "layerBodId": "ch.swisstopo-vd.amtliche-vermessung",
+      "layerName": "Amtliche Vermessung",
+      "featureId": 1756156,
+      "id": 1756156,
+      "attributes": {
+        "bfsnr": 355,
+        "ak": "BE",
+        "name": "5711",
+        "number": "5711",
+        "identnd": "BE0200000051",
+        "egris_egrid": "CH586746359755",
+        "realestate_type": null,
+        "geoportal_url": "https://www.topo.apps.be.ch/pub/map/?lang=de&gpk=MOPUBE_GPK",
+        "label": "5711"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [2601723.0, 1197324.0],
+            [2601749.5, 1197324.0],
+            [2601749.5, 1197352.7],
+            [2601723.0, 1197352.7],
+            [2601723.0, 1197324.0]
+          ]
+        ]
+      }
+    }
+  ]
+}

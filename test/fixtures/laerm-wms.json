@@ -1,0 +1,14 @@
+{
+  "_hinweis": "ANNAHME, nicht verifiziert. Mögliche GetFeatureInfo-Antwort (application/json) für einen Raster-Layer. Der Live-Test ersetzt diese Datei durch die echte Form.",
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "id": "",
+      "geometry": null,
+      "properties": {
+        "GRAY_INDEX": 52
+      }
+    }
+  ]
+}

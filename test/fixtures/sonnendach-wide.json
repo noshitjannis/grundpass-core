@@ -1,0 +1,43 @@
+{
+  "_hinweis": "Konstruiert: Umkreis-Abfrage mit zwei Segmenten des Gebäudes 1271632 und einem Nachbardach (anderes gwr_egid), das rausgefiltert werden muss.",
+  "results": [
+    {
+      "layerBodId": "ch.bfe.solarenergie-eignung-daecher",
+      "featureId": 14608689,
+      "attributes": {
+        "building_id": 1131629, "klasse": 4, "flaeche": 75.1426060066, "ausrichtung": 40, "neigung": 26,
+        "mstrahlung": 1380, "gstrahlung": 103697, "stromertrag": 16592, "stromertrag_winterhalbjahr": 5132,
+        "stromertrag_sommerhalbjahr": 11460, "finanzertrag": 1659.2, "waermeertrag": 6529,
+        "bedarf_heizung": 18154, "bedarf_warmwasser": 3600, "gwr_egid": 1271632, "df_nummer": 2,
+        "klasse_text": "Sehr gut##Trés bonne##Molto buona##Very good##Sehr gut", "datum_aenderung": "13.04.2020", "label": 14608689
+      }
+    },
+    {
+      "layerBodId": "ch.bfe.solarenergie-eignung-daecher",
+      "featureId": 14608688,
+      "attributes": {
+        "building_id": 1131629, "klasse": 2, "flaeche": 70.4, "ausrichtung": -140, "neigung": 26,
+        "mstrahlung": 980, "gstrahlung": 68992, "stromertrag": 9800, "stromertrag_winterhalbjahr": 2100,
+        "stromertrag_sommerhalbjahr": 7700, "finanzertrag": 980.0, "waermeertrag": 3900,
+        "bedarf_heizung": 18154, "bedarf_warmwasser": 3600, "gwr_egid": 1271632, "df_nummer": 1,
+        "klasse_text": "Mittel##Moyenne##Media##Medium##Mittel", "datum_aenderung": "13.04.2020", "label": 14608688
+      }
+    },
+    {
+      "layerBodId": "ch.bfe.solarenergie-eignung-daecher",
+      "featureId": 14608700,
+      "attributes": {
+        "building_id": 1131630, "klasse": 5, "flaeche": 120.0, "ausrichtung": 0, "neigung": 30,
+        "mstrahlung": 1450, "gstrahlung": 174000, "stromertrag": 28000, "stromertrag_winterhalbjahr": 9000,
+        "stromertrag_sommerhalbjahr": 19000, "finanzertrag": 2800.0, "waermeertrag": 11000,
+        "bedarf_heizung": 25000, "bedarf_warmwasser": 5000, "gwr_egid": 1271633, "df_nummer": 1,
+        "klasse_text": "Hervorragend##Excellente##Ottima##Excellent##Hervorragend", "datum_aenderung": "13.04.2020", "label": 14608700
+      }
+    },
+    {
+      "layerBodId": "ch.bfe.solarenergie-eignung-daecher",
+      "featureId": -99,
+      "attributes": { "de": "Hinweis", "label": -99 }
+    }
+  ]
+}
