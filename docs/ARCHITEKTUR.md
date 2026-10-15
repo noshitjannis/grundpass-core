@@ -91,6 +91,7 @@ docs/
   ARCHITEKTUR.md      diese Datei
   QUELLEN.md          jede Quelle: Endpoint, Felder, Codes, Lizenz, TTL, Status
   ADAPTER-SCHREIBEN.md Anleitung
+  design/             Design-Prototyp (Start, Resultat, Pass, DAG) + Mapping Steckbrief-JSON → Seite. Referenz für die App, zieht nach grundpass-app um.
 ```
 
 ## 4. Der Resolver (`src/resolver/run.ts`)
@@ -276,3 +277,4 @@ Auslösen: `pnpm canary` (Cron auf dem Server) oder `POST /internal/canary` (z.B
 ## Changelog
 
 - **2026-10-15 · v0.1.0** Erster Stand. Resolver, Breaker, Fakten-Store (Memory, PGlite, Postgres), 7 Adapter (geocode, gwr, av-parzelle, sonnendach, oev-gueteklasse, radon, laerm-strasse experimentell), derived-Fakten, Steckbrief-View mit Lücken und Quellen, Hono-API, CLI `gp`, Canary mit ntfy, 40 Offline-Tests auf echten Antwortformen, Live-Test-Skelett.
+- **2026-10-15 · Design-Prototyp im Repo** `docs/design/`: Artboards als Quelle (`quelle/*.dc.html`) und als eigenständige HTML-Vorschau (`vorschau/*.html`), dazu `README.md` mit Tokens, Seitenstruktur und dem Mapping Steckbrief-API → Karten. Kein Code-Change am Core.

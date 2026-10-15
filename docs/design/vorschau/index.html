@@ -1,0 +1,127 @@
+<!doctype html>
+<html lang="de-CH">
+<head>
+<meta charset="utf-8">
+<title>grundpass – Startseite</title>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&amp;family=IBM+Plex+Sans:wght@400;500;600&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0;background:#ffffff}
+a{color:#141414}a:hover{color:#b3231c}
+input::placeholder{color:#767676}
+</style>
+</head>
+<body>
+<!-- Statische Vorschau des Claude-Design-Artboards. Quelle: docs/design/quelle/Main.dc.html. Interaktive Zustände (Gate, Wohnfläche-Eingabe) sind hier auf den Startzustand reduziert. -->
+
+
+<div style="font-family: 'IBM Plex Sans', 'Helvetica Neue', Helvetica, sans-serif; color: #141414; background: #ffffff; width: 100%; max-width: 760px; margin: 0 auto; box-sizing: border-box; display: flex; flex-direction: column;">
+
+  <header style="display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 14px 20px; border-bottom: 1px solid #e3e3e0;">
+    <div style="display: flex; align-items: baseline; gap: 8px;">
+      <span style="font-family: 'IBM Plex Mono', monospace; font-weight: 500; font-size: 18px; letter-spacing: -0.02em;">grundpass</span>
+      <span style="font-family: 'IBM Plex Mono', monospace; font-size: 11px; color: #5c5c5c; border: 1px solid #d9d9d6; padding: 1px 6px; border-radius: 3px;">v0.4</span>
+    </div>
+    <nav style="display: flex; gap: 18px; font-size: 14px;">
+      <a href="#warum" style="text-decoration: none; color: #141414; padding: 10px 0;">Warum?</a>
+      <a href="#quellen" style="text-decoration: none; color: #141414; padding: 10px 0;">Quellen</a>
+    </nav>
+  </header>
+
+  <section style="padding: 40px 20px 24px; display: flex; flex-direction: column; gap: 16px;">
+    <p style="margin: 0; font-family: 'IBM Plex Mono', monospace; font-size: 12px; color: #5c5c5c; text-transform: uppercase; letter-spacing: 0.08em;">Grundstück-Steckbrief aus amtlichen Daten</p>
+    <h1 style="margin: 0; font-size: 32px; line-height: 1.15; font-weight: 600; letter-spacing: -0.02em;">Gib eine Adresse ein. Wir zeigen dir, was der Bund über das Grundstück weiss.</h1>
+    <p style="margin: 0; font-size: 16px; line-height: 1.5; color: #3d3d3d;">Baujahr, Parzelle, Zone, Lärm, Sonne, Gefahren. Aus neun öffentlichen Registern, auf einer Seite. Gratis, ohne Login, ohne Tracking.</p>
+  </section>
+
+  <section style="padding: 0 20px 40px; display: flex; flex-direction: column; gap: 10px;">
+    <label for="adr" style="font-size: 13px; font-weight: 500; color: #3d3d3d;">Adresse</label>
+    <input id="adr" type="text" placeholder="Strasse Nr, PLZ Ort" style="box-sizing: border-box; width: 100%; height: 52px; padding: 0 14px; font-size: 17px; font-family: 'IBM Plex Mono', monospace; border: 1.5px solid #141414; border-radius: 4px; background: #ffffff; color: #141414;">
+    <a href="resultat.html" style="display: flex; align-items: center; justify-content: center; height: 52px; background: #d8232a; color: #ffffff; text-decoration: none; font-weight: 600; font-size: 16px; border-radius: 4px;">Steckbrief anzeigen</a>
+    <p style="margin: 4px 0 0; font-size: 13px; color: #5c5c5c; line-height: 1.5;">Beispiel: <a href="resultat.html" style="color: #141414;">Maygutstrasse 26, 3084 Wabern</a>. Dauert etwa drei Sekunden.</p>
+  </section>
+
+  <section style="padding: 28px 20px; border-top: 1px solid #e3e3e0; display: flex; flex-direction: column; gap: 18px;">
+    <h2 style="margin: 0; font-size: 13px; font-weight: 500; color: #5c5c5c; text-transform: uppercase; letter-spacing: 0.08em;">Was du siehst</h2>
+    <div style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px;">
+      <div style="display: flex; flex-direction: column; gap: 4px; padding: 12px; border: 1px solid #e3e3e0; border-radius: 6px;">
+        <span style="font-family: 'IBM Plex Mono', monospace; font-size: 11px; color: #5c5c5c;">01</span>
+        <span style="font-size: 15px; font-weight: 600;">Gebäude</span>
+        <span style="font-size: 13px; color: #3d3d3d; line-height: 1.4;">Baujahr, Kategorie, Geschosse, Heizung</span>
+      </div>
+      <div style="display: flex; flex-direction: column; gap: 4px; padding: 12px; border: 1px solid #e3e3e0; border-radius: 6px;">
+        <span style="font-family: 'IBM Plex Mono', monospace; font-size: 11px; color: #5c5c5c;">02</span>
+        <span style="font-size: 15px; font-weight: 600;">Parzelle</span>
+        <span style="font-size: 13px; color: #3d3d3d; line-height: 1.4;">Fläche, Nummer, bebauter Anteil</span>
+      </div>
+      <div style="display: flex; flex-direction: column; gap: 4px; padding: 12px; border: 1px solid #e3e3e0; border-radius: 6px;">
+        <span style="font-family: 'IBM Plex Mono', monospace; font-size: 11px; color: #5c5c5c;">03</span>
+        <span style="font-size: 15px; font-weight: 600;">Zone</span>
+        <span style="font-size: 13px; color: #3d3d3d; line-height: 1.4;">Nutzung, Geschosse, Ausnützung, Potenzial</span>
+      </div>
+      <div style="display: flex; flex-direction: column; gap: 4px; padding: 12px; border: 1px solid #e3e3e0; border-radius: 6px;">
+        <span style="font-family: 'IBM Plex Mono', monospace; font-size: 11px; color: #5c5c5c;">04</span>
+        <span style="font-size: 15px; font-weight: 600;">Lage</span>
+        <span style="font-size: 13px; color: #3d3d3d; line-height: 1.4;">ÖV-Güteklasse, Strassenlärm</span>
+      </div>
+      <div style="display: flex; flex-direction: column; gap: 4px; padding: 12px; border: 1px solid #e3e3e0; border-radius: 6px;">
+        <span style="font-family: 'IBM Plex Mono', monospace; font-size: 11px; color: #5c5c5c;">05</span>
+        <span style="font-size: 15px; font-weight: 600;">Sonne</span>
+        <span style="font-size: 13px; color: #3d3d3d; line-height: 1.4;">Sonnenstunden, Eignung des Dachs</span>
+      </div>
+      <div style="display: flex; flex-direction: column; gap: 4px; padding: 12px; border: 1px solid #e3e3e0; border-radius: 6px;">
+        <span style="font-family: 'IBM Plex Mono', monospace; font-size: 11px; color: #5c5c5c;">06</span>
+        <span style="font-size: 15px; font-weight: 600;">Risiken</span>
+        <span style="font-size: 13px; color: #3d3d3d; line-height: 1.4;">Hochwasser, Oberflächenabfluss, Radon</span>
+      </div>
+    </div>
+    <p style="margin: 0; font-size: 14px; line-height: 1.5; color: #3d3d3d;">Neben jedem Fachbegriff steht, was er heisst. Und wo das Register eine Lücke hat, sagen wir das, statt zu raten.</p>
+  </section>
+
+  <section id="quellen" style="padding: 28px 20px; border-top: 1px solid #e3e3e0; display: flex; flex-direction: column; gap: 14px;">
+    <h2 style="margin: 0; font-size: 13px; font-weight: 500; color: #5c5c5c; text-transform: uppercase; letter-spacing: 0.08em;">Quellen, alle offen</h2>
+    <div style="display: flex; flex-direction: column; font-family: 'IBM Plex Mono', monospace; font-size: 12px; line-height: 1.5;">
+      <div style="display: flex; justify-content: space-between; gap: 12px; padding: 8px 0; border-bottom: 1px solid #ececea;"><span>GWR · Gebäude- und Wohnungsregister</span><span style="color: #5c5c5c; white-space: nowrap;">BFS · täglich</span></div>
+      <div style="display: flex; justify-content: space-between; gap: 12px; padding: 8px 0; border-bottom: 1px solid #ececea;"><span>Amtliche Vermessung · Parzellen</span><span style="color: #5c5c5c; white-space: nowrap;">swisstopo</span></div>
+      <div style="display: flex; justify-content: space-between; gap: 12px; padding: 8px 0; border-bottom: 1px solid #ececea;"><span>ÖREB-Kataster · Zonen</span><span style="color: #5c5c5c; white-space: nowrap;">Kantone</span></div>
+      <div style="display: flex; justify-content: space-between; gap: 12px; padding: 8px 0; border-bottom: 1px solid #ececea;"><span>Sonnendach</span><span style="color: #5c5c5c; white-space: nowrap;">BFE</span></div>
+      <div style="display: flex; justify-content: space-between; gap: 12px; padding: 8px 0; border-bottom: 1px solid #ececea;"><span>Lärmkataster Strasse</span><span style="color: #5c5c5c; white-space: nowrap;">BAFU</span></div>
+      <div style="display: flex; justify-content: space-between; gap: 12px; padding: 8px 0; border-bottom: 1px solid #ececea;"><span>ÖV-Güteklassen</span><span style="color: #5c5c5c; white-space: nowrap;">ARE</span></div>
+      <div style="display: flex; justify-content: space-between; gap: 12px; padding: 8px 0; border-bottom: 1px solid #ececea;"><span>Naturgefahren</span><span style="color: #5c5c5c; white-space: nowrap;">Kantone</span></div>
+      <div style="display: flex; justify-content: space-between; gap: 12px; padding: 8px 0; border-bottom: 1px solid #ececea;"><span>Radon</span><span style="color: #5c5c5c; white-space: nowrap;">BAG</span></div>
+      <div style="display: flex; justify-content: space-between; gap: 12px; padding: 8px 0;"><span>Baugesuche, Verkäufe im Umkreis</span><span style="color: #5c5c5c; white-space: nowrap;">avendo</span></div>
+    </div>
+    <p style="margin: 0; font-size: 13px; color: #5c5c5c; line-height: 1.5;">Bei jeder Zahl steht die Quelle und das Datum. Der Datenlayer ist Open Source.</p>
+  </section>
+
+  <section id="warum" style="margin: 0 20px; padding: 24px 20px; background: #f4f4f2; border-radius: 6px; display: flex; flex-direction: column; gap: 12px;">
+    <h2 style="margin: 0; font-size: 13px; font-weight: 500; color: #5c5c5c; text-transform: uppercase; letter-spacing: 0.08em;">Warum gibt es das?</h2>
+    <p style="margin: 0; font-size: 16px; line-height: 1.55;">Wir arbeiten in einem kleinen Immobilienbüro in Baden und hatten genug davon, Daten aus zehn Bundesportalen zusammenzusuchen. Darum haben wir sie auf einer Seite gebündelt. Für alle, gratis.</p>
+    <p style="margin: 0; font-size: 16px; line-height: 1.55;">Wenn du verkaufen willst, helfen wir gern. Musst du aber nicht.</p>
+  </section>
+
+  <section style="padding: 28px 20px; display: flex; flex-direction: column; gap: 12px;">
+    <h2 style="margin: 0; font-size: 13px; font-weight: 500; color: #5c5c5c; text-transform: uppercase; letter-spacing: 0.08em;">Changelog</h2>
+    <div style="display: flex; flex-direction: column; gap: 6px; font-family: 'IBM Plex Mono', monospace; font-size: 12px; line-height: 1.5; color: #3d3d3d;">
+      <div style="display: flex; gap: 12px;"><span style="color: #5c5c5c; white-space: nowrap;">v0.4</span><span>Lärmkataster ergänzt, Zone jetzt mit Erklärung</span></div>
+      <div style="display: flex; gap: 12px;"><span style="color: #5c5c5c; white-space: nowrap;">v0.3</span><span>ÖREB-Kataster für AG und ZH</span></div>
+      <div style="display: flex; gap: 12px;"><span style="color: #5c5c5c; white-space: nowrap;">v0.2</span><span>Sonnendach und Naturgefahren</span></div>
+      <div style="display: flex; gap: 12px;"><span style="color: #5c5c5c; white-space: nowrap;">v0.1</span><span>Adresse zu EGID, GWR, Parzelle</span></div>
+    </div>
+  </section>
+
+  <footer style="padding: 24px 20px 40px; border-top: 1px solid #e3e3e0; display: flex; flex-direction: column; gap: 16px;">
+    <div style="display: flex; align-items: center; gap: 12px;">
+      <div style="width: 44px; height: 44px; border-radius: 50%; background: #141414; color: #ffffff; display: flex; align-items: center; justify-content: center; font-family: 'IBM Plex Mono', monospace; font-size: 14px;">YS</div>
+      <div style="display: flex; flex-direction: column; gap: 2px; font-size: 14px; line-height: 1.4;">
+        <span style="font-weight: 600;">Yves Schmid</span>
+        <span style="color: #5c5c5c;">Fragen? <a href="tel:+41447435122" style="color: #141414;">044 743 51 22</a></span>
+      </div>
+    </div>
+    <p style="margin: 0; font-family: 'IBM Plex Mono', monospace; font-size: 11px; line-height: 1.7; color: #5c5c5c;">Gebaut in Baden · <a href="#" style="color: #5c5c5c;">Code auf GitHub</a> · kein Tracking, keine Cookies<br>Ein Projekt der AV Schmid Immobilien AG · <a href="#" style="color: #5c5c5c;">Impressum</a> · <a href="#" style="color: #5c5c5c;">Datenschutz</a></p>
+  </footer>
+
+</div>
+
+
+</body>
+</html>
