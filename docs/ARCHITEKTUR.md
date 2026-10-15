@@ -91,8 +91,9 @@ docs/
   ARCHITEKTUR.md      diese Datei
   QUELLEN.md          jede Quelle: Endpoint, Felder, Codes, Lizenz, TTL, Status
   ADAPTER-SCHREIBEN.md Anleitung
-  design/             Design-Prototyp (Start, Resultat, Pass, DAG) + Mapping Steckbrief-JSON → Seite. Referenz für die App, zieht nach grundpass-app um.
 ```
+
+Der Design-Prototyp (Start, Resultat, Pass, DAG, Mapping Steckbrief → Seite) lag kurz unter `docs/design/` und ist am 15.10.2026 nach `grundpass-app/design/` umgezogen. Er ist Referenz für die App, nicht Teil des Core.
 
 ## 4. Der Resolver (`src/resolver/run.ts`)
 
@@ -283,3 +284,4 @@ Auslösen: `pnpm canary` (Cron auf dem Server) oder `POST /internal/canary` (z.B
 - **2026-10-15 · av-parzelle: echte GeoJSON-Form** Live fiel der Adapter mit Schema-Drift aus: `identify` mit `geometryFormat=geojson` liefert GeoJSON-Features mit `properties`, nicht `attributes`. Neues Schema `geoJsonResultsSchema` in `src/http/geoadmin.ts`, Adapter liest `properties`. Fixture `av-parzelle-5711.json` ist jetzt die echte Antwort mit echter Geometrie (7 Stützpunkte, 764 m² statt Platzhalter-Rechteck 761 m²), `av-parzelle-5711-esrijson.json` belegt die Esri-Form als Drift-Fall. 47 Tests.
 - **2026-10-15 · Fixtures auf echte Antworten, GWR-find exakt** `gwr-1271632.json`, `searchserver-wabern.json` und `oev-radon.json` sind jetzt die unveränderten Live-Antworten (GWR: `egid`, `edid`, `stroffiziel` als Strings; SearchServer: zusätzlich `links[]`, `geom_quadindex`, `geom_st_box2d`, `weight` 1). Dabei aufgefallen: `find` ist ohne `contains=false` eine Teilstring-Suche, searchText 1271632 traf auch EGID 191271632 (Gossau SG). `findUrl` setzt jetzt `contains=false`, der GWR-Adapter filtert auf die exakte EGID und hat keinen Fallback auf `results[0]` mehr (kein Treffer = Lücke). Fixture `gwr-find-teilstring.json` belegt den Fall. 50 Tests.
 - **2026-10-15 · CLI und PGlite-Ordner** `gp "<Adresse>"` verschluckte das erste Argument, wenn kein `--egid` gesetzt war (Filter auf `egidIdx + 1` bei `egidIdx = -1`), und zeigte nur die Verwendung. PGlite legte `./data/grundpass` nicht an, solange `./data` fehlte (frischer Klon): jetzt `mkdirSync` rekursiv. Beides beim ersten `pnpm gp` im frischen Klon aufgefallen.
+- **2026-10-15 · Design-Prototyp umgezogen** `docs/design/` ist jetzt `grundpass-app/design/` (eigenes, privates Repo). Der Core enthält keine UI-Referenz mehr.
