@@ -11,6 +11,7 @@ Allgemeine Erkenntnisse (15.10.2026):
 - `identify` mit `tolerance=0` braucht weder `imageDisplay` noch `mapExtent`. Mit Toleranz > 0 beides.
 - Reine Raster-Layer sind per `identify` nicht abfragbar (4xx). Nur WMS GetFeatureInfo.
 - Bei Fehlern antwortet api3 teils mit HTML, nicht JSON. Der Client wirft dann `SchemaDriftError`.
+- WMS GetFeatureInfo (wms.geo.admin.ch) kann `application/json`, `text/plain` und `application/vnd.ogc.gml`, aber kein `text/html` (ServiceException InvalidFormat). Raster-Werte stehen in `features[0].properties.value_0`, als String.
 
 ---
 
@@ -133,20 +134,48 @@ Gelesene Felder: `probability_prozent`, `confidence`. Bedeutung: Wahrscheinlichk
 
 ---
 
-## laerm-strasse · Strassenlärm Tag/Nacht · EXPERIMENTELL
+## laerm-strasse · Strassenlärm Tag/Nacht
 
 | | |
 |---|---|
-| Datenhalter | BAFU (sonBASE) |
-| Endpoint | `GET https://wms.geo.admin.ch/?SERVICE=WMS&VERSION=1.3.0&REQUEST=GetFeatureInfo&LAYERS=<layer>&QUERY_LAYERS=<layer>&CRS=EPSG:2056&BBOX=…&WIDTH=3&HEIGHT=3&I=1&J=1&INFO_FORMAT=application/json` für `ch.bafu.laerm-strassenlaerm_tag` und `_nacht` |
+| Datenhalter | BAFU (sonBASE). Geobasisdatensätze 120.1 (Tag) und 120.2 (Nacht) |
+| Endpoint | `GET https://wms.geo.admin.ch/?SERVICE=WMS&VERSION=1.3.0&REQUEST=GetFeatureInfo&LAYERS=<layer>&QUERY_LAYERS=<layer>&CRS=EPSG:2056&BBOX=<E-1.5>,<N-1.5>,<E+1.5>,<N+1.5>&WIDTH=3&HEIGHT=3&I=1&J=1&INFO_FORMAT=application/json&FEATURE_COUNT=1` für `ch.bafu.laerm-strassenlaerm_tag` und `ch.bafu.laerm-strassenlaerm_nacht` |
 | braucht | `lv95_bau` |
-| Fakten | `laerm.strasse.tag_db`, `.nacht_db` (Confidence 0.7), `.tag_roh`/`.nacht_roh` falls nicht parsebar, `.grenzwert_wohnzone_tag_db` (60), `.grenzwert_wohnzone_nacht_db` (50) |
+| Fakten | `laerm.strasse.tag_db`, `.nacht_db` (Confidence 1), `.grenzwert_wohnzone_tag_db` (60), `.grenzwert_wohnzone_nacht_db` (50) |
+| Datenstand | 31.12.2021 laut Layer-Legende (Verkehrszählungen 2021). GetFeatureInfo liefert kein Datum, darum kein `source_date`; Stand im Steckbrief ist das Abrufdatum. |
 | TTL | 180 Tage |
-| Status | **experimentell** · Fixture `laerm-wms.json` ist eine Annahme |
+| Status | verifiziert 15.10.2026 · Fixtures `laerm-wms.json` (Tag), `laerm-wms-nacht.json`, `laerm-wms-leer.json` (ohne kartierten Lärm) |
 
-Was bekannt ist: Die Layer-IDs stimmen (SearchServer type=layers). `identify` auf api3 liefert für diese Raster einen Fehler. Die Metadaten unter `/MapServer/ch.bafu.laerm-strassenlaerm_tag` geben 404. Die Form der GetFeatureInfo-Antwort konnte aus der Sandbox nicht abgerufen werden (URL zu lang für den Fetch-Proxy). Der Parser nimmt die erste numerische Eigenschaft in `features[0].properties` (bevorzugt `value`, `GRAY_INDEX`), sonst die erste Zahl im Text. `pnpm test:live` zeichnet die echte Antwort nach `test/live/aufzeichnungen/` auf. Danach: Fixture ersetzen, Parser festziehen, Status auf verifiziert.
+**Antwortform** (`application/json`), Gebäudepunkt Maygutstrasse 26, Wabern (2601737/1197338.426):
 
-Grenzwerte: Immissionsgrenzwerte der LSV für Empfindlichkeitsstufe II (reine Wohnzone), Strassenverkehrslärm.
+```json
+{ "type": "FeatureCollection", "name": "ch.bafu.laerm-strassenlaerm_tag_full",
+  "features": [ { "type": "Feature", "properties": { "value_0": "33.2" },
+                  "geometry": { "type": "Point", "coordinates": [ 2601740.0, 1197340.0 ] } } ] }
+```
+
+Gelesen wird genau `features[0].properties.value_0` (String, wird zur Zahl; Zod-Schema in `src/adapters/laerm-strasse.ts`).
+Wabern: Tag 33.2 dB, Nacht 24.1 dB. Gegenprobe an einer Berner Hauptstrasse (2600400/1199500): Tag 54.7 dB.
+Die Feature-Geometrie ist der Mittelpunkt der getroffenen Rasterzelle, nicht der angefragte Punkt.
+
+**Was am 15.10.2026 probiert wurde**
+
+| Abfrage | Ergebnis |
+|---|---|
+| GetFeatureInfo `INFO_FORMAT=application/json` | brauchbar, siehe oben. Wird benutzt. |
+| GetFeatureInfo `text/plain` | brauchbar: `ch.bafu.laerm-strassenlaerm_tag.value_0.name = '33.2'` |
+| GetFeatureInfo `application/vnd.ogc.gml` | brauchbar: `<ch.bafu.laerm-strassenlaerm_tag.value_0.name>33.2</…>` |
+| GetFeatureInfo `text/html` | `ServiceException code="InvalidFormat"`: Unsupported INFO_FORMAT value |
+| `identify` auf api3 | Fehler, reine Raster sind nicht identify-fähig |
+| `/MapServer/<layer>` (Metadaten) | 404. Die Legende `/MapServer/<layer>/legend?lang=de` liefert Beschreibung und Datenstand. |
+
+**Kein kartierter Lärm:** `features` ist leer (geprüft am Aletschgletscher, 2646000/1141000). Der Adapter wirft `EmptyResultError`
+(Lücke, zählt nicht für den Breaker). Jede andere Form (kein `value_0`, Text statt JSON) ist `SchemaDriftError`. Es wird keine Zahl geraten.
+
+**Bedeutung:** Beurteilungspegel Lr Tag (6 bis 22 Uhr) und Lr Nacht (22 bis 6 Uhr) in dB(A) aus der flächendeckenden
+Modellrechnung sonBASE, rechtlich nicht verbindlich (verbindlich sind ASTRA für Nationalstrassen und die kantonalen
+Vollzugsbehörden für die übrigen Strassen). Grenzwerte: Immissionsgrenzwerte der LSV (Anhang 3) für Empfindlichkeitsstufe II
+(reine Wohnzone), Strassenverkehrslärm: Tag 60 dB, Nacht 50 dB.
 
 ---
 

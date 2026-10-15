@@ -1,9 +1,10 @@
 import { describe, expect, it } from 'vitest';
 import { avParzelle, geocode, gwr, laermStrasse, oevGueteklasse, radon, sonnendach } from '../src/adapters/index.ts';
 import { geojsonAreaM2 } from '../src/adapters/av-parzelle.ts';
+import { EmptyResultError, SchemaDriftError } from '../src/errors.ts';
 import { silentLogger } from '../src/log.ts';
 import type { AdapterContext, Keys } from '../src/types.ts';
-import { httpFor, wabernRoutes } from './helpers/fixtures.ts';
+import { fixture, httpFor, wabernRoutes } from './helpers/fixtures.ts';
 
 const ctxFor = (keys: Keys): AdapterContext => ({ keys, http: httpFor(wabernRoutes()), now: () => new Date('2026-10-15T10:00:00Z'), log: silentLogger });
 const fact = (out: { facts: Array<{ key: string; value: unknown }> }, key: string) => out.facts.find((f) => f.key === key)?.value;
@@ -99,17 +100,38 @@ describe('radon', () => {
   });
 });
 
-describe('laerm-strasse (experimentell)', () => {
-  it('liest Tag und Nacht aus GetFeatureInfo-JSON', async () => {
-    const out = await laermStrasse.resolve(ctxFor({ lv95_bau: { e: 2601737, n: 1197338 } }));
-    expect(fact(out, 'laerm.strasse.tag_db')).toBe(52);
-    expect(fact(out, 'laerm.strasse.nacht_db')).toBe(43);
-    expect(laermStrasse.manifest.status).toBe('experimentell');
+describe('laerm-strasse', () => {
+  it('liest Lr Tag und Nacht aus features[0].properties.value_0, Confidence 1', async () => {
+    const out = await laermStrasse.resolve(ctxFor({ lv95_bau: { e: 2601737, n: 1197338.426 } }));
+    expect(fact(out, 'laerm.strasse.tag_db')).toBe(33.2);
+    expect(fact(out, 'laerm.strasse.nacht_db')).toBe(24.1);
+    expect(out.facts.find((f) => f.key === 'laerm.strasse.tag_db')).toMatchObject({ unit: 'dB', confidence: 1 });
+    expect(out.facts.find((f) => f.key === 'laerm.strasse.nacht_db')).toMatchObject({ unit: 'dB', confidence: 1 });
+    expect(out.facts.every((f) => f.request_url?.startsWith('https://wms.geo.admin.ch/?'))).toBe(true);
+    expect(out.facts.find((f) => f.key === 'laerm.strasse.tag_db')?.request_url).toContain('LAYERS=ch.bafu.laerm-strassenlaerm_tag');
+    expect(out.facts.find((f) => f.key === 'laerm.strasse.nacht_db')?.request_url).toContain('LAYERS=ch.bafu.laerm-strassenlaerm_nacht');
+    expect(out.facts.some((f) => f.key.endsWith('_roh'))).toBe(false);
+    expect(laermStrasse.manifest.status).toBe('verifiziert');
   });
 
-  it('fällt bei Text-Antwort auf die erste Zahl zurück', async () => {
-    const http = httpFor([{ match: () => true, body: 'Lden = 58 dB(A)' }]);
-    const out = await laermStrasse.resolve({ keys: { lv95: { e: 1, n: 1 } }, http, now: () => new Date(), log: silentLogger });
-    expect(fact(out, 'laerm.strasse.tag_db')).toBe(58);
+  it('ohne kartierten Strassenlärm (features leer) ist es eine Lücke: EmptyResultError', async () => {
+    const http = httpFor([{ match: () => true, body: fixture('laerm-wms-leer.json') }]);
+    await expect(
+      laermStrasse.resolve({ keys: { lv95_bau: { e: 2646000, n: 1141000 } }, http, now: () => new Date(), log: silentLogger }),
+    ).rejects.toBeInstanceOf(EmptyResultError);
+  });
+
+  it('andere Antwortform (kein value_0) ist Schema-Drift, es wird keine Zahl geraten', async () => {
+    const http = httpFor([{ match: () => true, body: { type: 'FeatureCollection', features: [{ type: 'Feature', properties: { GRAY_INDEX: 52 } }] } }]);
+    await expect(
+      laermStrasse.resolve({ keys: { lv95_bau: { e: 1, n: 1 } }, http, now: () => new Date(), log: silentLogger }),
+    ).rejects.toBeInstanceOf(SchemaDriftError);
+  });
+
+  it('Text statt JSON ist Schema-Drift, kein "erste Zahl im Text"', async () => {
+    const http = httpFor([{ match: () => true, body: "GetFeatureInfo results:\n  ch.bafu.laerm-strassenlaerm_tag.value_0.name = '33.2'" }]);
+    await expect(
+      laermStrasse.resolve({ keys: { lv95_bau: { e: 1, n: 1 } }, http, now: () => new Date(), log: silentLogger }),
+    ).rejects.toBeInstanceOf(SchemaDriftError);
   });
 });

@@ -1,0 +1,13 @@
+{
+  "_hinweis": "Echte WMS-GetFeatureInfo-Antwort vom 15.10.2026 für ch.bafu.laerm-strassenlaerm_tag an einem Punkt ohne kartierten Strassenlärm (Aletschgletscher, 2646000/1141000): features ist leer. URL: https://wms.geo.admin.ch/?SERVICE=WMS&VERSION=1.3.0&REQUEST=GetFeatureInfo&CRS=EPSG%3A2056&WIDTH=3&HEIGHT=3&I=1&J=1&FORMAT=image%2Fpng&STYLES=&FEATURE_COUNT=1&LAYERS=ch.bafu.laerm-strassenlaerm_tag&QUERY_LAYERS=ch.bafu.laerm-strassenlaerm_tag&BBOX=2645998.5%2C1140998.5%2C2646001.5%2C1141001.5&INFO_FORMAT=application%2Fjson",
+  "type": "FeatureCollection",
+  "name": "ch.bafu.laerm-strassenlaerm_tag_full",
+  "crs": {
+    "type": "name",
+    "properties": {
+      "name": "urn:ogc:def:crs:EPSG::2056"
+    }
+  },
+  "xy_coordinate_resolution": 0.001,
+  "features": []
+}

@@ -38,7 +38,8 @@ describe('GET /v1/steckbrief', () => {
     expect(typ.url).toContain('find?layer=ch.bfs.gebaeude_wohnungs_register');
     // Baujahr fehlt im Register: Lücke, kein erfundener Wert
     expect(s.luecken.find((l) => l.key === 'gebaeude.baujahr')).toMatchObject({ grund: 'fehlt_im_register', quelle: 'gwr' });
-    expect(s.quellen.find((q) => q.adapter === 'laerm-strasse')?.experimentell).toBe(true);
+    // Alle sieben Adapter sind verifiziert (Lärm seit 15.10.2026), darum nirgends das experimentell-Flag
+    expect(s.quellen.map((q) => q.experimentell)).toEqual([false, false, false, false, false, false, false]);
     expect(s.attribution.some((a) => a.includes('BFS'))).toBe(true);
     // Text-Ausgabe läuft durch
     const text = steckbriefAlsText(s);

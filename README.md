@@ -32,7 +32,7 @@ LÜCKEN
 ## Was drin ist
 
 - **Resolver**: Adapter mit Manifest (`needs`, `yields`, `ttlDays`). Der Ablauf ergibt sich aus den Manifesten, nicht aus Code. Neue Quelle = neue Datei.
-- **7 Adapter**: geocode, GWR, amtliche Vermessung, Sonnendach, ÖV-Güteklasse, Radon, Strassenlärm (experimentell). Alle ohne API-Key.
+- **7 Adapter**: geocode, GWR, amtliche Vermessung, Sonnendach, ÖV-Güteklasse, Radon, Strassenlärm. Alle ohne API-Key.
 - **Fakten-Store**: jede Zahl mit Herkunft, TTL-Cache pro Quelle, Snapshots pro Lauf. PGlite lokal, Postgres in Prod.
 - **Steckbrief-View**: Abschnitte, Laien-Erklärungen, Lücken mit Grund, Quellenliste, Attribution.
 - **Robustheit**: Circuit Breaker pro Quelle, Timeout, Schema-Validierung (Zod), `partial`-Flag statt stiller Defaults.

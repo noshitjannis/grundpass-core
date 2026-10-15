@@ -1,6 +1,6 @@
 import { mkdirSync, writeFileSync } from 'node:fs';
 import { describe, expect, it } from 'vitest';
-import { adapters, gwr, laermStrasse } from '../../src/adapters/index.ts';
+import { adapters, gwr } from '../../src/adapters/index.ts';
 import { Core } from '../../src/core.ts';
 import { createHttpClient } from '../../src/http/client.ts';
 import { wmsFeatureInfoUrl } from '../../src/http/geoadmin.ts';
@@ -10,7 +10,7 @@ import { CircuitBreaker } from '../../src/resolver/breaker.ts';
 /**
  * Live-Tests gegen die echten APIs. Laufen nur mit LIVE=1 (pnpm test:live), brauchen Netz.
  * Zweck: 1. bestätigen, dass die Fixtures noch der Wirklichkeit entsprechen,
- *        2. die Antwortform der experimentellen Adapter aufzeichnen (test/live/aufzeichnungen/).
+ *        2. rohe Antworten aufzeichnen (test/live/aufzeichnungen/, gitignored) als Beleg für Fixtures und Doku.
  */
 const live = !!process.env.LIVE;
 
@@ -34,27 +34,31 @@ describe.skipIf(!live)('live: geo.admin', () => {
     expect(v('oev.gueteklasse')).toBe('D');
     expect(typeof v('parzelle.flaeche_m2')).toBe('number');
     expect(typeof v('solar.stromertrag_kwh_a')).toBe('number');
-    // Lärm ist experimentell: Status nur protokollieren
-    console.log('laerm-strasse:', status['laerm-strasse'], run.adapters.find((a) => a.adapter === 'laerm-strasse')?.error ?? '');
+    expect(typeof v('laerm.strasse.tag_db')).toBe('number');
+    expect(typeof v('laerm.strasse.nacht_db')).toBe('number');
     await core.close();
   }, 60_000);
 
-  it('zeichnet die rohe WMS-GetFeatureInfo-Antwort für Strassenlärm auf', async () => {
+  it('zeichnet die rohen WMS-GetFeatureInfo-Antworten für Strassenlärm auf und prüft die Form', async () => {
     const http = createHttpClient({ retries: 0 });
-    const point = { e: 2601737, n: 1197338 };
+    const point = { e: 2601737, n: 1197338.426 };
     mkdirSync('test/live/aufzeichnungen', { recursive: true });
+    const bodies: Record<string, string> = {};
     for (const fmt of ['application/json', 'text/plain', 'text/html']) {
       const url = wmsFeatureInfoUrl('ch.bafu.laerm-strassenlaerm_tag', point, fmt);
+      const file = `test/live/aufzeichnungen/laerm-tag.${fmt.replace('/', '-')}.txt`;
       try {
         const r = await http.text(url);
-        writeFileSync(`test/live/aufzeichnungen/laerm-tag.${fmt.replace('/', '-')}.txt`, `${url}\n\n${r.data}`);
-        console.log(`laerm ${fmt}: ${r.status}, ${r.data.length} Zeichen`);
+        bodies[fmt] = r.data;
+        writeFileSync(file, `${url}\n\n${r.data}`);
       } catch (err) {
-        writeFileSync(`test/live/aufzeichnungen/laerm-tag.${fmt.replace('/', '-')}.txt`, `${url}\n\nFEHLER: ${String(err)}`);
-        console.log(`laerm ${fmt}: FEHLER ${String(err).slice(0, 120)}`);
+        writeFileSync(file, `${url}\n\nFEHLER: ${String(err)}`);
       }
     }
-    expect(laermStrasse.manifest.status).toBe('experimentell');
+    // Die Form, auf die der Adapter festgezogen ist (15.10.2026): features[0].properties.value_0 als numerischer String.
+    const json = JSON.parse(bodies['application/json'] ?? '{}') as { features?: Array<{ properties?: { value_0?: unknown } }> };
+    expect(json.features?.[0]?.properties?.value_0).toMatch(/^-?\d+(\.\d+)?$/);
+    expect(bodies['text/plain']).toContain('value_0.name');
   }, 60_000);
 
   it('GWR-Antwort hat noch alle Felder, die wir lesen', async () => {

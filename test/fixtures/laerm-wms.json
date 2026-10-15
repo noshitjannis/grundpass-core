@@ -1,13 +1,38 @@
 {
-  "_hinweis": "ANNAHME, nicht verifiziert. Mögliche GetFeatureInfo-Antwort (application/json) für einen Raster-Layer. Der Live-Test ersetzt diese Datei durch die echte Form.",
+  "_hinweis": "Echte WMS-GetFeatureInfo-Antwort (INFO_FORMAT=application/json) vom 15.10.2026 für ch.bafu.laerm-strassenlaerm_tag am Gebäudepunkt 2601737/1197338.426 (Maygutstrasse 26, Wabern). Feld value_0 kommt als String. URL: https://wms.geo.admin.ch/?SERVICE=WMS&VERSION=1.3.0&REQUEST=GetFeatureInfo&CRS=EPSG%3A2056&WIDTH=3&HEIGHT=3&I=1&J=1&FORMAT=image%2Fpng&STYLES=&FEATURE_COUNT=1&LAYERS=ch.bafu.laerm-strassenlaerm_tag&QUERY_LAYERS=ch.bafu.laerm-strassenlaerm_tag&BBOX=2601735.5%2C1197336.926%2C2601738.5%2C1197339.926&INFO_FORMAT=application%2Fjson",
   "type": "FeatureCollection",
+  "name": "ch.bafu.laerm-strassenlaerm_tag_full",
+  "crs": {
+    "type": "name",
+    "properties": {
+      "name": "urn:ogc:def:crs:EPSG::2056"
+    }
+  },
+  "xy_coordinate_resolution": 0.001,
+  "bbox": [
+    2601740,
+    1197340,
+    2601740,
+    1197340
+  ],
   "features": [
     {
       "type": "Feature",
-      "id": "",
-      "geometry": null,
       "properties": {
-        "GRAY_INDEX": 52
+        "value_0": "33.2"
+      },
+      "bbox": [
+        2601740,
+        1197340,
+        2601740,
+        1197340
+      ],
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          2601740,
+          1197340
+        ]
       }
     }
   ]

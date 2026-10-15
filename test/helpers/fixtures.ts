@@ -69,7 +69,7 @@ export function wabernRoutes(): Route[] {
     },
     {
       match: (u) => u.hostname === 'wms.geo.admin.ch' && (u.searchParams.get('LAYERS') ?? '').includes('_nacht'),
-      body: { type: 'FeatureCollection', features: [{ type: 'Feature', properties: { GRAY_INDEX: 43 } }] },
+      body: fixture('laerm-wms-nacht.json'),
     },
   ];
 }

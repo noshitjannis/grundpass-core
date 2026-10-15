@@ -82,8 +82,8 @@ export const FELDER: Record<string, FeldDef> = {
   'oev.gueteklasse': { label: 'ÖV-Güteklasse', abschnitt: 'oev', erwartet: true, erklaerung: 'A = sehr gut, B = gut, C = mittel, D = gering, keine = ausserhalb. Massstab des Bundes für die ÖV-Erschliessung.' },
   'oev.gueteklasse_text': { label: 'Bedeutung', abschnitt: 'oev' },
 
-  'laerm.strasse.tag_db': { label: 'Strassenlärm Tag', abschnitt: 'laerm', format: 'int', erklaerung: 'Mittlerer Pegel am Tag. 50 dB entspricht einer ruhigen Quartierstrasse, 65 dB einer Hauptstrasse.' },
-  'laerm.strasse.nacht_db': { label: 'Strassenlärm Nacht', abschnitt: 'laerm', format: 'int' },
+  'laerm.strasse.tag_db': { label: 'Strassenlärm Tag', abschnitt: 'laerm', format: 'dezimal', erklaerung: 'Beurteilungspegel Lr des Strassenverkehrs am Tag (6 bis 22 Uhr) am Gebäudepunkt. Modellrechnung des BAFU (sonBASE, Stand 2021), keine Messung. Zum Vergleich: 60 dB ist der Grenzwert für reine Wohnzonen.' },
+  'laerm.strasse.nacht_db': { label: 'Strassenlärm Nacht', abschnitt: 'laerm', format: 'dezimal', erklaerung: 'Beurteilungspegel Lr in der Nacht (22 bis 6 Uhr), gleiche Quelle. Grenzwert reine Wohnzone: 50 dB.' },
   'laerm.strasse.grenzwert_wohnzone_tag_db': { label: 'Grenzwert Wohnzone Tag', abschnitt: 'laerm', format: 'int', erklaerung: 'Immissionsgrenzwert der Lärmschutz-Verordnung für reine Wohnzonen (Empfindlichkeitsstufe II).' },
   'laerm.strasse.grenzwert_wohnzone_nacht_db': { label: 'Grenzwert Wohnzone Nacht', abschnitt: 'laerm', format: 'int' },
 

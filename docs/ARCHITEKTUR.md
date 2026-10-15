@@ -20,7 +20,7 @@ gwr ──────► EGRID, Gebäudepunkt LV95, BFS-Nr, Kanton, Parzellen-N
    ├──► sonnendach    (braucht Gebäudepunkt)       Solarpotenzial
    ├──► oev-gueteklasse                            A bis D
    ├──► radon                                      Wahrscheinlichkeit in %
-   └──► laerm-strasse (experimentell)              dB Tag/Nacht
+   └──► laerm-strasse                              dB Tag/Nacht
    │
    ▼
 derived ──► bebauter Anteil, Gebäudealter, Wohnfläche total
@@ -237,8 +237,8 @@ Auslösen: `pnpm canary` (Cron auf dem Server) oder `POST /internal/canary` (z.B
 
 ## 14. Tests
 
-- Offline (`pnpm test`): Fixtures aus `test/fixtures/`, `fakeFetch` bildet URLs auf Fixtures ab. 40 Tests: Adapter einzeln, Resolver (Stufen, Cache, Breaker, Kanton, Timeout, Ende-zu-Ende Wabern), Store (Memory und PGlite), API, Canary.
-- Live (`pnpm test:live`, braucht Netz): Wabern gegen echte APIs, zeichnet rohe Antworten nach `test/live/aufzeichnungen/` auf (gitignored). Insbesondere die WMS-Antwort für Lärm, deren Form noch unbekannt ist.
+- Offline (`pnpm test`): Fixtures aus `test/fixtures/`, `fakeFetch` bildet URLs auf Fixtures ab. 42 Tests: Adapter einzeln, Resolver (Stufen, Cache, Breaker, Kanton, Timeout, Ende-zu-Ende Wabern), Store (Memory und PGlite), API, Canary.
+- Live (`pnpm test:live`, braucht Netz): Wabern gegen echte APIs, zeichnet rohe Antworten nach `test/live/aufzeichnungen/` auf (gitignored), darunter die WMS-GetFeatureInfo-Antworten für Lärm in drei INFO_FORMATs, und prüft deren Form (`value_0`).
 
 ## 15. Konfiguration (Env)
 
@@ -278,3 +278,4 @@ Auslösen: `pnpm canary` (Cron auf dem Server) oder `POST /internal/canary` (z.B
 
 - **2026-10-15 · v0.1.0** Erster Stand. Resolver, Breaker, Fakten-Store (Memory, PGlite, Postgres), 7 Adapter (geocode, gwr, av-parzelle, sonnendach, oev-gueteklasse, radon, laerm-strasse experimentell), derived-Fakten, Steckbrief-View mit Lücken und Quellen, Hono-API, CLI `gp`, Canary mit ntfy, 40 Offline-Tests auf echten Antwortformen, Live-Test-Skelett.
 - **2026-10-15 · Design-Prototyp im Repo** `docs/design/`: Artboards als Quelle (`quelle/*.dc.html`) und als eigenständige HTML-Vorschau (`vorschau/*.html`), dazu `README.md` mit Tokens, Seitenstruktur und dem Mapping Steckbrief-API → Karten. Kein Code-Change am Core.
+- **2026-10-15 · laerm-strasse verifiziert** Live-Test zeigt die Form von WMS GetFeatureInfo: `application/json` liefert `features[0].properties.value_0` als String (Wabern: Tag 33.2, Nacht 24.1 dB), `text/html` wird abgelehnt, ohne kartierten Lärm ist `features` leer. Parser auf ein Zod-Schema für genau dieses Feld festgezogen (keine Suche nach der ersten Zahl mehr, keine `_roh`-Fakten), leere Antwort ist `empty`, andere Form ist `schema`. Confidence der dB-Fakten 1, Status verifiziert. Fixtures echt: `laerm-wms.json`, `laerm-wms-nacht.json`, `laerm-wms-leer.json`. Bedeutung und Datenstand (Lr Tag/Nacht, sonBASE, 31.12.2021) in QUELLEN.md. 42 Tests.
