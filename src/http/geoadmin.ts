@@ -10,6 +10,9 @@ import type { LV95 } from '../types.ts';
  *  - identify mit tolerance=0 braucht weder imageDisplay noch mapExtent.
  *  - identify mit tolerance>0 braucht beides.
  *  - Reine Raster-Layer (z.B. Strassenlärm) sind über identify nicht abfragbar, nur über WMS GetFeatureInfo.
+ *  - identify mit geometryFormat=geojson liefert GeoJSON-Features: Attribute in `properties`, nicht `attributes`,
+ *    Geometrie als GeoJSON. Ohne geometryFormat kommt Esri-JSON mit `attributes` und `geometry.rings`.
+ *    Darum zwei Schemas: geoResultsSchema (Esri-Form) und geoJsonResultsSchema (GeoJSON-Form).
  */
 
 export const API3 = 'https://api3.geo.admin.ch/rest/services/api';
@@ -105,6 +108,26 @@ export const geoResultsSchema = z.object({
 });
 
 export type GeoFeature = z.infer<typeof geoFeatureSchema>;
+
+/**
+ * Ein identify-Resultat mit `geometryFormat=geojson`. Verifiziert 15.10.2026 (amtliche Vermessung):
+ * `{ type: "Feature", featureId, id, layerBodId, layerName, bbox, geometry: <GeoJSON>, properties: {…} }`.
+ */
+export const geoJsonFeatureSchema = z.object({
+  type: z.literal('Feature'),
+  layerBodId: z.string(),
+  featureId: z.union([z.number(), z.string()]),
+  id: z.union([z.number(), z.string()]).optional(),
+  bbox: z.array(z.number()).optional(),
+  properties: z.record(z.string(), z.unknown()),
+  geometry: z.unknown().optional(),
+});
+
+export const geoJsonResultsSchema = z.object({
+  results: z.array(geoJsonFeatureSchema),
+});
+
+export type GeoJsonFeature = z.infer<typeof geoJsonFeatureSchema>;
 
 /** Hilfsfunktion: Attribut-Record eines Features gegen ein Zod-Schema parsen, mit lesbarem Fehler. */
 export function parseAttributes<T>(feature: GeoFeature, schema: z.ZodType<T>): T {

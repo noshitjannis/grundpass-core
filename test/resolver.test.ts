@@ -202,8 +202,8 @@ describe('resolve, Ende zu Ende mit Fixtures (Wabern)', () => {
     expect(stageOf.sonnendach).toBe(2);
 
     const v = (key: string) => r.facts.find((f) => f.key === key)?.value;
-    expect(v('parzelle.flaeche_m2')).toBe(761);
-    expect(v('parzelle.bebauter_anteil_prozent')).toBe(18.3); // 139 / 761
+    expect(v('parzelle.flaeche_m2')).toBe(764); // echte Geometrie, Shoelace 764.39 m²
+    expect(v('parzelle.bebauter_anteil_prozent')).toBe(18.2); // 139 / 764
     expect(v('gebaeude.alter_jahre')).toBeTypeOf('number');
     expect(v('wohnungen.flaeche_total_m2')).toBe(150);
     expect(r.facts.find((f) => f.key === 'parzelle.bebauter_anteil_prozent')?.derived_from).toEqual(['gebaeude.grundflaeche_m2', 'parzelle.flaeche_m2']);

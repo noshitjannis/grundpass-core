@@ -9,6 +9,7 @@ Datensätze und genaue Lizenztexte: opendata.swiss bzw. die Layer-Metadaten unte
 Allgemeine Erkenntnisse (15.10.2026):
 - `SearchServer` liefert `attrs.y` = Ost, `attrs.x` = Nord. Vertauscht gegenüber LV95-Konvention.
 - `identify` mit `tolerance=0` braucht weder `imageDisplay` noch `mapExtent`. Mit Toleranz > 0 beides.
+- `identify` mit `geometryFormat=geojson` liefert GeoJSON-Features: Attribute in `properties`, nicht `attributes`, Geometrie als GeoJSON. Ohne `geometryFormat` kommt Esri-JSON mit `attributes` und `geometry.rings`. Zwei Schemas in `src/http/geoadmin.ts`.
 - Reine Raster-Layer sind per `identify` nicht abfragbar (4xx). Nur WMS GetFeatureInfo.
 - Bei Fehlern antwortet api3 teils mit HTML, nicht JSON. Der Client wirft dann `SchemaDriftError`.
 - WMS GetFeatureInfo (wms.geo.admin.ch) kann `application/json`, `text/plain` und `application/vnd.ogc.gml`, aber kein `text/html` (ServiceException InvalidFormat). Raster-Werte stehen in `features[0].properties.value_0`, als String.
@@ -80,9 +81,11 @@ Codetabellen: `src/codes/gwr.ts`. Quelle: Merkmalskatalog GWR 4.2, housing-stat.
 | liefert Keys | `egrid`, `bfs_nr`, `kanton`, `parzelle_nr` |
 | Fakten | `parzelle.nummer`, `.egrid`, `.nummerierungsbereich` (identnd), `.bfs_nr`, `.kanton`, `.art`, `.geoportal_url`, `.flaeche_m2` (berechnet, Confidence 0.95), `.treffer_am_punkt` |
 | TTL | 90 Tage |
-| Status | verifiziert (Attribute) · Fixture `av-parzelle-5711.json` (Geometrie ist Platzhalter) |
+| Status | verifiziert 15.10.2026 (Attribute und Geometrie) · Fixtures `av-parzelle-5711.json` (echte GeoJSON-Antwort), `av-parzelle-5711-esrijson.json` (dieselbe Abfrage ohne geometryFormat, als Drift-Fall) |
 
-Gelesene Felder: `bfsnr, ak, number, identnd, egris_egrid, realestate_type, geoportal_url`, `geometry` (GeoJSON Polygon/MultiPolygon). Die API liefert keine Fläche; wir rechnen Shoelace in LV95-Metern, Löcher abgezogen. Mehrere Treffer (Punkt auf Grenze): bevorzugt die EGRID aus dem GWR.
+**Antwortform** (geometryFormat=geojson): `results[]` sind GeoJSON-Features `{ type: "Feature", featureId, id, layerBodId, layerName: "OpenData-AV", bbox, geometry, properties }`. Gelesene Felder: `properties.{bfsnr, ak, number, identnd, egris_egrid, realestate_type, geoportal_url}`, `geometry` (GeoJSON Polygon/MultiPolygon). Die erste Fassung las `attributes` (Esri-Form) und fiel live mit Schema-Drift aus; die Esri-Form ist jetzt ein Testfall für Drift.
+
+Die API liefert keine Fläche; wir rechnen Shoelace in LV95-Metern, Löcher abgezogen. Wabern, Parzelle 5711: 7 Stützpunkte, 764.39 m² (Fakt: 764 m², Confidence 0.95). Mehrere Treffer (Punkt auf Grenze): bevorzugt die EGRID aus dem GWR.
 
 ---
 

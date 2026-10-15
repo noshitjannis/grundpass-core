@@ -1,12 +1,54 @@
 {
-  "_hinweis": "Attribute aus Live-Antwort vom 15.10.2026. Die Geometrie ist ein Platzhalter-Rechteck von 26.5 x 28.7 m (~761 m²), weil die echte Geometrie nicht übertragen wurde.",
+  "_hinweis": "Echte Antwort vom 15.10.2026: identify tolerance=0 mit returnGeometry=true und geometryFormat=geojson. Jeder Treffer ist ein GeoJSON-Feature: Attribute stehen in properties (nicht attributes), Geometrie als Polygon mit 7 Stützpunkten (Shoelace: 764.39 m²). URL: https://api3.geo.admin.ch/rest/services/api/MapServer/identify?geometry=2601737%2C1197338.426&geometryType=esriGeometryPoint&layers=all%3Ach.swisstopo-vd.amtliche-vermessung&tolerance=0&sr=2056&returnGeometry=true&lang=de&geometryFormat=geojson",
   "results": [
     {
-      "layerBodId": "ch.swisstopo-vd.amtliche-vermessung",
-      "layerName": "Amtliche Vermessung",
+      "type": "Feature",
       "featureId": 1756156,
+      "bbox": [
+        2601716.5,
+        1197312.6,
+        2601752.8,
+        1197353.7
+      ],
+      "layerBodId": "ch.swisstopo-vd.amtliche-vermessung",
+      "layerName": "OpenData-AV",
       "id": 1756156,
-      "attributes": {
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              2601716.5,
+              1197330.6
+            ],
+            [
+              2601735.7,
+              1197353.7
+            ],
+            [
+              2601751.5,
+              1197340.8
+            ],
+            [
+              2601752.8,
+              1197339.7
+            ],
+            [
+              2601730.3,
+              1197312.6
+            ],
+            [
+              2601717.2,
+              1197323.5
+            ],
+            [
+              2601716.5,
+              1197330.6
+            ]
+          ]
+        ]
+      },
+      "properties": {
         "bfsnr": 355,
         "ak": "BE",
         "name": "5711",
@@ -16,18 +58,6 @@
         "realestate_type": null,
         "geoportal_url": "https://www.topo.apps.be.ch/pub/map/?lang=de&gpk=MOPUBE_GPK",
         "label": "5711"
-      },
-      "geometry": {
-        "type": "Polygon",
-        "coordinates": [
-          [
-            [2601723.0, 1197324.0],
-            [2601749.5, 1197324.0],
-            [2601749.5, 1197352.7],
-            [2601723.0, 1197352.7],
-            [2601723.0, 1197324.0]
-          ]
-        ]
       }
     }
   ]

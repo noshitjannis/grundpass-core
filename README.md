@@ -19,7 +19,7 @@ HEIZUNG UND WARMWASSER
   Heizung             Ölheizung                       gwr · 2026-10-12
 
 PARZELLE
-  Parzellenfläche     761 m2                          av-parzelle · 2026-10-15
+  Parzellenfläche     764 m2                          av-parzelle · 2026-10-15
 
 SONNE UND DACH
   Solareignung        sehr gut                        sonnendach · 2020-04-13

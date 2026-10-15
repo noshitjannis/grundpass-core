@@ -1,0 +1,65 @@
+{
+  "_hinweis": "Echte Antwort vom 15.10.2026: dieselbe identify-Abfrage ohne geometryFormat (Esri-JSON): Attribute in attributes, Geometrie als rings. Dient als Drift-Fall, der Adapter erwartet die GeoJSON-Form. URL: https://api3.geo.admin.ch/rest/services/api/MapServer/identify?geometry=2601737%2C1197338.426&geometryType=esriGeometryPoint&layers=all%3Ach.swisstopo-vd.amtliche-vermessung&tolerance=0&sr=2056&returnGeometry=true&lang=de",
+  "results": [
+    {
+      "featureId": 1756156,
+      "bbox": [
+        2601716.5,
+        1197312.6,
+        2601752.8,
+        1197353.7
+      ],
+      "layerBodId": "ch.swisstopo-vd.amtliche-vermessung",
+      "layerName": "OpenData-AV",
+      "id": 1756156,
+      "geometry": {
+        "rings": [
+          [
+            [
+              2601716.5,
+              1197330.6
+            ],
+            [
+              2601735.7,
+              1197353.7
+            ],
+            [
+              2601751.5,
+              1197340.8
+            ],
+            [
+              2601752.8,
+              1197339.7
+            ],
+            [
+              2601730.3,
+              1197312.6
+            ],
+            [
+              2601717.2,
+              1197323.5
+            ],
+            [
+              2601716.5,
+              1197330.6
+            ]
+          ]
+        ],
+        "spatialReference": {
+          "wkid": 2056
+        }
+      },
+      "attributes": {
+        "bfsnr": 355,
+        "ak": "BE",
+        "name": "5711",
+        "number": "5711",
+        "identnd": "BE0200000051",
+        "egris_egrid": "CH586746359755",
+        "realestate_type": null,
+        "geoportal_url": "https://www.topo.apps.be.ch/pub/map/?lang=de&gpk=MOPUBE_GPK",
+        "label": "5711"
+      }
+    }
+  ]
+}

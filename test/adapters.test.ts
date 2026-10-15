@@ -46,12 +46,32 @@ describe('gwr', () => {
 });
 
 describe('av-parzelle', () => {
-  it('rechnet die Fläche aus der Geometrie und bevorzugt die bekannte EGRID', async () => {
-    const out = await avParzelle.resolve(ctxFor({ lv95_bau: { e: 2601737, n: 1197338 }, egrid: 'CH586746359755' }));
+  const punkt = { e: 2601737, n: 1197338.426 };
+
+  it('liest properties der GeoJSON-Antwort, rechnet die Fläche aus der Geometrie und bevorzugt die bekannte EGRID', async () => {
+    const out = await avParzelle.resolve(ctxFor({ lv95_bau: punkt, egrid: 'CH586746359755' }));
     expect(fact(out, 'parzelle.nummer')).toBe('5711');
-    expect(fact(out, 'parzelle.flaeche_m2')).toBe(761);
+    expect(fact(out, 'parzelle.egrid')).toBe('CH586746359755');
+    expect(fact(out, 'parzelle.nummerierungsbereich')).toBe('BE0200000051');
+    expect(fact(out, 'parzelle.flaeche_m2')).toBe(764); // Shoelace über das echte 7-Eck: 764.39 m²
     expect(out.facts.find((f) => f.key === 'parzelle.flaeche_m2')?.confidence).toBe(0.95);
-    expect(out.keys?.kanton).toBe('BE');
+    expect(fact(out, 'parzelle.art')).toBeUndefined(); // realestate_type ist null: kein Fakt, kein Default
+    expect(out.keys).toMatchObject({ egrid: 'CH586746359755', bfs_nr: 355, kanton: 'BE', parzelle_nr: '5711' });
+    expect(out.facts.every((f) => f.request_url?.includes('geometryFormat=geojson'))).toBe(true);
+  });
+
+  it('Esri-Form (attributes statt properties) ist Schema-Drift, kein stiller Fallback', async () => {
+    const http = httpFor([{ match: () => true, body: fixture('av-parzelle-5711-esrijson.json') }]);
+    await expect(
+      avParzelle.resolve({ keys: { lv95_bau: punkt }, http, now: () => new Date(), log: silentLogger }),
+    ).rejects.toBeInstanceOf(SchemaDriftError);
+  });
+
+  it('keine Parzelle unter dem Punkt ist eine Lücke: EmptyResultError', async () => {
+    const http = httpFor([{ match: () => true, body: { results: [] } }]);
+    await expect(
+      avParzelle.resolve({ keys: { lv95_bau: punkt }, http, now: () => new Date(), log: silentLogger }),
+    ).rejects.toBeInstanceOf(EmptyResultError);
   });
 
   it('geojsonAreaM2 zieht Löcher ab und kann MultiPolygon', () => {
