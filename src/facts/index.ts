@@ -1,3 +1,4 @@
+import { mkdirSync } from 'node:fs';
 import { MemoryStore } from './memory.ts';
 import { SqlStore, type SqlClient } from './sql.ts';
 import type { FactStore } from './store.ts';
@@ -29,6 +30,8 @@ export async function createStore(kind: 'auto' | 'memory' | 'pglite' | 'postgres
   }
   const { PGlite } = await import('@electric-sql/pglite');
   const dir = process.env.PGLITE_DIR || './data/grundpass';
+  // PGlite legt nur den letzten Ordner an. Im frischen Klon fehlt ./data, darum rekursiv.
+  mkdirSync(dir, { recursive: true });
   const pgl = new PGlite(dir);
   const client: SqlClient = {
     query: (sql, params) => pgl.query(sql, params as never[]) as Promise<{ rows: never[] }>,

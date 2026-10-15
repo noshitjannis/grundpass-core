@@ -12,7 +12,8 @@ const args = process.argv.slice(2);
 const flag = (f: string) => args.includes(f);
 const egidIdx = args.indexOf('--egid');
 const egid = egidIdx >= 0 ? Number(args[egidIdx + 1]) : undefined;
-const adresse = args.filter((a, i) => !a.startsWith('--') && i !== egidIdx + 1).join(' ').trim();
+// Ohne --egid ist egidIdx -1; dann darf Index 0 (die Adresse) nicht als EGID-Wert rausfallen.
+const adresse = args.filter((a, i) => !a.startsWith('--') && (egidIdx < 0 || i !== egidIdx + 1)).join(' ').trim();
 
 if (!adresse && !egid) {
   console.error('Verwendung: gp "Maygutstrasse 26, 3084 Wabern" [--json] [--nocache] [--memory]\n            gp --egid 1271632');
