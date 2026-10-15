@@ -8,7 +8,11 @@ import type { Adapter, AdapterOutput } from '../types.ts';
  * Eidg. Gebäude- und Wohnungsregister (GWR) über geo.admin `find` auf dem Layer
  * `ch.bfs.gebaeude_wohnungs_register`. Ein Aufruf liefert Gebäude UND Wohnungen (als Arrays).
  *
- * Verifiziert 15.10.2026 mit EGID 1271632 (Maygutstrasse 26, Wabern). Vollständige Feldliste in docs/QUELLEN.md.
+ * Verifiziert 15.10.2026 mit EGID 1271632 (Maygutstrasse 26, Wabern), Fixture ist die echte Antwort. Feldliste in docs/QUELLEN.md.
+ * Die API liefert egid, edid und stroffiziel als Strings, Zahlenfelder sonst als Zahlen (nullableNumberish fängt beides).
+ * `find` ist ohne contains=false eine Teilstring-Suche (searchText 1271632 traf auch EGID 191271632, Gossau SG).
+ * findUrl setzt contains=false; zusätzlich wird auf die exakte EGID gefiltert. Kein Treffer mit dieser EGID ist eine Lücke,
+ * nie ein anderes Gebäude.
  * Wichtig: Das GWR liefert hier schon EGRID und Parzellennummer (egrid, lparz) sowie die Gebäudekoordinate
  * (gkode/gkodn). Darum ist das GWR der Schlüssel-Lieferant für alle Stufen danach.
  */
@@ -86,7 +90,7 @@ export const gwr: Adapter = {
     const egid = ctx.keys.egid!;
     const url = findUrl('ch.bfs.gebaeude_wohnungs_register', 'egid', egid);
     const { data } = await ctx.http.json(url, geoResultsSchema, { timeoutMs: this.manifest.timeoutMs });
-    const feature = data.results.find((r) => String(r.attributes.egid) === String(egid)) ?? data.results[0];
+    const feature = data.results.find((r) => String(r.attributes.egid) === String(egid));
     if (!feature) throw new EmptyResultError(url, `EGID ${egid} nicht im GWR`);
     const a = attrs.parse(feature.attributes);
 

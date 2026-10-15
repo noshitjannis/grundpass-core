@@ -1,8 +1,9 @@
 {
-  "_hinweis": "Aus Live-Antwort vom 15.10.2026 (identify mit beiden Layern). Die Tests splitten nach Layer.",
+  "_hinweis": "Echte Antworten vom 15.10.2026 (identify tolerance=0 am Gebäudepunkt, je ein Aufruf pro Layer, hier zusammengelegt; die Tests splitten nach layerBodId). URLs: https://api3.geo.admin.ch/rest/services/api/MapServer/identify?geometry=2601737%2C1197338.426&geometryType=esriGeometryPoint&layers=all%3Ach.are.gueteklassen_oev&tolerance=0&sr=2056&returnGeometry=false&lang=de und https://api3.geo.admin.ch/rest/services/api/MapServer/identify?geometry=2601737%2C1197338.426&geometryType=esriGeometryPoint&layers=all%3Ach.bag.radonkarte&tolerance=0&sr=2056&returnGeometry=false&lang=de",
   "results": [
     {
       "layerBodId": "ch.are.gueteklassen_oev",
+      "layerName": "ÖV-Güteklassen ARE",
       "featureId": 3885,
       "id": 3885,
       "attributes": {
@@ -13,6 +14,7 @@
     },
     {
       "layerBodId": "ch.bag.radonkarte",
+      "layerName": "Radonkarte",
       "featureId": 59651,
       "id": 59651,
       "attributes": {

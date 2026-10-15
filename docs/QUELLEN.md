@@ -7,7 +7,9 @@ Alle Quellen laufen über die Bundes-Geodateninfrastruktur (geo.admin.ch), ohne 
 Datensätze und genaue Lizenztexte: opendata.swiss bzw. die Layer-Metadaten unter `https://api3.geo.admin.ch/rest/services/api/MapServer/<layer>`.
 
 Allgemeine Erkenntnisse (15.10.2026):
-- `SearchServer` liefert `attrs.y` = Ost, `attrs.x` = Nord. Vertauscht gegenüber LV95-Konvention.
+- `SearchServer` liefert `attrs.y` = Ost, `attrs.x` = Nord. Vertauscht gegenüber LV95-Konvention. Seit dem ersten Stand zusätzlich `attrs.geom_quadindex`, `attrs.geom_st_box2d`, `attrs.links[]` (href, rel, title); `weight` ist 1 statt 100. Wir lesen davon nichts.
+- `find` ist ohne `contains=false` eine Teilstring-Suche: `searchText=1271632` auf dem GWR traf auch EGID 191271632 (Gossau SG). `findUrl` setzt darum `contains=false` (bestätigt 15.10.2026: genau ein Treffer). Fixture `gwr-find-teilstring.json` belegt den Fall.
+- Das GWR liefert `egid`, `edid` und `stroffiziel` als Strings, die übrigen Zahlenfelder als Zahlen. Nicht auf Typen verlassen, `nullableNumberish` fängt beides.
 - `identify` mit `tolerance=0` braucht weder `imageDisplay` noch `mapExtent`. Mit Toleranz > 0 beides.
 - `identify` mit `geometryFormat=geojson` liefert GeoJSON-Features: Attribute in `properties`, nicht `attributes`, Geometrie als GeoJSON. Ohne `geometryFormat` kommt Esri-JSON mit `attributes` und `geometry.rings`. Zwei Schemas in `src/http/geoadmin.ts`.
 - Reine Raster-Layer sind per `identify` nicht abfragbar (4xx). Nur WMS GetFeatureInfo.
@@ -26,7 +28,7 @@ Allgemeine Erkenntnisse (15.10.2026):
 | liefert Keys | `egid` (aus `featureId` "EGID_EDID"), `lv95` (e = attrs.y, n = attrs.x) |
 | Fakten | `adresse.label`, `adresse.eingabe`, `adresse.koordinaten.e/n/lat/lon`, `gebaeude.egid` |
 | TTL | 30 Tage |
-| Status | verifiziert · Fixture `searchserver-wabern.json` |
+| Status | verifiziert · Fixture `searchserver-wabern.json` (echte Antwort vom 15.10.2026) |
 
 Gelesene Felder: `results[].attrs.{label, detail, origin, featureId, x, y, lat, lon, num}`. Erster Treffer mit `origin=address`. Kein Treffer → `EmptyResultError`.
 
@@ -37,12 +39,12 @@ Gelesene Felder: `results[].attrs.{label, detail, origin, featureId, x, y, lat, 
 | | |
 |---|---|
 | Datenhalter | BFS |
-| Endpoint | `GET https://api3.geo.admin.ch/rest/services/api/MapServer/find?layer=ch.bfs.gebaeude_wohnungs_register&searchField=egid&searchText=<EGID>&returnGeometry=false` |
+| Endpoint | `GET https://api3.geo.admin.ch/rest/services/api/MapServer/find?layer=ch.bfs.gebaeude_wohnungs_register&searchField=egid&searchText=<EGID>&returnGeometry=false&contains=false` |
 | braucht | `egid` |
 | liefert Keys | `egrid`, `lv95_bau` (gkode/gkodn), `bfs_nr` (ggdenr), `kanton` (gdekt), `parzelle_nr` (lparz) |
 | source_date | `gexpdat` (Exportdatum des Registers) |
 | TTL | 30 Tage |
-| Status | verifiziert · Fixture `gwr-1271632.json` |
+| Status | verifiziert · Fixture `gwr-1271632.json` (echte Antwort vom 15.10.2026 mit contains=false), `gwr-find-teilstring.json` (dieselbe Abfrage ohne contains=false, zwei Treffer) |
 
 **Gelesene Felder und was daraus wird**
 
@@ -68,6 +70,8 @@ Gelesene Felder: `results[].attrs.{label, detail, origin, featureId, x, y, lat, 
 | ewid[], wstwk[], wstat[], wbauj[], warea[], wazim[], wkche[], wmehrg[] | `wohnung.<ewid>.{stockwerk, status, baujahr, flaeche_m2, zimmer, kueche, mehrgeschossig}` | parallele Arrays, Index = Wohnung |
 
 Codetabellen: `src/codes/gwr.ts`. Quelle: Merkmalskatalog GWR 4.2, housing-stat.ch. Nicht gemappt (bewusst): Quellen-Codes `gksce`, `gwaersceh1` etc.
+
+Treffer-Auswahl: Der Adapter nimmt den Treffer, dessen `egid` exakt der gesuchten entspricht. Gibt es keinen, ist das `EmptyResultError` (Lücke), nie ein anderes Gebäude. Der frühere Fallback auf `results[0]` hätte bei einer nicht existierenden EGID, die als Teilstring in einer anderen vorkommt, ein falsches Gebäude geliefert.
 
 ---
 
@@ -118,7 +122,7 @@ Gelesene Felder: `klasse, klasse_text, flaeche, ausrichtung, neigung, mstrahlung
 | braucht | `lv95_bau` |
 | Fakten | `oev.gueteklasse` (A, B, C, D oder `keine`), `oev.gueteklasse_text` |
 | TTL | 180 Tage |
-| Status | verifiziert · Fixture `oev-radon.json` |
+| Status | verifiziert · Fixture `oev-radon.json` (echte Antworten vom 15.10.2026) |
 
 Gelesene Felder: `klasse_de` ("D - geringe Erschliessung"), `klasse_fr`. Kein Treffer = ausserhalb aller Güteklassen = gültiger Wert `keine`.
 
@@ -133,7 +137,7 @@ Gelesene Felder: `klasse_de` ("D - geringe Erschliessung"), `klasse_fr`. Kein Tr
 | braucht | `lv95_bau` |
 | Fakten | `radon.wahrscheinlichkeit_prozent`, `radon.einstufung` (unsere Lesehilfe, Confidence 0.8), `radon.referenzwert_bq_m3` (300) |
 | TTL | 365 Tage |
-| Status | verifiziert · Fixture `oev-radon.json` |
+| Status | verifiziert · Fixture `oev-radon.json` (echte Antworten vom 15.10.2026) |
 
 Gelesene Felder: `probability_prozent`, `confidence`. Bedeutung: Wahrscheinlichkeit, dass in einem Gebäude an diesem Ort 300 Bq/m³ überschritten werden. Einstufung: < 10 % gering, < 20 % mittel, ab 20 % erhöht (grundpass, nicht BAG).
 

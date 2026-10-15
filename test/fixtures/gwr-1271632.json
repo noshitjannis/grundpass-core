@@ -1,13 +1,13 @@
 {
-  "_hinweis": "Aus Live-Antwort vom 15.10.2026 übertragen (find, layer ch.bfs.gebaeude_wohnungs_register, egid=1271632).",
+  "_hinweis": "Echte Antwort vom 15.10.2026: find auf ch.bfs.gebaeude_wohnungs_register, searchField=egid, searchText=1271632, contains=false. egid, edid und stroffiziel kommen als Strings. URL: https://api3.geo.admin.ch/rest/services/api/MapServer/find?layer=ch.bfs.gebaeude_wohnungs_register&searchField=egid&searchText=1271632&returnGeometry=false&sr=2056&lang=de&contains=false",
   "results": [
     {
       "layerBodId": "ch.bfs.gebaeude_wohnungs_register",
-      "layerName": "Gebäude- und Wohnungsregister",
+      "layerName": "GWR: Gebäudestatus",
       "featureId": "1271632_0",
       "id": "1271632_0",
       "attributes": {
-        "egid": 1271632,
+        "egid": "1271632",
         "strname_deinr": "Maygutstrasse 26",
         "plz_plz6": "3084/308400",
         "ggdename": "Köniz",
@@ -21,7 +21,7 @@
         "ltyp": null,
         "gebnr": "",
         "gbez": "",
-        "gkode": 2601737.0,
+        "gkode": 2601737,
         "gkodn": 1197338.426,
         "gksce": 901,
         "gstat": 1004,
@@ -56,15 +56,23 @@
         "genw2": 7500,
         "gwaerscew2": 860,
         "gwaerdatw2": "29.11.2001",
-        "edid": 0,
+        "edid": "0",
         "egaid": 100734714,
         "deinr": "26",
         "esid": 10046202,
-        "strname": ["Maygutstrasse"],
-        "strnamk": ["Maygutstr."],
-        "strindx": ["May"],
-        "strsp": ["DE"],
-        "stroffiziel": 1,
+        "strname": [
+          "Maygutstrasse"
+        ],
+        "strnamk": [
+          "Maygutstr."
+        ],
+        "strindx": [
+          "May"
+        ],
+        "strsp": [
+          "DE"
+        ],
+        "stroffiziel": "1",
         "dplz4": 3084,
         "dplzz": 0,
         "dplzname": "Wabern",
@@ -72,19 +80,45 @@
         "dkodn": 1197341.725,
         "doffadr": 1,
         "dexpdat": "12.10.2026",
-        "ewid": ["1"],
-        "whgnr": [null],
-        "wstwk": [3100],
-        "wmehrg": [1],
-        "weinr": [null],
-        "wbez": [null],
-        "wstat": [3004],
-        "wexpdat": ["2026-10-12T00:00:00"],
-        "wbauj": [1999],
-        "wabbj": [null],
-        "warea": [150],
-        "wazim": [6],
-        "wkche": [1],
+        "ewid": [
+          "1"
+        ],
+        "whgnr": [
+          null
+        ],
+        "wstwk": [
+          3100
+        ],
+        "wmehrg": [
+          1
+        ],
+        "weinr": [
+          null
+        ],
+        "wbez": [
+          null
+        ],
+        "wstat": [
+          3004
+        ],
+        "wexpdat": [
+          "2026-10-12T00:00:00"
+        ],
+        "wbauj": [
+          1999
+        ],
+        "wabbj": [
+          null
+        ],
+        "warea": [
+          150
+        ],
+        "wazim": [
+          6
+        ],
+        "wkche": [
+          1
+        ],
         "label": "Maygutstrasse 26"
       }
     }

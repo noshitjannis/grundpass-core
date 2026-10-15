@@ -43,6 +43,29 @@ describe('gwr', () => {
     expect(fact(out, 'gebaeude.heizung.erzeuger_code')).toBe(7430);
     expect(fact(out, 'gebaeude.heizung.erzeuger')).toBe('Heizkessel (generisch) für ein Gebäude');
   });
+
+  it('Teilstring-Treffer der API: nimmt die exakte EGID, nicht results[0]', async () => {
+    const beide = fixture('gwr-find-teilstring.json') as { results: Array<{ attributes: { egid: string } }> };
+    const verdreht = { results: [...beide.results].reverse() }; // Gossau SG (191271632) zuerst
+    const http = httpFor([{ match: () => true, body: verdreht }]);
+    const out = await gwr.resolve({ keys: { egid: 1271632 }, http, now: () => new Date(), log: silentLogger });
+    expect(fact(out, 'adresse.gemeinde')).toBe('Köniz');
+    expect(out.keys?.egrid).toBe('CH586746359755');
+  });
+
+  it('EGID nicht exakt in der Antwort: Lücke, nie ein anderes Gebäude', async () => {
+    const beide = fixture('gwr-find-teilstring.json') as { results: Array<{ attributes: { egid: string } }> };
+    const nurGossau = { results: beide.results.filter((r) => r.attributes.egid === '191271632') };
+    const http = httpFor([{ match: () => true, body: nurGossau }]);
+    await expect(gwr.resolve({ keys: { egid: 1271632 }, http, now: () => new Date(), log: silentLogger })).rejects.toBeInstanceOf(EmptyResultError);
+  });
+
+  it('fragt find mit contains=false ab', async () => {
+    const calls: string[] = [];
+    await gwr.resolve({ keys: { egid: 1271632 }, http: httpFor(wabernRoutes(), calls), now: () => new Date(), log: silentLogger });
+    expect(calls).toHaveLength(1);
+    expect(calls[0]).toContain('contains=false');
+  });
 });
 
 describe('av-parzelle', () => {

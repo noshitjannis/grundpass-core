@@ -10,6 +10,8 @@ import type { LV95 } from '../types.ts';
  *  - identify mit tolerance=0 braucht weder imageDisplay noch mapExtent.
  *  - identify mit tolerance>0 braucht beides.
  *  - Reine Raster-Layer (z.B. Strassenlärm) sind über identify nicht abfragbar, nur über WMS GetFeatureInfo.
+ *  - find sucht ohne `contains=false` als Teilstring: searchText 1271632 traf auch EGID 191271632 (Gossau SG).
+ *    Darum setzt findUrl contains=false. Bestätigt 15.10.2026: damit genau ein Treffer.
  *  - identify mit geometryFormat=geojson liefert GeoJSON-Features: Attribute in `properties`, nicht `attributes`,
  *    Geometrie als GeoJSON. Ohne geometryFormat kommt Esri-JSON mit `attributes` und `geometry.rings`.
  *    Darum zwei Schemas: geoResultsSchema (Esri-Form) und geoJsonResultsSchema (GeoJSON-Form).
@@ -37,6 +39,8 @@ export function findUrl(layer: string, searchField: string, searchText: string |
     returnGeometry: String(opts.geometry ?? false),
     sr: '2056',
     lang: 'de',
+    // Ohne contains=false ist die Suche eine Teilstring-Suche (1271632 trifft auch 191271632).
+    contains: 'false',
   });
   return `${API3}/MapServer/find?${p}`;
 }

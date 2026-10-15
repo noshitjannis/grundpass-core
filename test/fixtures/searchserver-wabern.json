@@ -1,23 +1,37 @@
 {
-  "_hinweis": "Aus Live-Antwort vom 15.10.2026 übertragen. attrs.y ist Ost (E), attrs.x ist Nord (N).",
+  "_hinweis": "Echte Antwort vom 15.10.2026. attrs.y ist Ost (E), attrs.x ist Nord (N). Gegenüber dem ersten Stand neu dabei: geom_quadindex, geom_st_box2d, links[], und weight ist 1 statt 100. URL: https://api3.geo.admin.ch/rest/services/api/SearchServer?searchText=Maygutstrasse+26%2C+3084+Wabern&type=locations&origins=address&sr=2056&limit=5",
   "results": [
     {
-      "id": 1052423,
-      "weight": 100,
       "attrs": {
-        "origin": "address",
-        "label": "Maygutstrasse 26 <b>3084 Wabern</b>",
         "detail": "maygutstrasse 26 3084 wabern 355 koeniz ch be",
         "featureId": "1271632_0",
-        "num": 26,
-        "rank": 7,
-        "zoomlevel": 10,
-        "objectclass": "",
+        "geom_quadindex": "021300220331011001210",
+        "geom_st_box2d": "BOX(2601733.473000001 1197341.7250000015,2601733.473000001 1197341.7250000015)",
+        "label": "Maygutstrasse 26 <b>3084 Wabern</b>",
         "lat": 46.92716979980469,
+        "links": [
+          {
+            "href": "/rest/services/ech/MapServer/ch.swisstopo.amtliches-gebaeudeadressverzeichnis/100734714",
+            "rel": "related",
+            "title": "ch.swisstopo.amtliches-gebaeudeadressverzeichnis"
+          },
+          {
+            "href": "/rest/services/ech/MapServer/ch.bfs.gebaeude_wohnungs_register/1271632_0",
+            "rel": "related",
+            "title": "ch.bfs.gebaeude_wohnungs_register"
+          }
+        ],
         "lon": 7.4613938331604,
+        "num": 26,
+        "objectclass": "",
+        "origin": "address",
+        "rank": 7,
         "x": 1197341.75,
-        "y": 2601733.5
-      }
+        "y": 2601733.5,
+        "zoomlevel": 10
+      },
+      "id": 1052423,
+      "weight": 1
     }
   ]
 }
