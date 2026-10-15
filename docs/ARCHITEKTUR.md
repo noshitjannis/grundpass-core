@@ -180,7 +180,7 @@ Kleingeschrieben, Punkt-getrennt, Einheit im Namen. Präfixe:
 
 `adresse.` · `gebaeude.` · `gebaeude.heizung.` · `gebaeude.warmwasser.` · `wohnung.<ewid>.` · `wohnungen.` · `parzelle.` · `zone.` (mit `zone.weitere.<n>.`) · `oereb.<thema>.` · `solar.` · `oev.` · `radon.` · `laerm.strasse.` · `laerm.empfindlichkeitsstufe`
 
-Datengetriebene Keys (`wohnung.<ewid>.*`, `zone.weitere.<n>.*`, `oereb.<thema>.*`) stehen nicht im Feldkatalog, die Steckbrief-View bildet sie nach Muster.
+Datengetriebene Keys (`wohnung.<ewid>.*`, `zone.weitere.<n>.*`, `oereb.<thema>.*`) stehen nicht im Feldkatalog, die Steckbrief-View bildet sie nach Muster. `parzelle.geometrie_geojson` steht bewusst nicht im Katalog: ein Fakt für Programme (Lageplan), nicht für die Lesefassung.
 
 Codes aus Registern kommen doppelt: lesbar (`gebaeude.klasse`) und roh (`gebaeude.klasse_code`). Unbekannte Codes: lesbar `null`, roh gesetzt. Die vollständige Liste pro Quelle steht in `docs/QUELLEN.md`.
 
@@ -243,7 +243,7 @@ Auslösen: `pnpm canary` (Cron auf dem Server) oder `POST /internal/canary` (z.B
 
 ## 14. Tests
 
-- Offline (`pnpm test`): Fixtures aus `test/fixtures/`, `fakeFetch` bildet URLs auf Fixtures ab (Antwort ohne Inhalt per `body: null`, z.B. 204). 63 Tests: Adapter einzeln (ÖREB mit vier Kantons-Fixtures, 204, Drift, Kanton ohne Eintrag), Resolver (Stufen, Cache, Breaker, Kanton, Timeout, Ende-zu-Ende Wabern mit acht Adaptern), derived (Grenzwerte je ES, Grundbuchfläche vor Geometrie), Store (Memory und PGlite), API, Canary.
+- Offline (`pnpm test`): Fixtures aus `test/fixtures/`, `fakeFetch` bildet URLs auf Fixtures ab (Antwort ohne Inhalt per `body: null`, z.B. 204). 64 Tests: Adapter einzeln (ÖREB mit vier Kantons-Fixtures, 204, Drift, Kanton ohne Eintrag), Resolver (Stufen, Cache, Breaker, Kanton, Timeout, Ende-zu-Ende Wabern mit acht Adaptern), derived (Grenzwerte je ES, Grundbuchfläche vor Geometrie), Store (Memory und PGlite), API, Canary.
 - Live (`pnpm test:live`, braucht Netz): Wabern gegen echte APIs, zeichnet rohe Antworten nach `test/live/aufzeichnungen/` auf (gitignored), darunter die WMS-GetFeatureInfo-Antworten für Lärm in drei INFO_FORMATs und die ÖREB-Extracts von Wabern, Baden und Zürich; prüft `versions/json` der drei Kantone und den 204-Fall in ZH.
 
 ## 15. Konfiguration (Env)
@@ -294,3 +294,4 @@ Auslösen: `pnpm canary` (Cron auf dem Server) oder `POST /internal/canary` (z.B
 - **2026-10-15 · Design-Prototyp umgezogen** `docs/design/` ist jetzt `grundpass-app/design/` (eigenes, privates Repo). Der Core enthält keine UI-Referenz mehr.
 - **2026-10-15 · ÖREB-Adapter (AG, ZH, BE)** Neuer Adapter `oereb` mit Kantonstabelle `adapters/oereb/kantone.ts`: Datenextrakt extract-2.0 per EGRID von den kantonalen Webservices (AG `api.geo.ag.ch/v2/oereb`, ZH `maps.zh.ch/oereb/v2`, BE `www.oereb2.apps.be.ch`), alle JSON, kein XML-Parser nötig. Fakten: `zone.*` (Grundnutzung mit grösstem Anteil als Hauptzone, weitere als `zone.weitere.<n>.*`, Baureglement-Link), `parzelle.flaeche_grundbuch_m2` (amtlich, Confidence 1, jetzt «Parzellenfläche» im Katalog, Shoelace als Zweitquelle), `laerm.empfindlichkeitsstufe` (I bis IV, nur wenn der Kataster sie führt; Wabern: nicht), `oereb.<thema>.*` für alle weiteren betroffenen Themen, `oereb.auszug_pdf_url`. Grundnutzung in BE per SubCode, in ZH und AG per MGDM-Code-Systematik (Confidence 0.95). Live an fünf Parzellen bestätigt, darum gleich `verifiziert`. Lärm-Grenzwerte sind jetzt derived aus der Stufe (LSV Anhang 3), der Lärm-Adapter nimmt kein ES II mehr an. Steckbrief: Abschnitt «Zone und Kataster» mit datengetriebenen Zeilen, Lücken-Grund `quelle_ausser_kanton`, Adapter-Zuordnung über das längste Präfix. Fixture-Helfer kann 204 ohne Body. 62 Tests, Live-Test deckt die drei Kantone ab. `src/cli.ts` ist ausführbar (Shebang).
 - **2026-10-15 · av-parzelle: Widerspruch zum GWR sichtbar** Liegt unter dem Gebäudepunkt eine andere Parzelle als die EGRID aus dem GWR (Baden, Rütistrasse 1: AV 3827 mit 236 m², GWR 3258 mit 394 m² laut ÖREB), tragen die AV-Fakten Confidence 0.8 und `parzelle.hinweis_vermessung` sagt es im Steckbrief. Vorher stand die Nachbarparzelle still in der Karte. 63 Tests.
+- **2026-10-15 · av-parzelle: Geometrie als Fakt** `parzelle.geometrie_geojson` (GeoJSON-String in LV95, Confidence 1) für den Lageplan der App. Bewusst ohne Eintrag im Feldkatalog, darum nicht im Steckbrief, aber in `/v1/fakten` und im Store. 64 Tests.

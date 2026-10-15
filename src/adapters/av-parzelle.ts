@@ -14,6 +14,8 @@ import type { Adapter, AdapterOutput, LV95 } from '../types.ts';
  * properties: bfsnr 355, ak "BE", number "5711", identnd "BE0200000051", egris_egrid "CH586746359755",
  * realestate_type null, geoportal_url (kantonales Geoportal). Geometrie: 7 Stützpunkte, Shoelace 764.39 m².
  * Eine Fläche liefert die API nicht. Darum rechnen wir sie selbst (Shoelace in LV95-Metern, Löcher abgezogen).
+ * Die Geometrie geben wir zusätzlich roh weiter (parzelle.geometrie_geojson, GeoJSON-String in LV95), damit die App den
+ * Lageplan zeichnen kann, ohne die AV nochmals zu fragen.
  */
 const attrs = z.object({
   bfsnr: nullableNumberish,
@@ -98,6 +100,8 @@ export const avParzelle: Adapter = {
     if (a.realestate_type) push('parzelle.art', a.realestate_type);
     if (a.geoportal_url) push('parzelle.geoportal_url', a.geoportal_url);
     if (area != null) push('parzelle.flaeche_m2', Math.round(area), { unit: 'm2', confidence: passt ? 0.95 : 0.8 });
+    // Die Geometrie selbst (GeoJSON, LV95) für den Lageplan der App. Kein Eintrag im Feldkatalog, erscheint nicht im Steckbrief.
+    if (feature.geometry && typeof feature.geometry === 'object') push('parzelle.geometrie_geojson', JSON.stringify(feature.geometry));
     if (data.results.length > 1) push('parzelle.treffer_am_punkt', data.results.length);
     if (!passt) {
       push(

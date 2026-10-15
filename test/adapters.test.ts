@@ -2,6 +2,7 @@ import { describe, expect, it } from 'vitest';
 import { avParzelle, geocode, gwr, laermStrasse, oereb, oevGueteklasse, radon, sonnendach } from '../src/adapters/index.ts';
 import { parseStufe, themaSlug } from '../src/adapters/oereb.ts';
 import { geojsonAreaM2 } from '../src/adapters/av-parzelle.ts';
+import { FELDER } from '../src/views/felder.ts';
 import { EmptyResultError, SchemaDriftError } from '../src/errors.ts';
 import { silentLogger } from '../src/log.ts';
 import type { AdapterContext, Keys } from '../src/types.ts';
@@ -82,6 +83,18 @@ describe('av-parzelle', () => {
     expect(fact(out, 'parzelle.art')).toBeUndefined(); // realestate_type ist null: kein Fakt, kein Default
     expect(out.keys).toMatchObject({ egrid: 'CH586746359755', bfs_nr: 355, kanton: 'BE', parzelle_nr: '5711' });
     expect(out.facts.every((f) => f.request_url?.includes('geometryFormat=geojson'))).toBe(true);
+  });
+
+  it('gibt die Parzellengeometrie als GeoJSON-String (LV95) weiter, Confidence 1, nicht im Feldkatalog', async () => {
+    const out = await avParzelle.resolve(ctxFor({ lv95_bau: { e: 2601737, n: 1197338.426 }, egrid: 'CH586746359755' }));
+    const f = out.facts.find((x) => x.key === 'parzelle.geometrie_geojson');
+    expect(f?.confidence).toBe(1);
+    const geom = JSON.parse(f?.value as string) as { type: string; coordinates: Array<Array<[number, number]>> };
+    expect(geom.type).toBe('Polygon');
+    expect(geom.coordinates[0]!.length).toBeGreaterThanOrEqual(7);
+    expect(geom.coordinates[0]![0]![0]).toBeGreaterThan(2_600_000); // LV95 Ost
+    expect(Math.round(geojsonAreaM2(geom)!)).toBe(764);
+    expect(FELDER['parzelle.geometrie_geojson']).toBeUndefined();
   });
 
   it('Parzelle unter dem Punkt ist nicht die aus dem GWR: Confidence 0.8 und sichtbarer Hinweis, keine stille Übernahme', async () => {

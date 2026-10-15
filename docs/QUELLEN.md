@@ -84,7 +84,7 @@ Treffer-Auswahl: Der Adapter nimmt den Treffer, dessen `egid` exakt der gesuchte
 | Endpoint | `GET …/MapServer/identify?geometry=<E>,<N>&geometryType=esriGeometryPoint&layers=all:ch.swisstopo-vd.amtliche-vermessung&tolerance=0&sr=2056&returnGeometry=true&geometryFormat=geojson` |
 | braucht | `lv95_bau` |
 | liefert Keys | `egrid`, `bfs_nr`, `kanton`, `parzelle_nr` |
-| Fakten | `parzelle.nummer`, `.egrid`, `.nummerierungsbereich` (identnd), `.bfs_nr`, `.kanton`, `.art`, `.geoportal_url`, `.flaeche_m2` (berechnet, Confidence 0.95), `.treffer_am_punkt` |
+| Fakten | `parzelle.nummer`, `.egrid`, `.nummerierungsbereich` (identnd), `.bfs_nr`, `.kanton`, `.art`, `.geoportal_url`, `.flaeche_m2` (berechnet, Confidence 0.95), `.treffer_am_punkt`, `.hinweis_vermessung` (nur bei Widerspruch zum GWR), `.geometrie_geojson` (GeoJSON-String in LV95, Confidence 1, nicht im Feldkatalog; für den Lageplan der App) |
 | TTL | 90 Tage |
 | Status | verifiziert 15.10.2026 (Attribute und Geometrie) · Fixtures `av-parzelle-5711.json` (echte GeoJSON-Antwort), `av-parzelle-5711-esrijson.json` (dieselbe Abfrage ohne geometryFormat, als Drift-Fall) |
 
