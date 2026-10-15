@@ -53,6 +53,7 @@ export const laermStrasse: Adapter = {
     yields: [],
     provides: ['laerm.strasse.'],
     ttlDays: 180,
+    version: 2, // 15.10.2026: keine pauschalen Grenzwerte mehr, die kommen derived aus der Empfindlichkeitsstufe
     timeoutMs: 8000,
     license: 'OGD, Quellenangabe Pflicht',
     attribution: '© BAFU (sonBASE, Lärmbelastung Strasse)',

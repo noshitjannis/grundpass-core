@@ -44,6 +44,13 @@ function suite(name: string, make: () => Promise<FactStore>) {
       expect(await store.latestAdapterRun('egid:2', 'a')).toBeNull();
     });
 
+    it('merkt sich die Adapter-Version des Laufs, Standard 1', async () => {
+      await store.saveAdapterRun({ run_id: 'v1', adapter: 'v', subject: 'egid:9', status: 'ok', ms: 1, cache_hit: false, fetched_at: '2026-01-01T00:00:00.000Z', facts: [] });
+      expect((await store.latestAdapterRun('egid:9', 'v'))?.version).toBe(1);
+      await store.saveAdapterRun({ run_id: 'v2', adapter: 'v', subject: 'egid:9', status: 'ok', ms: 1, cache_hit: false, fetched_at: '2026-01-02T00:00:00.000Z', facts: [], version: 2 });
+      expect((await store.latestAdapterRun('egid:9', 'v'))?.version).toBe(2);
+    });
+
     it('latestFacts gibt den jüngsten Fakt pro (key, source)', async () => {
       await store.saveAdapterRun({
         run_id: 'r3', adapter: 'a', subject: 'egid:1', status: 'ok', ms: 1, cache_hit: false, fetched_at: '2026-02-01T00:00:00.000Z',

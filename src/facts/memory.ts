@@ -19,6 +19,7 @@ export class MemoryStore implements FactStore {
     const out: CachedAdapterRun = {
       run_id: hit.run_id,
       fetched_at: hit.fetched_at,
+      version: hit.version ?? 1,
       facts: this.facts.filter((f) => f.run_id === hit.run_id && f.source === adapter),
       keys: hit.keys ?? {},
     };

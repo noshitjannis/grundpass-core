@@ -97,6 +97,11 @@ export type AdapterManifest = {
   provides: string[];
   /** Cache-Dauer in Tagen. Innerhalb der TTL wird nicht neu abgefragt. */
   ttlDays: number;
+  /**
+   * Version des Adapters für den Cache, Standard 1. Erhöhen, wenn neue Fakten dazukommen oder sich die Bedeutung ändert:
+   * Gecachte Läufe einer anderen Version gelten nicht mehr, der Adapter läuft neu. Sonst fehlen neue Fakten bis zum Ablauf der TTL.
+   */
+  version?: number;
   /** Timeout pro Aufruf in Millisekunden. */
   timeoutMs?: number;
   /** Kantone, in denen der Adapter gilt. Leer = ganze Schweiz. */

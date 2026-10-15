@@ -25,6 +25,7 @@ export const meineQuelle: Adapter = {
     yields: [],                       // Keys, die du lieferst (nur Doku/Plan)
     provides: ['meins.'],             // Präfixe deiner Fakten-Keys
     ttlDays: 90,
+    version: 1,                       // erhöhen, wenn sich die gelieferten Fakten ändern (Cache)
     timeoutMs: 8000,
     cantons: ['AG', 'ZH'],            // weglassen, wenn schweizweit
     license: 'OGD, Quellenangabe Pflicht',
@@ -66,6 +67,7 @@ export const meineQuelle: Adapter = {
 - **Kein `fetch` direkt.** Immer `ctx.http`, damit Timeout, Retry, User-Agent und Tests funktionieren.
 - **Raster-Layer**: `identify` geht nicht, `wmsFeatureInfoUrl` benutzen und `ctx.http.text` parsen.
 - **Status `experimentell`** bis der Live-Test die Form bestätigt hat. Dann auf `verifiziert`.
+- **`version` erhöhen**, wenn dein Adapter neue Fakten liefert oder alte wegfallen. Gecachte Läufe der alten Version gelten dann nicht mehr. Ohne Bump fehlen neue Fakten bis zum Ablauf der TTL.
 - **Kantonale Quellen**: Basis-URL und kantonale Regeln in eine Tabelle neben dem Adapter (Beispiel `src/adapters/oereb/kantone.ts`), `cantons` im Manifest. Jeder Kanton braucht eine eigene Fixture und einen Live-Fall. Antwort ohne Inhalt (204) ist `EmptyResultError`; die Fixture-Route dafür hat `body: null`.
 
 ## Wie der Resolver deinen Adapter einordnet

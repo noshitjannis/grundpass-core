@@ -23,8 +23,11 @@ create table if not exists adapter_runs (
   error_kind text,
   keys jsonb,
   request_url text,
-  fetched_at timestamptz not null
+  fetched_at timestamptz not null,
+  version integer not null default 1
 );
+-- Bestehende Datenbanken (vor 15.10.2026) haben die Spalte noch nicht.
+alter table adapter_runs add column if not exists version integer not null default 1;
 create index if not exists adapter_runs_lookup on adapter_runs (subject, adapter, status, fetched_at desc);
 
 create table if not exists facts (
@@ -108,8 +111,8 @@ export class SqlStore implements FactStore {
   }
 
   async latestAdapterRun(subject: string, adapter: string): Promise<CachedAdapterRun | null> {
-    const { rows } = await this.db.query<{ run_id: string; fetched_at: string | Date; keys: Partial<Keys> | null; request_url: string | null }>(
-      `select run_id, fetched_at, keys, request_url from adapter_runs
+    const { rows } = await this.db.query<{ run_id: string; fetched_at: string | Date; keys: Partial<Keys> | null; request_url: string | null; version: number | null }>(
+      `select run_id, fetched_at, keys, request_url, version from adapter_runs
        where subject = $1 and adapter = $2 and status = 'ok'
        order by fetched_at desc limit 1`,
       [subject, adapter],
@@ -123,6 +126,7 @@ export class SqlStore implements FactStore {
     const out: CachedAdapterRun = {
       run_id: hit.run_id,
       fetched_at: new Date(hit.fetched_at).toISOString(),
+      version: hit.version ?? 1,
       facts: facts.rows.map(rowToFact),
       keys: hit.keys ?? {},
     };
@@ -132,8 +136,8 @@ export class SqlStore implements FactStore {
 
   async saveAdapterRun(rec: AdapterRunRecord): Promise<void> {
     await this.db.query(
-      `insert into adapter_runs (run_id, adapter, subject, status, ms, cache_hit, error, error_kind, keys, request_url, fetched_at)
-       values ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11)`,
+      `insert into adapter_runs (run_id, adapter, subject, status, ms, cache_hit, error, error_kind, keys, request_url, fetched_at, version)
+       values ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12)`,
       [
         rec.run_id,
         rec.adapter,
@@ -146,6 +150,7 @@ export class SqlStore implements FactStore {
         rec.keys ? JSON.stringify(rec.keys) : null,
         rec.request_url ?? null,
         rec.fetched_at,
+        rec.version ?? 1,
       ],
     );
     for (const f of rec.facts) {

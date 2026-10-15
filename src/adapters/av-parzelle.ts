@@ -63,6 +63,7 @@ export const avParzelle: Adapter = {
     yields: ['egrid', 'bfs_nr', 'kanton', 'parzelle_nr'],
     provides: ['parzelle.'],
     ttlDays: 90,
+    version: 2, // 15.10.2026: parzelle.geometrie_geojson und parzelle.hinweis_vermessung dazu
     timeoutMs: 8000,
     license: 'OGD, Quellenangabe Pflicht',
     attribution: '© swisstopo, Kantone (amtliche Vermessung)',

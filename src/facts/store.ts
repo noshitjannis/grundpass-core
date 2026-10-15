@@ -14,11 +14,15 @@ export type AdapterRunRecord = {
   request_url?: string;
   fetched_at: string;
   facts: Fact[];
+  /** Manifest-Version des Adapters zum Zeitpunkt des Laufs (Standard 1). */
+  version?: number;
 };
 
 export type CachedAdapterRun = {
   run_id: string;
   fetched_at: string;
+  /** Manifest-Version des gecachten Laufs. Passt sie nicht zur aktuellen, ist der Cache ungültig. */
+  version: number;
   facts: Fact[];
   keys: Partial<Keys>;
   request_url?: string;
@@ -41,7 +45,7 @@ export interface FactStore {
   init(): Promise<void>;
   close(): Promise<void>;
 
-  /** Letzter Lauf mit Status `ok` für dieses Subject und diesen Adapter. Für den Cache. */
+  /** Letzter Lauf mit Status `ok` für dieses Subject und diesen Adapter, mit seiner Adapter-Version. Für den Cache. */
   latestAdapterRun(subject: string, adapter: string): Promise<CachedAdapterRun | null>;
   saveAdapterRun(rec: AdapterRunRecord): Promise<void>;
 

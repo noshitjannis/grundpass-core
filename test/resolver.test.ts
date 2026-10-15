@@ -113,6 +113,22 @@ describe('resolve', () => {
     expect(b.calls).toBe(2);
   });
 
+  it('verwirft den Cache, wenn die Adapter-Version im Manifest steigt (neue Fakten sollen nicht bis zur TTL fehlen)', async () => {
+    const b = fakeAdapter('b', ['egid'], { egrid: 'CH1' }, { ttlDays: 30 });
+    const registry = new AdapterRegistry([b], { disabledFromEnv: false });
+    const store = new MemoryStore();
+    const deps = { registry, store, http, now: () => new Date('2026-01-01T00:00:00Z'), breaker: new CircuitBreaker() };
+    expect((await resolve({ egid: 7 }, deps)).adapters[0]?.status).toBe('ok');
+    expect((await resolve({ egid: 7 }, deps)).adapters[0]?.status).toBe('cached');
+    b.manifest.version = 2;
+    const r = await resolve({ egid: 7 }, deps);
+    expect(r.adapters[0]?.status).toBe('ok');
+    expect(b.calls).toBe(2);
+    // und der neue Lauf ist danach wieder Cache-fähig
+    expect((await resolve({ egid: 7 }, deps)).adapters[0]?.status).toBe('cached');
+    expect((await store.latestAdapterRun('egid:7', 'b'))?.version).toBe(2);
+  });
+
   it('Circuit Breaker öffnet nach 3 Fehlern und lässt nach Cooldown einen Versuch durch', async () => {
     const c = fakeAdapter('c', ['egid'], {}, { fail: new Error('down') });
     const registry = new AdapterRegistry([c], { disabledFromEnv: false });

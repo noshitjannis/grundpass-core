@@ -165,14 +165,17 @@ export async function resolve(input: Partial<Keys>, deps: ResolveDeps): Promise<
 
     if (!breaker.canRun(id)) {
       const report: AdapterRunReport = { adapter: id, status: 'open_circuit', ms: 0, facts_count: 0, stage: stageNo, error: 'Circuit Breaker offen' };
-      await deps.store.saveAdapterRun({ run_id, adapter: id, subject: subjectNow, status: 'open_circuit', ms: 0, cache_hit: false, fetched_at: now().toISOString(), facts: [] });
+      await deps.store.saveAdapterRun({ version: adapter.manifest.version ?? 1, run_id, adapter: id, subject: subjectNow, status: 'open_circuit', ms: 0, cache_hit: false, fetched_at: now().toISOString(), facts: [] });
       return { report, facts: [], keys: undefined };
     }
 
-    // Cache: letzter guter Lauf jünger als TTL?
+    // Cache: letzter guter Lauf jünger als TTL und von derselben Adapter-Version? Eine andere Version heisst: der Adapter
+    // liefert inzwischen andere Fakten, der alte Lauf gilt nicht mehr (sonst fehlten neue Fakten bis zu 180 Tage).
     if (useCache && subjectNow) {
       const cached = await deps.store.latestAdapterRun(subjectNow, id);
-      if (cached) {
+      if (cached && cached.version !== (adapter.manifest.version ?? 1)) {
+        log.info('cache verworfen, adapter-version geändert', { run_id, adapter: id, alt: cached.version, neu: adapter.manifest.version ?? 1 });
+      } else if (cached) {
         const age = now().getTime() - new Date(cached.fetched_at).getTime();
         if (age < adapter.manifest.ttlDays * DAY_MS) {
           const report: AdapterRunReport = {
@@ -183,7 +186,7 @@ export async function resolve(input: Partial<Keys>, deps: ResolveDeps): Promise<
             stage: stageNo,
           };
           if (cached.request_url) report.request_url = cached.request_url;
-          await deps.store.saveAdapterRun({
+          await deps.store.saveAdapterRun({ version: adapter.manifest.version ?? 1,
             run_id,
             adapter: id,
             subject: subjectNow,
