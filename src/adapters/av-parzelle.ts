@@ -66,7 +66,7 @@ export const avParzelle: Adapter = {
     attribution: '© swisstopo, Kantone (amtliche Vermessung)',
     endpoint: 'https://api3.geo.admin.ch/rest/services/api/MapServer/identify?layers=all:ch.swisstopo-vd.amtliche-vermessung',
     status: 'verifiziert',
-    notes: 'Fläche wird aus der Geometrie berechnet (Confidence 0.95). Liegt der Punkt auf einer Grenze, kommen mehrere Parzellen; dann gewinnt die mit der bekannten EGRID.',
+    notes: 'Fläche wird aus der Geometrie berechnet (Confidence 0.95). Liegt der Punkt auf einer Grenze, kommen mehrere Parzellen; dann gewinnt die mit der bekannten EGRID. Ist die Parzelle unter dem Punkt eine andere als im GWR, sinkt die Confidence auf 0.8 und parzelle.hinweis_vermessung sagt es.',
   },
 
   async resolve(ctx): Promise<AdapterOutput> {
@@ -76,13 +76,19 @@ export const avParzelle: Adapter = {
     if (data.results.length === 0) throw new EmptyResultError(url, 'Keine Parzelle unter dem Punkt');
 
     const wanted = ctx.keys.egrid;
-    const feature = (wanted && data.results.find((r) => r.properties.egris_egrid === wanted)) || data.results[0]!;
+    const treffer = wanted ? data.results.find((r) => r.properties.egris_egrid === wanted) : undefined;
+    const feature = treffer ?? data.results[0]!;
     const a = attrs.parse(feature.properties);
     const area = geojsonAreaM2(feature.geometry);
+    // Liegt unter dem Gebäudepunkt nicht die Parzelle, die das GWR nennt (Baden, Rütistrasse 1: AV 3827, GWR 3258),
+    // widersprechen sich die Register. Dann sinkt die Confidence der AV-Fakten, und ein Hinweis macht es sichtbar.
+    // Das GWR behält die Keys (erster Schreiber), ÖREB und Grundbuchfläche folgen damit der Register-Parzelle.
+    const passt = !wanted || !!treffer;
+    const c = passt ? 1 : 0.8;
 
     const facts: AdapterOutput['facts'] = [];
     const push = (key: string, value: AdapterOutput['facts'][number]['value'], extra: Partial<AdapterOutput['facts'][number]> = {}) =>
-      facts.push({ key, value, request_url: url, ...extra });
+      facts.push({ key, value, request_url: url, confidence: c, ...extra });
 
     if (a.number) push('parzelle.nummer', a.number);
     if (a.egris_egrid) push('parzelle.egrid', a.egris_egrid);
@@ -91,8 +97,14 @@ export const avParzelle: Adapter = {
     if (a.ak) push('parzelle.kanton', a.ak);
     if (a.realestate_type) push('parzelle.art', a.realestate_type);
     if (a.geoportal_url) push('parzelle.geoportal_url', a.geoportal_url);
-    if (area != null) push('parzelle.flaeche_m2', Math.round(area), { unit: 'm2', confidence: 0.95 });
+    if (area != null) push('parzelle.flaeche_m2', Math.round(area), { unit: 'm2', confidence: passt ? 0.95 : 0.8 });
     if (data.results.length > 1) push('parzelle.treffer_am_punkt', data.results.length);
+    if (!passt) {
+      push(
+        'parzelle.hinweis_vermessung',
+        `Unter dem Gebäudepunkt liegt laut amtlicher Vermessung Parzelle ${a.number ?? '?'} (${a.egris_egrid ?? '?'}), das Gebäuderegister nennt ${ctx.keys.parzelle_nr ?? '?'} (${wanted}). Die Fläche aus der Geometrie gehört zu ${a.number ?? 'dieser Parzelle'}.`,
+      );
+    }
 
     const keys: AdapterOutput['keys'] = {};
     if (a.egris_egrid) keys.egrid = a.egris_egrid;

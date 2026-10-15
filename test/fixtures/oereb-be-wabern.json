@@ -1,0 +1,2232 @@
+{
+ "_hinweis": "Echte Antwort vom 15.10.2026: https://www.oereb2.apps.be.ch/extract/json?EGRID=CH586746359755 (Maygutstrasse 26, Wabern, Parzelle Köniz 5711). Grundnutzung per Theme.SubCode ch.NutzungsplanungGrundnutzung, LandRegistryArea 761, Lärm-Empfindlichkeitsstufen in NotConcernedTheme. Identisch mit www.oereb.apps.be.ch.",
+ "$schema": "https://raw.githubusercontent.com/openoereb/schemas/ea4fe8e696b84b923cb9aa9fb27c3ba4e2d8eb5b/extract.json",
+ "GetExtractByIdResponse": {
+  "extract": {
+   "CreationDate": "2026-10-15T08:36:20",
+   "ExtractIdentifier": "bd077afe-24fc-4a76-94c0-9887f6cee2d6",
+   "UpdateDateCS": "2026-10-06T00:00:00",
+   "PLRCadastreAuthority": {
+    "Name": [
+     {
+      "Language": "de",
+      "Text": "Amt für Geoinformation"
+     }
+    ],
+    "OfficeAtWeb": [
+     {
+      "Language": "de",
+      "Text": "https://www.be.ch/oerebk"
+     }
+    ],
+    "Street": "Reiterstrasse",
+    "Number": "11",
+    "PostalCode": "3013",
+    "City": "Bern"
+   },
+   "RealEstate": {
+    "Type": {
+     "Code": "RealEstate",
+     "Text": [
+      {
+       "Language": "de",
+       "Text": "Liegenschaft"
+      }
+     ]
+    },
+    "Canton": "BE",
+    "MunicipalityName": "Köniz",
+    "MunicipalityCode": 355,
+    "LandRegistryArea": 761,
+    "PlanForLandRegister": {
+     "ReferenceWMS": [
+      {
+       "Language": "de",
+       "Text": "https://geodienste.ch/db/av_situationsplan_oereb_0/deu?SERVICE=WMS&VERSION=1.3.0&REQUEST=GetMap&CRS=EPSG%3A2056&BBOX=2601683.062752551%2C1197303.8540714304%2C2601786.2632474466%2C1197362.466928572&WIDTH=493&HEIGHT=280&LAYERS=daten&STYLES=%2C&EXCEPTIONS=XML&FORMAT=image%2Fpng&BGCOLOR=0xFEFFFF&TRANSPARENT=TRUE&SRS=EPSG%3A2056"
+      }
+     ],
+     "layerIndex": 0,
+     "layerOpacity": 1,
+     "min": {
+      "type": "Point",
+      "coordinates": [
+       2601683.062752551,
+       1197303.8540714304
+      ],
+      "crs": "EPSG:2056"
+     },
+     "max": {
+      "type": "Point",
+      "coordinates": [
+       2601786.2632474466,
+       1197362.466928572
+      ],
+      "crs": "EPSG:2056"
+     }
+    },
+    "PlanForLandRegisterMainPage": {
+     "ReferenceWMS": [
+      {
+       "Language": "de",
+       "Text": "https://geodienste.ch/db/av_situationsplan_0/deu?SERVICE=WMS&VERSION=1.3.0&REQUEST=GetMap&CRS=EPSG%3A2056&BBOX=2601683.062752551%2C1197303.8540714304%2C2601786.2632474466%2C1197362.466928572&WIDTH=493&HEIGHT=280&LAYERS=daten%2Cnational_maps_grey&STYLES=%2C%2C&EXCEPTIONS=XML&FORMAT=image%2Fpng&BGCOLOR=0xFEFFFF&TRANSPARENT=TRUE&SRS=EPSG%3A2056"
+      }
+     ],
+     "layerIndex": 0,
+     "layerOpacity": 1,
+     "min": {
+      "type": "Point",
+      "coordinates": [
+       2601683.062752551,
+       1197303.8540714304
+      ],
+      "crs": "EPSG:2056"
+     },
+     "max": {
+      "type": "Point",
+      "coordinates": [
+       2601786.2632474466,
+       1197362.466928572
+      ],
+      "crs": "EPSG:2056"
+     }
+    },
+    "Number": "5711",
+    "IdentDN": "BE0200000051",
+    "EGRID": "CH586746359755",
+    "RestrictionOnLandownership": [
+     {
+      "LegendText": [
+       {
+        "Language": "de",
+        "Text": "Wohnzone (Art. 29 BauR), Bauklasse IIa (Art. 53 BauR)"
+       }
+      ],
+      "Theme": {
+       "Code": "ch.Nutzungsplanung",
+       "Text": [
+        {
+         "Language": "de",
+         "Text": "Zonenflächen der Grundnutzung"
+        }
+       ],
+       "SubCode": "ch.NutzungsplanungGrundnutzung"
+      },
+      "Lawstatus": {
+       "Code": "inForce",
+       "Text": [
+        {
+         "Language": "de",
+         "Text": "Rechtskräftig"
+        }
+       ]
+      },
+      "ResponsibleOffice": {
+       "Name": [
+        {
+         "Language": "de",
+         "Text": "Gemeinde Köniz"
+        }
+       ],
+       "OfficeAtWeb": [
+        {
+         "Language": "de",
+         "Text": "https://www.koeniz.ch"
+        }
+       ]
+      },
+      "Map": {
+       "ReferenceWMS": [
+        {
+         "Language": "de",
+         "Text": "https://oerebservice.apps.be.ch/cgi-bin/mapserv.fcgi?MAP=oereb_de&VERSION=1.3.0&REQUEST=GetMap&SERVICE=WMS&CRS=EPSG%3A2056&BBOX=2601683.062752551%2C1197303.8540714304%2C2601786.2632474466%2C1197362.466928572&WIDTH=493&HEIGHT=280&EXCEPTIONS=xml&FORMAT=image%2Fpng&BGCOLOR=0xFFFFFF&TRANSPARENT=TRUE&LAYERS=geodb.nupla_gngruzo&SRS=EPSG%3A2056"
+        }
+       ],
+       "OtherLegend": [
+        {
+         "LegendText": [
+          {
+           "Language": "de",
+           "Text": "Landwirtschaftszone (Art. 39 BauR)"
+          }
+         ],
+         "TypeCode": "124_118",
+         "TypeCodelist": "fdc46dc8-23dc-4dce-87a0-d238cc5f4a59",
+         "Theme": {
+          "Code": "ch.Nutzungsplanung",
+          "Text": [
+           {
+            "Language": "de",
+            "Text": "Zonenflächen der Grundnutzung"
+           }
+          ],
+          "SubCode": "ch.NutzungsplanungGrundnutzung"
+         },
+         "SymbolRef": "https://www.oereb2.apps.be.ch/image/symbol/ch.Nutzungsplanung/legend_entry.png?identifier=f535aba2-c426-4b0e-8541-17d827909417"
+        },
+        {
+         "LegendText": [
+          {
+           "Language": "de",
+           "Text": "Verkehrszone Strasse (Art. 40 BauR)"
+          }
+         ],
+         "TypeCode": "133_206",
+         "TypeCodelist": "bda5d74b-f8ae-4b89-925b-b8c4d4ac739a",
+         "Theme": {
+          "Code": "ch.Nutzungsplanung",
+          "Text": [
+           {
+            "Language": "de",
+            "Text": "Zonenflächen der Grundnutzung"
+           }
+          ],
+          "SubCode": "ch.NutzungsplanungGrundnutzung"
+         },
+         "SymbolRef": "https://www.oereb2.apps.be.ch/image/symbol/ch.Nutzungsplanung/legend_entry.png?identifier=cee818a9-963c-4fd4-a845-1f7219d795ea"
+        }
+       ],
+       "layerIndex": 1,
+       "layerOpacity": 0.75,
+       "min": {
+        "type": "Point",
+        "coordinates": [
+         600000,
+         200000
+        ],
+        "crs": "EPSG:2056"
+       },
+       "max": {
+        "type": "Point",
+        "coordinates": [
+         600200,
+         200200
+        ],
+        "crs": "EPSG:2056"
+       }
+      },
+      "SymbolRef": "https://www.oereb2.apps.be.ch/image/symbol/ch.Nutzungsplanung/legend_entry.png?identifier=69c4497d-1356-4121-8f15-4b18cc461679",
+      "AreaShare": 761,
+      "TypeCode": "102_2",
+      "TypeCodelist": "1b162682-d677-46fb-bc8e-8ebd54d5b2ff",
+      "PartInPercent": 100,
+      "LegalProvisions": [
+       {
+        "Type": {
+         "Code": "Law",
+         "Text": [
+          {
+           "Language": "de",
+           "Text": "Gesetzliche Grundlage"
+          }
+         ]
+        },
+        "Index": 10,
+        "Title": [
+         {
+          "Language": "de",
+          "Text": "Bundesgesetz über die Raumplanung"
+         }
+        ],
+        "Lawstatus": {
+         "Code": "inForce",
+         "Text": [
+          {
+           "Language": "de",
+           "Text": "Rechtskräftig"
+          }
+         ]
+        },
+        "TextAtWeb": [
+         {
+          "Language": "de",
+          "Text": "https://www.fedlex.admin.ch/eli/cc/1979/1573_1573_1573/de"
+         }
+        ],
+        "ResponsibleOffice": {
+         "Name": [
+          {
+           "Language": "de",
+           "Text": "Bundeskanzlei"
+          }
+         ],
+         "OfficeAtWeb": [
+          {
+           "Language": "de",
+           "Text": "https://www.bk.admin.ch"
+          }
+         ],
+         "UID": "CHE263297189"
+        },
+        "Abbreviation": [
+         {
+          "Language": "de",
+          "Text": "RPG"
+         }
+        ],
+        "OfficialNumber": [
+         {
+          "Language": "de",
+          "Text": "SR 700"
+         }
+        ]
+       },
+       {
+        "Type": {
+         "Code": "Law",
+         "Text": [
+          {
+           "Language": "de",
+           "Text": "Gesetzliche Grundlage"
+          }
+         ]
+        },
+        "Index": 910,
+        "Title": [
+         {
+          "Language": "de",
+          "Text": "Baugesetz"
+         }
+        ],
+        "Lawstatus": {
+         "Code": "inForce",
+         "Text": [
+          {
+           "Language": "de",
+           "Text": "Rechtskräftig"
+          }
+         ]
+        },
+        "TextAtWeb": [
+         {
+          "Language": "de",
+          "Text": "https://www.belex.sites.be.ch/data/721.0/de"
+         }
+        ],
+        "ResponsibleOffice": {
+         "Name": [
+          {
+           "Language": "de",
+           "Text": "Staatskanzlei des Kantons Bern"
+          }
+         ],
+         "OfficeAtWeb": [
+          {
+           "Language": "de",
+           "Text": "https://www.sta.be.ch"
+          }
+         ],
+         "UID": "CHE105620392"
+        },
+        "Abbreviation": [
+         {
+          "Language": "de",
+          "Text": "BauG"
+         }
+        ],
+        "OfficialNumber": [
+         {
+          "Language": "de",
+          "Text": "BSG 721.0"
+         }
+        ]
+       },
+       {
+        "Type": {
+         "Code": "Law",
+         "Text": [
+          {
+           "Language": "de",
+           "Text": "Gesetzliche Grundlage"
+          }
+         ]
+        },
+        "Index": 915,
+        "Title": [
+         {
+          "Language": "de",
+          "Text": "Bauverordnung"
+         }
+        ],
+        "Lawstatus": {
+         "Code": "inForce",
+         "Text": [
+          {
+           "Language": "de",
+           "Text": "Rechtskräftig"
+          }
+         ]
+        },
+        "TextAtWeb": [
+         {
+          "Language": "de",
+          "Text": "https://www.belex.sites.be.ch/data/721.1/de"
+         }
+        ],
+        "ResponsibleOffice": {
+         "Name": [
+          {
+           "Language": "de",
+           "Text": "Staatskanzlei des Kantons Bern"
+          }
+         ],
+         "OfficeAtWeb": [
+          {
+           "Language": "de",
+           "Text": "https://www.sta.be.ch"
+          }
+         ],
+         "UID": "CHE105620392"
+        },
+        "Abbreviation": [
+         {
+          "Language": "de",
+          "Text": "BauV"
+         }
+        ],
+        "OfficialNumber": [
+         {
+          "Language": "de",
+          "Text": "BSG 721.1"
+         }
+        ]
+       },
+       {
+        "Type": {
+         "Code": "LegalProvision",
+         "Text": [
+          {
+           "Language": "de",
+           "Text": "Rechtsvorschrift"
+          }
+         ]
+        },
+        "Index": 100,
+        "Title": [
+         {
+          "Language": "de",
+          "Text": "Baureglement Gemeinde Koeniz Fassung vom 23. September 2018"
+         }
+        ],
+        "Lawstatus": {
+         "Code": "inForce",
+         "Text": [
+          {
+           "Language": "de",
+           "Text": "Rechtskräftig"
+          }
+         ]
+        },
+        "TextAtWeb": [
+         {
+          "Language": "de",
+          "Text": "https://oerebfiles.apps.be.ch/35501/6862/721.0_Baureglement.pdf"
+         }
+        ],
+        "ResponsibleOffice": {
+         "Name": [
+          {
+           "Language": "de",
+           "Text": "Gemeinde Köniz"
+          }
+         ],
+         "OfficeAtWeb": [
+          {
+           "Language": "de",
+           "Text": "https://www.koeniz.ch"
+          }
+         ]
+        }
+       }
+      ]
+     },
+     {
+      "LegendText": [
+       {
+        "Language": "de",
+        "Text": "Genehmigter Sicherheitszonenperimeter"
+       }
+      ],
+      "Theme": {
+       "Code": "ch.Sicherheitszonenplan",
+       "Text": [
+        {
+         "Language": "de",
+         "Text": "Sicherheitszonenplan"
+        }
+       ]
+      },
+      "Lawstatus": {
+       "Code": "inForce",
+       "Text": [
+        {
+         "Language": "de",
+         "Text": "Rechtskräftig"
+        }
+       ]
+      },
+      "ResponsibleOffice": {
+       "Name": [
+        {
+         "Language": "de",
+         "Text": "Bundesamt für Zivilluftfahrt BAZL"
+        }
+       ],
+       "OfficeAtWeb": [
+        {
+         "Language": "de",
+         "Text": "https://www.bazl.admin.ch/de"
+        }
+       ],
+       "UID": "CHE188858471"
+      },
+      "Map": {
+       "ReferenceWMS": [
+        {
+         "Language": "de",
+         "Text": "https://wms.geo.admin.ch/?SERVICE=WMS&REQUEST=GetMap&VERSION=1.3.0&LAYERS=ch.bazl.sicherheitszonenplan_v2_0.oereb&STYLES=default&CRS=EPSG%3A2056&BBOX=2601683.062752551%2C1197303.8540714304%2C2601786.2632474466%2C1197362.466928572&WIDTH=493&HEIGHT=280&FORMAT=image%2Fpng&LANG=de&SRS=EPSG%3A2056"
+        }
+       ],
+       "layerIndex": 1,
+       "layerOpacity": 0.75,
+       "min": {
+        "type": "Point",
+        "coordinates": [
+         2601683.062752551,
+         1197303.8540714304
+        ],
+        "crs": "EPSG:2056"
+       },
+       "max": {
+        "type": "Point",
+        "coordinates": [
+         2601786.2632474466,
+         1197362.466928572
+        ],
+        "crs": "EPSG:2056"
+       }
+      },
+      "SymbolRef": "https://www.oereb2.apps.be.ch/image/symbol/ch.Sicherheitszonenplan/legend_entry.png?identifier=ch20bn9n00016913",
+      "AreaShare": 761,
+      "TypeCode": "108-T-01",
+      "TypeCodelist": "https://models.geo.admin.ch/BAZL/SafetyZonePlan_Catalogues_V1_3.xml",
+      "PartInPercent": 100,
+      "LegalProvisions": [
+       {
+        "Type": {
+         "Code": "Law",
+         "Text": [
+          {
+           "Language": "de",
+           "Text": "Gesetzliche Grundlage"
+          }
+         ]
+        },
+        "Index": 310,
+        "Title": [
+         {
+          "Language": "de",
+          "Text": "Bundesgesetz über die Luftfahrt"
+         }
+        ],
+        "Lawstatus": {
+         "Code": "inForce",
+         "Text": [
+          {
+           "Language": "de",
+           "Text": "Rechtskräftig"
+          }
+         ]
+        },
+        "TextAtWeb": [
+         {
+          "Language": "de",
+          "Text": "https://www.fedlex.admin.ch/eli/cc/1950/471_491_479/de"
+         }
+        ],
+        "ResponsibleOffice": {
+         "Name": [
+          {
+           "Language": "de",
+           "Text": "Bundeskanzlei"
+          }
+         ],
+         "OfficeAtWeb": [
+          {
+           "Language": "de",
+           "Text": "https://www.bk.admin.ch"
+          }
+         ],
+         "UID": "CHE263297189"
+        },
+        "Abbreviation": [
+         {
+          "Language": "de",
+          "Text": "LFG"
+         }
+        ],
+        "OfficialNumber": [
+         {
+          "Language": "de",
+          "Text": "SR 748.0"
+         }
+        ]
+       },
+       {
+        "Type": {
+         "Code": "Law",
+         "Text": [
+          {
+           "Language": "de",
+           "Text": "Gesetzliche Grundlage"
+          }
+         ]
+        },
+        "Index": 320,
+        "Title": [
+         {
+          "Language": "de",
+          "Text": "Verordnung über die Infrastruktur der Luftfahrt"
+         }
+        ],
+        "Lawstatus": {
+         "Code": "inForce",
+         "Text": [
+          {
+           "Language": "de",
+           "Text": "Rechtskräftig"
+          }
+         ]
+        },
+        "TextAtWeb": [
+         {
+          "Language": "de",
+          "Text": "https://www.fedlex.admin.ch/eli/cc/1994/3050_3050_3050/de"
+         }
+        ],
+        "ResponsibleOffice": {
+         "Name": [
+          {
+           "Language": "de",
+           "Text": "Bundeskanzlei"
+          }
+         ],
+         "OfficeAtWeb": [
+          {
+           "Language": "de",
+           "Text": "https://www.bk.admin.ch"
+          }
+         ],
+         "UID": "CHE263297189"
+        },
+        "Abbreviation": [
+         {
+          "Language": "de",
+          "Text": "VIL"
+         }
+        ],
+        "OfficialNumber": [
+         {
+          "Language": "de",
+          "Text": "SR 748.131.1"
+         }
+        ]
+       },
+       {
+        "Type": {
+         "Code": "LegalProvision",
+         "Text": [
+          {
+           "Language": "de",
+           "Text": "Rechtsvorschrift"
+          }
+         ]
+        },
+        "Index": 1,
+        "Title": [
+         {
+          "Language": "de",
+          "Text": "Sicherheitszonenplan \"Flughafen Bern-Belp\", 1:5000"
+         }
+        ],
+        "Lawstatus": {
+         "Code": "inForce",
+         "Text": [
+          {
+           "Language": "de",
+           "Text": "Rechtskräftig"
+          }
+         ]
+        },
+        "TextAtWeb": [
+         {
+          "Language": "de",
+          "Text": "https://data.geo.admin.ch/ch.bazl.sicherheitszonenplan_v2_0.oereb/Rechtsvorschriften/108-D-0075.pdf"
+         }
+        ],
+        "ResponsibleOffice": {
+         "Name": [
+          {
+           "Language": "de",
+           "Text": "Bundesamt für Zivilluftfahrt BAZL"
+          }
+         ],
+         "OfficeAtWeb": [
+          {
+           "Language": "de",
+           "Text": "https://www.bazl.admin.ch/de"
+          }
+         ],
+         "UID": "CHE188858471"
+        }
+       },
+       {
+        "Type": {
+         "Code": "Hint",
+         "Text": [
+          {
+           "Language": "de",
+           "Text": "Hinweis"
+          }
+         ]
+        },
+        "Index": 1,
+        "Title": [
+         {
+          "Language": "de",
+          "Text": "Wichtige Hinweise"
+         }
+        ],
+        "Lawstatus": {
+         "Code": "inForce",
+         "Text": [
+          {
+           "Language": "de",
+           "Text": "Rechtskräftig"
+          }
+         ]
+        },
+        "TextAtWeb": [
+         {
+          "Language": "de",
+          "Text": "https://data.geo.admin.ch/ch.bazl.sicherheitszonenplan_v2_0.oereb/Rechtsvorschriften/108-INFO-D.pdf"
+         }
+        ],
+        "ResponsibleOffice": {
+         "Name": [
+          {
+           "Language": "de",
+           "Text": "Bundesamt für Zivilluftfahrt BAZL"
+          }
+         ],
+         "OfficeAtWeb": [
+          {
+           "Language": "de",
+           "Text": "https://www.bazl.admin.ch/de"
+          }
+         ],
+         "UID": "CHE188858471"
+        }
+       },
+       {
+        "Type": {
+         "Code": "LegalProvision",
+         "Text": [
+          {
+           "Language": "de",
+           "Text": "Rechtsvorschrift"
+          }
+         ]
+        },
+        "Index": 1,
+        "Title": [
+         {
+          "Language": "de",
+          "Text": "Plangenehmigung \"Pistenverlängerung Flughafen Bern-Belp\""
+         }
+        ],
+        "Lawstatus": {
+         "Code": "inForce",
+         "Text": [
+          {
+           "Language": "de",
+           "Text": "Rechtskräftig"
+          }
+         ]
+        },
+        "TextAtWeb": [
+         {
+          "Language": "de",
+          "Text": "https://data.geo.admin.ch/ch.bazl.sicherheitszonenplan_v2_0.oereb/Rechtsvorschriften/108-D-0076.pdf"
+         }
+        ],
+        "ResponsibleOffice": {
+         "Name": [
+          {
+           "Language": "de",
+           "Text": "Bundesamt für Zivilluftfahrt BAZL"
+          }
+         ],
+         "OfficeAtWeb": [
+          {
+           "Language": "de",
+           "Text": "https://www.bazl.admin.ch/de"
+          }
+         ],
+         "UID": "CHE188858471"
+        }
+       }
+      ]
+     },
+     {
+      "LegendText": [
+       {
+        "Language": "de",
+        "Text": "übriger Bereich üB"
+       }
+      ],
+      "Theme": {
+       "Code": "ch.BE.Gewaesserschutzbereiche",
+       "Text": [
+        {
+         "Language": "de",
+         "Text": "Gewässerschutzbereiche (Zusatzinformation nach Art. 8b Abs. 1 Bst. b ÖREBKV)"
+        }
+       ]
+      },
+      "Lawstatus": {
+       "Code": "inForce",
+       "Text": [
+        {
+         "Language": "de",
+         "Text": "Rechtskräftig"
+        }
+       ]
+      },
+      "ResponsibleOffice": {
+       "Name": [
+        {
+         "Language": "de",
+         "Text": "Amt für Wasser und Abfall des Kantons Bern"
+        }
+       ],
+       "OfficeAtWeb": [
+        {
+         "Language": "de",
+         "Text": "https://www.bvd.be.ch/de/start/themen/wasser/gewaesserschutz/grundwasserschutz.html"
+        }
+       ]
+      },
+      "Map": {
+       "ReferenceWMS": [
+        {
+         "Language": "de",
+         "Text": "https://oerebservice.apps.be.ch/cgi-bin/mapserv.fcgi?MAP=oereb_de&VERSION=1.3.0&REQUEST=GetMap&CRS=EPSG%3A2056&BBOX=2601683.062752551%2C1197303.8540714304%2C2601786.2632474466%2C1197362.466928572&WIDTH=493&HEIGHT=280&EXCEPTIONS=xml&FORMAT=image%2Fpng&BGCOLOR=0xFFFFFF&TRANSPARENT=TRUE&LAYERS=geodb.gsk25_gsk_protection%2Cgeodb.gsk25_gskzu&SRS=EPSG%3A2056"
+        }
+       ],
+       "layerIndex": 1,
+       "layerOpacity": 0.75,
+       "min": {
+        "type": "Point",
+        "coordinates": [
+         600000,
+         200000
+        ],
+        "crs": "EPSG:2056"
+       },
+       "max": {
+        "type": "Point",
+        "coordinates": [
+         600200,
+         200200
+        ],
+        "crs": "EPSG:2056"
+       }
+      },
+      "SymbolRef": "https://www.oereb2.apps.be.ch/image/symbol/ch.BE.Gewaesserschutzbereiche/legend_entry.png?identifier=291a03e6-f7a6-469a-ab3c-27b32b2cc890",
+      "AreaShare": 761,
+      "TypeCode": "ef5bf357-837e-4f0c-b95d-e5b618a8e5b1",
+      "TypeCodelist": "1e2003dc-775f-471c-a270-0226f7868508",
+      "PartInPercent": 100,
+      "LegalProvisions": [
+       {
+        "Type": {
+         "Code": "Law",
+         "Text": [
+          {
+           "Language": "de",
+           "Text": "Gesetzliche Grundlage"
+          }
+         ]
+        },
+        "Index": 940,
+        "Title": [
+         {
+          "Language": "de",
+          "Text": "Wasserversorgungsgesetz"
+         }
+        ],
+        "Lawstatus": {
+         "Code": "inForce",
+         "Text": [
+          {
+           "Language": "de",
+           "Text": "Rechtskräftig"
+          }
+         ]
+        },
+        "TextAtWeb": [
+         {
+          "Language": "de",
+          "Text": "https://www.belex.sites.be.ch/data/752.32/de"
+         }
+        ],
+        "ResponsibleOffice": {
+         "Name": [
+          {
+           "Language": "de",
+           "Text": "Staatskanzlei des Kantons Bern"
+          }
+         ],
+         "OfficeAtWeb": [
+          {
+           "Language": "de",
+           "Text": "https://www.sta.be.ch"
+          }
+         ],
+         "UID": "CHE105620392"
+        },
+        "Abbreviation": [
+         {
+          "Language": "de",
+          "Text": "WVG"
+         }
+        ],
+        "OfficialNumber": [
+         {
+          "Language": "de",
+          "Text": "BSG 752.32"
+         }
+        ]
+       },
+       {
+        "Type": {
+         "Code": "Law",
+         "Text": [
+          {
+           "Language": "de",
+           "Text": "Gesetzliche Grundlage"
+          }
+         ]
+        },
+        "Index": 945,
+        "Title": [
+         {
+          "Language": "de",
+          "Text": "Wasserversorgungsverordnung"
+         }
+        ],
+        "Lawstatus": {
+         "Code": "inForce",
+         "Text": [
+          {
+           "Language": "de",
+           "Text": "Rechtskräftig"
+          }
+         ]
+        },
+        "TextAtWeb": [
+         {
+          "Language": "de",
+          "Text": "https://www.belex.sites.be.ch/data/752.321.1/de"
+         }
+        ],
+        "ResponsibleOffice": {
+         "Name": [
+          {
+           "Language": "de",
+           "Text": "Staatskanzlei des Kantons Bern"
+          }
+         ],
+         "OfficeAtWeb": [
+          {
+           "Language": "de",
+           "Text": "https://www.sta.be.ch"
+          }
+         ],
+         "UID": "CHE105620392"
+        },
+        "Abbreviation": [
+         {
+          "Language": "de",
+          "Text": "WVV"
+         }
+        ],
+        "OfficialNumber": [
+         {
+          "Language": "de",
+          "Text": "BSG 752.321.1"
+         }
+        ]
+       },
+       {
+        "Type": {
+         "Code": "Hint",
+         "Text": [
+          {
+           "Language": "de",
+           "Text": "Hinweis"
+          }
+         ]
+        },
+        "Index": 1,
+        "Title": [
+         {
+          "Language": "de",
+          "Text": "Die behördenverbindlichen Gewässerschutzbereiche sind bei der Beurteilung von Bauvorhaben relevant. Da sie lediglich mittelbar grundeigentümerverbindlich sind, erscheinen sie im ÖREB-Kataster als Zusatzinformation gemäss Artikel 8b ÖREBKV."
+         }
+        ],
+        "Lawstatus": {
+         "Code": "inForce",
+         "Text": [
+          {
+           "Language": "de",
+           "Text": "Rechtskräftig"
+          }
+         ]
+        },
+        "TextAtWeb": [
+         {
+          "Language": "de",
+          "Text": ""
+         }
+        ],
+        "ResponsibleOffice": {
+         "Name": [
+          {
+           "Language": "de",
+           "Text": "Amt für Wasser und Abfall des Kantons Bern"
+          }
+         ],
+         "OfficeAtWeb": [
+          {
+           "Language": "de",
+           "Text": "https://www.bvd.be.ch/de/start/themen/wasser/gewaesserschutz/grundwasserschutz.html"
+          }
+         ]
+        }
+       },
+       {
+        "Type": {
+         "Code": "LegalProvision",
+         "Text": [
+          {
+           "Language": "de",
+           "Text": "Rechtsvorschrift"
+          }
+         ]
+        },
+        "Index": 1,
+        "Title": [
+         {
+          "Language": "de",
+          "Text": "Reglement"
+         }
+        ],
+        "Lawstatus": {
+         "Code": "inForce",
+         "Text": [
+          {
+           "Language": "de",
+           "Text": "Rechtskräftig"
+          }
+         ]
+        },
+        "TextAtWeb": [
+         {
+          "Language": "de",
+          "Text": "https://oerebfiles.apps.be.ch/1131/7062/RechtsvorschriftenGewaesserschutzbereiche.pdf"
+         }
+        ],
+        "ResponsibleOffice": {
+         "Name": [
+          {
+           "Language": "de",
+           "Text": "Amt für Wasser und Abfall des Kantons Bern"
+          }
+         ],
+         "OfficeAtWeb": [
+          {
+           "Language": "de",
+           "Text": "https://www.bvd.be.ch/de/start/themen/wasser/gewaesserschutz/grundwasserschutz.html"
+          }
+         ]
+        }
+       }
+      ]
+     }
+    ]
+   },
+   "ConcernedTheme": [
+    {
+     "Code": "ch.Nutzungsplanung",
+     "Text": [
+      {
+       "Language": "de",
+       "Text": "Kommunale Nutzungsplanung"
+      }
+     ]
+    },
+    {
+     "Code": "ch.Sicherheitszonenplan",
+     "Text": [
+      {
+       "Language": "de",
+       "Text": "Sicherheitszonenplan"
+      }
+     ]
+    },
+    {
+     "Code": "ch.BE.Gewaesserschutzbereiche",
+     "Text": [
+      {
+       "Language": "de",
+       "Text": "Gewässerschutzbereiche (Zusatzinformation nach Art. 8b Abs. 1 Bst. b ÖREBKV)"
+      }
+     ]
+    }
+   ],
+   "NotConcernedTheme": [
+    {
+     "Code": "ch.Planungszonen",
+     "Text": [
+      {
+       "Language": "de",
+       "Text": "Kommunale Planungszonen"
+      }
+     ]
+    },
+    {
+     "Code": "ch.BE.RegionalePlanungszonen",
+     "Text": [
+      {
+       "Language": "de",
+       "Text": "Regionale Planungszonen"
+      }
+     ]
+    },
+    {
+     "Code": "ch.BE.KantonalePlanungszonen",
+     "Text": [
+      {
+       "Language": "de",
+       "Text": "Kantonale Planungszonen"
+      }
+     ]
+    },
+    {
+     "Code": "ch.BE.RegionaleNutzungsplanung",
+     "Text": [
+      {
+       "Language": "de",
+       "Text": "Regionale Nutzungsplanung"
+      }
+     ]
+    },
+    {
+     "Code": "ch.BE.KantonaleNutzungsplanung",
+     "Text": [
+      {
+       "Language": "de",
+       "Text": "Kantonale Nutzungsplanung"
+      }
+     ]
+    },
+    {
+     "Code": "ch.ProjektierungszonenNationalstrassen",
+     "Text": [
+      {
+       "Language": "de",
+       "Text": "Projektierungszonen Nationalstrassen"
+      }
+     ]
+    },
+    {
+     "Code": "ch.BaulinienNationalstrassen",
+     "Text": [
+      {
+       "Language": "de",
+       "Text": "Baulinien Nationalstrassen"
+      }
+     ]
+    },
+    {
+     "Code": "ch.BE.BaulinienKantonsstrassen",
+     "Text": [
+      {
+       "Language": "de",
+       "Text": "Baulinien Kantonsstrassen"
+      }
+     ]
+    },
+    {
+     "Code": "ch.ProjektierungszonenEisenbahnanlagen",
+     "Text": [
+      {
+       "Language": "de",
+       "Text": "Projektierungszonen Eisenbahnanlagen"
+      }
+     ]
+    },
+    {
+     "Code": "ch.BaulinienEisenbahnanlagen",
+     "Text": [
+      {
+       "Language": "de",
+       "Text": "Baulinien Eisenbahnanlagen"
+      }
+     ]
+    },
+    {
+     "Code": "ch.ProjektierungszonenFlughafenanlagen",
+     "Text": [
+      {
+       "Language": "de",
+       "Text": "Projektierungszonen Flughafenanlagen"
+      }
+     ]
+    },
+    {
+     "Code": "ch.BaulinienFlughafenanlagen",
+     "Text": [
+      {
+       "Language": "de",
+       "Text": "Baulinien Flughafenanlagen"
+      }
+     ]
+    },
+    {
+     "Code": "ch.BelasteteStandorte",
+     "Text": [
+      {
+       "Language": "de",
+       "Text": "Kataster der belasteten Standorte"
+      }
+     ]
+    },
+    {
+     "Code": "ch.BelasteteStandorteMilitaer",
+     "Text": [
+      {
+       "Language": "de",
+       "Text": "Kataster der belasteten Standorte im Bereich des Militärs"
+      }
+     ]
+    },
+    {
+     "Code": "ch.BelasteteStandorteZivileFlugplaetze",
+     "Text": [
+      {
+       "Language": "de",
+       "Text": "Kataster der belasteten Standorte im Bereich der zivilen Flugplätze"
+      }
+     ]
+    },
+    {
+     "Code": "ch.BelasteteStandorteOeffentlicherVerkehr",
+     "Text": [
+      {
+       "Language": "de",
+       "Text": "Kataster der belasteten Standorte im Bereich des öffentlichen Verkehrs"
+      }
+     ]
+    },
+    {
+     "Code": "ch.Grundwasserschutzzonen",
+     "Text": [
+      {
+       "Language": "de",
+       "Text": "Grundwasserschutzzonen"
+      }
+     ]
+    },
+    {
+     "Code": "ch.Grundwasserschutzareale",
+     "Text": [
+      {
+       "Language": "de",
+       "Text": "Grundwasserschutzareale"
+      }
+     ]
+    },
+    {
+     "Code": "ch.Gewaesserraum",
+     "Text": [
+      {
+       "Language": "de",
+       "Text": "Gewässerraum (in kommunalen Nutzungszonen)"
+      }
+     ]
+    },
+    {
+     "Code": "ch.BE.RegionalerGewaesserraum",
+     "Text": [
+      {
+       "Language": "de",
+       "Text": "Gewässerraum (in regionalen Nutzungszonen)"
+      }
+     ]
+    },
+    {
+     "Code": "ch.BE.KantonalerGewaesserraum",
+     "Text": [
+      {
+       "Language": "de",
+       "Text": "Gewässerraum (in kantonalen Nutzungszonen)"
+      }
+     ]
+    },
+    {
+     "Code": "ch.BE.Ueberflutungsgebiet",
+     "Text": [
+      {
+       "Language": "de",
+       "Text": "Wasserbauplan, Überflutungsgebiet"
+      }
+     ]
+    },
+    {
+     "Code": "ch.Laermempfindlichkeitsstufen",
+     "Text": [
+      {
+       "Language": "de",
+       "Text": "Lärmempfindlichkeitsstufen (in kommunalen Nutzungszonen)"
+      }
+     ]
+    },
+    {
+     "Code": "ch.BE.RegionaleLaermempfindlichkeitsstufen",
+     "Text": [
+      {
+       "Language": "de",
+       "Text": "Lärmempfindlichkeitsstufen (in regionalen Nutzungszonen)"
+      }
+     ]
+    },
+    {
+     "Code": "ch.BE.KantonaleLaermempfindlichkeitsstufen",
+     "Text": [
+      {
+       "Language": "de",
+       "Text": "Lärmempfindlichkeitsstufen (in kantonalen Nutzungszonen)"
+      }
+     ]
+    },
+    {
+     "Code": "ch.StatischeWaldgrenzen",
+     "Text": [
+      {
+       "Language": "de",
+       "Text": "Statische Waldgrenzen"
+      }
+     ]
+    },
+    {
+     "Code": "ch.Waldabstandslinien",
+     "Text": [
+      {
+       "Language": "de",
+       "Text": "Kommunale Wald-Baulinien"
+      }
+     ]
+    },
+    {
+     "Code": "ch.BE.RegionaleWaldabstandslinien",
+     "Text": [
+      {
+       "Language": "de",
+       "Text": "Regionale Wald-Baulinien"
+      }
+     ]
+    },
+    {
+     "Code": "ch.BE.KantonaleWaldabstandslinien",
+     "Text": [
+      {
+       "Language": "de",
+       "Text": "Kantonale Wald-Baulinien"
+      }
+     ]
+    },
+    {
+     "Code": "ch.Waldreservate",
+     "Text": [
+      {
+       "Language": "de",
+       "Text": "Waldreservate"
+      }
+     ]
+    },
+    {
+     "Code": "ch.ProjektierungszonenStarkstromanlagen",
+     "Text": [
+      {
+       "Language": "de",
+       "Text": "Projektierungszonen Leitungen mit einer Nennspannung von 220 kV oder höher"
+      }
+     ]
+    },
+    {
+     "Code": "ch.BaulinienStarkstromanlagen",
+     "Text": [
+      {
+       "Language": "de",
+       "Text": "Baulinien Starkstromanlagen"
+      }
+     ]
+    },
+    {
+     "Code": "ch.BE.GeschuetzteGeologischeObjekte",
+     "Text": [
+      {
+       "Language": "de",
+       "Text": "Geschützte geologische Objekte regionaler Bedeutung"
+      }
+     ]
+    },
+    {
+     "Code": "ch.BE.GeschuetzteBotanischeObjekte",
+     "Text": [
+      {
+       "Language": "de",
+       "Text": "Geschützte botanische Objekte regionaler Bedeutung"
+      }
+     ]
+    },
+    {
+     "Code": "ch.BE.KantonaleNaturschutzgebiete",
+     "Text": [
+      {
+       "Language": "de",
+       "Text": "Kantonale Naturschutzgebiete"
+      }
+     ]
+    },
+    {
+     "Code": "ch.BE.SachplanBiodiversitaet",
+     "Text": [
+      {
+       "Language": "de",
+       "Text": "Sachplan Biodiversität (Zusatzinformation nach Art. 8b Abs. 1 Bst. b ÖREBKV)"
+      }
+     ]
+    },
+    {
+     "Code": "ch.BE.Bauinventar",
+     "Text": [
+      {
+       "Language": "de",
+       "Text": "Bauinventar (Zusatzinformation nach Art. 8b Abs. 1 Bst. b ÖREBKV)"
+      }
+     ]
+    },
+    {
+     "Code": "ch.BE.ArchaeologischesInventar",
+     "Text": [
+      {
+       "Language": "de",
+       "Text": "Archäologisches Inventar (Zusatzinformation nach Art. 8b Abs. 1 Bst. b ÖREBKV)"
+      }
+     ]
+    },
+    {
+     "Code": "ch.BE.Denkmalschutzobjekte",
+     "Text": [
+      {
+       "Language": "de",
+       "Text": "Kantonale Denkmalschutzobjekte"
+      }
+     ]
+    },
+    {
+     "Code": "ch.BE.Naturgefahren",
+     "Text": [
+      {
+       "Language": "de",
+       "Text": "Naturgefahrenkarte (Zusatzinformation nach Art. 8b Abs. 1 Bst. b ÖREBKV)"
+      }
+     ]
+    }
+   ],
+   "ThemeWithoutData": [
+    {
+     "Code": "ch.BE.LeitungenWasser",
+     "Text": [
+      {
+       "Language": "de",
+       "Text": "Gesicherte öffentliche Leitungen"
+      }
+     ]
+    }
+   ],
+   "LogoPLRCadastreRef": "https://www.oereb2.apps.be.ch/image/logo/oereb/de.png",
+   "FederalLogoRef": "https://www.oereb2.apps.be.ch/image/logo/confederation/de.png",
+   "CantonalLogoRef": "https://www.oereb2.apps.be.ch/image/logo/canton/de.png",
+   "MunicipalityLogoRef": "https://www.oereb2.apps.be.ch/image/logo/municipality/de.png?fosnr=355",
+   "QRCodeRef": "https://www.oereb2.apps.be.ch/image/qrcode?extract_url=https%3A%2F%2Fwww.oereb2.apps.be.ch%2Fextract%2Fjson%3FEGRID%3DCH586746359755",
+   "GeneralInformation": [
+    [
+     {
+      "Language": "de",
+      "Text": "Der Inhalt des ÖREB-Katasters wird als bekannt vorausgesetzt. Der Kanton Bern ist für die Genauigkeit und Verlässlichkeit der gesetzgebenden Dokumente in elektronischer Form nicht haftbar. Der Auszug hat rein informativen Charakter und begründet insbesondere keine Rechte und Pflichten. Massgeblich sind diejenigen Dokumente, welche rechtskräftig verabschiedet oder veröffentlicht worden sind. Weitere Informationen zum ÖREB-Kataster finden Sie unter www.cadastre.ch"
+     }
+    ]
+   ],
+   "Disclaimer": [
+    {
+     "Title": [
+      {
+       "Language": "de",
+       "Text": "Eigentumsbeschränkungen im Grundbuch"
+      }
+     ],
+     "Content": [
+      {
+       "Language": "de",
+       "Text": "Zusätzlich zu den Angaben in diesem Auszug können Eigentumsbeschränkungen auch im Grundbuch angemerkt sein."
+      }
+     ]
+    },
+    {
+     "Title": [
+      {
+       "Language": "de",
+       "Text": "Haftungsausschluss Kataster der belasteten Standorte (KbS)"
+      }
+     ],
+     "Content": [
+      {
+       "Language": "de",
+       "Text": "Der Kataster der belasteten Standorte (KbS) wurde anhand der vom Bundesamt für Umwelt BAFU festgelegten Kriterien erstellt und wird fortwährend aufgrund neuer Erkenntnisse (z.B. Untersuchungen) aktualisiert. Die im KbS eingetragenen Flächen können vom tatsächlichen Ausmass der Belastung abweichen. Erscheint ein Grundstück nicht im KbS, besteht keine absolute Gewähr, dass das Areal frei von jeglichen Abfall- oder Schadstoffbelastungen ist. Bahnbetrieblich, militärisch und für die Luftfahrt genutzte Standorte liegen im Zuständigkeitsbereich des Bundes."
+      }
+     ]
+    },
+    {
+     "Title": [
+      {
+       "Language": "de",
+       "Text": "Hinweis Lärmempfindlichkeitsstufen (in Nutzungszonen)"
+      }
+     ],
+     "Content": [
+      {
+       "Language": "de",
+       "Text": "Im Kanton Bern werden die Lärmempfindlichkeitsstufen in vielen Gemeinden ausschliesslich im Baureglement definiert und daher im ÖREB-Katasterauszug nicht explizit ausgewiesen. Für Informationen zur Lärmempfindlichkeit muss somit das im Thema kommunale Nutzungsplanung als Rechtsvorschrift hinterlegte Baureglement konsultiert werden."
+      }
+     ]
+    },
+    {
+     "Title": [
+      {
+       "Language": "de",
+       "Text": "Hinweis kommunale Nutzungsplanung"
+      }
+     ],
+     "Content": [
+      {
+       "Language": "de",
+       "Text": "Im Kanton Bern sind die Verkehrsflächen in den kommunalen Zonenplänen nicht immer explizit einer Grundnutzungszone zugewiesen («weisse Flächen»). Bei den im ÖREB-Kataster abgebildeten Daten handelt es sich daher in diesen Bereichen um eine Beurteilung und Anwendung gemäss der bekannten Rechtsprechung."
+      }
+     ]
+    },
+    {
+     "Title": [
+      {
+       "Language": "de",
+       "Text": "Hinweis Wirkungsflächen (von linien- und punktförmigen Festlegungen)"
+      }
+     ],
+     "Content": [
+      {
+       "Language": "de",
+       "Text": "Bei linien- und punktförmigen Festlegungen kann in der Rechtsvorschrift eine Abstandsvorschrift definiert sein, die auch eine Auswirkung auf umliegende Grundstücke haben kann. Die aus der Abstandsvorschrift resultierende Wirkungsfläche wird bei der Auswertung eines Grundstücks nicht aufgeführt. Daher ist es empfehlenswert, sich ebenfalls einen Überblick über die nahegelegenen linien- und punktförmigen Festlegungen und deren Rechtsvorschriften zu verschaffen."
+      }
+     ]
+    },
+    {
+     "Title": [
+      {
+       "Language": "de",
+       "Text": "Hinweis Änderungen"
+      }
+     ],
+     "Content": [
+      {
+       "Language": "de",
+       "Text": "Bei folgenden Themen werden allfällige Änderungen angezeigt: Sicherheitszonenplan, kantonale Naturschutzgebiete. Bei allen anderen Themen informiert der ÖREB-Kataster momentan nicht über Änderungen."
+      }
+     ]
+    },
+    {
+     "Title": [
+      {
+       "Language": "de",
+       "Text": "Hinweis Landumlegungen"
+      }
+     ],
+     "Content": [
+      {
+       "Language": "de",
+       "Text": "Befindet sich ein Grundstück in einer Landumlegung, so beginnt die Grundstücksnummer im Kanton Bern mit einem Präfix. Zwischen dem Neulandantritt und dem Eintrag ins Grundbuch wird auch beim E-GRID eine inoffizielle Bezeichnung generiert."
+      }
+     ]
+    }
+   ],
+   "Glossary": [
+    {
+     "Title": [
+      {
+       "Language": "de",
+       "Text": "Archäologisches Inventar"
+      }
+     ],
+     "Content": [
+      {
+       "Language": "de",
+       "Text": "Das Archäologische Inventar enthält sämtliche archäologischen Schutzgebiete und bekannten Fundstellen des Kantons Bern. Archäologische Funde sind Eigentum des Kantons Bern. Grabungen und der Einsatz von Metalldetektoren ohne Bewilligung sind strafbar. Sollten Bauvorhaben in einem archäologischen Schutzgebiet oder in der Nähe von archäologischen Fundstellen liegen, so ist ein frühzeitiger Kontakt zum Archäologischen Dienst empfohlen."
+      }
+     ]
+    },
+    {
+     "Title": [
+      {
+       "Language": "de",
+       "Text": "Änderungen"
+      }
+     ],
+     "Content": [
+      {
+       "Language": "de",
+       "Text": "Bei Änderungen handelt es sich um geplante oder neue ÖREB, welche ab der öffentlichen Auflage im ÖREB-Kataster geführt werden können. Änderungen können je nach rechtlicher Grundlage mit der öffentlichen Auflage bereits eine Vorwirkung entfalten."
+      }
+     ]
+    },
+    {
+     "Title": [
+      {
+       "Language": "de",
+       "Text": "Bauinventar"
+      }
+     ],
+     "Content": [
+      {
+       "Language": "de",
+       "Text": "Das Bauinventar enthält alle schützens- und erhaltenswerten Baudenkmäler des Kantons Bern (Einzelobjekte sowie Bau- und Strukturgruppen)."
+      }
+     ]
+    },
+    {
+     "Title": [
+      {
+       "Language": "de",
+       "Text": "Baulinien Eisenbahnanlagen"
+      }
+     ],
+     "Content": [
+      {
+       "Language": "de",
+       "Text": "Zwischen den Baulinien dürfen keine baulichen Veränderungen vorgenommen oder sonstige Massnahmen getroffen werden, die dem Zweck bestehender oder künftiger Eisenbahnanlagen widersprechen."
+      }
+     ]
+    },
+    {
+     "Title": [
+      {
+       "Language": "de",
+       "Text": "Baulinien Flughafenanlagen"
+      }
+     ],
+     "Content": [
+      {
+       "Language": "de",
+       "Text": "Zwischen den Baulinien dürfen keine baulichen Veränderungen vorgenommen oder sonstige Massnahmen getroffen werden, die dem Zweck bestehender oder künftiger Flughafenanlagen widersprechen."
+      }
+     ]
+    },
+    {
+     "Title": [
+      {
+       "Language": "de",
+       "Text": "Baulinien Kantonsstrassen"
+      }
+     ],
+     "Content": [
+      {
+       "Language": "de",
+       "Text": "Zwischen kantonaler Strassenbaulinie und Fahrbahnrand besteht ein Bauverbot. Dieses geht rechtlich den allgemeinen Abstandsvorschriften vor. Wurde keine Strassenbaulinie festgelegt, so gilt entlang von Kantonsstrassen beidseitig der gesetzlich vorgeschriebene Bauverbotsstreifen von 5m ab Fahrbahnrand."
+      }
+     ]
+    },
+    {
+     "Title": [
+      {
+       "Language": "de",
+       "Text": "Baulinien Nationalstrassen"
+      }
+     ],
+     "Content": [
+      {
+       "Language": "de",
+       "Text": "Wenn der projektierte Strassenverlauf definitiv bekannt ist, werden beiderseits der Strasse Baulinien festgelegt. Diese Baulinien ermöglichen es, die Anforderungen der Verkehrssicherheit und der Wohnhygiene sowie die Erfordernisse eines eventuellen künftigen Ausbaus der Strasse zu berücksichtigen. Zwischen den Baulinien dürfen ohne Bewilligung weder Neubauten erstellt noch Umbauten bestehender Gebäude vorgenommen werden, auch wenn diese nur teilweise in die Baulinien hineinragen."
+      }
+     ]
+    },
+    {
+     "Title": [
+      {
+       "Language": "de",
+       "Text": "Baulinien Starkstromanlagen"
+      }
+     ],
+     "Content": [
+      {
+       "Language": "de",
+       "Text": "Zwischen den Baulinien dürfen keine baulichen Veränderungen vorgenommen oder sonstige Massnahmen getroffen werden, die dem Zweck bestehender oder künftiger Starkstromanlagen widersprechen."
+      }
+     ]
+    },
+    {
+     "Title": [
+      {
+       "Language": "de",
+       "Text": "BFS-Nr."
+      }
+     ],
+     "Content": [
+      {
+       "Language": "de",
+       "Text": "Gemeindenummer aus amtlichem Gemeindeverzeichnis; Eine vom schweizerischen Bundesamt für Statistik mit dem Amtlichen Gemeindeverzeichnis im Jahre 1986 erstmals vergebene Zahl, die der eineindeutigen Bezeichnung von territorialen Einheiten im Einzugsbereich der Schweiz dient."
+      }
+     ]
+    },
+    {
+     "Title": [
+      {
+       "Language": "de",
+       "Text": "E-GRID"
+      }
+     ],
+     "Content": [
+      {
+       "Language": "de",
+       "Text": "Eidgenössischer Grundstücksidentifikator; Aus einem Präfix und einer Nummer bestehende Bezeichnung, die es erlaubt, jedes in das Grundbuch aufgenommene Grundstück landesweit eindeutig zu identifizieren, und die zum Datenaustausch zwischen Informatiksystemen dient."
+      }
+     ]
+    },
+    {
+     "Title": [
+      {
+       "Language": "de",
+       "Text": "Eigentumsbeschränkung"
+      }
+     ],
+     "Content": [
+      {
+       "Language": "de",
+       "Text": "Der Zweck aller Eigentumsbeschränkungen ist die Wahrung von Interessen anderer Personen, denen jene des Eigentümers sich in bestimmter Beziehung unterordnen müssen. Dies sind entweder die Eigentümer angrenzender Grundstücke, die Nachbarn, oder auch weitere Kreise von Privatpersonen oder endlich die Allgemeinheit selber, der Staat. Die Beschränkungen zugunsten der Nachbarn oder weiterer Privatpersonen sind regelmässig privatrechtlicher, jene zugunsten der Allgemeinheit öffentlich-rechtlicher Natur."
+      }
+     ]
+    },
+    {
+     "Title": [
+      {
+       "Language": "de",
+       "Text": "Geschützte botanische Objekte"
+      }
+     ],
+     "Content": [
+      {
+       "Language": "de",
+       "Text": "Die geschützten botanischen Objekte umfassen Naturdenkmäler wie Einzelbäume, Baumgruppen, Feldgehölze, Hecken, Alleen, Parkbestände sowie kleinere Pflanzenschutzgebiete. Jegliche Veränderung am Objekt oder in der Umgebung, welche die natürliche Entwicklung beeinträchtigt, ist ohne Bewilligung des Amts für Landwirtschaft und Natur verboten."
+      }
+     ]
+    },
+    {
+     "Title": [
+      {
+       "Language": "de",
+       "Text": "Geschützte geologische Objekte"
+      }
+     ],
+     "Content": [
+      {
+       "Language": "de",
+       "Text": "Die geschützten geologischen Objekte umfassen Naturdenkmäler wie Findlinge, exotische Blöcke, geologische Aufschlüsse, Gletschermühlen und Mineralklüfte. Jegliche Veränderung am Objekt ist ohne Bewilligung des Amts für Landwirtschaft und Natur verboten."
+      }
+     ]
+    },
+    {
+     "Title": [
+      {
+       "Language": "de",
+       "Text": "Gesetzliche Grundlage"
+      }
+     ],
+     "Content": [
+      {
+       "Language": "de",
+       "Text": "Gesetz, Verordnung etc., das generell-abstrakt ist (generell für die Person, die nicht bekannt ist, abstrakt, weil der Perimeter ohne Karte definiert ist) und auf Bundesebene, auf kantonaler oder kommunaler Ebene erlassen worden ist und die bloss eine allgemeine Rechtsgrundlage der Eigentumsbeschränkung darstellen. Die gesetzliche Grundlage ist nicht Teil des ÖREB-Katasters. Der ÖREB-Kataster enthält aber Hinweise auf die entsprechende gesetzliche Grundlage."
+      }
+     ]
+    },
+    {
+     "Title": [
+      {
+       "Language": "de",
+       "Text": "Gesicherte öffentliche Leitungen (Abwasserentsorgung, Wasserversorgung)"
+      }
+     ],
+     "Content": [
+      {
+       "Language": "de",
+       "Text": "Eigentümer von öffentlichen Abwasser- und Wasserversorgungsleitungen haben die Möglichkeit, ihre Leitungen in einem öffentlich-rechtlichen Verfahren mit einer Überbauungsordnung sichern zu lassen. Mit Genehmigung durch das Amt für Wasser und Abfall sind die betreffenden öffentlichen Leitungen in ihrem Bestand geschützt."
+      }
+     ]
+    },
+    {
+     "Title": [
+      {
+       "Language": "de",
+       "Text": "Gewässerraum"
+      }
+     ],
+     "Content": [
+      {
+       "Language": "de",
+       "Text": "Fliessgewässer können nur wieder naturnäher werden, wenn ausreichend Raum in den Schutz der Gewässer miteinbezogen wird. Der Gewässerraum soll weitgehend frei von neuen Anlagen bleiben; bestehende, rechtmässig erstellte Anlagen haben jedoch Bestandesgarantie."
+      }
+     ]
+    },
+    {
+     "Title": [
+      {
+       "Language": "de",
+       "Text": "Gewässerschutzbereiche"
+      }
+     ],
+     "Content": [
+      {
+       "Language": "de",
+       "Text": "Von den Kantonen zum Schutz des Grundwassers bezeichnete besonders gefährdete und übrige Bereiche."
+      }
+     ]
+    },
+    {
+     "Title": [
+      {
+       "Language": "de",
+       "Text": "Grundwasserschutzareale"
+      }
+     ],
+     "Content": [
+      {
+       "Language": "de",
+       "Text": "Von Kanton festgelegte Areale, die für die künftige Nutzung und Anreicherung von Grundwasservorkommen von Bedeutung sind und in dem keine Bauten und Anlagen erstellt oder Arbeiten ausgeführt werden, die künftige Nutzungs- und Anreicherungsanlagen beeinträchtigen könnten."
+      }
+     ]
+    },
+    {
+     "Title": [
+      {
+       "Language": "de",
+       "Text": "Grundwasserschutzzonen"
+      }
+     ],
+     "Content": [
+      {
+       "Language": "de",
+       "Text": "Grundwasserschutzzonen, in denen gewährleistet werden soll, dass bei unmittelbar drohenden Gefahren wie Unfällen mit wassergefährdenden Stoffen ausreichend Zeit und Raum für die erforderlichen Massnahmen zur Verfügung stehen."
+      }
+     ]
+    },
+    {
+     "Title": [
+      {
+       "Language": "de",
+       "Text": "Kantonale Denkmalschutzobjekte"
+      }
+     ],
+     "Content": [
+      {
+       "Language": "de",
+       "Text": "Baudenkmäler, an deren Sanierung Finanzhilfen des Kantons Bern ausgerichtet werden, werden grundsätzlich unter den Schutz des Kantons Bern gestellt."
+      }
+     ]
+    },
+    {
+     "Title": [
+      {
+       "Language": "de",
+       "Text": "Kantonale Naturschutzgebiete"
+      }
+     ],
+     "Content": [
+      {
+       "Language": "de",
+       "Text": "Schutzgebiete sind naturnahe, vielfältige oder spezielle Lebensräume, in denen besondere Vorschriften gelten. Im Schutzbeschluss sind die spezifischen Schutzziele für jedes Gebiet festgelegt."
+      }
+     ]
+    },
+    {
+     "Title": [
+      {
+       "Language": "de",
+       "Text": "Kataster der belasteten Standorte"
+      }
+     ],
+     "Content": [
+      {
+       "Language": "de",
+       "Text": "Der Kataster enthält Deponien und andere durch Abfälle belastete Standorte, die saniert werden, wenn sie zu schädlichen oder lästigen Einwirkungen führen oder die konkrete Gefahr besteht, dass solche Einwirkungen entstehen. Die Behörde ermittelt die belasteten Standorte, indem sie vorhandene Angaben wie Karten, Verzeichnisse und Meldungen auswertet. Sie trägt diejenigen Standorte, deren Belastung erwiesen oder sehr wahrscheinlich ist, in den Kataster ein."
+      }
+     ]
+    },
+    {
+     "Title": [
+      {
+       "Language": "de",
+       "Text": "Katasterverantwortliche Stelle"
+      }
+     ],
+     "Content": [
+      {
+       "Language": "de",
+       "Text": "Die katasterverantwortliche Stelle im Kanton erhält die in den ÖREB-Kataster aufzunehmenden Daten von den zuständigen Fachstellen. Sie verwaltet diese Daten und stellt sie via kantonales ÖREB-Geoportal der Öffentlichkeit zur Verfügung."
+      }
+     ]
+    },
+    {
+     "Title": [
+      {
+       "Language": "de",
+       "Text": "KbS"
+      }
+     ],
+     "Content": [
+      {
+       "Language": "de",
+       "Text": "Kataster der belasteten Standorte"
+      }
+     ]
+    },
+    {
+     "Title": [
+      {
+       "Language": "de",
+       "Text": "Lärmempfindlichkeitsstufen"
+      }
+     ],
+     "Content": [
+      {
+       "Language": "de",
+       "Text": "Empfindlichkeitsstufen werden festgelegt, um jeweils bestimmte Zonen zu definieren: diejenigen, die eines erhöhten Lärmschutzes bedürfen, diejenigen, in denen keine störenden Betriebe zugelassen sind, und diejenigen, in denen mässig und stark störende Betriebe zugelassen sind."
+      }
+     ]
+    },
+    {
+     "Title": [
+      {
+       "Language": "de",
+       "Text": "Mittelbare Eigentumsbeschränkungen"
+      }
+     ],
+     "Content": [
+      {
+       "Language": "de",
+       "Text": "Mittelbar öffentlich-rechtliche Eigentumsbeschränkungen können durch einen entsprechenden Verwaltungsakt in einer individuell-konkreten Verfügung, einer generell-konkreten Allgemeinverfügung oder gar einer generell-abstrakten Verwaltungsordnung konkretisiert werden und entfalten damit ihre Wirkung auf ein Grundstück."
+      }
+     ]
+    },
+    {
+     "Title": [
+      {
+       "Language": "de",
+       "Text": "Naturgefahrenkarte"
+      }
+     ],
+     "Content": [
+      {
+       "Language": "de",
+       "Text": "Gefahrenkarten zeigen, wo die Bevölkerung und erhebliche Sachwerte durch Lawinen-, Sturz-, Rutsch- und Wassergefahren sowie Einsturz/Absenkung (inkl. Dolinen) bedroht sind. Die behördenverbindlichen Gefahrenkarten werden laufend aktualisiert und von den Gemeinden innert zwei Jahren in die Ortsplanung miteinbezogen."
+      }
+     ]
+    },
+    {
+     "Title": [
+      {
+       "Language": "de",
+       "Text": "Nutzungsplanung"
+      }
+     ],
+     "Content": [
+      {
+       "Language": "de",
+       "Text": "Festlegung der Verwendung einzelner Bodenflächen für bestimmte Zwecke (z. B. Landwirtschaft, Siedlung, Wald)."
+      }
+     ]
+    },
+    {
+     "Title": [
+      {
+       "Language": "de",
+       "Text": "ÖREB"
+      }
+     ],
+     "Content": [
+      {
+       "Language": "de",
+       "Text": "Öffentlich-rechtliche Eigentumsbeschränkung"
+      }
+     ]
+    },
+    {
+     "Title": [
+      {
+       "Language": "de",
+       "Text": "ÖREB-Kataster"
+      }
+     ],
+     "Content": [
+      {
+       "Language": "de",
+       "Text": "Kataster der öffentlich-rechtlichen Eigentumsbeschränkungen"
+      }
+     ]
+    },
+    {
+     "Title": [
+      {
+       "Language": "de",
+       "Text": "Planungszonen"
+      }
+     ],
+     "Content": [
+      {
+       "Language": "de",
+       "Text": "Zone, die ein genau bezeichnetes Gebiet umfasst, für das ein Nutzungsplan angepasst werden muss oder noch keiner vorliegt, und innerhalb derer nichts unternommen werden darf, was die Nutzungsplanung erschwert."
+      }
+     ]
+    },
+    {
+     "Title": [
+      {
+       "Language": "de",
+       "Text": "Projektierungszonen Eisenbahnanlagen"
+      }
+     ],
+     "Content": [
+      {
+       "Language": "de",
+       "Text": "Um die freie Verfügbarkeit der für künftige Bahnbauten und -anlagen erforderlichen Grundstücke zu gewährleisten, können für genau bezeichnete Gebiete Projektierungszonen festgelegt werden. In diesen Zonen dürfen keine baulichen Veränderungen vorgenommen werden, die dem Zweck der Eisenbahnen widersprechen."
+      }
+     ]
+    },
+    {
+     "Title": [
+      {
+       "Language": "de",
+       "Text": "Projektierungszonen Flughafenanlagen"
+      }
+     ],
+     "Content": [
+      {
+       "Language": "de",
+       "Text": "Um die freie Verfügbarkeit der für Flughafenanlagen erforderlichen Grundstücke zu gewährleisten, können für genau bezeichnete Gebiete Projektierungszonen festgelegt werden. In diesen Zonen dürfen keine baulichen Veränderungen vorgenommen werden, die dem Zweck der Flughafenanlagen widersprechen."
+      }
+     ]
+    },
+    {
+     "Title": [
+      {
+       "Language": "de",
+       "Text": "Projektierungszonen Leitungen mit einer Nennspannung von 220 kV oder höher"
+      }
+     ],
+     "Content": [
+      {
+       "Language": "de",
+       "Text": "Um die freie Verfügbarkeit der für Leitungen mit einer Nennspannung von 220 kV oder höher erforderlichen Grundstücke zu gewährleisten, können für genau bezeichnete Gebiete Projektierungszonen festgelegt werden. In diesen Zonen dürfen keine baulichen Veränderungen vorgenommen werden, die dem Zweck der Flughafenanlagen widersprechen."
+      }
+     ]
+    },
+    {
+     "Title": [
+      {
+       "Language": "de",
+       "Text": "Projektierungszonen Nationalstrassen"
+      }
+     ],
+     "Content": [
+      {
+       "Language": "de",
+       "Text": "Um die freie Verfügbarkeit des für den Bau der Nationalstrassen erforderlichen Landes zu gewährleisten, können für genau bezeichnete Gebiete Projektierungszonen festgelegt werden. In diesen Zonen dürfen keine baulichen Veränderungen vorgenommen werden, die dem Zweck der Nationalstrassen widersprechen."
+      }
+     ]
+    },
+    {
+     "Title": [
+      {
+       "Language": "de",
+       "Text": "Rechtsvorschrift"
+      }
+     ],
+     "Content": [
+      {
+       "Language": "de",
+       "Text": "Generell-konkrete Rechtsnorm, die zusammen mit den ihr zugeschriebenen Geobasisdaten die Eigentumsbeschränkung unmittelbar umschreibt und innerhalb desselben Verfahrens verabschiedet worden ist."
+      }
+     ]
+    },
+    {
+     "Title": [
+      {
+       "Language": "de",
+       "Text": "Sachplan Biodiversität"
+      }
+     ],
+     "Content": [
+      {
+       "Language": "de",
+       "Text": "Der Sachplan Biodiversität legt Massnahmen fest, um die Artenvielfalt von Fauna und Flora zu verbessern und Defizite bei der Umsetzung der Bundesinventare zu verringern. Er definiert die Perimeter der Hochmoore, Flachmoore, Trockenwiesen und -weiden, Auen, Amphibienlaichgebiete und Wildwechselkorridore und ist für Behörden verbindlich."
+      }
+     ]
+    },
+    {
+     "Title": [
+      {
+       "Language": "de",
+       "Text": "Sicherheitszonenplan"
+      }
+     ],
+     "Content": [
+      {
+       "Language": "de",
+       "Text": "Zonenplan, in dem die Sicherheitszonen dargestellt sind und aus dem die Eigentumsbeschränkungen nach Fläche und Höhe ersichtlich sind."
+      }
+     ]
+    },
+    {
+     "Title": [
+      {
+       "Language": "de",
+       "Text": "Statische Waldgrenzen"
+      }
+     ],
+     "Content": [
+      {
+       "Language": "de",
+       "Text": "Statische Waldgrenzen müssen auf der Grundlage rechtskräftiger Waldfeststellungen festgelegt werden. Neue Bestockungen ausserhalb dieser Waldgrenzen gelten nicht als Wald."
+      }
+     ]
+    },
+    {
+     "Title": [
+      {
+       "Language": "de",
+       "Text": "Unmittelbare Eigentumsbeschränkungen"
+      }
+     ],
+     "Content": [
+      {
+       "Language": "de",
+       "Text": "Unmittelbar öffentlich-rechtliche Eigentumsbeschränkungen sind Nutzungs- und Verfügungsbeschränkungen, die sofort auf ein Grundstück wirken. Sie stützen sich auf entsprechende Gesetze und Verordnungen, so dass ein weiterer behördlicher Vollzug (Begründungsakt, rechtsbegründeten Eintrag im Grundbuch, usw.) nicht nötig ist."
+      }
+     ]
+    },
+    {
+     "Title": [
+      {
+       "Language": "de",
+       "Text": "Vorwirkung"
+      }
+     ],
+     "Content": [
+      {
+       "Language": "de",
+       "Text": "Mit der öffentlichen Auflage entsteht eine Vorwirkung: Ab diesem Zeitpunkt dürfen Bauvorhaben in der Regel nur bewilligt werden, wenn sie der öffentlich aufgelegten Planung nicht widersprechen."
+      }
+     ]
+    },
+    {
+     "Title": [
+      {
+       "Language": "de",
+       "Text": "Waldabstandslinien"
+      }
+     ],
+     "Content": [
+      {
+       "Language": "de",
+       "Text": "Waldabstandslinien werden im Kanton Bern gemäss der kantonalen Fachgesetzgebung als Wald-Baulinien bezeichnet. Sie werden im Rahmen eines Nutzungsplanungsverfahrens erlassen und können auch gemeindespezifische Bezeichnungen aufweisen (z.B. reduzierter Waldabstand). Bauten und Anlagen in Waldesnähe sind nur zulässig, wenn sie die Erhaltung, Pflege und Nutzung des Waldes nicht beeinträchtigen."
+      }
+     ]
+    },
+    {
+     "Title": [
+      {
+       "Language": "de",
+       "Text": "Waldreservate"
+      }
+     ],
+     "Content": [
+      {
+       "Language": "de",
+       "Text": "Geschützte Waldfläche, die der Erhaltung der Artenvielfalt von Fauna und Flora dient."
+      }
+     ]
+    },
+    {
+     "Title": [
+      {
+       "Language": "de",
+       "Text": "Wasserbauplan, Überflutungsgebiet"
+      }
+     ],
+     "Content": [
+      {
+       "Language": "de",
+       "Text": "Bestehende Bauten und Anlagen in Überflutungsgebieten sind durch Objektschutzmassnahmen zu schützen. Daneben können im Überflutungsgebiet Bauverbote, Auflagen und Nutzungseinschränkungen erlassen werden. Eigentümer und Eigentümerinnen der Parzellen in Überflutungsgebieten haben Anspruch auf eine angemessene Entschädigung."
+      }
+     ]
+    },
+    {
+     "Title": [
+      {
+       "Language": "de",
+       "Text": "Zusatzinformation"
+      }
+     ],
+     "Content": [
+      {
+       "Language": "de",
+       "Text": "Zusatzinformationen sind gemäss Artikel 8b ÖREBKV unverbindliche Informationen (Änderungen an ÖREB, weitere Geobasisdaten, Hinweise) und nicht Bestandteil des rechtskräftigen Inhaltes des ÖREB-Katasters. Sie können unmittelbare und mittelbare, also potenzielle Eigentumsbeschränkungen sein, welche in entsprechenden behördlichen Verfahren berücksichtigt werden und zu entsprechenden Eigentumsbeschränkungen führen können."
+      }
+     ]
+    },
+    {
+     "Title": [
+      {
+       "Language": "de",
+       "Text": "Zuständige Stelle"
+      }
+     ],
+     "Content": [
+      {
+       "Language": "de",
+       "Text": "Durch die Gesetzgebung bezeichnete Stelle des Bundes, des Kantons oder der Gemeinde, die für das Erheben, Nachführen und Verwalten der Geobasisdaten zuständig ist."
+      }
+     ]
+    }
+   ]
+  }
+ }
+}

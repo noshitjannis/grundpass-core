@@ -3,7 +3,8 @@
 Jede Quelle: Endpoint, was wir lesen, was daraus wird, Lizenz, TTL, Status. Status `verifiziert` heisst:
 gegen eine echte Antwort gebaut, Fixture in `test/fixtures/`, Unit-Test grün. `experimentell` heisst: Form noch nicht live bestätigt.
 
-Alle Quellen laufen über die Bundes-Geodateninfrastruktur (geo.admin.ch), ohne API-Key, mit Quellenangabe als Pflicht.
+Die Bundesquellen laufen über die Bundes-Geodateninfrastruktur (geo.admin.ch), ohne API-Key, mit Quellenangabe als Pflicht.
+Der ÖREB-Kataster kommt direkt von den kantonalen Webservices (Abschnitt oereb), ebenfalls ohne API-Key.
 Datensätze und genaue Lizenztexte: opendata.swiss bzw. die Layer-Metadaten unter `https://api3.geo.admin.ch/rest/services/api/MapServer/<layer>`.
 
 Allgemeine Erkenntnisse (15.10.2026):
@@ -90,6 +91,7 @@ Treffer-Auswahl: Der Adapter nimmt den Treffer, dessen `egid` exakt der gesuchte
 **Antwortform** (geometryFormat=geojson): `results[]` sind GeoJSON-Features `{ type: "Feature", featureId, id, layerBodId, layerName: "OpenData-AV", bbox, geometry, properties }`. Gelesene Felder: `properties.{bfsnr, ak, number, identnd, egris_egrid, realestate_type, geoportal_url}`, `geometry` (GeoJSON Polygon/MultiPolygon). Die erste Fassung las `attributes` (Esri-Form) und fiel live mit Schema-Drift aus; die Esri-Form ist jetzt ein Testfall für Drift.
 
 Die API liefert keine Fläche; wir rechnen Shoelace in LV95-Metern, Löcher abgezogen. Wabern, Parzelle 5711: 7 Stützpunkte, 764.39 m² (Fakt: 764 m², Confidence 0.95). Mehrere Treffer (Punkt auf Grenze): bevorzugt die EGRID aus dem GWR.
+Ist die Parzelle unter dem Gebäudepunkt nicht die aus dem GWR (Baden, Rütistrasse 1: AV findet 3827 mit 236 m², das GWR nennt 3258, laut ÖREB 394 m²), tragen alle AV-Fakten Confidence 0.8 und `parzelle.hinweis_vermessung` benennt den Widerspruch. Die Keys behält das GWR (erster Schreiber), darum folgen ÖREB-Zone und Grundbuchfläche der Register-Parzelle. Seit 15.10.2026.
 
 ---
 
@@ -150,7 +152,7 @@ Gelesene Felder: `probability_prozent`, `confidence`. Bedeutung: Wahrscheinlichk
 | Datenhalter | BAFU (sonBASE). Geobasisdatensätze 120.1 (Tag) und 120.2 (Nacht) |
 | Endpoint | `GET https://wms.geo.admin.ch/?SERVICE=WMS&VERSION=1.3.0&REQUEST=GetFeatureInfo&LAYERS=<layer>&QUERY_LAYERS=<layer>&CRS=EPSG:2056&BBOX=<E-1.5>,<N-1.5>,<E+1.5>,<N+1.5>&WIDTH=3&HEIGHT=3&I=1&J=1&INFO_FORMAT=application/json&FEATURE_COUNT=1` für `ch.bafu.laerm-strassenlaerm_tag` und `ch.bafu.laerm-strassenlaerm_nacht` |
 | braucht | `lv95_bau` |
-| Fakten | `laerm.strasse.tag_db`, `.nacht_db` (Confidence 1), `.grenzwert_wohnzone_tag_db` (60), `.grenzwert_wohnzone_nacht_db` (50) |
+| Fakten | `laerm.strasse.tag_db`, `.nacht_db` (Confidence 1). Die Grenzwerte zum Vergleich (`laerm.strasse.grenzwert_tag_db`, `.grenzwert_nacht_db`) sind seit 15.10.2026 derived-Fakten aus der Empfindlichkeitsstufe des ÖREB-Katasters, nicht mehr pauschal ES II aus diesem Adapter. |
 | Datenstand | 31.12.2021 laut Layer-Legende (Verkehrszählungen 2021). GetFeatureInfo liefert kein Datum, darum kein `source_date`; Stand im Steckbrief ist das Abrufdatum. |
 | TTL | 180 Tage |
 | Status | verifiziert 15.10.2026 · Fixtures `laerm-wms.json` (Tag), `laerm-wms-nacht.json`, `laerm-wms-leer.json` (ohne kartierten Lärm) |
@@ -183,14 +185,98 @@ Die Feature-Geometrie ist der Mittelpunkt der getroffenen Rasterzelle, nicht der
 
 **Bedeutung:** Beurteilungspegel Lr Tag (6 bis 22 Uhr) und Lr Nacht (22 bis 6 Uhr) in dB(A) aus der flächendeckenden
 Modellrechnung sonBASE, rechtlich nicht verbindlich (verbindlich sind ASTRA für Nationalstrassen und die kantonalen
-Vollzugsbehörden für die übrigen Strassen). Grenzwerte: Immissionsgrenzwerte der LSV (Anhang 3) für Empfindlichkeitsstufe II
-(reine Wohnzone), Strassenverkehrslärm: Tag 60 dB, Nacht 50 dB.
+Vollzugsbehörden für die übrigen Strassen). Grenzwerte: Immissionsgrenzwerte der LSV (Anhang 3) für Strassenverkehrslärm
+je Empfindlichkeitsstufe, Tag/Nacht: ES I 55/45, ES II 60/50, ES III 65/55, ES IV 70/60 dB. Welche Stufe gilt, sagt der
+ÖREB-Kataster (`laerm.empfindlichkeitsstufe`), die passenden Grenzwerte rechnet `derive.ts`. Ohne Stufe gibt es keinen Grenzwert.
+
+---
+
+## oereb · ÖREB-Kataster (AG, ZH, BE)
+
+| | |
+|---|---|
+| Datenhalter | Kantone, katasterführende Stellen: AG Abteilung Geoinformation (AGIS), ZH Amt für Raumentwicklung (GIS-ZH), BE Amt für Geoinformation |
+| Endpoint | `GET <base>/extract/json?EGRID=<EGRID>`. Basis pro Kanton in `src/adapters/oereb/kantone.ts`: AG `https://api.geo.ag.ch/v2/oereb`, ZH `https://maps.zh.ch/oereb/v2`, BE `https://www.oereb2.apps.be.ch`. Daneben `<base>/versions/json` (nennt die Basis selbst) und `<base>/capabilities/json` (Themenliste). Norm: ÖREB-Webservice «Aufruf eines Auszugs», Version extract-2.0 (OeREBKRMtrsfr_V2_0), JSON nach openoereb-Schema. |
+| braucht | `egrid`, `kanton`. Manifest `cantons: AG, ZH, BE`; andere Kantone bekommen `ausser_kanton` und im Steckbrief die Lücke `quelle_ausser_kanton`. |
+| Fakten | `zone.bezeichnung`, `.code`, `.anteil_prozent`, `.anzahl`, `zone.weitere.<n>.{bezeichnung, code, anteil_prozent}`, `zone.baureglement_url`, `.baureglement_titel`, `parzelle.flaeche_grundbuch_m2` (Confidence 1), `laerm.empfindlichkeitsstufe` (I, II, III, IV), `.empfindlichkeitsstufe_text`, `.empfindlichkeitsstufe_anteil_prozent`, `oereb.<thema>.{betroffen, thema, text, anteil_prozent, laenge_m}`, `oereb.belastungen`, `.belastungen_anzahl`, `.aenderungen_hangig_anzahl`, `.auszug_pdf_url`, `.kataster_url` |
+| source_date | `UpdateDateCS` (Stand des Katasters, nicht des Abrufs) |
+| TTL | 14 Tage |
+| Timeout | 20 s (Extracts brauchen 1 bis 2 s, PDFs bis 11 s, die holen wir aber nicht) |
+| Status | verifiziert 15.10.2026 an fünf Parzellen in drei Kantonen · Fixtures `oereb-be-wabern.json`, `oereb-ag-baden.json`, `oereb-zh-zuerich.json`, `oereb-zh-winterthur.json` (echte Antworten, mit `_hinweis`) |
+
+**Antwortform** (gekürzt, BE Wabern):
+
+```json
+{ "GetExtractByIdResponse": { "extract": {
+    "UpdateDateCS": "2026-10-06T00:00:00",
+    "RealEstate": { "EGRID": "CH586746359755", "Number": "5711", "IdentDN": "BE0200000051", "Canton": "BE",
+      "MunicipalityName": "Köniz", "MunicipalityCode": 355, "LandRegistryArea": 761,
+      "RestrictionOnLandownership": [ {
+        "Theme": { "Code": "ch.Nutzungsplanung", "SubCode": "ch.NutzungsplanungGrundnutzung", "Text": [ { "Language": "de", "Text": "Zonenflächen der Grundnutzung" } ] },
+        "LegendText": [ { "Language": "de", "Text": "Wohnzone (Art. 29 BauR), Bauklasse IIa (Art. 53 BauR)" } ],
+        "TypeCode": "102_2", "Lawstatus": { "Code": "inForce" }, "AreaShare": 761, "PartInPercent": 100,
+        "LegalProvisions": [ { "Title": [ { "Language": "de", "Text": "Baureglement Gemeinde Koeniz …" } ], "TextAtWeb": [ { "Language": "de", "Text": "https://oerebfiles.apps.be.ch/…/721.0_Baureglement.pdf" } ] } ] } ] },
+    "ConcernedTheme": [ … ], "NotConcernedTheme": [ … ], "ThemeWithoutData": [ … ],
+    "PLRCadastreAuthority": { "OfficeAtWeb": [ { "Language": "de", "Text": "https://www.be.ch/oerebk" } ] } } } }
+```
+
+Kantonale Eigenheiten, alle im Schema abgefangen: ZH nennt die Hülle `Extract` (gross) und schreibt `Theme.code` klein; AG und BE
+`extract` und `Code`. Texte sind Listen `{Language, Text}`, wir nehmen `de`, sonst den ersten. Linienthemen (Baulinien) haben
+`LengthShare` statt `PartInPercent`. Mit `Lawstatus.Code` ≠ `inForce` (z.B. `changeWithPreEffect`) ist ein Eintrag hängig und
+zählt nur in `oereb.aenderungen_hangig_anzahl`. Antwort 204 ohne Inhalt heisst «EGRID in diesem Kataster unbekannt»
+(ZH, geprüft mit der Berner EGRID) und ist `EmptyResultError`, kein Ausfall.
+
+**Grundnutzung erkennen.** Unter `ch.Nutzungsplanung` stehen Grundnutzung (Wohnzone, Kernzone …) und überlagernde Festlegungen
+(Gestaltungsplan, Kernzonenplan, Baumschutz) nebeneinander. BE kennzeichnet die Grundnutzung mit `Theme.SubCode`
+`ch.NutzungsplanungGrundnutzung` (Regel gilt überall, wo ein SubCode steht). ZH und AG setzen am Eintrag keinen SubCode; dort
+entscheidet der `TypeCode` nach der Code-Systematik des minimalen Geodatenmodells Nutzungsplanung (ARE, Katalog Hauptnutzung_CH):
+1x Bauzonen (11 Wohn-, 12 Arbeits-, 13 Misch-, 14 Zentrums-, 15 Zonen für öffentliche Nutzungen …), 2x Landwirtschafts-,
+3x Schutz-, 4x weitere Zonen; 5x und 6x sind kantonale Codes für überlagernde Festlegungen und Sondernutzungspläne
+(61 Gestaltungsplan). ZH stellt ein «C» voran. Belege: AG 145101 Kernzone, 121101 Arbeitszone, 611201_2897 Gestaltungsplan,
+691101 Hochhausperimeter; ZH C130701 Kernzone, C150101 Zone für öffentliche Bauten, C310206 und C320101 Freihalte- und Gewässer-
+zonen, C610102 Gestaltungsplan, C690401 Kernzonenplan, C691041 Baumschutz. Weil das eine Einordnung ist, tragen zone.*-Fakten in
+AG und ZH Confidence 0.95, in BE 1. Hauptzone ist die Grundnutzung mit dem grössten `PartInPercent`, die übrigen stehen als
+`zone.weitere.<n>.*`. Der Legendentext wird unverändert gezeigt (Zürich: «siehe gültige Bau- und Zonenordnung der Stadt Zürich (K)»),
+es wird nichts hineininterpretiert.
+
+**Lärm-Empfindlichkeitsstufe.** Thema `ch.Laermempfindlichkeitsstufen` (BE zusätzlich `ch.BE.Regionale…`, `ch.BE.Kantonale…`).
+Stufe aus der Legende («Empfindlichkeitsstufe III») oder dem TypeCode (AG `ES_III`, ZH `laermempfindlichkeitsstufen_3_0`), Eintrag mit
+dem grössten Anteil zuerst. «Empfindlichkeitsstufe keine» (ZH, Gewässer) ergibt keine Stufe. Köniz führt das Thema im Kataster, die
+Parzelle Wabern ist aber bei allen drei Lärm-Themen in `NotConcernedTheme`: keine Stufe, kein Grenzwert, keine Annahme.
+
+**Weitere Themen** (`oereb.<thema>.*`): alle rechtskräftigen Einträge ausser Grundnutzung und Lärmstufen, gruppiert nach Thema.
+Slug aus dem Themencode ohne `ch.` und Kantonspräfix (`ch.BE.Gewaesserschutzbereiche` → `gewaesserschutzbereiche`,
+`ch.BelasteteStandorte` → `belastete_standorte`, `ch.ZH.Baulinien` → `baulinien`). Überlagernde Nutzungsplanung heisst einheitlich
+`nutzungsplanung_ueberlagernd`. Pro Thema: `betroffen` true, `thema` (Name laut Kataster), `text` (Legenden, mit «; » verbunden),
+`anteil_prozent` (grösster Flächenanteil) oder `laenge_m` (Summe der Linienlängen).
+
+**Was nicht im Kataster steht und wir darum nicht liefern:** Ausnützungsziffer, Geschosszahl, Grenzabstände, Gebäudehöhen. Das
+regelt das kommunale Baureglement (BE), die Bau- und Nutzungsordnung (AG) bzw. die Bau- und Zonenordnung (ZH). Wenn der Extract
+sie unter `LegalProvisions` der Hauptzone nennt, geben wir den Link als `zone.baureglement_url` weiter. In der App bleibt
+«Ausnützung» eine Lücke «nicht im Kataster».
+
+**Belege 15.10.2026**
+
+| Parzelle | Zone | Anteil | ES | Grundbuch | weitere Themen |
+|---|---|---|---|---|---|
+| Wabern BE, Köniz 5711 | Wohnzone (Art. 29 BauR), Bauklasse IIa (Art. 53 BauR), Code 102_2 | 100 % | nicht im Kataster | 761 m² (AV-Geometrie: 764) | Sicherheitszonenplan (Flughafen Bern), Gewässerschutzbereich üB |
+| Baden AG, 3258 | Kernzone 5 [K5], Code 145101 | 100 % | III | 394 m² | Gestaltungsplan Innenstadt Nord (überlagernd) |
+| Klingnau AG, 1493 | Arbeitszone Chnochnerwies [A], Code 121101 | 100 % | III | 4308 m² | keine |
+| Zürich ZH, AA5662 | siehe gültige BZO der Stadt Zürich (K), Code C130701 | 97 % (FP 3 %) | III | 513 m² | Kernzonenplan (dazu hängige Änderung), Baulinien 34 m |
+| Winterthur ZH, ST9255 | Zone für öffentliche Bauten (Oe), Code C150101 | 100 % (Gewässer 0 %) | II | 26 087 m² | Gestaltungsplan, Ergänzungspläne, Baumschutz, Baulinien, belasteter Standort 1 %, Gewässerraum 8 % |
+
+**Probiert 15.10.2026:** `www.oereb.apps.be.ch` antwortet identisch zu `www.oereb2.apps.be.ch` (beide nennen sich selbst als Basis;
+die AGI-Dokumentation nennt oereb2). AG liefert auch `extract/xml` (76 KB), nicht gebraucht. `extract/pdf?EGRID=` liefert bei
+allen drei Kantonen den amtlichen Auszug (BE 0.6 MB in 4.6 s, AG 0.7 MB in 5.8 s, ZH 1.1 MB in 10.7 s), das ist `oereb.auszug_pdf_url`.
+Falsche Pfade (`api.geo.ag.ch/oereb/…`, `www.ag.ch/app/oereb/…`, `www.oereb.apps.be.ch/oereb/v2/…`) geben 404.
+Datenstand: AG und ZH setzen `UpdateDateCS` auf den Abruftag, BE auf den letzten Datenimport (06.10.2026).
 
 ---
 
 ## derived · berechnet
 
-Keine externe Quelle. Siehe ARCHITEKTUR.md Abschnitt 7.
+Keine externe Quelle. Siehe ARCHITEKTUR.md Abschnitt 7. Seit 15.10.2026 auch: Lärm-Grenzwerte aus der Empfindlichkeitsstufe
+(LSV Anhang 3) und bebauter Anteil bevorzugt mit der Grundbuchfläche.
 
 ---
 
@@ -198,7 +284,7 @@ Keine externe Quelle. Siehe ARCHITEKTUR.md Abschnitt 7.
 
 | Quelle | Layer / API | Hinweis |
 |---|---|---|
-| ÖREB-Kataster (Zone, Ausnützung, Belastungen) | kantonale ÖREB-Webservices, Datenextrakt per EGRID | AG und ZH zuerst. Antwort XML/JSON je nach Kanton. |
+| ÖREB-Kataster weitere Kantone | gleiche Norm, Basis-URL je Kanton in `kantone.ts` eintragen und Fixture aufnehmen | AG, ZH, BE sind drin. Verzeichnis: cadastre.ch/oereb-webservice |
 | Gefährdungskarte Oberflächenabfluss | `ch.bafu.gefaehrdungskarte-oberflaechenabfluss` | Raster, nur WMS GetFeatureInfo (identify gibt Fehler). |
 | Naturgefahren (Hochwasser, Rutsch) | kantonal | kein Bundeslayer mit Gebäudeauflösung |
 | swissBUILDINGS3D | swisstopo | Gebäudehöhe, Dachform, Volumen |

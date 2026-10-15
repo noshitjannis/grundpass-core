@@ -2,6 +2,9 @@ import type { Fact } from '../types.ts';
 
 type Ctx = { subject: string; run_id: string; fetched_at: string };
 
+/** LSV Anhang 3, Immissionsgrenzwerte Strassenverkehrslärm in dB(A), [Tag, Nacht] je Empfindlichkeitsstufe. */
+export const IGW_STRASSE: Record<string, [number, number]> = { I: [55, 45], II: [60, 50], III: [65, 55], IV: [70, 60] };
+
 function latest(facts: Fact[], key: string): Fact | undefined {
   // Jüngster Fakt mit höchster Confidence zu diesem Key.
   return facts
@@ -28,11 +31,21 @@ export function deriveFacts(facts: Fact[], ctx: Ctx): Fact[] {
     return f;
   };
 
-  // Bebauter Anteil = Gebäudegrundfläche / Parzellenfläche
+  // Bebauter Anteil = Gebäudegrundfläche / Parzellenfläche. Amtliche Grundbuchfläche (ÖREB) vor Geometrie-Schätzung (AV).
   const grund = num(latest(facts, 'gebaeude.grundflaeche_m2'));
-  const parz = num(latest(facts, 'parzelle.flaeche_m2'));
+  const parzKey = latest(facts, 'parzelle.flaeche_grundbuch_m2') ? 'parzelle.flaeche_grundbuch_m2' : 'parzelle.flaeche_m2';
+  const parz = num(latest(facts, parzKey));
   if (grund != null && parz != null && parz > 0) {
-    out.push(mk('parzelle.bebauter_anteil_prozent', Math.round((grund / parz) * 1000) / 10, '%', ['gebaeude.grundflaeche_m2', 'parzelle.flaeche_m2']));
+    out.push(mk('parzelle.bebauter_anteil_prozent', Math.round((grund / parz) * 1000) / 10, '%', ['gebaeude.grundflaeche_m2', parzKey]));
+  }
+
+  // Immissionsgrenzwerte Strassenverkehrslärm (LSV Anhang 3, Tag/Nacht) aus der Empfindlichkeitsstufe des ÖREB-Katasters.
+  // Gesetzestabelle, keine Schätzung, darum Confidence 1. Ohne Stufe gibt es keinen Grenzwert (früher pauschal ES II).
+  const es = latest(facts, 'laerm.empfindlichkeitsstufe');
+  const igw = typeof es?.value === 'string' ? IGW_STRASSE[es.value] : undefined;
+  if (igw) {
+    out.push(mk('laerm.strasse.grenzwert_tag_db', igw[0], 'dB', ['laerm.empfindlichkeitsstufe'], 1));
+    out.push(mk('laerm.strasse.grenzwert_nacht_db', igw[1], 'dB', ['laerm.empfindlichkeitsstufe'], 1));
   }
 
   // Gebäudealter aus Baujahr oder Bauperioden-Mitte

@@ -5,7 +5,7 @@
  * Erklärungen sind kurz und sachlich. Keine Bewertung, keine Empfehlung. Das macht die App.
  */
 
-export type AbschnittId = 'adresse' | 'gebaeude' | 'heizung' | 'wohnungen' | 'parzelle' | 'solar' | 'oev' | 'laerm' | 'radon' | 'abgeleitet';
+export type AbschnittId = 'adresse' | 'gebaeude' | 'heizung' | 'wohnungen' | 'parzelle' | 'zone' | 'solar' | 'oev' | 'laerm' | 'radon' | 'abgeleitet';
 
 export const ABSCHNITTE: Array<{ id: AbschnittId; titel: string }> = [
   { id: 'adresse', titel: 'Adresse' },
@@ -13,6 +13,7 @@ export const ABSCHNITTE: Array<{ id: AbschnittId; titel: string }> = [
   { id: 'heizung', titel: 'Heizung und Warmwasser' },
   { id: 'wohnungen', titel: 'Wohnungen' },
   { id: 'parzelle', titel: 'Parzelle' },
+  { id: 'zone', titel: 'Zone und Kataster' },
   { id: 'solar', titel: 'Sonne und Dach' },
   { id: 'oev', titel: 'Öffentlicher Verkehr' },
   { id: 'laerm', titel: 'Lärm' },
@@ -64,9 +65,20 @@ export const FELDER: Record<string, FeldDef> = {
 
   'parzelle.nummer': { label: 'Parzellennummer', abschnitt: 'parzelle', erwartet: true },
   'parzelle.egrid': { label: 'EGRID', abschnitt: 'parzelle', erklaerung: 'Eidg. Grundstücksidentifikator. Schweizweit eindeutige Nummer des Grundstücks, steht auch im Grundbuch.' },
-  'parzelle.flaeche_m2': { label: 'Parzellenfläche', abschnitt: 'parzelle', erwartet: true, format: 'int', erklaerung: 'Aus der Geometrie der amtlichen Vermessung berechnet. Massgebend ist der Grundbucheintrag.' },
+  'parzelle.flaeche_grundbuch_m2': { label: 'Parzellenfläche', abschnitt: 'parzelle', erwartet: true, format: 'int', erklaerung: 'Amtliche Fläche laut Grundbuch, aus dem ÖREB-Kataster des Kantons.' },
+  'parzelle.flaeche_m2': { label: 'Parzellenfläche (aus Geometrie)', abschnitt: 'parzelle', format: 'int', erklaerung: 'Aus der Geometrie der amtlichen Vermessung berechnet. Zweitquelle, massgebend ist die Grundbuchfläche.' },
   'parzelle.art': { label: 'Grundstücksart', abschnitt: 'parzelle' },
+  'parzelle.hinweis_vermessung': { label: 'Hinweis Vermessung', abschnitt: 'parzelle', erklaerung: 'Die amtliche Vermessung findet unter dem Gebäudepunkt eine andere Parzelle als das Gebäuderegister nennt. Zone und Grundbuchfläche folgen der Parzelle aus dem Register (EGRID), die Fläche aus der Geometrie gehört zur Parzelle unter dem Punkt.' },
   'parzelle.geoportal_url': { label: 'Kantonales Geoportal', abschnitt: 'parzelle' },
+
+  'zone.bezeichnung': { label: 'Zone', abschnitt: 'zone', erwartet: true, erklaerung: 'Grundnutzung laut ÖREB-Kataster, so wie Gemeinde oder Kanton sie bezeichnen. Was eine Zone konkret erlaubt (Geschosse, Ausnützung, Nutzung), steht im Baureglement der Gemeinde, nicht im Kataster. Liegt die Parzelle in mehreren Zonen, ist das die mit dem grössten Anteil.' },
+  'zone.code': { label: 'Zonencode', abschnitt: 'zone', format: 'id', erklaerung: 'Kennung der Zone im kantonalen Datenmodell. Nur ein Code, keine Aussage für Laien.' },
+  'zone.anteil_prozent': { label: 'Anteil an der Parzelle', abschnitt: 'zone', format: 'int', erklaerung: 'Wie viel der Parzellenfläche in dieser Zone liegt. Unter 100 % heisst: Die Parzelle hat mehrere Zonen, siehe weitere Zonen.' },
+  'zone.anzahl': { label: 'Zonen auf der Parzelle', abschnitt: 'zone', format: 'int' },
+  'zone.baureglement_url': { label: 'Baureglement', abschnitt: 'zone', erklaerung: 'Das kommunale Baureglement bzw. die Bau- und Nutzungsordnung. Dort stehen Ausnützungsziffer, Geschosszahl und Abstände. Der ÖREB-Kataster enthält sie nicht.' },
+  'oereb.belastungen_anzahl': { label: 'Weitere Einträge im Kataster', abschnitt: 'zone', format: 'int', erklaerung: 'Andere öffentlich-rechtliche Eigentumsbeschränkungen, die diese Parzelle betreffen: überlagernde Pläne, Baulinien, Gewässerraum, Grundwasserschutz, belastete Standorte und Ähnliches. Jeder Eintrag steht einzeln darunter.' },
+  'oereb.aenderungen_hangig_anzahl': { label: 'Hängige Änderungen', abschnitt: 'zone', format: 'int', erklaerung: 'Einträge im Kataster, die noch nicht rechtskräftig sind (laufende Planänderungen mit Vorwirkung).' },
+  'oereb.auszug_pdf_url': { label: 'Amtlicher Auszug (PDF)', abschnitt: 'zone', erklaerung: 'Der offizielle ÖREB-Katasterauszug des Kantons zu dieser Parzelle, mit allen Rechtsgrundlagen.' },
 
   'solar.klasse_text': { label: 'Solareignung', abschnitt: 'solar', erwartet: true, erklaerung: 'Eignung der besten Dachfläche nach Sonnendach.ch: gering, mittel, gut, sehr gut, hervorragend.' },
   'solar.dachflaeche_m2': { label: 'Dachfläche', abschnitt: 'solar', format: 'int' },
@@ -82,10 +94,12 @@ export const FELDER: Record<string, FeldDef> = {
   'oev.gueteklasse': { label: 'ÖV-Güteklasse', abschnitt: 'oev', erwartet: true, erklaerung: 'A = sehr gut, B = gut, C = mittel, D = gering, keine = ausserhalb. Massstab des Bundes für die ÖV-Erschliessung.' },
   'oev.gueteklasse_text': { label: 'Bedeutung', abschnitt: 'oev' },
 
-  'laerm.strasse.tag_db': { label: 'Strassenlärm Tag', abschnitt: 'laerm', format: 'dezimal', erklaerung: 'Beurteilungspegel Lr des Strassenverkehrs am Tag (6 bis 22 Uhr) am Gebäudepunkt. Modellrechnung des BAFU (sonBASE, Stand 2021), keine Messung. Zum Vergleich: 60 dB ist der Grenzwert für reine Wohnzonen.' },
-  'laerm.strasse.nacht_db': { label: 'Strassenlärm Nacht', abschnitt: 'laerm', format: 'dezimal', erklaerung: 'Beurteilungspegel Lr in der Nacht (22 bis 6 Uhr), gleiche Quelle. Grenzwert reine Wohnzone: 50 dB.' },
-  'laerm.strasse.grenzwert_wohnzone_tag_db': { label: 'Grenzwert Wohnzone Tag', abschnitt: 'laerm', format: 'int', erklaerung: 'Immissionsgrenzwert der Lärmschutz-Verordnung für reine Wohnzonen (Empfindlichkeitsstufe II).' },
-  'laerm.strasse.grenzwert_wohnzone_nacht_db': { label: 'Grenzwert Wohnzone Nacht', abschnitt: 'laerm', format: 'int' },
+  'laerm.strasse.tag_db': { label: 'Strassenlärm Tag', abschnitt: 'laerm', format: 'dezimal', erklaerung: 'Beurteilungspegel Lr des Strassenverkehrs am Tag (6 bis 22 Uhr) am Gebäudepunkt. Modellrechnung des BAFU (sonBASE, Stand 2021), keine Messung. Zum Vergleich: In einer reinen Wohnzone (ES II) gilt tags ein Grenzwert von 60 dB.' },
+  'laerm.strasse.nacht_db': { label: 'Strassenlärm Nacht', abschnitt: 'laerm', format: 'dezimal', erklaerung: 'Beurteilungspegel Lr in der Nacht (22 bis 6 Uhr), gleiche Quelle. In einer reinen Wohnzone (ES II) gilt nachts 50 dB.' },
+  'laerm.empfindlichkeitsstufe': { label: 'Empfindlichkeitsstufe', abschnitt: 'laerm', erwartet: true, erklaerung: 'ES I bis IV aus dem ÖREB-Kataster. Sie legt fest, wie viel Lärm an diesem Ort zulässig ist: ES I Erholungszonen, ES II Wohnzonen, ES III Misch- und Gewerbezonen, ES IV Industrie. Daraus ergeben sich die Grenzwerte unten.' },
+  'laerm.strasse.grenzwert_tag_db': { label: 'Grenzwert Tag', abschnitt: 'laerm', format: 'int', erklaerung: 'Immissionsgrenzwert der Lärmschutz-Verordnung (Anhang 3, Strassenverkehr) für die Empfindlichkeitsstufe dieser Parzelle. Liegt der Pegel darüber, gilt der Ort als lärmbelastet.' },
+  'laerm.strasse.grenzwert_nacht_db': { label: 'Grenzwert Nacht', abschnitt: 'laerm', format: 'int' },
+  'laerm.empfindlichkeitsstufe_text': { label: 'Eintrag im Kataster', abschnitt: 'laerm' },
 
   'radon.wahrscheinlichkeit_prozent': { label: 'Radon-Wahrscheinlichkeit', abschnitt: 'radon', erwartet: true, format: 'int', erklaerung: 'Wahrscheinlichkeit laut BAG-Karte, dass in einem Gebäude an diesem Ort der Referenzwert von 300 Bq/m³ überschritten wird. Keine Messung an diesem Haus.' },
   'radon.einstufung': { label: 'Einstufung', abschnitt: 'radon', erklaerung: 'Unsere Lesehilfe: unter 10 % gering, unter 20 % mittel, ab 20 % erhöht. Bei erhöht lohnt sich eine Messung im Keller, besonders vor einem Umbau.' },

@@ -1,0 +1,2127 @@
+{
+ "_hinweis": "Echte Antwort vom 15.10.2026: https://api.geo.ag.ch/v2/oereb/extract/json?EGRID=CH959983779505 (Rütistrasse 1, Baden, Parzelle 3258). Kein SubCode: Kernzone 5 [K5] TypeCode 145101 und Gestaltungsplan TypeCode 611201_2897 beide unter ch.Nutzungsplanung, ES III als ES_III, LandRegistryArea 394.",
+ "$schema": "https://raw.githubusercontent.com/openoereb/schemas/ea4fe8e696b84b923cb9aa9fb27c3ba4e2d8eb5b/extract.json",
+ "GetExtractByIdResponse": {
+  "extract": {
+   "CreationDate": "2026-10-15T08:31:29",
+   "ExtractIdentifier": "12697dee-6584-4bfb-9a6e-bf77cbb56a0e",
+   "UpdateDateCS": "2026-10-15T08:31:29",
+   "PLRCadastreAuthority": {
+    "Name": [
+     {
+      "Language": "de",
+      "Text": "Vermessungsamt"
+     }
+    ],
+    "OfficeAtWeb": [
+     {
+      "Language": "de",
+      "Text": "https://ag.ch/oereb"
+     }
+    ],
+    "Street": "Bahnhofplatz",
+    "Number": "3c",
+    "PostalCode": "5001",
+    "City": "Aarau"
+   },
+   "RealEstate": {
+    "Type": {
+     "Code": "RealEstate",
+     "Text": [
+      {
+       "Language": "de",
+       "Text": "Liegenschaft"
+      }
+     ]
+    },
+    "Canton": "AG",
+    "MunicipalityName": "Baden",
+    "MunicipalityCode": 4021,
+    "LandRegistryArea": 394,
+    "PlanForLandRegister": {
+     "ReferenceWMS": [
+      {
+       "Language": "de",
+       "Text": "https://www.ag.ch/geoportal/services/oereb_base_sw/MapServer/WmsServer?SERVICE=WMS&REQUEST=GetMap&VERSION=1.1.1&STYLES=default%2Cdefault%2Cdefault%2Cdefault%2Cdefault%2Cdefault%2Cdefault%2Cdefault%2Cdefault%2Cdefault%2Cdefault%2Cdefault%2Cdefault%2Cdefault%2Cdefault%2Cdefault%2Cdefault%2Cdefault%2Cdefault%2Cdefault%2Cdefault%2Cdefault%2Cdefault%2Cdefault%2Cdefault%2Cdefault%2Cdefault%2Cdefault%2Cdefault%2Cdefault%2Cdefault%2Cdefault%2Cdefault%2Cdefault%2Cdefault%2Cdefault%2Cdefault%2Cdefault%2Cdefault%2Cdefault%2Cdefault%2Cdefault%2Cdefault&SRS=EPSG%3A2056&BBOX=2665288.279458931%2C1258586.3060000017%2C2665350.4520410686%2C1258621.6169999987&WIDTH=493&HEIGHT=280&FORMAT=image%2Fpng&LAYERS=0%2C1%2C2%2C3%2C4%2C5%2C6%2C7%2C8%2C9%2C10%2C11%2C12%2C13%2C14%2C15%2C16%2C17%2C18%2C19%2C20%2C21%2C22%2C23%2C24%2C25%2C26%2C27%2C28%2C29%2C30%2C31%2C32%2C33%2C34%2C35%2C36%2C37%2C38%2C39%2C40%2C41%2C42"
+      }
+     ],
+     "layerIndex": 0,
+     "layerOpacity": 1,
+     "min": {
+      "type": "Point",
+      "coordinates": [
+       2665288.279458931,
+       1258586.3060000017
+      ],
+      "crs": "EPSG:2056"
+     },
+     "max": {
+      "type": "Point",
+      "coordinates": [
+       2665350.4520410686,
+       1258621.6169999987
+      ],
+      "crs": "EPSG:2056"
+     }
+    },
+    "PlanForLandRegisterMainPage": {
+     "ReferenceWMS": [
+      {
+       "Language": "de",
+       "Text": "https://www.ag.ch/geoportal/services/oereb_base_sw/MapServer/WmsServer?SERVICE=WMS&REQUEST=GetMap&VERSION=1.1.1&STYLES=default%2Cdefault%2Cdefault%2Cdefault%2Cdefault%2Cdefault%2Cdefault%2Cdefault%2Cdefault%2Cdefault%2Cdefault%2Cdefault%2Cdefault%2Cdefault%2Cdefault%2Cdefault%2Cdefault%2Cdefault%2Cdefault%2Cdefault%2Cdefault%2Cdefault%2Cdefault%2Cdefault%2Cdefault%2Cdefault%2Cdefault%2Cdefault%2Cdefault%2Cdefault%2Cdefault%2Cdefault%2Cdefault%2Cdefault%2Cdefault%2Cdefault%2Cdefault%2Cdefault%2Cdefault%2Cdefault%2Cdefault%2Cdefault%2Cdefault&SRS=EPSG%3A2056&BBOX=2665288.279458931%2C1258586.3060000017%2C2665350.4520410686%2C1258621.6169999987&WIDTH=493&HEIGHT=280&FORMAT=image%2Fpng&LAYERS=0%2C1%2C2%2C3%2C4%2C5%2C6%2C7%2C8%2C9%2C10%2C11%2C12%2C13%2C14%2C15%2C16%2C17%2C18%2C19%2C20%2C21%2C22%2C23%2C24%2C25%2C26%2C27%2C28%2C29%2C30%2C31%2C32%2C33%2C34%2C35%2C36%2C37%2C38%2C39%2C40%2C41%2C42"
+      }
+     ],
+     "layerIndex": 0,
+     "layerOpacity": 1,
+     "min": {
+      "type": "Point",
+      "coordinates": [
+       2665288.279458931,
+       1258586.3060000017
+      ],
+      "crs": "EPSG:2056"
+     },
+     "max": {
+      "type": "Point",
+      "coordinates": [
+       2665350.4520410686,
+       1258621.6169999987
+      ],
+      "crs": "EPSG:2056"
+     }
+    },
+    "Number": "3258",
+    "IdentDN": "AG0200004021",
+    "EGRID": "CH959983779505",
+    "RestrictionOnLandownership": [
+     {
+      "LegendText": [
+       {
+        "Language": "de",
+        "Text": "Gestaltungsplan Innenstadt Nord - Westlich Bahnlinie"
+       }
+      ],
+      "Theme": {
+       "Code": "ch.Nutzungsplanung",
+       "Text": [
+        {
+         "Language": "de",
+         "Text": "Nutzungsplanung (kantonal/kommunal)"
+        }
+       ]
+      },
+      "Lawstatus": {
+       "Code": "inForce",
+       "Text": [
+        {
+         "Language": "de",
+         "Text": "Rechtskräftig"
+        }
+       ]
+      },
+      "ResponsibleOffice": {
+       "Name": [
+        {
+         "Language": "de",
+         "Text": "Baden"
+        }
+       ],
+       "OfficeAtWeb": [
+        {
+         "Language": "de",
+         "Text": "https://www.baden.ch"
+        }
+       ]
+      },
+      "Map": {
+       "ReferenceWMS": [
+        {
+         "Language": "de",
+         "Text": "https://wms.geo.ag.ch/oereb/wms?SERVICE=WMS&VERSION=1.1.0&REQUEST=GetMap&FORMAT=image%2Fpng&LAYERS=ch_ag_geo_oereb_73&BBOX=2665288.279458931%2C1258586.3060000017%2C2665350.4520410686%2C1258621.6169999987&WIDTH=493&HEIGHT=280&SRS=EPSG%3A2056"
+        }
+       ],
+       "OtherLegend": [
+        {
+         "LegendText": [
+          {
+           "Language": "de",
+           "Text": "Gestaltungsplan Gstühl"
+          }
+         ],
+         "TypeCode": "611201_2894",
+         "TypeCodelist": "611201_2894",
+         "Theme": {
+          "Code": "ch.Nutzungsplanung",
+          "Text": [
+           {
+            "Language": "de",
+            "Text": "Nutzungsplanung (kantonal/kommunal)"
+           }
+          ]
+         },
+         "SymbolRef": "https://api.geo.ag.ch/v2/oereb/image/symbol/ch.Nutzungsplanung/legend_entry.png?identifier=710"
+        },
+        {
+         "LegendText": [
+          {
+           "Language": "de",
+           "Text": "Gestaltungsplan Rütistrasse"
+          }
+         ],
+         "TypeCode": "611201_2898",
+         "TypeCodelist": "611201_2898",
+         "Theme": {
+          "Code": "ch.Nutzungsplanung",
+          "Text": [
+           {
+            "Language": "de",
+            "Text": "Nutzungsplanung (kantonal/kommunal)"
+           }
+          ]
+         },
+         "SymbolRef": "https://api.geo.ag.ch/v2/oereb/image/symbol/ch.Nutzungsplanung/legend_entry.png?identifier=800"
+        },
+        {
+         "LegendText": [
+          {
+           "Language": "de",
+           "Text": "Hochhausperimeter H1"
+          }
+         ],
+         "TypeCode": "691101",
+         "TypeCodelist": "691101",
+         "Theme": {
+          "Code": "ch.Nutzungsplanung",
+          "Text": [
+           {
+            "Language": "de",
+            "Text": "Nutzungsplanung (kantonal/kommunal)"
+           }
+          ]
+         },
+         "SymbolRef": "https://api.geo.ag.ch/v2/oereb/image/symbol/ch.Nutzungsplanung/legend_entry.png?identifier=3334"
+        },
+        {
+         "LegendText": [
+          {
+           "Language": "de",
+           "Text": "Kantonaler Nutzungsplan Thermenschutzbereiche"
+          }
+         ],
+         "TypeCode": "6124",
+         "TypeCodelist": "6124",
+         "Theme": {
+          "Code": "ch.Nutzungsplanung",
+          "Text": [
+           {
+            "Language": "de",
+            "Text": "Nutzungsplanung (kantonal/kommunal)"
+           }
+          ]
+         },
+         "SymbolRef": "https://api.geo.ag.ch/v2/oereb/image/symbol/ch.Nutzungsplanung/legend_entry.png?identifier=28"
+        },
+        {
+         "LegendText": [
+          {
+           "Language": "de",
+           "Text": "Kernzone 4 [K4]"
+          }
+         ],
+         "TypeCode": "144101",
+         "TypeCodelist": "144101",
+         "Theme": {
+          "Code": "ch.Nutzungsplanung",
+          "Text": [
+           {
+            "Language": "de",
+            "Text": "Nutzungsplanung (kantonal/kommunal)"
+           }
+          ]
+         },
+         "SymbolRef": "https://api.geo.ag.ch/v2/oereb/image/symbol/ch.Nutzungsplanung/legend_entry.png?identifier=4101"
+        },
+        {
+         "LegendText": [
+          {
+           "Language": "de",
+           "Text": "Thermenschutzbereich 3"
+          }
+         ],
+         "TypeCode": "5254",
+         "TypeCodelist": "5254",
+         "Theme": {
+          "Code": "ch.Nutzungsplanung",
+          "Text": [
+           {
+            "Language": "de",
+            "Text": "Nutzungsplanung (kantonal/kommunal)"
+           }
+          ]
+         },
+         "SymbolRef": "https://api.geo.ag.ch/v2/oereb/image/symbol/ch.Nutzungsplanung/legend_entry.png?identifier=30"
+        }
+       ],
+       "layerIndex": 0,
+       "layerOpacity": 0.6,
+       "min": {
+        "type": "Point",
+        "coordinates": [
+         2665288.279458931,
+         1258586.3060000017
+        ],
+        "crs": "EPSG:2056"
+       },
+       "max": {
+        "type": "Point",
+        "coordinates": [
+         2665350.4520410686,
+         1258621.6169999987
+        ],
+        "crs": "EPSG:2056"
+       }
+      },
+      "SymbolRef": "https://api.geo.ag.ch/v2/oereb/image/symbol/ch.Nutzungsplanung/legend_entry.png?identifier=1101",
+      "AreaShare": 394,
+      "TypeCode": "611201_2897",
+      "TypeCodelist": "611201_2897",
+      "PartInPercent": 100,
+      "LegalProvisions": [
+       {
+        "Type": {
+         "Code": "Law",
+         "Text": [
+          {
+           "Language": "de",
+           "Text": "Gesetzliche Grundlage"
+          }
+         ]
+        },
+        "Index": 10,
+        "Title": [
+         {
+          "Language": "de",
+          "Text": "Bundesgesetz über die Raumplanung"
+         }
+        ],
+        "Lawstatus": {
+         "Code": "inForce",
+         "Text": [
+          {
+           "Language": "de",
+           "Text": "Rechtskräftig"
+          }
+         ]
+        },
+        "TextAtWeb": [
+         {
+          "Language": "de",
+          "Text": "https://www.fedlex.admin.ch/eli/cc/1979/1573_1573_1573/de"
+         }
+        ],
+        "ResponsibleOffice": {
+         "Name": [
+          {
+           "Language": "de",
+           "Text": "Bundeskanzlei"
+          }
+         ]
+        },
+        "Abbreviation": [
+         {
+          "Language": "de",
+          "Text": "RPG"
+         }
+        ],
+        "OfficialNumber": [
+         {
+          "Language": "de",
+          "Text": "SR 700"
+         }
+        ]
+       },
+       {
+        "Type": {
+         "Code": "LegalProvision",
+         "Text": [
+          {
+           "Language": "de",
+           "Text": "Rechtsvorschrift"
+          }
+         ]
+        },
+        "Index": 0,
+        "Title": [
+         {
+          "Language": "de",
+          "Text": "Gestaltungsplan Innenstadt Nord - Westlich Bahnlinie"
+         }
+        ],
+        "Lawstatus": {
+         "Code": "inForce",
+         "Text": [
+          {
+           "Language": "de",
+           "Text": "Rechtskräftig"
+          }
+         ]
+        },
+        "TextAtWeb": [
+         {
+          "Language": "de",
+          "Text": "https://oereblex.ag.ch/api/attachments/5388"
+         }
+        ],
+        "ResponsibleOffice": {
+         "Name": [
+          {
+           "Language": "de",
+           "Text": "Gemeindeverwaltung"
+          }
+         ],
+         "OfficeAtWeb": [
+          {
+           "Language": "de",
+           "Text": "https://www.baden.ch/"
+          }
+         ]
+        },
+        "OfficialNumber": [
+         {
+          "Language": "de",
+          "Text": "2006-000217"
+         }
+        ]
+       },
+       {
+        "Type": {
+         "Code": "LegalProvision",
+         "Text": [
+          {
+           "Language": "de",
+           "Text": "Rechtsvorschrift"
+          }
+         ]
+        },
+        "Index": 0,
+        "Title": [
+         {
+          "Language": "de",
+          "Text": "Gestaltungsplan Innenstadt Nord - Westlich Bahnlinie"
+         }
+        ],
+        "Lawstatus": {
+         "Code": "inForce",
+         "Text": [
+          {
+           "Language": "de",
+           "Text": "Rechtskräftig"
+          }
+         ]
+        },
+        "TextAtWeb": [
+         {
+          "Language": "de",
+          "Text": "https://oereblex.ag.ch/api/attachments/5435"
+         }
+        ],
+        "ResponsibleOffice": {
+         "Name": [
+          {
+           "Language": "de",
+           "Text": "Gemeindeverwaltung"
+          }
+         ],
+         "OfficeAtWeb": [
+          {
+           "Language": "de",
+           "Text": "https://www.baden.ch/"
+          }
+         ]
+        },
+        "OfficialNumber": [
+         {
+          "Language": "de",
+          "Text": "2006-000217"
+         }
+        ]
+       },
+       {
+        "Type": {
+         "Code": "Law",
+         "Text": [
+          {
+           "Language": "de",
+           "Text": "Gesetzliche Grundlage"
+          }
+         ]
+        },
+        "Index": 920,
+        "Title": [
+         {
+          "Language": "de",
+          "Text": "Gesetz über Raumentwicklung und Bauwesen"
+         }
+        ],
+        "Lawstatus": {
+         "Code": "inForce",
+         "Text": [
+          {
+           "Language": "de",
+           "Text": "Rechtskräftig"
+          }
+         ]
+        },
+        "TextAtWeb": [
+         {
+          "Language": "de",
+          "Text": "https://gesetzessammlungen.ag.ch/api/de/versions/3784/pdf_file_with_annexes"
+         }
+        ],
+        "ResponsibleOffice": {
+         "Name": [
+          {
+           "Language": "de",
+           "Text": "Abteilung Raumentwicklung;Abteilung Wald"
+          }
+         ],
+         "OfficeAtWeb": [
+          {
+           "Language": "de",
+           "Text": "https://www.ag.ch/de/bvu/ueber_uns_bvu/organisation_bvu/abteilung_raumentwicklung/abteilung_raumentwicklung.jsp;https://www.ag.ch/de/bvu/ueber_uns_bvu/organisation_bvu/abteilung_wald/abteilung_wald.jsp"
+          }
+         ]
+        },
+        "Abbreviation": [
+         {
+          "Language": "de",
+          "Text": "Baugesetz, BauG"
+         }
+        ],
+        "OfficialNumber": [
+         {
+          "Language": "de",
+          "Text": "SAR 713.100"
+         }
+        ]
+       },
+       {
+        "Type": {
+         "Code": "Law",
+         "Text": [
+          {
+           "Language": "de",
+           "Text": "Gesetzliche Grundlage"
+          }
+         ]
+        },
+        "Index": 930,
+        "Title": [
+         {
+          "Language": "de",
+          "Text": "Bauverordnung"
+         }
+        ],
+        "Lawstatus": {
+         "Code": "inForce",
+         "Text": [
+          {
+           "Language": "de",
+           "Text": "Rechtskräftig"
+          }
+         ]
+        },
+        "TextAtWeb": [
+         {
+          "Language": "de",
+          "Text": "https://gesetzessammlungen.ag.ch/api/de/versions/3985/pdf_file_with_annexes"
+         }
+        ],
+        "ResponsibleOffice": {
+         "Name": [
+          {
+           "Language": "de",
+           "Text": "Abteilung Raumentwicklung"
+          }
+         ],
+         "OfficeAtWeb": [
+          {
+           "Language": "de",
+           "Text": "https://www.ag.ch/de/bvu/ueber_uns_bvu/organisation_bvu/abteilung_raumentwicklung/abteilung_raumentwicklung.jsp"
+          }
+         ]
+        },
+        "Abbreviation": [
+         {
+          "Language": "de",
+          "Text": "BauV"
+         }
+        ],
+        "OfficialNumber": [
+         {
+          "Language": "de",
+          "Text": "SAR 713.121"
+         }
+        ]
+       }
+      ]
+     },
+     {
+      "LegendText": [
+       {
+        "Language": "de",
+        "Text": "Kernzone 5 [K5]"
+       }
+      ],
+      "Theme": {
+       "Code": "ch.Nutzungsplanung",
+       "Text": [
+        {
+         "Language": "de",
+         "Text": "Nutzungsplanung (kantonal/kommunal)"
+        }
+       ]
+      },
+      "Lawstatus": {
+       "Code": "inForce",
+       "Text": [
+        {
+         "Language": "de",
+         "Text": "Rechtskräftig"
+        }
+       ]
+      },
+      "ResponsibleOffice": {
+       "Name": [
+        {
+         "Language": "de",
+         "Text": "Baden"
+        }
+       ],
+       "OfficeAtWeb": [
+        {
+         "Language": "de",
+         "Text": "https://www.baden.ch"
+        }
+       ]
+      },
+      "Map": {
+       "ReferenceWMS": [
+        {
+         "Language": "de",
+         "Text": "https://wms.geo.ag.ch/oereb/wms?SERVICE=WMS&VERSION=1.1.0&REQUEST=GetMap&FORMAT=image%2Fpng&LAYERS=ch_ag_geo_oereb_73&BBOX=2665288.279458931%2C1258586.3060000017%2C2665350.4520410686%2C1258621.6169999987&WIDTH=493&HEIGHT=280&SRS=EPSG%3A2056"
+        }
+       ],
+       "OtherLegend": [
+        {
+         "LegendText": [
+          {
+           "Language": "de",
+           "Text": "Gestaltungsplan Gstühl"
+          }
+         ],
+         "TypeCode": "611201_2894",
+         "TypeCodelist": "611201_2894",
+         "Theme": {
+          "Code": "ch.Nutzungsplanung",
+          "Text": [
+           {
+            "Language": "de",
+            "Text": "Nutzungsplanung (kantonal/kommunal)"
+           }
+          ]
+         },
+         "SymbolRef": "https://api.geo.ag.ch/v2/oereb/image/symbol/ch.Nutzungsplanung/legend_entry.png?identifier=710"
+        },
+        {
+         "LegendText": [
+          {
+           "Language": "de",
+           "Text": "Gestaltungsplan Rütistrasse"
+          }
+         ],
+         "TypeCode": "611201_2898",
+         "TypeCodelist": "611201_2898",
+         "Theme": {
+          "Code": "ch.Nutzungsplanung",
+          "Text": [
+           {
+            "Language": "de",
+            "Text": "Nutzungsplanung (kantonal/kommunal)"
+           }
+          ]
+         },
+         "SymbolRef": "https://api.geo.ag.ch/v2/oereb/image/symbol/ch.Nutzungsplanung/legend_entry.png?identifier=800"
+        },
+        {
+         "LegendText": [
+          {
+           "Language": "de",
+           "Text": "Hochhausperimeter H1"
+          }
+         ],
+         "TypeCode": "691101",
+         "TypeCodelist": "691101",
+         "Theme": {
+          "Code": "ch.Nutzungsplanung",
+          "Text": [
+           {
+            "Language": "de",
+            "Text": "Nutzungsplanung (kantonal/kommunal)"
+           }
+          ]
+         },
+         "SymbolRef": "https://api.geo.ag.ch/v2/oereb/image/symbol/ch.Nutzungsplanung/legend_entry.png?identifier=3334"
+        },
+        {
+         "LegendText": [
+          {
+           "Language": "de",
+           "Text": "Kantonaler Nutzungsplan Thermenschutzbereiche"
+          }
+         ],
+         "TypeCode": "6124",
+         "TypeCodelist": "6124",
+         "Theme": {
+          "Code": "ch.Nutzungsplanung",
+          "Text": [
+           {
+            "Language": "de",
+            "Text": "Nutzungsplanung (kantonal/kommunal)"
+           }
+          ]
+         },
+         "SymbolRef": "https://api.geo.ag.ch/v2/oereb/image/symbol/ch.Nutzungsplanung/legend_entry.png?identifier=28"
+        },
+        {
+         "LegendText": [
+          {
+           "Language": "de",
+           "Text": "Kernzone 4 [K4]"
+          }
+         ],
+         "TypeCode": "144101",
+         "TypeCodelist": "144101",
+         "Theme": {
+          "Code": "ch.Nutzungsplanung",
+          "Text": [
+           {
+            "Language": "de",
+            "Text": "Nutzungsplanung (kantonal/kommunal)"
+           }
+          ]
+         },
+         "SymbolRef": "https://api.geo.ag.ch/v2/oereb/image/symbol/ch.Nutzungsplanung/legend_entry.png?identifier=4101"
+        },
+        {
+         "LegendText": [
+          {
+           "Language": "de",
+           "Text": "Thermenschutzbereich 3"
+          }
+         ],
+         "TypeCode": "5254",
+         "TypeCodelist": "5254",
+         "Theme": {
+          "Code": "ch.Nutzungsplanung",
+          "Text": [
+           {
+            "Language": "de",
+            "Text": "Nutzungsplanung (kantonal/kommunal)"
+           }
+          ]
+         },
+         "SymbolRef": "https://api.geo.ag.ch/v2/oereb/image/symbol/ch.Nutzungsplanung/legend_entry.png?identifier=30"
+        }
+       ],
+       "layerIndex": 0,
+       "layerOpacity": 0.6,
+       "min": {
+        "type": "Point",
+        "coordinates": [
+         2665288.279458931,
+         1258586.3060000017
+        ],
+        "crs": "EPSG:2056"
+       },
+       "max": {
+        "type": "Point",
+        "coordinates": [
+         2665350.4520410686,
+         1258621.6169999987
+        ],
+        "crs": "EPSG:2056"
+       }
+      },
+      "SymbolRef": "https://api.geo.ag.ch/v2/oereb/image/symbol/ch.Nutzungsplanung/legend_entry.png?identifier=4712",
+      "AreaShare": 394,
+      "TypeCode": "145101",
+      "TypeCodelist": "145101",
+      "PartInPercent": 100,
+      "LegalProvisions": [
+       {
+        "Type": {
+         "Code": "Law",
+         "Text": [
+          {
+           "Language": "de",
+           "Text": "Gesetzliche Grundlage"
+          }
+         ]
+        },
+        "Index": 10,
+        "Title": [
+         {
+          "Language": "de",
+          "Text": "Bundesgesetz über die Raumplanung"
+         }
+        ],
+        "Lawstatus": {
+         "Code": "inForce",
+         "Text": [
+          {
+           "Language": "de",
+           "Text": "Rechtskräftig"
+          }
+         ]
+        },
+        "TextAtWeb": [
+         {
+          "Language": "de",
+          "Text": "https://www.fedlex.admin.ch/eli/cc/1979/1573_1573_1573/de"
+         }
+        ],
+        "ResponsibleOffice": {
+         "Name": [
+          {
+           "Language": "de",
+           "Text": "Bundeskanzlei"
+          }
+         ]
+        },
+        "Abbreviation": [
+         {
+          "Language": "de",
+          "Text": "RPG"
+         }
+        ],
+        "OfficialNumber": [
+         {
+          "Language": "de",
+          "Text": "SR 700"
+         }
+        ]
+       },
+       {
+        "Type": {
+         "Code": "LegalProvision",
+         "Text": [
+          {
+           "Language": "de",
+           "Text": "Rechtsvorschrift"
+          }
+         ]
+        },
+        "Index": 0,
+        "Title": [
+         {
+          "Language": "de",
+          "Text": "Bauzonenplan Teil Nord"
+         }
+        ],
+        "Lawstatus": {
+         "Code": "inForce",
+         "Text": [
+          {
+           "Language": "de",
+           "Text": "Rechtskräftig"
+          }
+         ]
+        },
+        "TextAtWeb": [
+         {
+          "Language": "de",
+          "Text": "https://oereblex.ag.ch/api/attachments/5052"
+         }
+        ],
+        "ResponsibleOffice": {
+         "Name": [
+          {
+           "Language": "de",
+           "Text": "Gemeindeverwaltung"
+          }
+         ],
+         "OfficeAtWeb": [
+          {
+           "Language": "de",
+           "Text": "https://www.baden.ch/"
+          }
+         ]
+        },
+        "OfficialNumber": [
+         {
+          "Language": "de",
+          "Text": "2016-000365"
+         }
+        ]
+       },
+       {
+        "Type": {
+         "Code": "LegalProvision",
+         "Text": [
+          {
+           "Language": "de",
+           "Text": "Rechtsvorschrift"
+          }
+         ]
+        },
+        "Index": 0,
+        "Title": [
+         {
+          "Language": "de",
+          "Text": "Bauzonenplan Teil Nord"
+         }
+        ],
+        "Lawstatus": {
+         "Code": "inForce",
+         "Text": [
+          {
+           "Language": "de",
+           "Text": "Rechtskräftig"
+          }
+         ]
+        },
+        "TextAtWeb": [
+         {
+          "Language": "de",
+          "Text": "https://oereblex.ag.ch/api/attachments/5053"
+         }
+        ],
+        "ResponsibleOffice": {
+         "Name": [
+          {
+           "Language": "de",
+           "Text": "Gemeindeverwaltung"
+          }
+         ],
+         "OfficeAtWeb": [
+          {
+           "Language": "de",
+           "Text": "https://www.baden.ch/"
+          }
+         ]
+        },
+        "OfficialNumber": [
+         {
+          "Language": "de",
+          "Text": "2016-000365"
+         }
+        ]
+       },
+       {
+        "Type": {
+         "Code": "LegalProvision",
+         "Text": [
+          {
+           "Language": "de",
+           "Text": "Rechtsvorschrift"
+          }
+         ]
+        },
+        "Index": 0,
+        "Title": [
+         {
+          "Language": "de",
+          "Text": "Bau- und Nutzungsordnung"
+         }
+        ],
+        "Lawstatus": {
+         "Code": "inForce",
+         "Text": [
+          {
+           "Language": "de",
+           "Text": "Rechtskräftig"
+          }
+         ]
+        },
+        "TextAtWeb": [
+         {
+          "Language": "de",
+          "Text": "https://oereblex.ag.ch/api/attachments/5061"
+         }
+        ],
+        "ResponsibleOffice": {
+         "Name": [
+          {
+           "Language": "de",
+           "Text": "Gemeindeverwaltung"
+          }
+         ],
+         "OfficeAtWeb": [
+          {
+           "Language": "de",
+           "Text": "https://www.baden.ch/"
+          }
+         ]
+        },
+        "OfficialNumber": [
+         {
+          "Language": "de",
+          "Text": "4021"
+         }
+        ]
+       },
+       {
+        "Type": {
+         "Code": "Law",
+         "Text": [
+          {
+           "Language": "de",
+           "Text": "Gesetzliche Grundlage"
+          }
+         ]
+        },
+        "Index": 920,
+        "Title": [
+         {
+          "Language": "de",
+          "Text": "Gesetz über Raumentwicklung und Bauwesen"
+         }
+        ],
+        "Lawstatus": {
+         "Code": "inForce",
+         "Text": [
+          {
+           "Language": "de",
+           "Text": "Rechtskräftig"
+          }
+         ]
+        },
+        "TextAtWeb": [
+         {
+          "Language": "de",
+          "Text": "https://gesetzessammlungen.ag.ch/api/de/versions/3784/pdf_file_with_annexes"
+         }
+        ],
+        "ResponsibleOffice": {
+         "Name": [
+          {
+           "Language": "de",
+           "Text": "Abteilung Raumentwicklung;Abteilung Wald"
+          }
+         ],
+         "OfficeAtWeb": [
+          {
+           "Language": "de",
+           "Text": "https://www.ag.ch/de/bvu/ueber_uns_bvu/organisation_bvu/abteilung_raumentwicklung/abteilung_raumentwicklung.jsp;https://www.ag.ch/de/bvu/ueber_uns_bvu/organisation_bvu/abteilung_wald/abteilung_wald.jsp"
+          }
+         ]
+        },
+        "Abbreviation": [
+         {
+          "Language": "de",
+          "Text": "Baugesetz, BauG"
+         }
+        ],
+        "OfficialNumber": [
+         {
+          "Language": "de",
+          "Text": "SAR 713.100"
+         }
+        ]
+       },
+       {
+        "Type": {
+         "Code": "Law",
+         "Text": [
+          {
+           "Language": "de",
+           "Text": "Gesetzliche Grundlage"
+          }
+         ]
+        },
+        "Index": 930,
+        "Title": [
+         {
+          "Language": "de",
+          "Text": "Bauverordnung"
+         }
+        ],
+        "Lawstatus": {
+         "Code": "inForce",
+         "Text": [
+          {
+           "Language": "de",
+           "Text": "Rechtskräftig"
+          }
+         ]
+        },
+        "TextAtWeb": [
+         {
+          "Language": "de",
+          "Text": "https://gesetzessammlungen.ag.ch/api/de/versions/3985/pdf_file_with_annexes"
+         }
+        ],
+        "ResponsibleOffice": {
+         "Name": [
+          {
+           "Language": "de",
+           "Text": "Abteilung Raumentwicklung"
+          }
+         ],
+         "OfficeAtWeb": [
+          {
+           "Language": "de",
+           "Text": "https://www.ag.ch/de/bvu/ueber_uns_bvu/organisation_bvu/abteilung_raumentwicklung/abteilung_raumentwicklung.jsp"
+          }
+         ]
+        },
+        "Abbreviation": [
+         {
+          "Language": "de",
+          "Text": "BauV"
+         }
+        ],
+        "OfficialNumber": [
+         {
+          "Language": "de",
+          "Text": "SAR 713.121"
+         }
+        ]
+       }
+      ]
+     },
+     {
+      "LegendText": [
+       {
+        "Language": "de",
+        "Text": "Empfindlichkeitsstufe III"
+       }
+      ],
+      "Theme": {
+       "Code": "ch.Laermempfindlichkeitsstufen",
+       "Text": [
+        {
+         "Language": "de",
+         "Text": "Lärmempfindlichkeitsstufen (in Nutzungszonen)"
+        }
+       ]
+      },
+      "Lawstatus": {
+       "Code": "inForce",
+       "Text": [
+        {
+         "Language": "de",
+         "Text": "Rechtskräftig"
+        }
+       ]
+      },
+      "ResponsibleOffice": {
+       "Name": [
+        {
+         "Language": "de",
+         "Text": "Baden"
+        }
+       ],
+       "OfficeAtWeb": [
+        {
+         "Language": "de",
+         "Text": "https://www.baden.ch"
+        }
+       ]
+      },
+      "Map": {
+       "ReferenceWMS": [
+        {
+         "Language": "de",
+         "Text": "https://wms.geo.ag.ch/oereb/wms?SERVICE=WMS&VERSION=1.1.0&REQUEST=GetMap&FORMAT=image%2Fpng&LAYERS=ch_ag_geo_oereb_145_01&BBOX=2665288.279458931%2C1258586.3060000017%2C2665350.4520410686%2C1258621.6169999987&WIDTH=493&HEIGHT=280&SRS=EPSG%3A2056"
+        }
+       ],
+       "layerIndex": 0,
+       "layerOpacity": 0.6,
+       "min": {
+        "type": "Point",
+        "coordinates": [
+         2665288.279458931,
+         1258586.3060000017
+        ],
+        "crs": "EPSG:2056"
+       },
+       "max": {
+        "type": "Point",
+        "coordinates": [
+         2665350.4520410686,
+         1258621.6169999987
+        ],
+        "crs": "EPSG:2056"
+       }
+      },
+      "SymbolRef": "https://api.geo.ag.ch/v2/oereb/image/symbol/ch.Laermempfindlichkeitsstufen/legend_entry.png?identifier=2",
+      "AreaShare": 394,
+      "TypeCode": "ES_III",
+      "TypeCodelist": "ES_III",
+      "PartInPercent": 100,
+      "LegalProvisions": [
+       {
+        "Type": {
+         "Code": "Law",
+         "Text": [
+          {
+           "Language": "de",
+           "Text": "Gesetzliche Grundlage"
+          }
+         ]
+        },
+        "Index": 620,
+        "Title": [
+         {
+          "Language": "de",
+          "Text": "Lärmschutz-Verordnung"
+         }
+        ],
+        "Lawstatus": {
+         "Code": "inForce",
+         "Text": [
+          {
+           "Language": "de",
+           "Text": "Rechtskräftig"
+          }
+         ]
+        },
+        "TextAtWeb": [
+         {
+          "Language": "de",
+          "Text": "https://www.fedlex.admin.ch/eli/cc/1987/338_338_338/de"
+         }
+        ],
+        "ResponsibleOffice": {
+         "Name": [
+          {
+           "Language": "de",
+           "Text": "Bundeskanzlei"
+          }
+         ]
+        },
+        "Abbreviation": [
+         {
+          "Language": "de",
+          "Text": "LSV"
+         }
+        ],
+        "OfficialNumber": [
+         {
+          "Language": "de",
+          "Text": "SR 814.41"
+         }
+        ]
+       },
+       {
+        "Type": {
+         "Code": "LegalProvision",
+         "Text": [
+          {
+           "Language": "de",
+           "Text": "Rechtsvorschrift"
+          }
+         ]
+        },
+        "Index": 0,
+        "Title": [
+         {
+          "Language": "de",
+          "Text": "Lärmempfindlichkeitsstufen"
+         }
+        ],
+        "Lawstatus": {
+         "Code": "inForce",
+         "Text": [
+          {
+           "Language": "de",
+           "Text": "Rechtskräftig"
+          }
+         ]
+        },
+        "TextAtWeb": [
+         {
+          "Language": "de",
+          "Text": "https://oereblex.ag.ch/api/attachments/5060"
+         }
+        ],
+        "ResponsibleOffice": {
+         "Name": [
+          {
+           "Language": "de",
+           "Text": "Gemeindeverwaltung"
+          }
+         ],
+         "OfficeAtWeb": [
+          {
+           "Language": "de",
+           "Text": "https://www.baden.ch/"
+          }
+         ]
+        },
+        "OfficialNumber": [
+         {
+          "Language": "de",
+          "Text": "2016-000365"
+         }
+        ]
+       },
+       {
+        "Type": {
+         "Code": "LegalProvision",
+         "Text": [
+          {
+           "Language": "de",
+           "Text": "Rechtsvorschrift"
+          }
+         ]
+        },
+        "Index": 0,
+        "Title": [
+         {
+          "Language": "de",
+          "Text": "Bau- und Nutzungsordnung"
+         }
+        ],
+        "Lawstatus": {
+         "Code": "inForce",
+         "Text": [
+          {
+           "Language": "de",
+           "Text": "Rechtskräftig"
+          }
+         ]
+        },
+        "TextAtWeb": [
+         {
+          "Language": "de",
+          "Text": "https://oereblex.ag.ch/api/attachments/5061"
+         }
+        ],
+        "ResponsibleOffice": {
+         "Name": [
+          {
+           "Language": "de",
+           "Text": "Gemeindeverwaltung"
+          }
+         ],
+         "OfficeAtWeb": [
+          {
+           "Language": "de",
+           "Text": "https://www.baden.ch/"
+          }
+         ]
+        },
+        "OfficialNumber": [
+         {
+          "Language": "de",
+          "Text": "4021"
+         }
+        ]
+       },
+       {
+        "Type": {
+         "Code": "Law",
+         "Text": [
+          {
+           "Language": "de",
+           "Text": "Gesetzliche Grundlage"
+          }
+         ]
+        },
+        "Index": 920,
+        "Title": [
+         {
+          "Language": "de",
+          "Text": "Gesetz über Raumentwicklung und Bauwesen"
+         }
+        ],
+        "Lawstatus": {
+         "Code": "inForce",
+         "Text": [
+          {
+           "Language": "de",
+           "Text": "Rechtskräftig"
+          }
+         ]
+        },
+        "TextAtWeb": [
+         {
+          "Language": "de",
+          "Text": "https://gesetzessammlungen.ag.ch/api/de/versions/3784/pdf_file_with_annexes"
+         }
+        ],
+        "ResponsibleOffice": {
+         "Name": [
+          {
+           "Language": "de",
+           "Text": "Abteilung Raumentwicklung;Abteilung Wald"
+          }
+         ],
+         "OfficeAtWeb": [
+          {
+           "Language": "de",
+           "Text": "https://www.ag.ch/de/bvu/ueber_uns_bvu/organisation_bvu/abteilung_raumentwicklung/abteilung_raumentwicklung.jsp;https://www.ag.ch/de/bvu/ueber_uns_bvu/organisation_bvu/abteilung_wald/abteilung_wald.jsp"
+          }
+         ]
+        },
+        "Abbreviation": [
+         {
+          "Language": "de",
+          "Text": "Baugesetz, BauG"
+         }
+        ],
+        "OfficialNumber": [
+         {
+          "Language": "de",
+          "Text": "SAR 713.100"
+         }
+        ]
+       }
+      ]
+     }
+    ]
+   },
+   "ConcernedTheme": [
+    {
+     "Code": "ch.Nutzungsplanung",
+     "Text": [
+      {
+       "Language": "de",
+       "Text": "Nutzungsplanung (kantonal/kommunal)"
+      }
+     ]
+    },
+    {
+     "Code": "ch.Laermempfindlichkeitsstufen",
+     "Text": [
+      {
+       "Language": "de",
+       "Text": "Lärmempfindlichkeitsstufen (in Nutzungszonen)"
+      }
+     ]
+    }
+   ],
+   "NotConcernedTheme": [
+    {
+     "Code": "ch.Planungszonen",
+     "Text": [
+      {
+       "Language": "de",
+       "Text": "Planungszonen"
+      }
+     ]
+    },
+    {
+     "Code": "ch.ProjektierungszonenNationalstrassen",
+     "Text": [
+      {
+       "Language": "de",
+       "Text": "Projektierungszonen Nationalstrassen"
+      }
+     ]
+    },
+    {
+     "Code": "ch.BaulinienNationalstrassen",
+     "Text": [
+      {
+       "Language": "de",
+       "Text": "Baulinien Nationalstrassen"
+      }
+     ]
+    },
+    {
+     "Code": "ch.ProjektierungszonenEisenbahnanlagen",
+     "Text": [
+      {
+       "Language": "de",
+       "Text": "Projektierungszonen Eisenbahnanlagen"
+      }
+     ]
+    },
+    {
+     "Code": "ch.BaulinienEisenbahnanlagen",
+     "Text": [
+      {
+       "Language": "de",
+       "Text": "Baulinien Eisenbahnanlagen"
+      }
+     ]
+    },
+    {
+     "Code": "ch.ProjektierungszonenFlughafenanlagen",
+     "Text": [
+      {
+       "Language": "de",
+       "Text": "Projektierungszonen Flughafenanlagen"
+      }
+     ]
+    },
+    {
+     "Code": "ch.BaulinienFlughafenanlagen",
+     "Text": [
+      {
+       "Language": "de",
+       "Text": "Baulinien Flughafenanlagen"
+      }
+     ]
+    },
+    {
+     "Code": "ch.Sicherheitszonenplan",
+     "Text": [
+      {
+       "Language": "de",
+       "Text": "Sicherheitszonenplan"
+      }
+     ]
+    },
+    {
+     "Code": "ch.BelasteteStandorte",
+     "Text": [
+      {
+       "Language": "de",
+       "Text": "Kataster der belasteten Standorte"
+      }
+     ]
+    },
+    {
+     "Code": "ch.BelasteteStandorteMilitaer",
+     "Text": [
+      {
+       "Language": "de",
+       "Text": "Kataster der belasteten Standorte im Bereich des Militärs"
+      }
+     ]
+    },
+    {
+     "Code": "ch.BelasteteStandorteZivileFlugplaetze",
+     "Text": [
+      {
+       "Language": "de",
+       "Text": "Kataster der belasteten Standorte im Bereich der zivilen Flugplätze"
+      }
+     ]
+    },
+    {
+     "Code": "ch.BelasteteStandorteOeffentlicherVerkehr",
+     "Text": [
+      {
+       "Language": "de",
+       "Text": "Kataster der belasteten Standorte im Bereich des öffentlichen Verkehrs"
+      }
+     ]
+    },
+    {
+     "Code": "ch.Grundwasserschutzzonen",
+     "Text": [
+      {
+       "Language": "de",
+       "Text": "Grundwasserschutzzonen"
+      }
+     ]
+    },
+    {
+     "Code": "ch.GrundwasserschutzzonenZusatz",
+     "Text": [
+      {
+       "Language": "de",
+       "Text": "Grundwasserschutzzonen, Zusatzinformation gem. Art. 8b ÖREBKV"
+      }
+     ]
+    },
+    {
+     "Code": "ch.Grundwasserschutzareale",
+     "Text": [
+      {
+       "Language": "de",
+       "Text": "Grundwasserschutzareale"
+      }
+     ]
+    },
+    {
+     "Code": "ch.GewaesserraumZusatz",
+     "Text": [
+      {
+       "Language": "de",
+       "Text": "Gewässerraum, Zusatzinformation gem. Art. 8b ÖREBKV"
+      }
+     ]
+    },
+    {
+     "Code": "ch.StatischeWaldgrenzen",
+     "Text": [
+      {
+       "Language": "de",
+       "Text": "Statische Waldgrenzen"
+      }
+     ]
+    },
+    {
+     "Code": "ch.Waldabstandslinien",
+     "Text": [
+      {
+       "Language": "de",
+       "Text": "Waldabstandslinien"
+      }
+     ]
+    },
+    {
+     "Code": "ch.Waldreservate",
+     "Text": [
+      {
+       "Language": "de",
+       "Text": "Waldreservate"
+      }
+     ]
+    },
+    {
+     "Code": "ch.Rodungen",
+     "Text": [
+      {
+       "Language": "de",
+       "Text": "Rodungen und Rodungsersatz"
+      }
+     ]
+    },
+    {
+     "Code": "ch.ProjektierungszonenStarkstromanlagen",
+     "Text": [
+      {
+       "Language": "de",
+       "Text": "Projektierungszonen Leitungen mit einer Nennspannung von 220 kV oder höher"
+      }
+     ]
+    },
+    {
+     "Code": "ch.BaulinienStarkstromanlagen",
+     "Text": [
+      {
+       "Language": "de",
+       "Text": "Baulinien Starkstromanlagen"
+      }
+     ]
+    }
+   ],
+   "ThemeWithoutData": [
+    {
+     "Code": "ch.Gewaesserraum",
+     "Text": [
+      {
+       "Language": "de",
+       "Text": "Gewässerraum"
+      }
+     ]
+    }
+   ],
+   "LogoPLRCadastreRef": "https://api.geo.ag.ch/v2/oereb/image/logo/oereb/de.png",
+   "FederalLogoRef": "https://api.geo.ag.ch/v2/oereb/image/logo/confederation/de.png",
+   "CantonalLogoRef": "https://api.geo.ag.ch/v2/oereb/image/logo/canton/de.png",
+   "MunicipalityLogoRef": "https://api.geo.ag.ch/v2/oereb/image/logo/municipality/de.png?fosnr=4021",
+   "QRCodeRef": "https://api.geo.ag.ch/v2/oereb/image/qrcode?extract_url=https%3A%2F%2Fapi.geo.ag.ch%2Fv2%2Foereb%2Fextract%2Fjson%3FEGRID%3DCH959983779505",
+   "GeneralInformation": [
+    [
+     {
+      "Language": "de",
+      "Text": "Der Inhalt des ÖREB-Katasters wird als bekannt vorausgesetzt. Der Kanton Aargau ist für die Genauigkeit und Verlässlichkeit der gesetzgebenden Dokumente in elektronischer Form nicht haftbar. Der Auszug hat rein informativen Charakter und begründet insbesondere keine Rechte und Pflichten. Massgeblich sind diejenigen Dokumente, welche rechtskräftig verabschiedet oder veröffentlicht worden sind. Weitere Informationen zum ÖREB-Kataster finden Sie unter www.cadastre.ch"
+     }
+    ]
+   ],
+   "Disclaimer": [
+    {
+     "Title": [
+      {
+       "Language": "de",
+       "Text": "Eigentumsbeschränkungen im Grundbuch"
+      }
+     ],
+     "Content": [
+      {
+       "Language": "de",
+       "Text": "Zusätzlich zu den Angaben in diesem Auszug können Eigentumsbeschränkungen auch im Grundbuch angemerkt sein."
+      }
+     ]
+    },
+    {
+     "Title": [
+      {
+       "Language": "de",
+       "Text": "Haftungsausschluss Kataster der belasteten Standorte (KbS)"
+      }
+     ],
+     "Content": [
+      {
+       "Language": "de",
+       "Text": "Der Kataster der belasteten Standorte (KbS) wurde anhand der vom Bundesamt für Umwelt BAFU festgelegten Kriterien erstellt und wird fortwährend aufgrund neuer Erkenntnisse (z.B. Untersuchungen) aktualisiert. Die im KbS eingetragenen Flächen können vom tatsächlichen Ausmass der Belastung abweichen. Erscheint ein Grundstück nicht im KbS, besteht keine absolute Gewähr, dass das Areal frei von jeglichen Abfall- oder Schadstoffbelastungen ist. Bahnbetrieblich, militärisch und für die Luftfahrt genutzte Standorte liegen im Zuständigkeitsbereich des Bundes."
+      }
+     ]
+    }
+   ],
+   "Glossary": [
+    {
+     "Title": [
+      {
+       "Language": "de",
+       "Text": "Änderungen"
+      }
+     ],
+     "Content": [
+      {
+       "Language": "de",
+       "Text": "Bei Änderungen handelt es sich um geplante oder neue ÖREB, welche ab der öffentlichen Auflage im ÖREB-Kataster geführt werden können. Änderungen können je nach rechtlicher Grundlage mit der öffentlichen Auflage bereits eine Vorwirkung entfalten."
+      }
+     ]
+    },
+    {
+     "Title": [
+      {
+       "Language": "de",
+       "Text": "Baulinien Eisenbahnanlagen"
+      }
+     ],
+     "Content": [
+      {
+       "Language": "de",
+       "Text": "Zwischen den Baulinien dürfen keine baulichen Veränderungen vorgenommen oder sonstige Massnahmen getroffen werden, die dem Zweck bestehender oder künftiger Eisenbahnanlagen widersprechen."
+      }
+     ]
+    },
+    {
+     "Title": [
+      {
+       "Language": "de",
+       "Text": "Baulinien Flughafenanlagen"
+      }
+     ],
+     "Content": [
+      {
+       "Language": "de",
+       "Text": "Zwischen den Baulinien dürfen keine baulichen Veränderungen vorgenommen oder sonstige Massnahmen getroffen werden, die dem Zweck bestehender oder künftiger Flughafenanlagen widersprechen."
+      }
+     ]
+    },
+    {
+     "Title": [
+      {
+       "Language": "de",
+       "Text": "Baulinien Nationalstrassen"
+      }
+     ],
+     "Content": [
+      {
+       "Language": "de",
+       "Text": "Wenn der projektierte Strassenverlauf definitiv bekannt ist, werden beiderseits der Strasse Baulinien festgelegt. Diese Baulinien ermöglichen es, die Anforderungen der Verkehrssicherheit und der Wohnhygiene sowie die Erfordernisse eines eventuellen künftigen Ausbaus der Strasse zu berücksichtigen. Zwischen den Baulinien dürfen ohne Bewilligung weder Neubauten erstellt noch Umbauten bestehender Gebäude vorgenommen werden, auch wenn diese nur teilweise in die Baulinien hineinragen."
+      }
+     ]
+    },
+    {
+     "Title": [
+      {
+       "Language": "de",
+       "Text": "Baulinien Starkstromanlagen"
+      }
+     ],
+     "Content": [
+      {
+       "Language": "de",
+       "Text": "Zwischen den Baulinien dürfen keine baulichen Veränderungen vorgenommen oder sonstige Massnahmen getroffen werden, die dem Zweck bestehender oder künftiger Starkstromanlagen widersprechen."
+      }
+     ]
+    },
+    {
+     "Title": [
+      {
+       "Language": "de",
+       "Text": "BFS-Nr."
+      }
+     ],
+     "Content": [
+      {
+       "Language": "de",
+       "Text": "Gemeindenummer aus amtlichem Gemeindeverzeichnis; Eine vom schweizerischen Bundesamt für Statistik mit dem Amtlichen Gemeindeverzeichnis im Jahre 1986 erstmals vergebene Zahl, die der eineindeutigen Bezeichnung von territorialen Einheiten im Einzugsbereich der Schweiz dient."
+      }
+     ]
+    },
+    {
+     "Title": [
+      {
+       "Language": "de",
+       "Text": "E-GRID"
+      }
+     ],
+     "Content": [
+      {
+       "Language": "de",
+       "Text": "Eidgenössischer Grundstücksidentifikator; Aus einem Präfix und einer Nummer bestehende Bezeichnung, die es erlaubt, jedes in das Grundbuch aufgenommene Grundstück landesweit eindeutig zu identifizieren, und die zum Datenaustausch zwischen Informatiksystemen dient."
+      }
+     ]
+    },
+    {
+     "Title": [
+      {
+       "Language": "de",
+       "Text": "Eigentumsbeschränkung"
+      }
+     ],
+     "Content": [
+      {
+       "Language": "de",
+       "Text": "Der Zweck aller Eigentumsbeschränkungen ist die Wahrung von Interessen anderer Personen, denen jene des Eigentümers sich in bestimmter Beziehung unterordnen müssen. Dies sind entweder die Eigentümer angrenzender Grundstücke, die Nachbarn, oder auch weitere Kreise von Privatpersonen oder endlich die Allgemeinheit selber, der Staat. Die Beschränkungen zugunsten der Nachbarn oder weiterer Privatpersonen sind regelmässig privatrechtlicher, jene zugunsten der Allgemeinheit öffentlich-rechtlicher Natur."
+      }
+     ]
+    },
+    {
+     "Title": [
+      {
+       "Language": "de",
+       "Text": "Gesetzliche Grundlage"
+      }
+     ],
+     "Content": [
+      {
+       "Language": "de",
+       "Text": "Gesetz, Verordnung etc., das generell-abstrakt ist (generell für die Person, die nicht bekannt ist, abstrakt, weil der Perimeter ohne Karte definiert ist) und auf Bundesebene, auf kantonaler oder kommunaler Ebene erlassen worden ist und die bloss eine allgemeine Rechtsgrundlage der Eigentumsbeschränkung darstellen. Die gesetzliche Grundlage ist nicht Teil des ÖREB-Katasters. Der ÖREB-Kataster enthält aber Hinweise auf die entsprechende gesetzliche Grundlage."
+      }
+     ]
+    },
+    {
+     "Title": [
+      {
+       "Language": "de",
+       "Text": "Gewässerraum"
+      }
+     ],
+     "Content": [
+      {
+       "Language": "de",
+       "Text": "Fliessgewässer können nur wieder naturnäher werden, wenn ausreichend Raum in den Schutz der Gewässer miteinbezogen wird. Der Gewässerraum soll weitgehend frei von neuen Anlagen bleiben; bestehende, rechtmässig erstellte Anlagen haben jedoch Bestandesgarantie."
+      }
+     ]
+    },
+    {
+     "Title": [
+      {
+       "Language": "de",
+       "Text": "Grundwasserschutzareale"
+      }
+     ],
+     "Content": [
+      {
+       "Language": "de",
+       "Text": "Von Kanton festgelegte Areale, die für die künftige Nutzung und Anreicherung von Grundwasservorkommen von Bedeutung sind und in dem keine Bauten und Anlagen erstellt oder Arbeiten ausgeführt werden, die künftige Nutzungs- und Anreicherungsanlagen beeinträchtigen könnten."
+      }
+     ]
+    },
+    {
+     "Title": [
+      {
+       "Language": "de",
+       "Text": "Grundwasserschutzzonen"
+      }
+     ],
+     "Content": [
+      {
+       "Language": "de",
+       "Text": "Grundwasserschutzzonen, in denen gewährleistet werden soll, dass bei unmittelbar drohenden Gefahren wie Unfällen mit wassergefährdenden Stoffen ausreichend Zeit und Raum für die erforderlichen Massnahmen zur Verfügung stehen."
+      }
+     ]
+    },
+    {
+     "Title": [
+      {
+       "Language": "de",
+       "Text": "Kantonale Baulinien"
+      }
+     ],
+     "Content": [
+      {
+       "Language": "de",
+       "Text": "Baulinien begrenzen die Bebauung und dienen insbesondere der Sicherung bestehender und geplanter Anlagen und Flächen sowie der baulichen Gestaltung. Kantonale Baulinien werden durch kantonale Nutzungspläne festgelegt. Mit Baulinien können insbesondere gesetzliche Abstände, welche im ÖREB-Katasterauszug nicht dargestellt werden, reduziert werden."
+      }
+     ]
+    },
+    {
+     "Title": [
+      {
+       "Language": "de",
+       "Text": "Kataster der belasteten Standorte"
+      }
+     ],
+     "Content": [
+      {
+       "Language": "de",
+       "Text": "Der Kataster enthält Deponien und andere durch Abfälle belastete Standorte, die saniert werden, wenn sie zu schädlichen oder lästigen Einwirkungen führen oder die konkrete Gefahr besteht, dass solche Einwirkungen entstehen. Die Behörde ermittelt die belasteten Standorte, indem sie vorhandene Angaben wie Karten, Verzeichnisse und Meldungen auswertet. Sie trägt diejenigen Standorte, deren Belastung erwiesen oder sehr wahrscheinlich ist, in den Kataster ein."
+      }
+     ]
+    },
+    {
+     "Title": [
+      {
+       "Language": "de",
+       "Text": "Katasterverantwortliche Stelle"
+      }
+     ],
+     "Content": [
+      {
+       "Language": "de",
+       "Text": "Die katasterverantwortliche Stelle im Kanton erhält die in den ÖREB-Kataster aufzunehmenden Daten von den zuständigen Fachstellen. Sie verwaltet diese Daten und stellt sie via kantonales ÖREB-Geoportal der Öffentlichkeit zur Verfügung."
+      }
+     ]
+    },
+    {
+     "Title": [
+      {
+       "Language": "de",
+       "Text": "KbS"
+      }
+     ],
+     "Content": [
+      {
+       "Language": "de",
+       "Text": "Kataster der belasteten Standorte"
+      }
+     ]
+    },
+    {
+     "Title": [
+      {
+       "Language": "de",
+       "Text": "Kommunale Baulinien"
+      }
+     ],
+     "Content": [
+      {
+       "Language": "de",
+       "Text": "Baulinien begrenzen die Bebauung und dienen insbesondere der Sicherung bestehender und geplanter Anlagen und Flächen sowie der baulichen Gestaltung. Mit Baulinien können insbesondere gesetzlich festgelegte Abstände, welche im ÖREB-Katasterauszug nicht dargestellt werden, reduziert werden."
+      }
+     ]
+    },
+    {
+     "Title": [
+      {
+       "Language": "de",
+       "Text": "Lärmempfindlichkeitsstufen"
+      }
+     ],
+     "Content": [
+      {
+       "Language": "de",
+       "Text": "Empfindlichkeitsstufen werden festgelegt, um jeweils bestimmte Zonen zu definieren: diejenigen, die eines erhöhten Lärmschutzes bedürfen, diejenigen, in denen keine störenden Betriebe zugelassen sind, und diejenigen, in denen mässig und stark störende Betriebe zugelassen sind."
+      }
+     ]
+    },
+    {
+     "Title": [
+      {
+       "Language": "de",
+       "Text": "Nutzungsplanung"
+      }
+     ],
+     "Content": [
+      {
+       "Language": "de",
+       "Text": "Festlegung der Verwendung einzelner Bodenflächen für bestimmte Zwecke (z. B. Landwirtschaft, Siedlung, Wald)."
+      }
+     ]
+    },
+    {
+     "Title": [
+      {
+       "Language": "de",
+       "Text": "ÖREB"
+      }
+     ],
+     "Content": [
+      {
+       "Language": "de",
+       "Text": "Öffentlich-rechtliche Eigentumsbeschränkung"
+      }
+     ]
+    },
+    {
+     "Title": [
+      {
+       "Language": "de",
+       "Text": "ÖREB-Kataster"
+      }
+     ],
+     "Content": [
+      {
+       "Language": "de",
+       "Text": "Kataster der öffentlich-rechtlichen Eigentumsbeschränkungen"
+      }
+     ]
+    },
+    {
+     "Title": [
+      {
+       "Language": "de",
+       "Text": "Planungszonen"
+      }
+     ],
+     "Content": [
+      {
+       "Language": "de",
+       "Text": "Zone, die ein genau bezeichnetes Gebiet umfasst, für das ein Nutzungsplan angepasst werden muss oder noch keiner vorliegt, und innerhalb derer nichts unternommen werden darf, was die Nutzungsplanung erschwert."
+      }
+     ]
+    },
+    {
+     "Title": [
+      {
+       "Language": "de",
+       "Text": "Projektierungszonen Eisenbahnanlagen"
+      }
+     ],
+     "Content": [
+      {
+       "Language": "de",
+       "Text": "Um die freie Verfügbarkeit der für künftige Bahnbauten und -anlagen erforderlichen Grundstücke zu gewährleisten, können für genau bezeichnete Gebiete Projektierungszonen festgelegt werden. In diesen Zonen dürfen keine baulichen Veränderungen vorgenommen werden, die dem Zweck der Eisenbahnen widersprechen."
+      }
+     ]
+    },
+    {
+     "Title": [
+      {
+       "Language": "de",
+       "Text": "Projektierungszonen Flughafenanlagen"
+      }
+     ],
+     "Content": [
+      {
+       "Language": "de",
+       "Text": "Um die freie Verfügbarkeit der für Flughafenanlagen erforderlichen Grundstücke zu gewährleisten, können für genau bezeichnete Gebiete Projektierungszonen festgelegt werden. In diesen Zonen dürfen keine baulichen Veränderungen vorgenommen werden, die dem Zweck der Flughafenanlagen widersprechen."
+      }
+     ]
+    },
+    {
+     "Title": [
+      {
+       "Language": "de",
+       "Text": "Projektierungszonen Leitungen mit einer Nennspannung von 220 kV oder höher"
+      }
+     ],
+     "Content": [
+      {
+       "Language": "de",
+       "Text": "Um die freie Verfügbarkeit der für Leitungen mit einer Nennspannung von 220 kV oder höher erforderlichen Grundstücke zu gewährleisten, können für genau bezeichnete Gebiete Projektierungszonen festgelegt werden. In diesen Zonen dürfen keine baulichen Veränderungen vorgenommen werden, die dem Zweck der Flughafenanlagen widersprechen."
+      }
+     ]
+    },
+    {
+     "Title": [
+      {
+       "Language": "de",
+       "Text": "Projektierungszonen Nationalstrassen"
+      }
+     ],
+     "Content": [
+      {
+       "Language": "de",
+       "Text": "Um die freie Verfügbarkeit des für den Bau der Nationalstrassen erforderlichen Landes zu gewährleisten, können für genau bezeichnete Gebiete Projektierungszonen festgelegt werden. In diesen Zonen dürfen keine baulichen Veränderungen vorgenommen werden, die dem Zweck der Nationalstrassen widersprechen."
+      }
+     ]
+    },
+    {
+     "Title": [
+      {
+       "Language": "de",
+       "Text": "Rechtsvorschrift"
+      }
+     ],
+     "Content": [
+      {
+       "Language": "de",
+       "Text": "Generell-konkrete Rechtsnorm, die zusammen mit den ihr zugeschriebenen Geobasisdaten die Eigentumsbeschränkung unmittelbar umschreibt und innerhalb desselben Verfahrens verabschiedet worden ist."
+      }
+     ]
+    },
+    {
+     "Title": [
+      {
+       "Language": "de",
+       "Text": "Sicherheitszonenplan"
+      }
+     ],
+     "Content": [
+      {
+       "Language": "de",
+       "Text": "Zonenplan, in dem die Sicherheitszonen dargestellt sind und aus dem die Eigentumsbeschränkungen nach Fläche und Höhe ersichtlich sind."
+      }
+     ]
+    },
+    {
+     "Title": [
+      {
+       "Language": "de",
+       "Text": "Statische Waldgrenzen"
+      }
+     ],
+     "Content": [
+      {
+       "Language": "de",
+       "Text": "Statische Waldgrenzen müssen auf der Grundlage rechtskräftiger Waldfeststellungen festgelegt werden. Neue Bestockungen ausserhalb dieser Waldgrenzen gelten nicht als Wald."
+      }
+     ]
+    },
+    {
+     "Title": [
+      {
+       "Language": "de",
+       "Text": "Vorwirkung"
+      }
+     ],
+     "Content": [
+      {
+       "Language": "de",
+       "Text": "Mit der öffentlichen Auflage entsteht eine Vorwirkung: Ab diesem Zeitpunkt dürfen Bauvorhaben in der Regel nur bewilligt werden, wenn sie der öffentlich aufgelegten Planung nicht widersprechen."
+      }
+     ]
+    },
+    {
+     "Title": [
+      {
+       "Language": "de",
+       "Text": "Waldabstandslinien"
+      }
+     ],
+     "Content": [
+      {
+       "Language": "de",
+       "Text": "Bauten und Anlagen in Waldesnähe sind nur zulässig, wenn sie die Erhaltung, Pflege und Nutzung des Waldes nicht beeinträchtigen."
+      }
+     ]
+    },
+    {
+     "Title": [
+      {
+       "Language": "de",
+       "Text": "Waldreservate"
+      }
+     ],
+     "Content": [
+      {
+       "Language": "de",
+       "Text": "Geschützte Waldfläche, die der Erhaltung der Artenvielfalt von Fauna und Flora dient."
+      }
+     ]
+    },
+    {
+     "Title": [
+      {
+       "Language": "de",
+       "Text": "Zuständige Stelle"
+      }
+     ],
+     "Content": [
+      {
+       "Language": "de",
+       "Text": "Durch die Gesetzgebung bezeichnete Stelle des Bundes, des Kantons oder der Gemeinde, die für das Erheben, Nachführen und Verwalten der Geobasisdaten zuständig ist."
+      }
+     ]
+    }
+   ]
+  }
+ }
+}

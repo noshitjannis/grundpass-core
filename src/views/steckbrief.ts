@@ -24,7 +24,7 @@ export type SteckbriefAbschnitt = {
 export type Luecke = {
   key: string;
   label: string;
-  grund: 'fehlt_im_register' | 'quelle_nicht_erreichbar' | 'quelle_uebersprungen' | 'quelle_abgeschaltet';
+  grund: 'fehlt_im_register' | 'quelle_nicht_erreichbar' | 'quelle_uebersprungen' | 'quelle_abgeschaltet' | 'quelle_ausser_kanton';
   quelle?: string;
   detail?: string;
 };
@@ -80,6 +80,36 @@ function toFeld(f: Fact, def: Pick<FeldDef, 'label' | 'erklaerung'>, titles: Map
 }
 
 /**
+ * Dynamische Felder im Abschnitt Zone: weitere Grundnutzungen (zone.weitere.<n>.*) und die betroffenen ÖREB-Themen
+ * (oereb.<thema>.betroffen mit .thema als Label und .text als Wert). Die Keys sind datengetrieben, darum nicht in FELDER.
+ */
+function dynamischeZoneFelder(facts: Fact[], titles: Map<string, string>): SteckbriefFeld[] {
+  const out: SteckbriefFeld[] = [];
+  const nummern = [...new Set(facts.map((f) => f.key.match(/^zone\.weitere\.(\d+)\.bezeichnung$/)?.[1]).filter((x): x is string => !!x))].sort((a, b) => Number(a) - Number(b));
+  for (const n of nummern) {
+    const f = bestFact(facts, `zone.weitere.${n}.bezeichnung`);
+    if (!f || f.value === null) continue;
+    const anteil = bestFact(facts, `zone.weitere.${n}.anteil_prozent`)?.value;
+    const label = typeof anteil === 'number' ? `Weitere Zone (${anteil} %)` : 'Weitere Zone';
+    out.push(toFeld(f, { label, erklaerung: 'Zweite Grundnutzung auf derselben Parzelle, mit ihrem Flächenanteil.' }, titles));
+  }
+  const slugs = [...new Set(facts.map((f) => f.key.match(/^oereb\.([a-z0-9_]+)\.betroffen$/)?.[1]).filter((x): x is string => !!x))].sort();
+  for (const slug of slugs) {
+    const betroffen = bestFact(facts, `oereb.${slug}.betroffen`);
+    if (!betroffen || betroffen.value !== true) continue;
+    const thema = bestFact(facts, `oereb.${slug}.thema`)?.value;
+    const text = bestFact(facts, `oereb.${slug}.text`) ?? betroffen;
+    const anteil = bestFact(facts, `oereb.${slug}.anteil_prozent`)?.value;
+    const laenge = bestFact(facts, `oereb.${slug}.laenge_m`)?.value;
+    const zusatz = typeof anteil === 'number' && anteil < 100 ? ` (${anteil} % der Fläche)` : typeof laenge === 'number' ? ` (${laenge} m)` : '';
+    const feld = toFeld(text, { label: `${typeof thema === 'string' ? thema : slug}${zusatz}` }, titles);
+    if (text === betroffen) feld.value = 'betroffen';
+    out.push(feld);
+  }
+  return out;
+}
+
+/**
  * Baut aus einem Lauf den Steckbrief: Abschnitte mit Feldern, jede Zahl mit Quelle und Stand,
  * dazu die Lücken (was das Register nicht hat oder welche Quelle nicht erreichbar war) und die Quellenliste.
  */
@@ -98,6 +128,7 @@ export function buildSteckbrief(run: RunResult, adapters: Adapter[]): Steckbrief
       if (!f || f.value === null) continue;
       felder.push(toFeld(f, def, titles));
     }
+    if (ab.id === 'zone') felder.push(...dynamischeZoneFelder(run.facts, titles));
     if (felder.length) abschnitte.push({ id: ab.id, titel: ab.titel, felder });
   }
 
@@ -119,7 +150,11 @@ export function buildSteckbrief(run: RunResult, adapters: Adapter[]): Steckbrief
     if (!def.erwartet) continue;
     const f = bestFact(run.facts, key);
     if (f && f.value !== null) continue;
-    const liefernder = adapters.find((a) => a.manifest.provides.some((p) => key.startsWith(p)));
+    // Der Adapter mit dem längsten passenden Präfix liefert den Key (parzelle.flaeche_grundbuch_m2 → oereb, nicht av-parzelle).
+    const liefernder = adapters
+      .map((a) => ({ a, p: Math.max(-1, ...a.manifest.provides.filter((p) => key.startsWith(p)).map((p) => p.length)) }))
+      .filter((x) => x.p >= 0)
+      .sort((x, y) => y.p - x.p)[0]?.a;
     const report = liefernder ? run.adapters.find((r) => r.adapter === liefernder.manifest.id) : undefined;
     const l: Luecke = { key, label: def.label, grund: 'fehlt_im_register' };
     if (liefernder) l.quelle = liefernder.manifest.id;
@@ -131,6 +166,9 @@ export function buildSteckbrief(run: RunResult, adapters: Adapter[]): Steckbrief
       if (report.missing) l.detail = `fehlende Schlüssel: ${report.missing.join(', ')}`;
     } else if (report?.status === 'disabled') {
       l.grund = 'quelle_abgeschaltet';
+    } else if (report?.status === 'ausser_kanton') {
+      l.grund = 'quelle_ausser_kanton';
+      l.detail = `für Kanton ${run.keys.kanton ?? '?'} noch nicht angeschlossen`;
     } else if (f && f.value === null) {
       l.detail = 'Feld im Register leer';
     }
@@ -228,6 +266,7 @@ export function steckbriefAlsText(s: Steckbrief, opts: { quellen?: boolean } = {
         l.grund === 'fehlt_im_register' ? 'fehlt im Register'
         : l.grund === 'quelle_nicht_erreichbar' ? 'Quelle nicht erreichbar'
         : l.grund === 'quelle_uebersprungen' ? 'Quelle übersprungen'
+        : l.grund === 'quelle_ausser_kanton' ? 'Quelle für diesen Kanton nicht angeschlossen'
         : 'Quelle abgeschaltet';
       lines.push(`  ${l.label}: ${grund}${l.quelle ? ` (${l.quelle})` : ''}${l.detail ? ` · ${l.detail}` : ''}`);
     }

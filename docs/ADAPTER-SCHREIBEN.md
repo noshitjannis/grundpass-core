@@ -66,6 +66,7 @@ export const meineQuelle: Adapter = {
 - **Kein `fetch` direkt.** Immer `ctx.http`, damit Timeout, Retry, User-Agent und Tests funktionieren.
 - **Raster-Layer**: `identify` geht nicht, `wmsFeatureInfoUrl` benutzen und `ctx.http.text` parsen.
 - **Status `experimentell`** bis der Live-Test die Form bestätigt hat. Dann auf `verifiziert`.
+- **Kantonale Quellen**: Basis-URL und kantonale Regeln in eine Tabelle neben dem Adapter (Beispiel `src/adapters/oereb/kantone.ts`), `cantons` im Manifest. Jeder Kanton braucht eine eigene Fixture und einen Live-Fall. Antwort ohne Inhalt (204) ist `EmptyResultError`; die Fixture-Route dafür hat `body: null`.
 
 ## Wie der Resolver deinen Adapter einordnet
 

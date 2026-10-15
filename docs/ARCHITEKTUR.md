@@ -20,10 +20,11 @@ gwr ──────► EGRID, Gebäudepunkt LV95, BFS-Nr, Kanton, Parzellen-N
    ├──► sonnendach    (braucht Gebäudepunkt)       Solarpotenzial
    ├──► oev-gueteklasse                            A bis D
    ├──► radon                                      Wahrscheinlichkeit in %
-   └──► laerm-strasse                              dB Tag/Nacht
+   ├──► laerm-strasse                              dB Tag/Nacht
+   └──► oereb         (braucht EGRID + Kanton; AG, ZH, BE)   Zone, Grundbuchfläche, Lärm-ES, weitere Beschränkungen
    │
    ▼
-derived ──► bebauter Anteil, Gebäudealter, Wohnfläche total
+derived ──► bebauter Anteil, Gebäudealter, Wohnfläche total, Lärm-Grenzwerte aus der Empfindlichkeitsstufe
    │
    ▼
 Fakten-Store (Postgres/PGlite)  ──►  Steckbrief (Abschnitte, Lücken, Quellen)  ──►  API / CLI / Pass
@@ -42,7 +43,7 @@ Die Stufen oben sind nicht fest verdrahtet. Sie ergeben sich zur Laufzeit aus de
 | **Manifest** | `id, title, provider, needs, yields, provides, ttlDays, timeoutMs, cantons, license, attribution, endpoint, status, notes`. |
 | **Lauf (Run)** | Ein Durchgang des Resolvers für eine Eingabe. Hat `run_id`, Bericht pro Adapter, alle Fakten, `partial`-Flag. |
 | **Steckbrief** | View über die Fakten eines Laufs: Abschnitte mit Feldern, Lücken, Quellenliste, Attribution. |
-| **Canary** | Stündlicher Lauf über fünf goldene Adressen, vergleicht mit Baseline, alarmiert. |
+| **Canary** | Regelmässiger Lauf (Cron, auf Vercel täglich) über fünf goldene Adressen, vergleicht mit Baseline, alarmiert. |
 
 ## 3. Ordnerstruktur
 
@@ -60,6 +61,7 @@ src/
     geoadmin.ts       URL-Bauer für SearchServer, find, identify, WMS GetFeatureInfo + gemeinsame Schemas
   codes/gwr.ts        GWR-Codetabellen (nur sichere Codes)
   adapters/           ein Adapter pro Datei, index.ts = Liste
+    oereb/kantone.ts  Kantonstabelle des ÖREB-Adapters (Basis-URL, Regel für die Grundnutzung, Confidence)
   resolver/
     registry.ts       Liste + Schalter (GP_DISABLED_ADAPTERS, Laufzeit)
     plan.ts           statischer Plan aus Manifesten (Stufen, Unerreichbares)
@@ -165,9 +167,10 @@ Datenschutz: Subject ist die EGID, nicht die Adresse. Die Eingabe-Adresse steht 
 
 Quelle `derived`, `derived_from` nennt die Eingangs-Keys, Confidence 0.9 (0.6 bei Bauperioden-Mitte).
 
-- `parzelle.bebauter_anteil_prozent` = Gebäudegrundfläche / Parzellenfläche
+- `parzelle.bebauter_anteil_prozent` = Gebäudegrundfläche / Parzellenfläche. Amtliche Grundbuchfläche (`parzelle.flaeche_grundbuch_m2`, ÖREB) vor der Geometrie-Schätzung (`parzelle.flaeche_m2`, AV); `derived_from` sagt, welche.
 - `gebaeude.alter_jahre` aus Baujahr oder Mitte der Bauperiode
 - `wohnungen.flaeche_total_m2`, `wohnungen.zimmer_total` über alle Wohnungen
+- `laerm.strasse.grenzwert_tag_db`, `.grenzwert_nacht_db` aus `laerm.empfindlichkeitsstufe` (ÖREB) nach LSV Anhang 3, Strassenverkehr: ES I 55/45, ES II 60/50, ES III 65/55, ES IV 70/60. Gesetzestabelle, keine Schätzung, darum Confidence 1. Ohne Stufe kein Grenzwert (bis 15.10.2026 nahm der Lärm-Adapter pauschal ES II an).
 
 Nur Rechnung, keine Meinung. Baureserve, Preis, Empfehlungen gehören in die App.
 
@@ -175,7 +178,9 @@ Nur Rechnung, keine Meinung. Baureserve, Preis, Empfehlungen gehören in die App
 
 Kleingeschrieben, Punkt-getrennt, Einheit im Namen. Präfixe:
 
-`adresse.` · `gebaeude.` · `gebaeude.heizung.` · `gebaeude.warmwasser.` · `wohnung.<ewid>.` · `wohnungen.` · `parzelle.` · `solar.` · `oev.` · `radon.` · `laerm.strasse.`
+`adresse.` · `gebaeude.` · `gebaeude.heizung.` · `gebaeude.warmwasser.` · `wohnung.<ewid>.` · `wohnungen.` · `parzelle.` · `zone.` (mit `zone.weitere.<n>.`) · `oereb.<thema>.` · `solar.` · `oev.` · `radon.` · `laerm.strasse.` · `laerm.empfindlichkeitsstufe`
+
+Datengetriebene Keys (`wohnung.<ewid>.*`, `zone.weitere.<n>.*`, `oereb.<thema>.*`) stehen nicht im Feldkatalog, die Steckbrief-View bildet sie nach Muster.
 
 Codes aus Registern kommen doppelt: lesbar (`gebaeude.klasse`) und roh (`gebaeude.klasse_code`). Unbekannte Codes: lesbar `null`, roh gesetzt. Die vollständige Liste pro Quelle steht in `docs/QUELLEN.md`.
 
@@ -183,9 +188,9 @@ Codes aus Registern kommen doppelt: lesbar (`gebaeude.klasse`) und roh (`gebaeud
 
 `felder.ts` ist der Katalog: welcher Key unter welchem Label in welchem Abschnitt, mit Laien-Erklärung, und ob er `erwartet` ist. `buildSteckbrief(run, adapters)` baut daraus:
 
-- `abschnitte`: Adresse, Gebäude, Heizung, Wohnungen, Parzelle, Sonne, ÖV, Lärm, Radon, Berechnet, plus eine Karte pro Wohnung.
+- `abschnitte`: Adresse, Gebäude, Heizung, Wohnungen, Parzelle, Zone und Kataster, Sonne, ÖV, Lärm, Radon, Berechnet, plus eine Karte pro Wohnung. Im Abschnitt Zone hängt die View datengetriebene Zeilen an: weitere Grundnutzungen (`zone.weitere.<n>.*`, Label mit Anteil) und jedes betroffene ÖREB-Thema (`oereb.<thema>.betroffen`, Label aus `.thema`, Wert aus `.text`, Anteil oder Länge in Klammern).
 - Jedes Feld: `value`, `unit`, `quelle`, `quelle_titel`, `stand` (= `source_date` der Quelle, sonst Abrufdatum), `url`, `confidence`.
-- `luecken`: jeder `erwartet`e Key ohne Wert, mit Grund: `fehlt_im_register`, `quelle_nicht_erreichbar`, `quelle_uebersprungen`, `quelle_abgeschaltet`.
+- `luecken`: jeder `erwartet`e Key ohne Wert, mit Grund: `fehlt_im_register`, `quelle_nicht_erreichbar`, `quelle_uebersprungen`, `quelle_abgeschaltet`, `quelle_ausser_kanton` (Adapter gilt nicht für diesen Kanton, `detail` nennt ihn). Welcher Adapter einen Key liefert, entscheidet das längste passende `provides`-Präfix (`parzelle.flaeche_grundbuch_m2` gehört zu oereb, nicht zu av-parzelle).
 - `quellen`: Status pro Adapter, Stand, ms, Fehler, `experimentell`-Flag.
 - `attribution`: Pflicht-Quellenangaben der genutzten Quellen, aus den Manifesten.
 
@@ -238,8 +243,8 @@ Auslösen: `pnpm canary` (Cron auf dem Server) oder `POST /internal/canary` (z.B
 
 ## 14. Tests
 
-- Offline (`pnpm test`): Fixtures aus `test/fixtures/`, `fakeFetch` bildet URLs auf Fixtures ab. 50 Tests: Adapter einzeln, Resolver (Stufen, Cache, Breaker, Kanton, Timeout, Ende-zu-Ende Wabern), Store (Memory und PGlite), API, Canary.
-- Live (`pnpm test:live`, braucht Netz): Wabern gegen echte APIs, zeichnet rohe Antworten nach `test/live/aufzeichnungen/` auf (gitignored), darunter die WMS-GetFeatureInfo-Antworten für Lärm in drei INFO_FORMATs, und prüft deren Form (`value_0`).
+- Offline (`pnpm test`): Fixtures aus `test/fixtures/`, `fakeFetch` bildet URLs auf Fixtures ab (Antwort ohne Inhalt per `body: null`, z.B. 204). 63 Tests: Adapter einzeln (ÖREB mit vier Kantons-Fixtures, 204, Drift, Kanton ohne Eintrag), Resolver (Stufen, Cache, Breaker, Kanton, Timeout, Ende-zu-Ende Wabern mit acht Adaptern), derived (Grenzwerte je ES, Grundbuchfläche vor Geometrie), Store (Memory und PGlite), API, Canary.
+- Live (`pnpm test:live`, braucht Netz): Wabern gegen echte APIs, zeichnet rohe Antworten nach `test/live/aufzeichnungen/` auf (gitignored), darunter die WMS-GetFeatureInfo-Antworten für Lärm in drei INFO_FORMATs und die ÖREB-Extracts von Wabern, Baden und Zürich; prüft `versions/json` der drei Kantone und den 204-Fall in ZH.
 
 ## 15. Konfiguration (Env)
 
@@ -264,12 +269,14 @@ Auslösen: `pnpm canary` (Cron auf dem Server) oder `POST /internal/canary` (z.B
 - **Hono statt SvelteKit-Routes im Core.** Der Core ist Library. Die App (SvelteKit) importiert ihn direkt oder spricht HTTP.
 - **Deutsch im Code.** Fakten-Keys und Doku sind Deutsch, weil die Quellen, die Nutzer und das Team Deutsch sind. Englische Keys würden nur übersetzen, was das GWR schon deutsch benennt.
 - **Codes nur mappen, wenn sicher.** Lieber `null` plus Rohcode als eine falsche Beschriftung.
+- **ÖREB: Zonentext der Gemeinde, keine Deutung.** `zone.bezeichnung` ist der Legendentext aus dem Kataster. Ob «W2» zwei Geschosse heisst, steht im Baureglement; wir verlinken es (`zone.baureglement_url`), statt es zu interpretieren. Die Ausnützungsziffer steht nicht im Kataster und bleibt eine Lücke.
+- **ÖREB: Grundnutzung per SubCode, sonst per Code-Systematik.** BE kennzeichnet sie, ZH und AG nicht. Dort entscheidet die MGDM-Systematik des Bundes (1x bis 4x Hauptnutzung), belegt an vier Extracts, mit Confidence 0.95 statt 1 (QUELLEN.md, Abschnitt oereb).
 - **AGPL für den Core, App privat.** Entscheid vom 15.10.2026.
 
 ## 17. Was bewusst noch fehlt
 
-- ÖREB-Kataster (Zone, Ausnützung): kantonal verschieden, kommt als nächster Adapter (AG, ZH zuerst). Die EGRID dafür liefert das GWR schon.
-- Naturgefahren, Altlasten, Denkmalschutz, Erdwärmesonden-Zulässigkeit: alles kantonal, gleiches Muster.
+- ÖREB-Kataster für die übrigen 23 Kantone: gleiche Norm (extract-2.0), Basis-URL in `adapters/oereb/kantone.ts` eintragen, Fixture aufnehmen, Grundnutzungs-Regel prüfen. Ausnützungsziffer bleibt auch mit ÖREB eine Lücke (steht im Baureglement).
+- Naturgefahren, Altlasten, Denkmalschutz, Erdwärmesonden-Zulässigkeit: kantonal. Teile davon kommen schon über den ÖREB-Kataster (belastete Standorte, Gewässerraum, Baulinien; in BE auch Naturgefahren und Denkmalschutzobjekte als kantonale Themen), der Rest braucht eigene Adapter.
 - Amtsblatt (Baugesuche, Handänderungen).
 - Batch-Modus über den GWR-Dump (Gemeinde-Scan).
 - Monats-Diff zweier Läufe als eigene View (die Daten dafür liegen in `runs`).
@@ -285,3 +292,5 @@ Auslösen: `pnpm canary` (Cron auf dem Server) oder `POST /internal/canary` (z.B
 - **2026-10-15 · Fixtures auf echte Antworten, GWR-find exakt** `gwr-1271632.json`, `searchserver-wabern.json` und `oev-radon.json` sind jetzt die unveränderten Live-Antworten (GWR: `egid`, `edid`, `stroffiziel` als Strings; SearchServer: zusätzlich `links[]`, `geom_quadindex`, `geom_st_box2d`, `weight` 1). Dabei aufgefallen: `find` ist ohne `contains=false` eine Teilstring-Suche, searchText 1271632 traf auch EGID 191271632 (Gossau SG). `findUrl` setzt jetzt `contains=false`, der GWR-Adapter filtert auf die exakte EGID und hat keinen Fallback auf `results[0]` mehr (kein Treffer = Lücke). Fixture `gwr-find-teilstring.json` belegt den Fall. 50 Tests.
 - **2026-10-15 · CLI und PGlite-Ordner** `gp "<Adresse>"` verschluckte das erste Argument, wenn kein `--egid` gesetzt war (Filter auf `egidIdx + 1` bei `egidIdx = -1`), und zeigte nur die Verwendung. PGlite legte `./data/grundpass` nicht an, solange `./data` fehlte (frischer Klon): jetzt `mkdirSync` rekursiv. Beides beim ersten `pnpm gp` im frischen Klon aufgefallen.
 - **2026-10-15 · Design-Prototyp umgezogen** `docs/design/` ist jetzt `grundpass-app/design/` (eigenes, privates Repo). Der Core enthält keine UI-Referenz mehr.
+- **2026-10-15 · ÖREB-Adapter (AG, ZH, BE)** Neuer Adapter `oereb` mit Kantonstabelle `adapters/oereb/kantone.ts`: Datenextrakt extract-2.0 per EGRID von den kantonalen Webservices (AG `api.geo.ag.ch/v2/oereb`, ZH `maps.zh.ch/oereb/v2`, BE `www.oereb2.apps.be.ch`), alle JSON, kein XML-Parser nötig. Fakten: `zone.*` (Grundnutzung mit grösstem Anteil als Hauptzone, weitere als `zone.weitere.<n>.*`, Baureglement-Link), `parzelle.flaeche_grundbuch_m2` (amtlich, Confidence 1, jetzt «Parzellenfläche» im Katalog, Shoelace als Zweitquelle), `laerm.empfindlichkeitsstufe` (I bis IV, nur wenn der Kataster sie führt; Wabern: nicht), `oereb.<thema>.*` für alle weiteren betroffenen Themen, `oereb.auszug_pdf_url`. Grundnutzung in BE per SubCode, in ZH und AG per MGDM-Code-Systematik (Confidence 0.95). Live an fünf Parzellen bestätigt, darum gleich `verifiziert`. Lärm-Grenzwerte sind jetzt derived aus der Stufe (LSV Anhang 3), der Lärm-Adapter nimmt kein ES II mehr an. Steckbrief: Abschnitt «Zone und Kataster» mit datengetriebenen Zeilen, Lücken-Grund `quelle_ausser_kanton`, Adapter-Zuordnung über das längste Präfix. Fixture-Helfer kann 204 ohne Body. 62 Tests, Live-Test deckt die drei Kantone ab. `src/cli.ts` ist ausführbar (Shebang).
+- **2026-10-15 · av-parzelle: Widerspruch zum GWR sichtbar** Liegt unter dem Gebäudepunkt eine andere Parzelle als die EGRID aus dem GWR (Baden, Rütistrasse 1: AV 3827 mit 236 m², GWR 3258 mit 394 m² laut ÖREB), tragen die AV-Fakten Confidence 0.8 und `parzelle.hinweis_vermessung` sagt es im Steckbrief. Vorher stand die Nachbarparzelle still in der Karte. 63 Tests.

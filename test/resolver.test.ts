@@ -183,7 +183,7 @@ describe('resolve', () => {
 });
 
 describe('resolve, Ende zu Ende mit Fixtures (Wabern)', () => {
-  it('Adresse rein, alle sieben Adapter plus derived, Subject egid:1271632', async () => {
+  it('Adresse rein, alle acht Adapter plus derived, Subject egid:1271632', async () => {
     const calls: string[] = [];
     const h = createHttpClient({ fetch: fakeFetch(wabernRoutes(), calls), retries: 0 });
     const registry = new AdapterRegistry(adapters, { disabledFromEnv: false });
@@ -193,20 +193,25 @@ describe('resolve, Ende zu Ende mit Fixtures (Wabern)', () => {
     expect(r.subject).toBe('egid:1271632');
     expect(r.partial).toBe(false);
     expect(r.adapters.filter((a) => a.status === 'ok').map((a) => a.adapter).sort()).toEqual(
-      ['av-parzelle', 'geocode', 'gwr', 'laerm-strasse', 'oev-gueteklasse', 'radon', 'sonnendach'],
+      ['av-parzelle', 'geocode', 'gwr', 'laerm-strasse', 'oereb', 'oev-gueteklasse', 'radon', 'sonnendach'],
     );
     const stageOf = Object.fromEntries(r.adapters.map((a) => [a.adapter, a.stage]));
     expect(stageOf.geocode).toBe(0);
     expect(stageOf.gwr).toBe(1);
     expect(stageOf['av-parzelle']).toBe(2);
     expect(stageOf.sonnendach).toBe(2);
+    expect(stageOf.oereb).toBe(2); // braucht egrid und kanton, beide aus dem GWR
 
     const v = (key: string) => r.facts.find((f) => f.key === key)?.value;
     expect(v('parzelle.flaeche_m2')).toBe(764); // echte Geometrie, Shoelace 764.39 m²
-    expect(v('parzelle.bebauter_anteil_prozent')).toBe(18.2); // 139 / 764
+    expect(v('parzelle.flaeche_grundbuch_m2')).toBe(761); // amtlich, aus dem ÖREB-Kataster
+    expect(v('parzelle.bebauter_anteil_prozent')).toBe(18.3); // 139 / 761, Grundbuchfläche vor Geometrie
+    expect(v('zone.bezeichnung')).toBe('Wohnzone (Art. 29 BauR), Bauklasse IIa (Art. 53 BauR)');
+    expect(v('laerm.empfindlichkeitsstufe')).toBeUndefined(); // Köniz führt die Stufe nicht im Kataster, es wird keine erfunden
+    expect(v('laerm.strasse.grenzwert_tag_db')).toBeUndefined();
     expect(v('gebaeude.alter_jahre')).toBeTypeOf('number');
     expect(v('wohnungen.flaeche_total_m2')).toBe(150);
-    expect(r.facts.find((f) => f.key === 'parzelle.bebauter_anteil_prozent')?.derived_from).toEqual(['gebaeude.grundflaeche_m2', 'parzelle.flaeche_m2']);
+    expect(r.facts.find((f) => f.key === 'parzelle.bebauter_anteil_prozent')?.derived_from).toEqual(['gebaeude.grundflaeche_m2', 'parzelle.flaeche_grundbuch_m2']);
     expect(r.facts.every((f) => f.source && f.fetched_at)).toBe(true);
     expect(r.facts.length).toBeGreaterThan(60);
     // Raster-Adapter fragen den Gebäudepunkt aus dem GWR ab, nicht den Adresspunkt

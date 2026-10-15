@@ -1,5 +1,6 @@
 import { describe, expect, it } from 'vitest';
-import { avParzelle, geocode, gwr, laermStrasse, oevGueteklasse, radon, sonnendach } from '../src/adapters/index.ts';
+import { avParzelle, geocode, gwr, laermStrasse, oereb, oevGueteklasse, radon, sonnendach } from '../src/adapters/index.ts';
+import { parseStufe, themaSlug } from '../src/adapters/oereb.ts';
 import { geojsonAreaM2 } from '../src/adapters/av-parzelle.ts';
 import { EmptyResultError, SchemaDriftError } from '../src/errors.ts';
 import { silentLogger } from '../src/log.ts';
@@ -81,6 +82,18 @@ describe('av-parzelle', () => {
     expect(fact(out, 'parzelle.art')).toBeUndefined(); // realestate_type ist null: kein Fakt, kein Default
     expect(out.keys).toMatchObject({ egrid: 'CH586746359755', bfs_nr: 355, kanton: 'BE', parzelle_nr: '5711' });
     expect(out.facts.every((f) => f.request_url?.includes('geometryFormat=geojson'))).toBe(true);
+  });
+
+  it('Parzelle unter dem Punkt ist nicht die aus dem GWR: Confidence 0.8 und sichtbarer Hinweis, keine stille Übernahme', async () => {
+    const out = await avParzelle.resolve(ctxFor({ lv95_bau: { e: 2601737, n: 1197338.426 }, egrid: 'CH000000000000', parzelle_nr: '9999' }));
+    expect(fact(out, 'parzelle.nummer')).toBe('5711');
+    expect(out.facts.find((f) => f.key === 'parzelle.nummer')?.confidence).toBe(0.8);
+    expect(out.facts.find((f) => f.key === 'parzelle.flaeche_m2')?.confidence).toBe(0.8);
+    expect(fact(out, 'parzelle.hinweis_vermessung')).toContain('Parzelle 5711 (CH586746359755), das Gebäuderegister nennt 9999 (CH000000000000)');
+    // passt die EGRID, gibt es keinen Hinweis und Confidence 1
+    const ok = await avParzelle.resolve(ctxFor({ lv95_bau: { e: 2601737, n: 1197338.426 }, egrid: 'CH586746359755' }));
+    expect(fact(ok, 'parzelle.hinweis_vermessung')).toBeUndefined();
+    expect(ok.facts.find((f) => f.key === 'parzelle.nummer')?.confidence).toBe(1);
   });
 
   it('Esri-Form (attributes statt properties) ist Schema-Drift, kein stiller Fallback', async () => {
@@ -218,5 +231,121 @@ describe('laerm-strasse', () => {
     await expect(
       laermStrasse.resolve({ keys: { lv95_bau: { e: 1, n: 1 } }, http, now: () => new Date(), log: silentLogger }),
     ).rejects.toBeInstanceOf(SchemaDriftError);
+  });
+});
+
+describe('oereb', () => {
+  const httpMit = (datei: string, host: string) => httpFor([{ match: (u) => u.hostname === host, body: fixture(datei) }]);
+  const ctx = (datei: string, host: string, keys: Keys): AdapterContext => ({ keys, http: httpMit(datei, host), now: () => new Date('2026-10-15T10:00:00Z'), log: silentLogger });
+  const feld = (out: Awaited<ReturnType<typeof oereb.resolve>>, key: string) => out.facts.find((f) => f.key === key);
+
+  it('Manifest: braucht egrid und kanton, gilt für AG, ZH, BE, 14 Tage TTL', () => {
+    expect(oereb.manifest.needs).toEqual(['egrid', 'kanton']);
+    expect(oereb.manifest.cantons).toEqual(['AG', 'ZH', 'BE']);
+    expect(oereb.manifest.ttlDays).toBe(14);
+  });
+
+  it('BE Wabern: Grundnutzung per SubCode, Grundbuchfläche 761 m² mit Confidence 1, weitere Themen, Stand aus UpdateDateCS', async () => {
+    const out = await oereb.resolve(ctx('oereb-be-wabern.json', 'www.oereb2.apps.be.ch', { egrid: 'CH586746359755', kanton: 'BE' }));
+    expect(fact(out, 'zone.bezeichnung')).toBe('Wohnzone (Art. 29 BauR), Bauklasse IIa (Art. 53 BauR)');
+    expect(fact(out, 'zone.code')).toBe('102_2');
+    expect(fact(out, 'zone.anteil_prozent')).toBe(100);
+    expect(fact(out, 'zone.anzahl')).toBe(1);
+    expect(feld(out, 'zone.bezeichnung')?.confidence).toBe(1);
+    expect(feld(out, 'parzelle.flaeche_grundbuch_m2')).toMatchObject({ value: 761, unit: 'm2', confidence: 1 });
+    expect(fact(out, 'zone.baureglement_url')).toBe('https://oerebfiles.apps.be.ch/35501/6862/721.0_Baureglement.pdf');
+    expect(fact(out, 'zone.baureglement_titel')).toContain('Baureglement');
+    // Köniz führt keine Lärm-Empfindlichkeitsstufe im Kataster: keine Stufe, kein Text, nichts geraten
+    expect(fact(out, 'laerm.empfindlichkeitsstufe')).toBeUndefined();
+    expect(fact(out, 'laerm.empfindlichkeitsstufe_text')).toBeUndefined();
+    expect(fact(out, 'oereb.belastungen_anzahl')).toBe(2);
+    expect(fact(out, 'oereb.belastungen')).toBe('Sicherheitszonenplan; Gewässerschutzbereiche (Zusatzinformation nach Art. 8b Abs. 1 Bst. b ÖREBKV)');
+    expect(fact(out, 'oereb.sicherheitszonenplan.betroffen')).toBe(true);
+    expect(fact(out, 'oereb.sicherheitszonenplan.text')).toBe('Genehmigter Sicherheitszonenperimeter');
+    expect(fact(out, 'oereb.gewaesserschutzbereiche.text')).toBe('übriger Bereich üB');
+    expect(fact(out, 'oereb.gewaesserschutzbereiche.anteil_prozent')).toBe(100);
+    expect(fact(out, 'oereb.aenderungen_hangig_anzahl')).toBeUndefined();
+    expect(fact(out, 'oereb.auszug_pdf_url')).toBe('https://www.oereb2.apps.be.ch/extract/pdf?EGRID=CH586746359755');
+    expect(fact(out, 'oereb.kataster_url')).toBe('https://www.be.ch/oerebk');
+    expect(out.source_date).toBe('2026-10-06');
+    expect(out.facts.every((f) => f.request_url === 'https://www.oereb2.apps.be.ch/extract/json?EGRID=CH586746359755')).toBe(true);
+  });
+
+  it('AG Baden: ohne SubCode entscheidet die Code-Systematik, Kernzone vor Gestaltungsplan, ES III, Confidence 0.95', async () => {
+    const out = await oereb.resolve(ctx('oereb-ag-baden.json', 'api.geo.ag.ch', { egrid: 'CH959983779505', kanton: 'AG' }));
+    expect(fact(out, 'zone.bezeichnung')).toBe('Kernzone 5 [K5]');
+    expect(fact(out, 'zone.code')).toBe('145101');
+    expect(fact(out, 'zone.anzahl')).toBe(1);
+    expect(feld(out, 'zone.bezeichnung')?.confidence).toBe(0.95);
+    expect(fact(out, 'parzelle.flaeche_grundbuch_m2')).toBe(394);
+    expect(fact(out, 'laerm.empfindlichkeitsstufe')).toBe('III');
+    expect(fact(out, 'laerm.empfindlichkeitsstufe_text')).toBe('Empfindlichkeitsstufe III');
+    expect(fact(out, 'oereb.nutzungsplanung_ueberlagernd.betroffen')).toBe(true);
+    expect(fact(out, 'oereb.nutzungsplanung_ueberlagernd.text')).toBe('Gestaltungsplan Innenstadt Nord - Westlich Bahnlinie');
+    expect(fact(out, 'oereb.belastungen_anzahl')).toBe(1);
+    expect(fact(out, 'zone.baureglement_titel')).toBe('Bau- und Nutzungsordnung');
+    expect(fact(out, 'zone.baureglement_url')).toMatch(/^https:\/\/oereblex\.ag\.ch\//);
+    expect(fact(out, 'oereb.auszug_pdf_url')).toBe('https://api.geo.ag.ch/v2/oereb/extract/pdf?EGRID=CH959983779505');
+  });
+
+  it('ZH Zürich: Hülle «Extract», Theme.code klein, zwei Grundnutzungen nach Anteil, Baulinien als Länge, hängige Änderung gezählt', async () => {
+    const out = await oereb.resolve(ctx('oereb-zh-zuerich.json', 'maps.zh.ch', { egrid: 'CH139977917088', kanton: 'ZH' }));
+    expect(fact(out, 'zone.bezeichnung')).toBe('siehe gültige Bau- und Zonenordnung der Stadt Zürich (K)');
+    expect(fact(out, 'zone.code')).toBe('C130701');
+    expect(fact(out, 'zone.anteil_prozent')).toBe(97);
+    expect(fact(out, 'zone.anzahl')).toBe(2);
+    expect(fact(out, 'zone.weitere.1.bezeichnung')).toBe('siehe gültige Bau- und Zonenordnung der Stadt Zürich (FP)');
+    expect(fact(out, 'zone.weitere.1.anteil_prozent')).toBe(3);
+    expect(fact(out, 'parzelle.flaeche_grundbuch_m2')).toBe(513);
+    expect(fact(out, 'laerm.empfindlichkeitsstufe')).toBe('III');
+    expect(fact(out, 'laerm.empfindlichkeitsstufe_anteil_prozent')).toBe(97);
+    expect(fact(out, 'oereb.nutzungsplanung_ueberlagernd.text')).toBe('Kernzonenplan');
+    expect(fact(out, 'oereb.baulinien.betroffen')).toBe(true);
+    expect(fact(out, 'oereb.baulinien.laenge_m')).toBe(34);
+    expect(fact(out, 'oereb.baulinien.thema')).toBe('Baulinien (kantonal/kommunal)');
+    expect(fact(out, 'oereb.aenderungen_hangig_anzahl')).toBe(1); // Kernzonenplan als changeWithPreEffect
+    expect(fact(out, 'oereb.belastungen_anzahl')).toBe(2);
+  });
+
+  it('ZH Winterthur: ES II aus dem TypeCode, «keine» wird nicht zur Stufe, belastete Standorte und Gewässerraum mit Anteil', async () => {
+    const out = await oereb.resolve(ctx('oereb-zh-winterthur.json', 'maps.zh.ch', { egrid: 'CH427786200879', kanton: 'ZH' }));
+    expect(fact(out, 'zone.bezeichnung')).toBe('Zone für öffentliche Bauten (Oe)');
+    expect(fact(out, 'zone.anteil_prozent')).toBe(100);
+    expect(fact(out, 'zone.weitere.1.bezeichnung')).toBe('Gewässer (Gw)');
+    expect(fact(out, 'laerm.empfindlichkeitsstufe')).toBe('II');
+    expect(fact(out, 'oereb.belastete_standorte.betroffen')).toBe(true);
+    expect(fact(out, 'oereb.belastete_standorte.anteil_prozent')).toBe(1);
+    expect(fact(out, 'oereb.gewaesserraum.anteil_prozent')).toBe(8);
+    expect(fact(out, 'oereb.nutzungsplanung_ueberlagernd.text')).toContain('Kantonaler Gestaltungsplan allgemein');
+    expect(fact(out, 'parzelle.flaeche_grundbuch_m2')).toBe(26087);
+  });
+
+  it('204 ohne Inhalt heisst EGRID unbekannt: Lücke (EmptyResultError), kein Ausfall', async () => {
+    const http = httpFor([{ match: () => true, body: null, status: 204 }]);
+    await expect(oereb.resolve({ keys: { egrid: 'CH586746359755', kanton: 'ZH' }, http, now: () => new Date(), log: silentLogger })).rejects.toBeInstanceOf(EmptyResultError);
+  });
+
+  it('HTML oder fremdes JSON ist Schema-Drift', async () => {
+    const html = httpFor([{ match: () => true, body: '<!DOCTYPE html><html>Seite nicht gefunden</html>' }]);
+    await expect(oereb.resolve({ keys: { egrid: 'CH1', kanton: 'BE' }, http: html, now: () => new Date(), log: silentLogger })).rejects.toBeInstanceOf(SchemaDriftError);
+    const fremd = httpFor([{ match: () => true, body: { GetExtractByIdResponse: { Auszug: {} } } }]);
+    await expect(oereb.resolve({ keys: { egrid: 'CH1', kanton: 'BE' }, http: fremd, now: () => new Date(), log: silentLogger })).rejects.toBeInstanceOf(SchemaDriftError);
+  });
+
+  it('Kanton ohne Eintrag in der Tabelle wirft, statt eine fremde Basis zu raten', async () => {
+    await expect(oereb.resolve(ctx('oereb-be-wabern.json', 'www.oereb2.apps.be.ch', { egrid: 'CH1', kanton: 'SG' }))).rejects.toThrow(/nicht angeschlossen/);
+  });
+
+  it('parseStufe und themaSlug: nur Erkennbares, nichts geraten', () => {
+    expect(parseStufe('Empfindlichkeitsstufe III', 'ES_III')).toBe('III');
+    expect(parseStufe('Empfindlichkeitsstufe II, aufgestuft (nein)', 'laermempfindlichkeitsstufen_2_0')).toBe('II');
+    expect(parseStufe('Empfindlichkeitsstufe keine, aufgestuft (nein)', 'laermempfindlichkeitsstufen_0_0')).toBeNull();
+    expect(parseStufe(undefined, 'ES_IV')).toBe('IV');
+    expect(parseStufe('Lärmempfindlichkeitsstufe I', undefined)).toBe('I');
+    expect(parseStufe('irgendwas', 'xyz')).toBeNull();
+    expect(themaSlug('ch.BE.Gewaesserschutzbereiche')).toBe('gewaesserschutzbereiche');
+    expect(themaSlug('ch.BelasteteStandorte')).toBe('belastete_standorte');
+    expect(themaSlug('ch.ZH.Baulinien')).toBe('baulinien');
+    expect(themaSlug('ch.Grundwasserschutzzonen')).toBe('grundwasserschutzzonen');
   });
 });

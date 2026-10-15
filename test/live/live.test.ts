@@ -1,6 +1,8 @@
 import { mkdirSync, writeFileSync } from 'node:fs';
 import { describe, expect, it } from 'vitest';
-import { adapters, gwr } from '../../src/adapters/index.ts';
+import { z } from 'zod';
+import { adapters, gwr, oereb } from '../../src/adapters/index.ts';
+import { OEREB_KANTONE, oerebExtractUrl } from '../../src/adapters/oereb/kantone.ts';
 import { Core } from '../../src/core.ts';
 import { createHttpClient } from '../../src/http/client.ts';
 import { wmsFeatureInfoUrl } from '../../src/http/geoadmin.ts';
@@ -66,5 +68,43 @@ describe.skipIf(!live)('live: geo.admin', () => {
     const out = await gwr.resolve({ keys: { egid: 1271632 }, http, now: () => new Date(), log: silentLogger });
     expect(out.keys?.egrid).toBe('CH586746359755');
     expect(out.keys?.lv95_bau).toBeTruthy();
+  }, 30_000);
+});
+
+describe.skipIf(!live)('live: oereb (AG, ZH, BE)', () => {
+  const faelle = [
+    { kanton: 'BE', egrid: 'CH586746359755', zone: /Wohnzone/, name: 'wabern' },
+    { kanton: 'AG', egrid: 'CH959983779505', zone: /Kernzone/, name: 'baden' },
+    { kanton: 'ZH', egrid: 'CH139977917088', zone: /Zonenordnung/, name: 'zuerich' },
+  ];
+  for (const f of faelle) {
+    it(`${f.kanton} ${f.egrid}: Extract hat noch die bekannte Form, Zone und Grundbuchfläche kommen`, async () => {
+      const http = createHttpClient({ retries: 0 });
+      const k = OEREB_KANTONE[f.kanton]!;
+      mkdirSync('test/live/aufzeichnungen', { recursive: true });
+      const roh = await http.text(oerebExtractUrl(k, f.egrid), { timeoutMs: 30_000 });
+      writeFileSync(`test/live/aufzeichnungen/oereb-${f.name}.json`, roh.data);
+      const out = await oereb.resolve({ keys: { egrid: f.egrid, kanton: f.kanton }, http, now: () => new Date(), log: silentLogger });
+      const v = (key: string) => out.facts.find((x) => x.key === key)?.value;
+      expect(v('zone.bezeichnung')).toMatch(f.zone);
+      expect(typeof v('parzelle.flaeche_grundbuch_m2')).toBe('number');
+      expect(typeof v('oereb.belastungen_anzahl')).toBe('number');
+      expect(out.source_date).toMatch(/^\d{4}-\d{2}-\d{2}$/);
+    }, 60_000);
+  }
+
+  it('versions/json nennt für alle drei Kantone extract-2.0 und die eingetragene Basis', async () => {
+    const http = createHttpClient({ retries: 0 });
+    const schema = z.object({ GetVersionsResponse: z.object({ supportedVersion: z.array(z.object({ version: z.string(), serviceEndpointBase: z.string() })) }) });
+    for (const k of Object.values(OEREB_KANTONE)) {
+      const { data } = await http.json(`${k.base}/versions/json`, schema, { timeoutMs: 20_000 });
+      expect(data.GetVersionsResponse.supportedVersion.map((s) => s.version), k.kanton).toContain('extract-2.0');
+      expect(data.GetVersionsResponse.supportedVersion[0]?.serviceEndpointBase.replace(/\/$/, ''), k.kanton).toBe(k.base);
+    }
+  }, 60_000);
+
+  it('fremde EGRID gibt in ZH 204 ohne Inhalt, der Adapter macht daraus eine Lücke', async () => {
+    const http = createHttpClient({ retries: 0 });
+    await expect(oereb.resolve({ keys: { egrid: 'CH586746359755', kanton: 'ZH' }, http, now: () => new Date(), log: silentLogger })).rejects.toMatchObject({ kind: 'empty' });
   }, 30_000);
 });

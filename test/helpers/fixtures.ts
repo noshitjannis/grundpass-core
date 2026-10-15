@@ -10,7 +10,7 @@ export function fixture(name: string): unknown {
   return JSON.parse(readFileSync(join(here, '..', 'fixtures', name), 'utf8'));
 }
 
-type Route = { match: (url: URL) => boolean; body: unknown | string; status?: number };
+type Route = { match: (url: URL) => boolean; body: unknown | string | null; status?: number };
 
 /**
  * Baut ein `fetch`, das URLs auf Fixtures abbildet. Jede Route ist ein Prädikat auf der URL.
@@ -23,12 +23,14 @@ export function fakeFetch(routes: Route[], calls: string[] = []): FetchLike {
     const url = new URL(urlStr);
     const route = routes.find((r) => r.match(url));
     if (!route) return new Response(`keine Fixture-Route für ${urlStr}`, { status: 599 });
+    // body null = Antwort ohne Inhalt (z.B. 204 vom ÖREB-Webservice, wenn die EGRID unbekannt ist)
+    if (route.body === null) return new Response(null, { status: route.status ?? 204 });
     const body = typeof route.body === 'string' ? route.body : JSON.stringify(route.body);
     return new Response(body, { status: route.status ?? 200, headers: { 'content-type': 'application/json' } });
   }) as FetchLike;
 }
 
-/** Standard-Routen für den Wabern-Fall, alle sieben Adapter. */
+/** Standard-Routen für den Wabern-Fall, alle acht Adapter. */
 export function wabernRoutes(): Route[] {
   const oevRadon = fixture('oev-radon.json') as { results: Array<{ layerBodId: string }> };
   return [
@@ -70,6 +72,10 @@ export function wabernRoutes(): Route[] {
     {
       match: (u) => u.hostname === 'wms.geo.admin.ch' && (u.searchParams.get('LAYERS') ?? '').includes('_nacht'),
       body: fixture('laerm-wms-nacht.json'),
+    },
+    {
+      match: (u) => u.hostname === 'www.oereb2.apps.be.ch' && u.pathname === '/extract/json' && u.searchParams.get('EGRID') === 'CH586746359755',
+      body: fixture('oereb-be-wabern.json'),
     },
   ];
 }

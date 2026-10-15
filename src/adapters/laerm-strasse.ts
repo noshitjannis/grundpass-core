@@ -20,6 +20,8 @@ import type { Adapter, AdapterContext, AdapterOutput, LV95 } from '../types.ts';
  * Beurteilungspegel Lr_Tag bzw. Lr_Nacht in dB(A) aus der flächendeckenden Modellrechnung sonBASE,
  * Verkehrszählungen 2021, Datenstand 31.12.2021, Geobasisdatensätze 120.1 (Tag) und 120.2 (Nacht).
  * Rechtlich nicht verbindlich. GetFeatureInfo liefert kein Datum, darum kein `source_date`.
+ * Die Immissionsgrenzwerte zum Vergleich kommen nicht von hier, sondern als derived-Fakt aus der Empfindlichkeitsstufe
+ * des ÖREB-Katasters (seit 15.10.2026; vorher pauschal ES II).
  */
 const featureInfo = z.object({
   type: z.literal('FeatureCollection'),
@@ -68,9 +70,8 @@ export const laermStrasse: Adapter = {
       facts: [
         { key: 'laerm.strasse.tag_db', value: tag.db, unit: 'dB', request_url: tag.url, confidence: 1 },
         { key: 'laerm.strasse.nacht_db', value: nacht.db, unit: 'dB', request_url: nacht.url, confidence: 1 },
-        // Immissionsgrenzwerte LSV Anhang 3 für Empfindlichkeitsstufe II (reine Wohnzone). Nur als Einordnung.
-        { key: 'laerm.strasse.grenzwert_wohnzone_tag_db', value: 60, unit: 'dB', request_url: tag.url },
-        { key: 'laerm.strasse.grenzwert_wohnzone_nacht_db', value: 50, unit: 'dB', request_url: nacht.url },
+        // Grenzwerte liefert dieser Adapter nicht mehr pauschal (früher ES II fix). Sie entstehen in resolver/derive.ts
+        // aus laerm.empfindlichkeitsstufe (ÖREB-Kataster), LSV Anhang 3.
       ],
     };
   },
