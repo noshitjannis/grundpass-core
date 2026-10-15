@@ -41,6 +41,21 @@ describe.skipIf(!live)('live: geo.admin', () => {
     await core.close();
   }, 60_000);
 
+  it('Baden, Rütistrasse 1: av-parzelle findet per EGRID die Register-Parzelle 3258, der Gebäudepunkt liegt auf 3827', async () => {
+    const core = await Core.create({ store: 'memory', log: silentLogger, breaker: new CircuitBreaker() });
+    const { run } = await core.steckbrief({ adresse: 'Rütistrasse 1, 5400 Baden' }, { useCache: false });
+    mkdirSync('test/live/aufzeichnungen', { recursive: true });
+    writeFileSync('test/live/aufzeichnungen/baden-lauf.json', JSON.stringify(run, null, 2));
+    expect(run.adapters.find((a) => a.adapter === 'av-parzelle')?.status).toBe('ok');
+    const f = (k: string) => run.facts.find((x) => x.key === k && x.source === 'av-parzelle');
+    expect(f('parzelle.nummer')?.value).toBe('3258');
+    expect(f('parzelle.nummer')?.request_url).toContain('searchField=egris_egrid');
+    expect(f('parzelle.egrid')?.value).toBe('CH959983779505');
+    expect(f('parzelle.flaeche_m2')?.value).toBe(395); // Grundbuchfläche laut ÖREB: 394
+    expect(f('parzelle.hinweis_vermessung')?.value).toContain('3827');
+    await core.close();
+  }, 60_000);
+
   it('zeichnet die rohen WMS-GetFeatureInfo-Antworten für Strassenlärm auf und prüft die Form', async () => {
     const http = createHttpClient({ retries: 0 });
     const point = { e: 2601737, n: 1197338.426 };

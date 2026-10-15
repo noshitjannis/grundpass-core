@@ -1,0 +1,208 @@
+{
+  "_hinweis": "Echte Antwort vom 15.10.2026: find auf ch.swisstopo-vd.amtliche-vermessung mit searchField=egris_egrid, searchText=CH959983779505 (Baden, Rütistrasse 1, EGRID aus dem GWR), contains=false, returnGeometry=true, geometryFormat=geojson. Ein Treffer, Parzelle 3258, Polygon mit 43 Stützpunkten, Shoelace 394.67 m² (Grundbuchfläche laut ÖREB-Kataster: 394). Dieselbe GeoJSON-Form wie identify. URL: https://api3.geo.admin.ch/rest/services/api/MapServer/find?layer=ch.swisstopo-vd.amtliche-vermessung&searchField=egris_egrid&searchText=CH959983779505&returnGeometry=true&geometryFormat=geojson&contains=false&sr=2056&lang=de",
+  "results": [
+    {
+      "type": "Feature",
+      "featureId": 3605321,
+      "bbox": [
+        2665306.7,
+        1258586.3,
+        2665332,
+        1258621.6
+      ],
+      "layerBodId": "ch.swisstopo-vd.amtliche-vermessung",
+      "layerName": "OpenData-AV",
+      "id": 3605321,
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              2665307.1,
+              1258603.9
+            ],
+            [
+              2665307,
+              1258604.2
+            ],
+            [
+              2665307,
+              1258604.6
+            ],
+            [
+              2665306.9,
+              1258604.9
+            ],
+            [
+              2665306.9,
+              1258605.2
+            ],
+            [
+              2665306.8,
+              1258605.5
+            ],
+            [
+              2665306.8,
+              1258605.9
+            ],
+            [
+              2665306.7,
+              1258606.2
+            ],
+            [
+              2665306.7,
+              1258606.5
+            ],
+            [
+              2665306.7,
+              1258606.8
+            ],
+            [
+              2665306.7,
+              1258607.2
+            ],
+            [
+              2665306.7,
+              1258607.5
+            ],
+            [
+              2665306.7,
+              1258607.8
+            ],
+            [
+              2665306.7,
+              1258608.1
+            ],
+            [
+              2665306.7,
+              1258608.5
+            ],
+            [
+              2665306.8,
+              1258608.8
+            ],
+            [
+              2665306.8,
+              1258609.1
+            ],
+            [
+              2665306.9,
+              1258609.4
+            ],
+            [
+              2665306.9,
+              1258609.8
+            ],
+            [
+              2665307,
+              1258610.1
+            ],
+            [
+              2665307,
+              1258610.4
+            ],
+            [
+              2665307.1,
+              1258610.7
+            ],
+            [
+              2665307.2,
+              1258611
+            ],
+            [
+              2665307.3,
+              1258611.4
+            ],
+            [
+              2665322.6,
+              1258621.6
+            ],
+            [
+              2665322.9,
+              1258621.5
+            ],
+            [
+              2665323.2,
+              1258621.4
+            ],
+            [
+              2665323.5,
+              1258621.3
+            ],
+            [
+              2665323.7,
+              1258621.2
+            ],
+            [
+              2665324,
+              1258621.1
+            ],
+            [
+              2665324.3,
+              1258621
+            ],
+            [
+              2665324.6,
+              1258620.8
+            ],
+            [
+              2665324.9,
+              1258620.7
+            ],
+            [
+              2665325.1,
+              1258620.5
+            ],
+            [
+              2665325.4,
+              1258620.4
+            ],
+            [
+              2665325.7,
+              1258620.2
+            ],
+            [
+              2665325.9,
+              1258620
+            ],
+            [
+              2665326.2,
+              1258619.9
+            ],
+            [
+              2665317,
+              1258611.3
+            ],
+            [
+              2665329.4,
+              1258597.3
+            ],
+            [
+              2665332,
+              1258594.3
+            ],
+            [
+              2665323.2,
+              1258586.3
+            ],
+            [
+              2665307.1,
+              1258603.9
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "bfsnr": 4021,
+        "ak": "AG",
+        "name": "3258",
+        "number": "3258",
+        "identnd": "AG0200004021",
+        "egris_egrid": "CH959983779505",
+        "realestate_type": null,
+        "geoportal_url": "https://www.ag.ch/geoportal/apps/onlinekarten/?layers=va_avdaten::topicmaps.geo.ag.ch;1;true&basemap=base_landeskarten_sw::topicmaps.geo.ag.ch,1,true&center=2663865.84,1257660.93&z=5",
+        "label": "3258"
+      }
+    }
+  ]
+}

@@ -16,7 +16,7 @@ geocode ──► EGID 1271632, Adresspunkt LV95
    ▼
 gwr ──────► EGRID, Gebäudepunkt LV95, BFS-Nr, Kanton, Parzellen-Nr  +  ~45 Fakten (Baujahr, Heizung, Wohnungen …)
    │
-   ├──► av-parzelle   (braucht Gebäudepunkt)       Parzellenfläche, Geometrie
+   ├──► av-parzelle   (braucht EGRID, sonst Gebäudepunkt)  Parzelle des Registers mit Geometrie, Fläche
    ├──► sonnendach    (braucht Gebäudepunkt)       Solarpotenzial
    ├──► oev-gueteklasse                            A bis D
    ├──► radon                                      Wahrscheinlichkeit in %
@@ -137,6 +137,8 @@ Lauf speichern
 
 **Raster-Adapter brauchen `lv95_bau`** (Gebäudepunkt aus dem GWR), nicht den Adresspunkt. Grund: Der Adresspunkt liegt am Eingang und kann ausserhalb des Dachpolygons (Sonnendach) oder auf der Strassenparzelle (AV) liegen. Fällt das GWR aus, werden sie `skipped`. Das ist gewollt und sichtbar.
 
+**av-parzelle geht seit Version 3 zuerst über die EGRID** (`find` auf `egris_egrid`) und braucht den Gebäudepunkt nur als Fallback und für die Gegenprobe: In Baden (Rütistrasse 1) liegt der GWR-Punkt auf der Nachbarparzelle 3827, das Register nennt 3258. Der Adapter liefert jetzt die Register-Parzelle und sagt in `parzelle.hinweis_vermessung`, dass der Punkt woanders liegt.
+
 ## 5. Circuit Breaker (`src/resolver/breaker.ts`)
 
 Pro Adapter, im Prozess-Speicher. Nach 3 Fehlern in Folge 15 Minuten offen. Danach genau ein Versuch (halb offen). `empty`-Fehler zählen nicht: Eine Quelle, die korrekt "nichts" sagt, ist nicht kaputt. API-Prozesse teilen einen Breaker (`sharedBreaker`), Tests geben ihren eigenen mit.
@@ -157,7 +159,7 @@ Tabellen:
 | `runs` | kompletter `RunResult` als jsonb pro Lauf. Für Diffs und Debug. |
 | `snapshots` | Key-Value: Canary-Baselines, letzter Canary-Report, letzter Alarm-Hash. |
 
-**Cache-Regel:** `latestAdapterRun(subject, adapter)` liefert den jüngsten `ok`-Lauf mit seinen Fakten, Keys und seiner Adapter-Version. Ist er jünger als `ttlDays` und die Version gleich der im Manifest, wird der Adapter nicht aufgerufen. Wer einem Adapter neue Fakten gibt, erhöht `version` im Manifest (av-parzelle und laerm-strasse stehen seit 15.10.2026 auf 2). Gecachte Fakten behalten ihre ursprüngliche `fetched_at` und `run_id` (Herkunft bleibt wahr).
+**Cache-Regel:** `latestAdapterRun(subject, adapter)` liefert den jüngsten `ok`-Lauf mit seinen Fakten, Keys und seiner Adapter-Version. Ist er jünger als `ttlDays` und die Version gleich der im Manifest, wird der Adapter nicht aufgerufen. Wer einem Adapter neue Fakten gibt, erhöht `version` im Manifest (laerm-strasse steht seit 15.10.2026 auf 2, av-parzelle auf 3). Gecachte Fakten behalten ihre ursprüngliche `fetched_at` und `run_id` (Herkunft bleibt wahr).
 
 **Aktueller Stand:** `latestFacts(subject)` = jüngster Fakt pro (key, source). Mehrere Quellen für denselben Key sind erlaubt (z.B. `parzelle.egrid` aus GWR und aus AV); die View wählt nach Confidence, dann Aktualität.
 
@@ -243,8 +245,8 @@ Auslösen: `pnpm canary` (Cron auf dem Server) oder `POST /internal/canary` (z.B
 
 ## 14. Tests
 
-- Offline (`pnpm test`): Fixtures aus `test/fixtures/`, `fakeFetch` bildet URLs auf Fixtures ab (Antwort ohne Inhalt per `body: null`, z.B. 204). 67 Tests: Adapter einzeln (ÖREB mit vier Kantons-Fixtures, 204, Drift, Kanton ohne Eintrag), Resolver (Stufen, Cache, Breaker, Kanton, Timeout, Ende-zu-Ende Wabern mit acht Adaptern), derived (Grenzwerte je ES, Grundbuchfläche vor Geometrie), Store (Memory und PGlite), API, Canary.
-- Live (`pnpm test:live`, braucht Netz): Wabern gegen echte APIs, zeichnet rohe Antworten nach `test/live/aufzeichnungen/` auf (gitignored), darunter die WMS-GetFeatureInfo-Antworten für Lärm in drei INFO_FORMATs und die ÖREB-Extracts von Wabern, Baden und Zürich; prüft `versions/json` der drei Kantone und den 204-Fall in ZH.
+- Offline (`pnpm test`): Fixtures aus `test/fixtures/`, `fakeFetch` bildet URLs auf Fixtures ab (Antwort ohne Inhalt per `body: null`, z.B. 204). 72 Tests: Adapter einzeln (av-parzelle per EGRID, Baden-Gegenprobe, Fallback am Punkt; ÖREB mit vier Kantons-Fixtures, 204, Drift, Kanton ohne Eintrag), Resolver (Stufen, Cache, Breaker, Kanton, Timeout, Ende-zu-Ende Wabern mit acht Adaptern), derived (Grenzwerte je ES, Grundbuchfläche vor Geometrie), Store (Memory und PGlite), API, Canary.
+- Live (`pnpm test:live`, braucht Netz): Wabern gegen echte APIs, zeichnet rohe Antworten nach `test/live/aufzeichnungen/` auf (gitignored), darunter die WMS-GetFeatureInfo-Antworten für Lärm in drei INFO_FORMATs und die ÖREB-Extracts von Wabern, Baden und Zürich; prüft `versions/json` der drei Kantone und den 204-Fall in ZH; Baden (Rütistrasse 1) belegt av-parzelle per EGRID: Parzelle 3258, 395 m², Hinweis auf 3827.
 
 ## 15. Konfiguration (Env)
 
@@ -271,6 +273,7 @@ Auslösen: `pnpm canary` (Cron auf dem Server) oder `POST /internal/canary` (z.B
 - **Codes nur mappen, wenn sicher.** Lieber `null` plus Rohcode als eine falsche Beschriftung.
 - **ÖREB: Zonentext der Gemeinde, keine Deutung.** `zone.bezeichnung` ist der Legendentext aus dem Kataster. Ob «W2» zwei Geschosse heisst, steht im Baureglement; wir verlinken es (`zone.baureglement_url`), statt es zu interpretieren. Die Ausnützungsziffer steht nicht im Kataster und bleibt eine Lücke.
 - **ÖREB: Grundnutzung per SubCode, sonst per Code-Systematik.** BE kennzeichnet sie, ZH und AG nicht. Dort entscheidet die MGDM-Systematik des Bundes (1x bis 4x Hauptnutzung), belegt an vier Extracts, mit Confidence 0.95 statt 1 (QUELLEN.md, Abschnitt oereb).
+- **AV per EGRID, Punkt nur als Fallback.** Das Gebäuderegister nennt die Parzelle; die amtliche Vermessung soll deren Geometrie liefern, nicht die unter einem Punkt, der auch mal daneben liegt (Baden). Der Widerspruch der Register bleibt als Hinweis sichtbar, statt still korrigiert zu werden.
 - **AGPL für den Core, App privat.** Entscheid vom 15.10.2026.
 
 ## 17. Was bewusst noch fehlt
@@ -297,3 +300,4 @@ Auslösen: `pnpm canary` (Cron auf dem Server) oder `POST /internal/canary` (z.B
 - **2026-10-15 · Cache kennt die Adapter-Version** Manifest-Feld `version` (Standard 1), gespeichert in `adapter_runs.version` (Spalte wird bei bestehenden Datenbanken nachgezogen). Ein gecachter Lauf gilt nur bei gleicher Version. Anlass: Nach dem Geometrie-Fakt blieb Wabern auf Staging 90 Tage ohne Lageplan, weil der av-parzelle-Lauf gecacht war. av-parzelle und laerm-strasse auf Version 2. Nachtrag cf13781: Version auch bei ok- und failed-Läufen speichern. 67 Tests.
 - **2026-10-15 · av-parzelle: Geometrie als Fakt** `parzelle.geometrie_geojson` (GeoJSON-String in LV95, Confidence 1) für den Lageplan der App. Bewusst ohne Eintrag im Feldkatalog, darum nicht im Steckbrief, aber in `/v1/fakten` und im Store. 64 Tests.
 - **2026-10-15 · Commit-Regel in CLAUDE.md** Commit nur, wenn `pnpm check` mit Exit-Code 0 endet, nie per Ausgabetext wie «passed» (so rutschte am 15.10.2026 ein roter Test in einen Push). Dazu der Hinweis, dass `manifest.version` steigt, sobald ein Adapter seine Fakten-Keys oder deren Bedeutung ändert (Regel in ADAPTER-SCHREIBEN.md). Kein Code-Change.
+- **2026-10-15 · av-parzelle per EGRID (Version 3)** Hauptweg ist jetzt `find` auf `egris_egrid` (live bestätigt: das Feld ist durchsuchbar, Antwort in derselben GeoJSON-Form wie identify), der Punkt-identify nur noch Fallback ohne EGRID oder bei in der AV unbekannter EGRID. Anlass Baden, Rütistrasse 1: Der GWR-Gebäudepunkt liegt auf Parzelle 3827 (236 m²), das Register nennt 3258 (394 m²), der Lageplan zeichnete die falsche Parzelle. Jetzt kommt 3258 mit Geometrie (Shoelace 395 m²). Gegenprobe ohne Netz: Even-Odd-Test, ob der Gebäudepunkt in der Geometrie liegt; wenn nicht, eine identify-Abfrage, und `parzelle.hinweis_vermessung` benennt die Parzelle unter dem Punkt (Confidence der Fakten bleibt 1; im Fallback mit fremder Parzelle weiterhin 0.8). `needs` ist `egrid|lv95_bau`, `findUrl` kann `geometryFormat`. Drei neue Fixtures (find Baden, find Wabern, identify am Baden-Punkt), Live-Test mit Baden. 72 Tests. Der Canary wird für Baden einmal `parzelle.nummer` 3258 statt der Baseline melden, das ist die Korrektur.

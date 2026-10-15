@@ -13,6 +13,7 @@ Allgemeine Erkenntnisse (15.10.2026):
 - Das GWR liefert `egid`, `edid` und `stroffiziel` als Strings, die übrigen Zahlenfelder als Zahlen. Nicht auf Typen verlassen, `nullableNumberish` fängt beides.
 - `identify` mit `tolerance=0` braucht weder `imageDisplay` noch `mapExtent`. Mit Toleranz > 0 beides.
 - `identify` mit `geometryFormat=geojson` liefert GeoJSON-Features: Attribute in `properties`, nicht `attributes`, Geometrie als GeoJSON. Ohne `geometryFormat` kommt Esri-JSON mit `attributes` und `geometry.rings`. Zwei Schemas in `src/http/geoadmin.ts`.
+- `find` kann dasselbe: mit `returnGeometry=true&geometryFormat=geojson` kommen GeoJSON-Features in derselben Form wie bei `identify`. Durchsuchbar ist zum Beispiel `egris_egrid` der amtlichen Vermessung (bestätigt 15.10.2026 an Baden und Wabern). Unbekannter Suchwert: `{"results": []}` mit HTTP 200.
 - Reine Raster-Layer sind per `identify` nicht abfragbar (4xx). Nur WMS GetFeatureInfo.
 - Bei Fehlern antwortet api3 teils mit HTML, nicht JSON. Der Client wirft dann `SchemaDriftError`.
 - WMS GetFeatureInfo (wms.geo.admin.ch) kann `application/json`, `text/plain` und `application/vnd.ogc.gml`, aber kein `text/html` (ServiceException InvalidFormat). Raster-Werte stehen in `features[0].properties.value_0`, als String.
@@ -81,17 +82,23 @@ Treffer-Auswahl: Der Adapter nimmt den Treffer, dessen `egid` exakt der gesuchte
 | | |
 |---|---|
 | Datenhalter | swisstopo (Aggregation), Kantone (Daten) |
-| Endpoint | `GET …/MapServer/identify?geometry=<E>,<N>&geometryType=esriGeometryPoint&layers=all:ch.swisstopo-vd.amtliche-vermessung&tolerance=0&sr=2056&returnGeometry=true&geometryFormat=geojson` |
-| braucht | `lv95_bau` |
+| Endpoint | Hauptweg: `GET …/MapServer/find?layer=ch.swisstopo-vd.amtliche-vermessung&searchField=egris_egrid&searchText=<EGRID>&returnGeometry=true&geometryFormat=geojson&contains=false&sr=2056`. Fallback ohne EGRID (oder EGRID in der AV unbekannt): `GET …/MapServer/identify?geometry=<E>,<N>&geometryType=esriGeometryPoint&layers=all:ch.swisstopo-vd.amtliche-vermessung&tolerance=0&sr=2056&returnGeometry=true&geometryFormat=geojson` am Gebäudepunkt. Dieselbe identify-Abfrage ist im Hauptweg die Gegenprobe, wenn der Gebäudepunkt nicht in der gefundenen Parzelle liegt. |
+| braucht | `egrid` oder `lv95_bau` (Manifest: `egrid|lv95_bau`) |
 | liefert Keys | `egrid`, `bfs_nr`, `kanton`, `parzelle_nr` |
-| Fakten | `parzelle.nummer`, `.egrid`, `.nummerierungsbereich` (identnd), `.bfs_nr`, `.kanton`, `.art`, `.geoportal_url`, `.flaeche_m2` (berechnet, Confidence 0.95), `.treffer_am_punkt`, `.hinweis_vermessung` (nur bei Widerspruch zum GWR), `.geometrie_geojson` (GeoJSON-String in LV95, Confidence 1, nicht im Feldkatalog; für den Lageplan der App) |
+| Fakten | `parzelle.nummer`, `.egrid`, `.nummerierungsbereich` (identnd), `.bfs_nr`, `.kanton`, `.art`, `.geoportal_url`, `.flaeche_m2` (berechnet, Confidence 0.95), `.geometrie_geojson` (GeoJSON-String in LV95, Confidence 1, nicht im Feldkatalog; für den Lageplan der App), `.treffer_am_punkt` (nur im Fallback, bei mehreren Treffern), `.hinweis_vermessung` (nur bei Widerspruch zum GWR) |
 | TTL | 90 Tage |
-| Status | verifiziert 15.10.2026 (Attribute und Geometrie) · Fixtures `av-parzelle-5711.json` (echte GeoJSON-Antwort), `av-parzelle-5711-esrijson.json` (dieselbe Abfrage ohne geometryFormat, als Drift-Fall) |
+| Version | 3 (15.10.2026: Hauptweg per EGRID; 2: Geometrie und Hinweis) |
+| Status | verifiziert 15.10.2026, beide Wege · Fixtures `av-parzelle-find-3258.json` (find per EGRID, Baden), `av-parzelle-find-5711.json` (find per EGRID, Wabern), `av-parzelle-5711.json` (identify am Punkt, Wabern), `av-parzelle-3827-punkt.json` (identify am Gebäudepunkt von Baden), `av-parzelle-5711-esrijson.json` (identify ohne geometryFormat, als Drift-Fall) |
 
-**Antwortform** (geometryFormat=geojson): `results[]` sind GeoJSON-Features `{ type: "Feature", featureId, id, layerBodId, layerName: "OpenData-AV", bbox, geometry, properties }`. Gelesene Felder: `properties.{bfsnr, ak, number, identnd, egris_egrid, realestate_type, geoportal_url}`, `geometry` (GeoJSON Polygon/MultiPolygon). Die erste Fassung las `attributes` (Esri-Form) und fiel live mit Schema-Drift aus; die Esri-Form ist jetzt ein Testfall für Drift.
+**Antwortform** (find und identify gleich, geometryFormat=geojson): `results[]` sind GeoJSON-Features `{ type: "Feature", featureId, id, layerBodId, layerName: "OpenData-AV", bbox, geometry, properties }`. Gelesene Felder: `properties.{bfsnr, ak, number, identnd, egris_egrid, realestate_type, geoportal_url}`, `geometry` (GeoJSON Polygon/MultiPolygon). Daneben `properties.name` und `properties.label` (beide die Nummer), die wir nicht lesen. Die erste Fassung las `attributes` (Esri-Form) und fiel live mit Schema-Drift aus; die Esri-Form ist jetzt ein Testfall für Drift. Unbekannte EGRID: `{"results": []}` mit HTTP 200, kein Fehler.
 
-Die API liefert keine Fläche; wir rechnen Shoelace in LV95-Metern, Löcher abgezogen. Wabern, Parzelle 5711: 7 Stützpunkte, 764.39 m² (Fakt: 764 m², Confidence 0.95). Mehrere Treffer (Punkt auf Grenze): bevorzugt die EGRID aus dem GWR.
-Ist die Parzelle unter dem Gebäudepunkt nicht die aus dem GWR (Baden, Rütistrasse 1: AV findet 3827 mit 236 m², das GWR nennt 3258, laut ÖREB 394 m²), tragen alle AV-Fakten Confidence 0.8 und `parzelle.hinweis_vermessung` benennt den Widerspruch. Die Keys behält das GWR (erster Schreiber), darum folgen ÖREB-Zone und Grundbuchfläche der Register-Parzelle. Seit 15.10.2026.
+**Warum per EGRID (seit Version 3).** Bis Version 2 fragte der Adapter nur den Gebäudepunkt ab. In Baden, Rütistrasse 1 (EGID 534491), liegt der GWR-Gebäudepunkt (2665322.862 / 1258605.675) laut amtlicher Vermessung auf Parzelle 3827 (CH189083957747, 236 m²), das Gebäuderegister nennt 3258 (CH959983779505, laut ÖREB 394 m²). Der Lageplan zeichnete darum die Nachbarparzelle. Jetzt liefert `find` auf `egris_egrid` die 3258 mit Geometrie (43 Stützpunkte, Shoelace 394.67 m², Fakt 395 m²). Das Feld ist durchsuchbar, bestätigt 15.10.2026 an Baden und Wabern (Wabern: byte-gleiche Geometrie wie identify am Punkt, 764 m²).
+
+**Gegenprobe.** Liegt der Gebäudepunkt nicht in der gefundenen Geometrie (Even-Odd-Test über alle Ringe, kein Netzaufruf), folgt genau eine `identify`-Abfrage am Punkt. Nennt sie die Register-Parzelle nicht (Baden: nur 3827), sagt `parzelle.hinweis_vermessung`: «Der Gebäudepunkt aus dem Gebäuderegister liegt laut amtlicher Vermessung auf Parzelle 3827 (CH189083957747), nicht auf 3258 (CH959983779505). Gezeigt wird die Parzelle aus dem Gebäuderegister.» Die Fakten bleiben die der Register-Parzelle mit Confidence 1, der Hinweis trägt die `request_url` der Punkt-Abfrage. Liegt der Punkt in der Parzelle (Wabern), bleibt es bei einer Anfrage. Punkt auf der Grenze: identify nennt beide Parzellen, kein Hinweis.
+
+**Fallback.** Ohne EGRID, oder wenn die AV die EGRID nicht kennt: identify am Gebäudepunkt wie bis Version 2. Mehrere Treffer (Punkt auf Grenze): bevorzugt die EGRID aus dem GWR, `parzelle.treffer_am_punkt` nennt die Zahl. Ist die Parzelle unter dem Punkt eine andere als die GWR-EGRID, tragen die AV-Fakten Confidence 0.8 (die Geometrie bleibt 1) und der Hinweis benennt beide; die Keys behält das GWR (erster Schreiber), darum folgen ÖREB-Zone und Grundbuchfläche der Register-Parzelle. Fällt das GWR aus, fehlen EGRID und Gebäudepunkt zugleich, der Adapter wird `skipped`.
+
+Die API liefert keine Fläche; wir rechnen Shoelace in LV95-Metern, Löcher abgezogen. Wabern, Parzelle 5711: 7 Stützpunkte, 764.39 m² (Fakt: 764 m², Confidence 0.95).
 
 ---
 

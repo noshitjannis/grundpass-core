@@ -15,6 +15,8 @@ import type { LV95 } from '../types.ts';
  *  - identify mit geometryFormat=geojson liefert GeoJSON-Features: Attribute in `properties`, nicht `attributes`,
  *    Geometrie als GeoJSON. Ohne geometryFormat kommt Esri-JSON mit `attributes` und `geometry.rings`.
  *    Darum zwei Schemas: geoResultsSchema (Esri-Form) und geoJsonResultsSchema (GeoJSON-Form).
+ *  - find kann dasselbe: mit returnGeometry=true und geometryFormat=geojson kommen GeoJSON-Features, Form identisch zu identify
+ *    (amtliche Vermessung per egris_egrid, Baden und Wabern). Unbekannter Suchwert gibt `{"results": []}` mit HTTP 200.
  */
 
 export const API3 = 'https://api3.geo.admin.ch/rest/services/api';
@@ -31,7 +33,12 @@ export function searchServerUrl(searchText: string, opts: { origins?: string; li
   return `${API3}/SearchServer?${p}`;
 }
 
-export function findUrl(layer: string, searchField: string, searchText: string | number, opts: { geometry?: boolean } = {}): string {
+export function findUrl(
+  layer: string,
+  searchField: string,
+  searchText: string | number,
+  opts: { geometry?: boolean; geometryFormat?: 'esrijson' | 'geojson' } = {},
+): string {
   const p = new URLSearchParams({
     layer,
     searchField,
@@ -42,6 +49,7 @@ export function findUrl(layer: string, searchField: string, searchText: string |
     // Ohne contains=false ist die Suche eine Teilstring-Suche (1271632 trifft auch 191271632).
     contains: 'false',
   });
+  if (opts.geometryFormat) p.set('geometryFormat', opts.geometryFormat);
   return `${API3}/MapServer/find?${p}`;
 }
 

@@ -40,6 +40,12 @@ export function wabernRoutes(): Route[] {
       body: fixture('gwr-1271632.json'),
     },
     {
+      // Hauptweg seit Version 3: find per EGRID
+      match: (u) => u.pathname.endsWith('/find') && u.searchParams.get('layer') === 'ch.swisstopo-vd.amtliche-vermessung',
+      body: fixture('av-parzelle-find-5711.json'),
+    },
+    {
+      // Fallback und Gegenprobe: identify am Punkt
       match: (u) => u.pathname.endsWith('/identify') && u.searchParams.get('layers') === 'all:ch.swisstopo-vd.amtliche-vermessung',
       body: fixture('av-parzelle-5711.json'),
     },

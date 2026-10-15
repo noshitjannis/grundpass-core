@@ -1,7 +1,7 @@
 import { describe, expect, it } from 'vitest';
 import { avParzelle, geocode, gwr, laermStrasse, oereb, oevGueteklasse, radon, sonnendach } from '../src/adapters/index.ts';
 import { parseStufe, themaSlug } from '../src/adapters/oereb.ts';
-import { geojsonAreaM2 } from '../src/adapters/av-parzelle.ts';
+import { geojsonAreaM2, pointInGeometry } from '../src/adapters/av-parzelle.ts';
 import { FELDER } from '../src/views/felder.ts';
 import { EmptyResultError, SchemaDriftError } from '../src/errors.ts';
 import { silentLogger } from '../src/log.ts';
@@ -71,22 +71,37 @@ describe('gwr', () => {
 });
 
 describe('av-parzelle', () => {
-  const punkt = { e: 2601737, n: 1197338.426 };
+  const punkt = { e: 2601737, n: 1197338.426 }; // GWR-Gebäudepunkt Wabern, liegt in Parzelle 5711
+  const egrid = 'CH586746359755';
+  type Route = Parameters<typeof httpFor>[0];
+  const ctxMit = (keys: Keys, routes: Route = wabernRoutes(), calls: string[] = []): AdapterContext => ({ keys, http: httpFor(routes, calls), now: () => new Date(), log: silentLogger });
 
-  it('liest properties der GeoJSON-Antwort, rechnet die Fläche aus der Geometrie und bevorzugt die bekannte EGRID', async () => {
-    const out = await avParzelle.resolve(ctxFor({ lv95_bau: punkt, egrid: 'CH586746359755' }));
+  it('Hauptweg mit EGRID: genau eine find-Anfrage auf egris_egrid, Fakten und Geometrie der Register-Parzelle, Confidence 1', async () => {
+    const calls: string[] = [];
+    const out = await avParzelle.resolve(ctxMit({ lv95_bau: punkt, egrid }, wabernRoutes(), calls));
+    expect(calls).toHaveLength(1); // Punkt liegt in der Parzelle: keine Gegenprobe
+    expect(calls[0]).toContain('/find?');
+    expect(calls[0]).toContain('layer=ch.swisstopo-vd.amtliche-vermessung');
+    expect(calls[0]).toContain('searchField=egris_egrid');
+    expect(calls[0]).toContain(`searchText=${egrid}`);
+    expect(calls[0]).toContain('contains=false');
+    expect(calls[0]).toContain('returnGeometry=true');
+    expect(calls[0]).toContain('geometryFormat=geojson');
     expect(fact(out, 'parzelle.nummer')).toBe('5711');
-    expect(fact(out, 'parzelle.egrid')).toBe('CH586746359755');
+    expect(fact(out, 'parzelle.egrid')).toBe(egrid);
     expect(fact(out, 'parzelle.nummerierungsbereich')).toBe('BE0200000051');
     expect(fact(out, 'parzelle.flaeche_m2')).toBe(764); // Shoelace über das echte 7-Eck: 764.39 m²
     expect(out.facts.find((f) => f.key === 'parzelle.flaeche_m2')?.confidence).toBe(0.95);
+    expect(out.facts.find((f) => f.key === 'parzelle.nummer')?.confidence).toBe(1);
     expect(fact(out, 'parzelle.art')).toBeUndefined(); // realestate_type ist null: kein Fakt, kein Default
-    expect(out.keys).toMatchObject({ egrid: 'CH586746359755', bfs_nr: 355, kanton: 'BE', parzelle_nr: '5711' });
-    expect(out.facts.every((f) => f.request_url?.includes('geometryFormat=geojson'))).toBe(true);
+    expect(fact(out, 'parzelle.hinweis_vermessung')).toBeUndefined();
+    expect(fact(out, 'parzelle.treffer_am_punkt')).toBeUndefined();
+    expect(out.keys).toMatchObject({ egrid, bfs_nr: 355, kanton: 'BE', parzelle_nr: '5711' });
+    expect(out.facts.every((f) => f.request_url === calls[0])).toBe(true);
   });
 
   it('gibt die Parzellengeometrie als GeoJSON-String (LV95) weiter, Confidence 1, nicht im Feldkatalog', async () => {
-    const out = await avParzelle.resolve(ctxFor({ lv95_bau: { e: 2601737, n: 1197338.426 }, egrid: 'CH586746359755' }));
+    const out = await avParzelle.resolve(ctxFor({ lv95_bau: punkt, egrid }));
     const f = out.facts.find((x) => x.key === 'parzelle.geometrie_geojson');
     expect(f?.confidence).toBe(1);
     const geom = JSON.parse(f?.value as string) as { type: string; coordinates: Array<Array<[number, number]>> };
@@ -97,16 +112,76 @@ describe('av-parzelle', () => {
     expect(FELDER['parzelle.geometrie_geojson']).toBeUndefined();
   });
 
-  it('Parzelle unter dem Punkt ist nicht die aus dem GWR: Confidence 0.8 und sichtbarer Hinweis, keine stille Übernahme', async () => {
-    const out = await avParzelle.resolve(ctxFor({ lv95_bau: { e: 2601737, n: 1197338.426 }, egrid: 'CH000000000000', parzelle_nr: '9999' }));
+  it('Baden, Rütistrasse 1: Gebäudepunkt liegt auf 3827, das Register nennt 3258. find liefert 3258 (395 m²), die Gegenprobe am Punkt benennt den Widerspruch', async () => {
+    const gebaeudepunkt = { e: 2665322.862, n: 1258605.675 }; // GWR, EGID 534491
+    const calls: string[] = [];
+    const routes: Route = [
+      { match: (u) => u.pathname.endsWith('/find'), body: fixture('av-parzelle-find-3258.json') },
+      { match: (u) => u.pathname.endsWith('/identify'), body: fixture('av-parzelle-3827-punkt.json') },
+    ];
+    const out = await avParzelle.resolve(ctxMit({ lv95_bau: gebaeudepunkt, egrid: 'CH959983779505', parzelle_nr: '3258', kanton: 'AG' }, routes, calls));
+    expect(calls).toHaveLength(2);
+    expect(calls[0]).toContain('/find?');
+    expect(calls[1]).toContain('/identify?');
+    expect(calls[1]).toContain('geometry=2665322.862%2C1258605.675');
+    expect(fact(out, 'parzelle.nummer')).toBe('3258');
+    expect(fact(out, 'parzelle.egrid')).toBe('CH959983779505');
+    expect(fact(out, 'parzelle.flaeche_m2')).toBe(395); // Shoelace 394.67 m², Grundbuchfläche laut ÖREB 394
+    expect(out.facts.find((f) => f.key === 'parzelle.nummer')?.confidence).toBe(1);
+    expect(out.facts.find((f) => f.key === 'parzelle.flaeche_m2')?.confidence).toBe(0.95);
+    const geom = JSON.parse(fact(out, 'parzelle.geometrie_geojson') as string) as { coordinates: Array<Array<[number, number]>> };
+    expect(geom.coordinates[0]!.length).toBe(43);
+    expect(pointInGeometry(gebaeudepunkt, geom)).toBe(false);
+    const hinweis = out.facts.find((f) => f.key === 'parzelle.hinweis_vermessung');
+    expect(hinweis?.value).toContain('auf Parzelle 3827 (CH189083957747), nicht auf 3258 (CH959983779505)');
+    expect(hinweis?.request_url).toBe(calls[1]); // der Hinweis zeigt auf die Punkt-Abfrage, die ihn belegt
+    expect(out.keys).toMatchObject({ egrid: 'CH959983779505', bfs_nr: 4021, kanton: 'AG', parzelle_nr: '3258' });
+  });
+
+  it('Gegenprobe ohne Hinweis: Punkt ausserhalb der Geometrie, aber identify nennt die Register-Parzelle mit (Grenzfall)', async () => {
+    const calls: string[] = [];
+    // Punkt ausserhalb des 5711-Polygons; die Fixture-Route für identify liefert trotzdem 5711, wie bei einem Punkt auf der Grenze
+    const out = await avParzelle.resolve(ctxMit({ lv95_bau: { e: 2601700, n: 1197300 }, egrid }, wabernRoutes(), calls));
+    expect(calls).toHaveLength(2);
+    expect(calls[1]).toContain('/identify?');
+    expect(fact(out, 'parzelle.hinweis_vermessung')).toBeUndefined();
+    expect(out.facts.find((f) => f.key === 'parzelle.nummer')?.confidence).toBe(1);
+  });
+
+  it('ohne EGRID: identify am Gebäudepunkt wie bis Version 2', async () => {
+    const calls: string[] = [];
+    const out = await avParzelle.resolve(ctxMit({ lv95_bau: punkt }, wabernRoutes(), calls));
+    expect(calls).toHaveLength(1);
+    expect(calls[0]).toContain('/identify?');
+    expect(calls[0]).toContain('tolerance=0');
+    expect(calls[0]).toContain('geometryFormat=geojson');
+    expect(fact(out, 'parzelle.nummer')).toBe('5711');
+    expect(fact(out, 'parzelle.flaeche_m2')).toBe(764);
+    expect(out.facts.find((f) => f.key === 'parzelle.nummer')?.confidence).toBe(1);
+    expect(fact(out, 'parzelle.hinweis_vermessung')).toBeUndefined();
+    expect(out.keys).toMatchObject({ egrid, bfs_nr: 355, kanton: 'BE', parzelle_nr: '5711' });
+  });
+
+  it('EGRID in der AV unbekannt (find leer): Fallback auf den Punkt, fremde Parzelle mit Confidence 0.8 und Hinweis, keine stille Übernahme', async () => {
+    const calls: string[] = [];
+    const routes: Route = [
+      { match: (u) => u.pathname.endsWith('/find'), body: { results: [] } },
+      { match: (u) => u.pathname.endsWith('/identify'), body: fixture('av-parzelle-5711.json') },
+    ];
+    const out = await avParzelle.resolve(ctxMit({ lv95_bau: punkt, egrid: 'CH000000000000', parzelle_nr: '9999' }, routes, calls));
+    expect(calls).toHaveLength(2);
     expect(fact(out, 'parzelle.nummer')).toBe('5711');
     expect(out.facts.find((f) => f.key === 'parzelle.nummer')?.confidence).toBe(0.8);
     expect(out.facts.find((f) => f.key === 'parzelle.flaeche_m2')?.confidence).toBe(0.8);
+    expect(out.facts.find((f) => f.key === 'parzelle.geometrie_geojson')?.confidence).toBe(1);
     expect(fact(out, 'parzelle.hinweis_vermessung')).toContain('Parzelle 5711 (CH586746359755), das Gebäuderegister nennt 9999 (CH000000000000)');
-    // passt die EGRID, gibt es keinen Hinweis und Confidence 1
-    const ok = await avParzelle.resolve(ctxFor({ lv95_bau: { e: 2601737, n: 1197338.426 }, egrid: 'CH586746359755' }));
-    expect(fact(ok, 'parzelle.hinweis_vermessung')).toBeUndefined();
-    expect(ok.facts.find((f) => f.key === 'parzelle.nummer')?.confidence).toBe(1);
+  });
+
+  it('EGRID in der AV unbekannt und kein Gebäudepunkt: Lücke, EmptyResultError', async () => {
+    const http = httpFor([{ match: () => true, body: { results: [] } }]);
+    await expect(
+      avParzelle.resolve({ keys: { egrid: 'CH000000000000' }, http, now: () => new Date(), log: silentLogger }),
+    ).rejects.toBeInstanceOf(EmptyResultError);
   });
 
   it('Esri-Form (attributes statt properties) ist Schema-Drift, kein stiller Fallback', async () => {
@@ -129,6 +204,18 @@ describe('av-parzelle', () => {
     expect(geojsonAreaM2({ type: 'Polygon', coordinates: [square, hole] })).toBe(96);
     expect(geojsonAreaM2({ type: 'MultiPolygon', coordinates: [[square], [square]] })).toBe(200);
     expect(geojsonAreaM2(null)).toBeNull();
+  });
+
+  it('pointInGeometry: Even-Odd mit Loch und MultiPolygon, unbekannte Form ist null', () => {
+    const square = [[0, 0], [10, 0], [10, 10], [0, 10], [0, 0]] as Array<[number, number]>;
+    const hole = [[2, 2], [4, 2], [4, 4], [2, 4], [2, 2]] as Array<[number, number]>;
+    const rechts = square.map(([x, y]) => [x + 20, y]) as Array<[number, number]>;
+    expect(pointInGeometry({ e: 5, n: 8 }, { type: 'Polygon', coordinates: [square, hole] })).toBe(true);
+    expect(pointInGeometry({ e: 3, n: 3 }, { type: 'Polygon', coordinates: [square, hole] })).toBe(false); // im Loch
+    expect(pointInGeometry({ e: 11, n: 5 }, { type: 'Polygon', coordinates: [square] })).toBe(false);
+    expect(pointInGeometry({ e: 25, n: 5 }, { type: 'MultiPolygon', coordinates: [[square], [rechts]] })).toBe(true);
+    expect(pointInGeometry({ e: 15, n: 5 }, { type: 'MultiPolygon', coordinates: [[square], [rechts]] })).toBe(false);
+    expect(pointInGeometry({ e: 1, n: 1 }, null)).toBeNull();
   });
 });
 

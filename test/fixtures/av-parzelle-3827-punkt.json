@@ -1,0 +1,120 @@
+{
+  "_hinweis": "Echte Antwort vom 15.10.2026: identify tolerance=0 am GWR-Gebäudepunkt von Rütistrasse 1, Baden (2665322.862, 1258605.675; EGID 534491), returnGeometry=true, geometryFormat=geojson. Die amtliche Vermessung findet dort Parzelle 3827 (CH189083957747), das Gebäuderegister nennt 3258 (CH959983779505). Der Punkt liegt ausserhalb des 3258-Polygons (Even-Odd-Test). URL: https://api3.geo.admin.ch/rest/services/api/MapServer/identify?geometry=2665322.862%2C1258605.675&geometryType=esriGeometryPoint&layers=all%3Ach.swisstopo-vd.amtliche-vermessung&tolerance=0&sr=2056&returnGeometry=true&lang=de&geometryFormat=geojson",
+  "results": [
+    {
+      "type": "Feature",
+      "featureId": 3597188,
+      "bbox": [
+        2665317,
+        1258597.3,
+        2665338.4,
+        1258619.9
+      ],
+      "layerBodId": "ch.swisstopo-vd.amtliche-vermessung",
+      "layerName": "OpenData-AV",
+      "id": 3597188,
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              2665317,
+              1258611.3
+            ],
+            [
+              2665326.2,
+              1258619.9
+            ],
+            [
+              2665326.4,
+              1258619.7
+            ],
+            [
+              2665326.7,
+              1258619.5
+            ],
+            [
+              2665326.9,
+              1258619.3
+            ],
+            [
+              2665327.2,
+              1258619.1
+            ],
+            [
+              2665327.4,
+              1258618.9
+            ],
+            [
+              2665327.6,
+              1258618.7
+            ],
+            [
+              2665327.8,
+              1258618.4
+            ],
+            [
+              2665328.1,
+              1258618.2
+            ],
+            [
+              2665328.3,
+              1258618
+            ],
+            [
+              2665328.5,
+              1258617.8
+            ],
+            [
+              2665328.7,
+              1258617.5
+            ],
+            [
+              2665328.9,
+              1258617.3
+            ],
+            [
+              2665329,
+              1258617
+            ],
+            [
+              2665329.2,
+              1258616.8
+            ],
+            [
+              2665329.4,
+              1258616.5
+            ],
+            [
+              2665338.4,
+              1258603.3
+            ],
+            [
+              2665334.2,
+              1258600.4
+            ],
+            [
+              2665329.4,
+              1258597.3
+            ],
+            [
+              2665317,
+              1258611.3
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "bfsnr": 4021,
+        "ak": "AG",
+        "name": "3827",
+        "number": "3827",
+        "identnd": "AG0200004021",
+        "egris_egrid": "CH189083957747",
+        "realestate_type": null,
+        "geoportal_url": "https://www.ag.ch/geoportal/apps/onlinekarten/?layers=va_avdaten::topicmaps.geo.ag.ch;1;true&basemap=base_landeskarten_sw::topicmaps.geo.ag.ch,1,true&center=2663865.84,1257660.93&z=5",
+        "label": "3827"
+      }
+    }
+  ]
+}

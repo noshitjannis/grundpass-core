@@ -1,0 +1,64 @@
+{
+  "_hinweis": "Echte Antwort vom 15.10.2026: find auf ch.swisstopo-vd.amtliche-vermessung mit searchField=egris_egrid, searchText=CH586746359755 (Wabern, Maygutstrasse 26), contains=false, returnGeometry=true, geometryFormat=geojson. Ein Treffer, Parzelle 5711, dieselbe Geometrie wie av-parzelle-5711.json (identify am Punkt). URL: https://api3.geo.admin.ch/rest/services/api/MapServer/find?layer=ch.swisstopo-vd.amtliche-vermessung&searchField=egris_egrid&searchText=CH586746359755&returnGeometry=true&geometryFormat=geojson&contains=false&sr=2056&lang=de",
+  "results": [
+    {
+      "type": "Feature",
+      "featureId": 1756156,
+      "bbox": [
+        2601716.5,
+        1197312.6,
+        2601752.8,
+        1197353.7
+      ],
+      "layerBodId": "ch.swisstopo-vd.amtliche-vermessung",
+      "layerName": "OpenData-AV",
+      "id": 1756156,
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              2601716.5,
+              1197330.6
+            ],
+            [
+              2601735.7,
+              1197353.7
+            ],
+            [
+              2601751.5,
+              1197340.8
+            ],
+            [
+              2601752.8,
+              1197339.7
+            ],
+            [
+              2601730.3,
+              1197312.6
+            ],
+            [
+              2601717.2,
+              1197323.5
+            ],
+            [
+              2601716.5,
+              1197330.6
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "bfsnr": 355,
+        "ak": "BE",
+        "name": "5711",
+        "number": "5711",
+        "identnd": "BE0200000051",
+        "egris_egrid": "CH586746359755",
+        "realestate_type": null,
+        "geoportal_url": "https://www.topo.apps.be.ch/pub/map/?lang=de&gpk=MOPUBE_GPK",
+        "label": "5711"
+      }
+    }
+  ]
+}
