@@ -91,16 +91,18 @@ Gelesene Felder: `bfsnr, ak, number, identnd, egris_egrid, realestate_type, geop
 | | |
 |---|---|
 | Datenhalter | BFE, swisstopo |
-| Endpoint | `identify` auf `ch.bfe.solarenergie-eignung-daecher`, tolerance=0 (Segment unter dem Punkt), dann tolerance=20 mit `imageDisplay=100,100,96` und `mapExtent` (alle Segmente) |
+| Endpoint | `identify` auf `ch.bfe.solarenergie-eignung-daecher`, tolerance=0 (Segment unter dem Punkt), dann tolerance=20 mit `imageDisplay=100,100,96` und `mapExtent` (100 m um den Punkt; alle Segmente des Gebäudes) |
 | braucht | `lv95_bau` |
 | Fakten | `solar.klasse` (1–5), `.klasse_text`, `.segmente`, `.segmente_vollstaendig`, `.dachflaeche_m2`, `.einstrahlung_max_kwh_m2a`, `.stromertrag_kwh_a`, `.stromertrag_winter_kwh_a`, `.finanzertrag_chf_a`, `.waermeertrag_kwh_a`, `.bestes_segment.{ausrichtung_grad, neigung_grad, flaeche_m2}`, `.waermebedarf_heizung_kwh_a`, `.waermebedarf_warmwasser_kwh_a`, `.building_id` |
 | source_date | `datum_aenderung` |
 | TTL | 180 Tage |
-| Status | verifiziert (Einzelsegment) · Fixtures `sonnendach-point.json`, `sonnendach-wide.json` (Umkreis konstruiert) |
+| Status | verifiziert 15.10.2026 (Punkt und Umkreis) · Fixtures `sonnendach-point.json`, `sonnendach-wide.json`, beide echte Antworten |
 
-Gelesene Felder: `klasse, klasse_text, flaeche, ausrichtung, neigung, mstrahlung, gstrahlung, stromertrag, stromertrag_winterhalbjahr, stromertrag_sommerhalbjahr, finanzertrag, waermeertrag, bedarf_heizung, bedarf_warmwasser, gwr_egid, building_id, df_nummer, datum_aenderung`. Pseudo-Treffer `featureId -99` (Hinweistext) wird ignoriert. Segmente desselben Gebäudes: gleiche `gwr_egid` oder `building_id`. Klasse: 1 gering, 2 mittel, 3 gut, 4 sehr gut, 5 hervorragend. Ausrichtung: 0 = Süd, negativ Ost, positiv West.
+Gelesene Felder: `klasse, klasse_text, flaeche, ausrichtung, neigung, mstrahlung, gstrahlung, stromertrag, stromertrag_winterhalbjahr, stromertrag_sommerhalbjahr, finanzertrag, waermeertrag, bedarf_heizung, bedarf_warmwasser, gwr_egid, building_id, df_nummer, datum_aenderung`. Die Antwort enthält daneben Monatsreihen (`monate`, `monats_ertrag`, `heizgradtage`, `a_param`, `b_param`, `c_param`) und Solarthermie-Parameter (`flaeche_kollektoren`, `volumen_speicher`, `duschgaenge`, `dg_heizung`, `dg_waermebedarf`), die wir nicht lesen. Pseudo-Treffer `featureId -99` (Hinweistext) wird ignoriert. Segmente desselben Gebäudes: gleiche `gwr_egid` oder `building_id`. Klasse: 1 gering, 2 mittel, 3 gut, 4 sehr gut, 5 hervorragend. Ausrichtung: 0 = Süd, negativ Ost, positiv West.
 
-Offen: Ob die Umkreis-Abfrage mit Toleranz wirklich alle Segmente liefert, zeigt der Live-Test. `find` auf `gwr_egid` hat am 15.10.2026 einen Serverfehler gegeben.
+**Vollständigkeit (15.10.2026, Wabern):** tolerance=20 liefert 6 Treffer: die 4 Segmente des Gebäudes (df_nummer 1 bis 4, Dachfläche total 240 m², Stromertrag 44 550 kWh/a) und 2 Segmente des Nachbarhauses (gwr_egid 1271643), die der Filter entfernt. tolerance=30 liefert byte-identisch dasselbe. `find` auf `building_id` oder `gwr_egid` läuft in ein 504 Gateway Timeout nach rund 60 s, ist also nicht brauchbar. `solar.segmente_vollstaendig` ist nur true, wenn die df_nummer der gefundenen Segmente lückenlos 1 bis n sind (Sonnendach nummeriert die Dachflächen eines Gebäudes so, beobachtet an zwei Gebäuden); fällt die Umkreis-Abfrage aus oder fehlt eine Nummer, ist es false. Bei sehr grossen Gebäuden kann der 20-m-Umkreis um den GWR-Punkt zu klein sein, das zeigt dann dieses Flag.
+
+**Bestes Segment** (`solar.bestes_segment.*`, `solar.klasse`): höchste Klasse, bei Gleichstand höhere Einstrahlung (`mstrahlung`), dann grössere Fläche. Ohne diese Regel hinge die Auswahl von der Reihenfolge in der API-Antwort ab (in Wabern kam die 44-m²-Fläche vor der besseren 75-m²-Fläche).
 
 ---
 

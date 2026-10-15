@@ -64,16 +64,58 @@ describe('av-parzelle', () => {
 });
 
 describe('sonnendach', () => {
-  it('summiert nur die Segmente des eigenen Gebäudes und ignoriert -99', async () => {
-    const out = await sonnendach.resolve(ctxFor({ lv95_bau: { e: 2601737, n: 1197338 } }));
-    expect(fact(out, 'solar.segmente')).toBe(2);
+  const punkt = { e: 2601737, n: 1197338.426 };
+
+  it('summiert die vier Segmente des eigenen Gebäudes, ignoriert Nachbarhaus und -99', async () => {
+    const out = await sonnendach.resolve(ctxFor({ lv95_bau: punkt }));
+    expect(fact(out, 'solar.segmente')).toBe(4);
     expect(fact(out, 'solar.segmente_vollstaendig')).toBe(true);
     expect(fact(out, 'solar.klasse')).toBe(4);
     expect(fact(out, 'solar.klasse_text')).toBe('sehr gut');
-    expect(fact(out, 'solar.stromertrag_kwh_a')).toBe(16592 + 9800);
-    expect(fact(out, 'solar.dachflaeche_m2')).toBe(Math.round(75.1426060066 + 70.4));
+    expect(fact(out, 'solar.stromertrag_kwh_a')).toBe(9625 + 16592 + 6330 + 12003); // 44550, df_nummer 1 bis 4
+    expect(fact(out, 'solar.stromertrag_winter_kwh_a')).toBe(3005 + 5132 + 1392 + 2559);
+    expect(fact(out, 'solar.dachflaeche_m2')).toBe(Math.round(44.2003953823 + 75.1426060066 + 44.2033316159 + 76.3160940852)); // 240
+    expect(fact(out, 'solar.finanzertrag_chf_a')).toBe(Math.round(962.5 + 1659.2 + 633 + 1200.3));
+    expect(fact(out, 'solar.waermeertrag_kwh_a')).toBe(6545 + 6529 + 5215 + 5220);
+    expect(fact(out, 'solar.einstrahlung_max_kwh_m2a')).toBe(1380);
     expect(fact(out, 'solar.waermebedarf_heizung_kwh_a')).toBe(18154);
+    expect(fact(out, 'solar.waermebedarf_warmwasser_kwh_a')).toBe(3600);
+    expect(fact(out, 'solar.building_id')).toBe(1131629);
     expect(out.source_date).toBe('2020-04-13');
+    // Summen tragen die Umkreis-URL, Gebäudewerte die Punkt-URL
+    expect(out.facts.find((f) => f.key === 'solar.dachflaeche_m2')?.request_url).toContain('tolerance=20');
+    expect(out.facts.find((f) => f.key === 'solar.waermebedarf_heizung_kwh_a')?.request_url).toContain('tolerance=0');
+  });
+
+  it('bestes Segment: bei gleicher Klasse entscheidet die Einstrahlung, nicht die Reihenfolge der API', async () => {
+    const out = await sonnendach.resolve(ctxFor({ lv95_bau: punkt }));
+    // In der Antwort kommt df_nummer 1 (Klasse 4, 1361 kWh/m²a, 44 m²) vor df_nummer 2 (Klasse 4, 1380 kWh/m²a, 75 m²).
+    expect(fact(out, 'solar.bestes_segment.ausrichtung_grad')).toBe(40);
+    expect(fact(out, 'solar.bestes_segment.neigung_grad')).toBe(26);
+    expect(fact(out, 'solar.bestes_segment.flaeche_m2')).toBe(75);
+  });
+
+  it('segmente_vollstaendig ist false, wenn die df_nummer Lücken haben', async () => {
+    const wide = fixture('sonnendach-wide.json') as { results: Array<{ attributes: { df_nummer?: number } }> };
+    const ohneDf3 = { results: wide.results.filter((r) => r.attributes.df_nummer !== 3) };
+    const http = httpFor([
+      { match: (u) => u.searchParams.get('tolerance') === '0', body: fixture('sonnendach-point.json') },
+      { match: () => true, body: ohneDf3 },
+    ]);
+    const out = await sonnendach.resolve({ keys: { lv95_bau: punkt }, http, now: () => new Date(), log: silentLogger });
+    expect(fact(out, 'solar.segmente')).toBe(3);
+    expect(fact(out, 'solar.segmente_vollstaendig')).toBe(false);
+  });
+
+  it('Umkreis-Abfrage fällt aus: nur das Segment unter dem Punkt, sichtbar unvollständig', async () => {
+    const http = httpFor([
+      { match: (u) => u.searchParams.get('tolerance') === '0', body: fixture('sonnendach-point.json') },
+      { match: () => true, body: 'Server kaputt', status: 500 },
+    ]);
+    const out = await sonnendach.resolve({ keys: { lv95_bau: punkt }, http, now: () => new Date(), log: silentLogger });
+    expect(fact(out, 'solar.segmente')).toBe(1);
+    expect(fact(out, 'solar.segmente_vollstaendig')).toBe(false);
+    expect(fact(out, 'solar.klasse')).toBe(2); // unter dem Punkt liegt df_nummer 4, Klasse 2
   });
 });
 
