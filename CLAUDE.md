@@ -15,6 +15,12 @@ Lizenz: AGPL-3.0-or-later. Die App (Routing, Preise, Leads) liegt in einem separ
 - Neue Adapter werden zusätzlich in `docs/QUELLEN.md` eingetragen: Endpoint, Felder, Codes, Lizenz, TTL, Status (verifiziert/experimentell).
 - Ein Commit ohne nachgeführte Doku ist unvollständig. Lieber ein Commit mehr als eine Doku-Lücke.
 
+## Commit-Regel
+
+- Commit nur, wenn `pnpm check` mit Exit-Code 0 endet. Nie auf Ausgabetext wie 'passed' prüfen.
+- Ändert ein Adapter seine Fakten-Keys oder deren Bedeutung, wird `manifest.version` erhöht, sonst liefert der Cache
+  bis zu `ttlDays` lang den alten Stand. Die ganze Regel steht in `docs/ADAPTER-SCHREIBEN.md`, Abschnitt Regeln.
+
 ## Konventionen
 
 - Sprache in Code-Kommentaren, Doku, Fakten-Keys und Commit-Messages: Deutsch (Schweizer Schreibweise, ss statt ß).
