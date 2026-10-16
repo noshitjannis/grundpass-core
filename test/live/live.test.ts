@@ -2,6 +2,7 @@ import { mkdirSync, writeFileSync } from 'node:fs';
 import { describe, expect, it } from 'vitest';
 import { z } from 'zod';
 import { adapters, gwr, kulturgueter, oereb } from '../../src/adapters/index.ts';
+import { DATENSTAND, legendeUrl } from '../../src/adapters/naturgefahren.ts';
 import { GOLDENE_ADRESSEN } from '../../src/canary/adressen.ts';
 import { OEREB_KANTONE, oerebExtractUrl } from '../../src/adapters/oereb/kantone.ts';
 import { Core } from '../../src/core.ts';
@@ -82,6 +83,16 @@ describe.skipIf(!live)('live: geo.admin', () => {
     }
     await core.close();
   }, 300_000);
+
+  it('naturgefahren: die Datenstände im Adapter stimmen mit den geo.admin-Legendenseiten der drei Layer überein', async () => {
+    const http = createHttpClient({ retries: 0 });
+    for (const [layer, iso] of Object.entries(DATENSTAND)) {
+      const { data } = await http.text(legendeUrl(layer));
+      const m = data.replace(/<[^>]*>/g, ' ').match(/Datenstand\s+(\d{2})\.(\d{2})\.(\d{4})/);
+      expect(m, `${layer}: Legende ohne «Datenstand TT.MM.JJJJ»`).not.toBeNull();
+      expect(`${m![3]}-${m![2]}-${m![1]}`, layer).toBe(iso);
+    }
+  }, 60_000);
 
   it('kulturgueter: Zytglogge (Bim Zytglogge 3, Bern) trifft den Zeitglockenturm innerhalb von 15 m', async () => {
     const http = createHttpClient({ retries: 0 });

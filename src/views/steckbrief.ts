@@ -9,7 +9,10 @@ export type SteckbriefFeld = {
   erklaerung?: string;
   quelle: string;
   quelle_titel: string;
-  stand: string;
+  /** Stand der Daten laut Quelle (`source_date`, ISO-Datum), wenn die Quelle einen kennt. Sonst fehlt das Feld, es wird nichts ersetzt. */
+  daten_vom?: string;
+  /** Tag des Abrufs (`fetched_at`, ISO-Datum). Immer da. */
+  abgefragt_am: string;
   url?: string;
   confidence: number;
   derived_from?: string[];
@@ -36,7 +39,10 @@ export type QuellenEintrag = {
   provider: string;
   attribution: string;
   status: AdapterRunReport['status'];
-  stand?: string;
+  /** Stand der Daten, wenn alle Fakten des Adapters denselben `source_date` tragen. Bei mehreren Ständen (naturgefahren: drei Layer) fehlt er hier und steht pro Feld. */
+  daten_vom?: string;
+  /** Tag des Abrufs der Fakten (bei `cached` der ursprüngliche Abruf). Fehlt, wenn der Adapter keine Fakten geliefert hat. */
+  abgefragt_am?: string;
   url?: string;
   ms: number;
   fehler?: string;
@@ -47,7 +53,19 @@ export type Steckbrief = {
   run_id: string;
   subject: string | null;
   partial: boolean;
-  adresse: { label?: string; gemeinde?: string; kanton?: string; egid?: number; egrid?: string; parzelle?: string };
+  adresse: {
+    /** Volle Adresse laut geocode («Maygutstrasse 26 3084 Wabern»), bei Eingabe per EGID die Strasse laut GWR. */
+    label?: string;
+    /** Strasse und Hausnummer laut GWR («Maygutstrasse 26»). */
+    strasse?: string;
+    plz?: number;
+    ort?: string;
+    gemeinde?: string;
+    kanton?: string;
+    egid?: number;
+    egrid?: string;
+    parzelle?: string;
+  };
   abschnitte: SteckbriefAbschnitt[];
   luecken: Luecke[];
   quellen: QuellenEintrag[];
@@ -70,9 +88,10 @@ function toFeld(f: Fact, def: Pick<FeldDef, 'label' | 'erklaerung'>, titles: Map
     value: f.value,
     quelle: f.source,
     quelle_titel: titles.get(f.source) ?? f.source,
-    stand: f.source_date ?? f.fetched_at.slice(0, 10),
+    abgefragt_am: f.fetched_at.slice(0, 10),
     confidence: f.confidence,
   };
+  if (f.source_date) out.daten_vom = f.source_date;
   if (f.unit) out.unit = f.unit;
   if (def.erklaerung) out.erklaerung = def.erklaerung;
   if (f.request_url) out.url = f.request_url;
@@ -199,8 +218,12 @@ export function buildSteckbrief(run: RunResult, adapters: Adapter[]): Steckbrief
         ms: r.ms,
         experimentell: m?.status === 'experimentell',
       };
-      const stand = run.facts.find((f) => f.source === r.adapter)?.source_date ?? run.facts.find((f) => f.source === r.adapter)?.fetched_at.slice(0, 10);
-      if (stand) q.stand = stand;
+      const eigene = run.facts.filter((f) => f.source === r.adapter);
+      // Ein Stand für den ganzen Adapter nur, wenn alle seine Fakten denselben tragen; sonst steht er pro Feld (naturgefahren: drei Layer, drei Stände)
+      const staende = [...new Set(eigene.map((f) => f.source_date).filter((d): d is string => !!d))];
+      if (staende.length === 1 && eigene.every((f) => f.source_date)) q.daten_vom = staende[0]!;
+      const abgefragt = eigene[0]?.fetched_at.slice(0, 10);
+      if (abgefragt) q.abgefragt_am = abgefragt;
       if (r.request_url) q.url = r.request_url;
       if (r.error) q.fehler = r.error;
       return q;
@@ -210,6 +233,9 @@ export function buildSteckbrief(run: RunResult, adapters: Adapter[]): Steckbrief
   const adresse: Steckbrief['adresse'] = {};
   const label = v('adresse.label') ?? v('adresse.strasse_nr');
   if (typeof label === 'string') adresse.label = label;
+  if (typeof v('adresse.strasse_nr') === 'string') adresse.strasse = v('adresse.strasse_nr') as string;
+  if (typeof v('adresse.plz') === 'number') adresse.plz = v('adresse.plz') as number;
+  if (typeof v('adresse.ort') === 'string') adresse.ort = v('adresse.ort') as string;
   if (typeof v('adresse.gemeinde') === 'string') adresse.gemeinde = v('adresse.gemeinde') as string;
   if (typeof v('adresse.kanton') === 'string') adresse.kanton = v('adresse.kanton') as string;
   if (run.keys.egid != null) adresse.egid = run.keys.egid;
@@ -232,6 +258,21 @@ export function buildSteckbrief(run: RunResult, adapters: Adapter[]): Steckbrief
   };
 }
 
+/**
+ * Zweite Kopfzeile des Steckbriefs: «3084 Wabern · Gemeinde Köniz · BE» aus PLZ, Ort, Gemeinde und Kanton (alle aus dem GWR,
+ * darum auch bei Eingabe per EGID da). Fehlt ein Teil, fällt er weg, kein Platzhalter. Leer, wenn nichts davon bekannt ist.
+ * Die App nutzt dieselbe Funktion für Seite und PDF.
+ */
+export function adressZeile(a: Steckbrief['adresse']): string {
+  const plzOrt = [a.plz != null ? String(a.plz) : '', a.ort ?? ''].filter(Boolean).join(' ');
+  return [plzOrt, a.gemeinde ? `Gemeinde ${a.gemeinde}` : '', a.kanton ?? ''].filter(Boolean).join(' · ');
+}
+
+/** Quellenangabe eines Felds als Text: «gwr · Daten vom 2026-10-12 · abgefragt 2026-10-16», ohne Stand der Quelle nur «abgefragt …». */
+export function quellenText(f: Pick<SteckbriefFeld, 'quelle' | 'daten_vom' | 'abgefragt_am'>): string {
+  return [f.quelle, f.daten_vom ? `Daten vom ${f.daten_vom}` : '', `abgefragt ${f.abgefragt_am}`].filter(Boolean).join(' · ');
+}
+
 // ---------------------------------------------------------------------------
 // Text-Ausgabe für CLI
 // ---------------------------------------------------------------------------
@@ -240,7 +281,7 @@ function fmt(feld: SteckbriefFeld): string {
   const def = FELDER[feld.key] ?? Object.values(WOHNUNG_FELDER).find((w) => w.label === feld.label);
   const v = feld.value;
   if (v === null || v === undefined) return '–';
-  if (typeof v === 'boolean') return v ? 'ja' : 'nein';
+  if (typeof v === 'boolean') return def?.format === 'betroffen' ? (v ? 'betroffen' : 'nicht betroffen') : v ? 'ja' : 'nein';
   if (typeof v === 'number') {
     const f = def?.format;
     const s =
@@ -255,15 +296,17 @@ function fmt(feld: SteckbriefFeld): string {
 
 export function steckbriefAlsText(s: Steckbrief, opts: { quellen?: boolean } = {}): string {
   const lines: string[] = [];
-  const head = [s.adresse.label, s.adresse.gemeinde && `${s.adresse.gemeinde} ${s.adresse.kanton ?? ''}`.trim()].filter(Boolean).join(' · ');
-  lines.push(`grundpass · ${head || s.subject}`);
+  // Kopf: Strasse (GWR, sonst das geocode-Label), darunter «3084 Wabern · Gemeinde Köniz · BE», darunter die Kennungen
+  lines.push(`grundpass · ${s.adresse.strasse ?? s.adresse.label ?? s.subject}`);
+  const zeile2 = adressZeile(s.adresse);
+  if (zeile2) lines.push(zeile2);
   lines.push(`EGID ${s.adresse.egid ?? '?'} · EGRID ${s.adresse.egrid ?? '?'} · Parzelle ${s.adresse.parzelle ?? '?'}${s.partial ? ' · UNVOLLSTÄNDIG' : ''}`);
   lines.push('');
   for (const ab of s.abschnitte) {
     lines.push(ab.titel.toUpperCase());
     const w = Math.max(...ab.felder.map((f) => f.label.length));
     for (const f of ab.felder) {
-      const src = opts.quellen === false ? '' : `   ${f.quelle} · ${f.stand}`;
+      const src = opts.quellen === false ? '' : `   ${quellenText(f)}`;
       lines.push(`  ${f.label.padEnd(w)}  ${fmt(f)}${src}`);
     }
     lines.push('');
@@ -284,7 +327,8 @@ export function steckbriefAlsText(s: Steckbrief, opts: { quellen?: boolean } = {
   }
   lines.push('QUELLEN');
   for (const q of s.quellen) {
-    lines.push(`  ${q.adapter.padEnd(16)} ${q.status.padEnd(13)} ${String(q.ms).padStart(5)} ms${q.stand ? `  Stand ${q.stand}` : ''}${q.experimentell ? '  [experimentell]' : ''}${q.fehler ? `  ${q.fehler}` : ''}`);
+    const stand = [q.daten_vom ? `Daten vom ${q.daten_vom}` : '', q.abgefragt_am ? `abgefragt ${q.abgefragt_am}` : ''].filter(Boolean).join(' · ');
+    lines.push(`  ${q.adapter.padEnd(16)} ${q.status.padEnd(13)} ${String(q.ms).padStart(5)} ms${stand ? `  ${stand}` : ''}${q.experimentell ? '  [experimentell]' : ''}${q.fehler ? `  ${q.fehler}` : ''}`);
   }
   lines.push('');
   lines.push(`Lauf ${s.run_id} · ${s.ms} ms · ${s.attribution.join(' · ')}`);

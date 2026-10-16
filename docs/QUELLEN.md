@@ -225,10 +225,10 @@ je Empfindlichkeitsstufe, Tag/Nacht: ES I 55/45, ES II 60/50, ES III 65/55, ES I
 | Datenhalter | BAFU |
 | Endpoint | WMS GetFeatureInfo (3×3 px um den Gebäudepunkt, `INFO_FORMAT=text/plain`, `FEATURE_COUNT=1`) für `ch.bafu.gefaehrdungskarte-oberflaechenabfluss`, `ch.bafu.aquaprotect_100`, `ch.bafu.gefahren-gefaehrdungszonen`; drei Anfragen parallel. api3 `identify` geht bei allen drei nicht («No GeoTable was found»). |
 | braucht | `lv95_bau` |
-| Fakten | `naturgefahr.oberflaechenabfluss.betroffen` (bool), `naturgefahr.hochwasser.aquaprotect_100` (bool), `naturgefahr.erdbeben.zone` (Z1a, Z1b, Z2, Z3a, Z3b, roh). Alle Confidence 1. Kein Treffer bei den Erdbebenzonen (ausserhalb der Karte): kein Zonen-Fakt, Lücke. |
-| Datenstand | Oberflächenabfluss 22.05.2018, Aquaprotect 18.12.2008, Erdbebenzonen 13.04.2026 (Layer-Legenden). GetFeatureInfo liefert kein Datum, kein `source_date`. |
+| Fakten | `naturgefahr.oberflaechenabfluss.betroffen` (bool, Label «Oberflächenabfluss bei Starkregen»), `naturgefahr.hochwasser.aquaprotect_100` (bool, Label «Hochwasser 100-jährlich (Aquaprotect)»), `naturgefahr.erdbeben.zone` (Z1a, Z1b, Z2, Z3a, Z3b, roh, Label «Erdbebenzone (SIA 261)»). Die Bool-Fakten haben im Feldkatalog das Format `betroffen` («betroffen» / «nicht betroffen»). Alle Confidence 1. Kein Treffer bei den Erdbebenzonen (ausserhalb der Karte): kein Zonen-Fakt, Lücke. |
+| Datenstand | pro Layer als `source_date` am Fakt (Version 2 seit 16.10.2026): Oberflächenabfluss 2018-05-22, Aquaprotect 2008-12-18, Erdbebenzonen 2026-04-13. Quelle ist die Layermetadaten-Seite von geo.admin (`https://api3.geo.admin.ch/rest/services/api/MapServer/<layer>/legend?lang=de`, Zeile «Datenstand»); GetFeatureInfo selbst liefert kein Datum. Konstante `DATENSTAND` im Adapter, der Live-Test prüft sie gegen die Legenden. Im Steckbrief darum `daten_vom` pro Feld, am Adapter nur `abgefragt_am`. |
 | TTL | 365 Tage |
-| Status | verifiziert 16.10.2026 (Live-Test an den fünf goldenen Adressen) · Fixtures `naturgefahren-{oberflaechenabfluss,aquaprotect-100,erdbeben}-{wabern,zuerich}.json` (echte text/plain-Antworten vom 16.10.2026 im Feld `body`, mit `_hinweis`) |
+| Status | verifiziert 16.10.2026 (Live-Test an den fünf goldenen Adressen, zweiter Live-Test für die drei Datenstände gegen die Legendenseiten) · Fixtures `naturgefahren-{oberflaechenabfluss,aquaprotect-100,erdbeben}-{wabern,zuerich}.json` (echte text/plain-Antworten vom 16.10.2026 im Feld `body`, mit `_hinweis`) |
 
 **Antwortform** (`text/plain`), Zürich Bahnhofstrasse-Gegend (2683400/1247900):
 
@@ -257,7 +257,7 @@ Oberflächenabfluss und Aquaprotect liefern bei einem Treffer nur `Feature 8688:
 | Datenhalter | BABS (Kulturgüterschutzinventar 2021, Objekte von nationaler Bedeutung). Geobasisdatensatz 65.1 |
 | Endpoint | `GET …/MapServer/identify?geometry=<E>,<N>&geometryType=esriGeometryPoint&layers=all:ch.babs.kulturgueter&tolerance=15&sr=2056&returnGeometry=true&lang=de&imageDisplay=100,100,96&mapExtent=<100 m um den Punkt>` (1 px = 1 m, Toleranz also 15 m) |
 | braucht | `lv95_bau` |
-| Fakten | `kulturgut.kgs.betroffen` (bool, immer). Bei einem Treffer innerhalb 15 m zusätzlich `kulturgut.kgs.name`, `.kategorie` («A (national)» / «B (regional)», Confidence 0.8), `.kategorie_code` (roh, z.B. «A.A»), `.nummer` (aus «KGS_NR665»), `.objektart`, `.distanz_m` (Confidence 0.95), bei mehreren `.weitere_im_umkreis`. Nächster Punkt gewinnt. |
+| Fakten | `kulturgut.kgs.betroffen` (bool, immer; Format `betroffen` im Feldkatalog: «betroffen» / «nicht betroffen»). Bei einem Treffer innerhalb 15 m zusätzlich `kulturgut.kgs.name`, `.kategorie` («A (national)» / «B (regional)», Confidence 0.8), `.kategorie_code` (roh, z.B. «A.A»), `.nummer` (aus «KGS_NR665»), `.objektart`, `.distanz_m` (Confidence 0.95), bei mehreren `.weitere_im_umkreis`. Nächster Punkt gewinnt. |
 | source_date | keines; Datenstand 30.06.2026 laut Layer-Legende |
 | TTL | 180 Tage |
 | Status | verifiziert 16.10.2026 (Live-Test an den fünf goldenen Adressen, positiv am Zytglogge) · Fixtures `kulturgueter-wabern.json`, `kulturgueter-zuerich.json` (leer), `kulturgueter-zytglogge.json` (zwei Treffer, echte Antworten vom 16.10.2026) |

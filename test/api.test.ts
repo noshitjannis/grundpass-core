@@ -3,7 +3,7 @@ import { createApp } from '../src/api/app.ts';
 import { Core } from '../src/core.ts';
 import { CircuitBreaker } from '../src/resolver/breaker.ts';
 import { silentLogger } from '../src/log.ts';
-import { steckbriefAlsText, type Steckbrief } from '../src/views/steckbrief.ts';
+import { adressZeile, steckbriefAlsText, type Steckbrief } from '../src/views/steckbrief.ts';
 import { httpFor, wabernRoutes } from './helpers/fixtures.ts';
 
 let core: Core;
@@ -24,7 +24,7 @@ describe('GET /v1/steckbrief', () => {
     expect(res.status).toBe(200);
     const s = (await res.json()) as Steckbrief;
     expect(s.subject).toBe('egid:1271632');
-    expect(s.adresse).toMatchObject({ egid: 1271632, egrid: 'CH586746359755', parzelle: '5711', gemeinde: 'Köniz', kanton: 'BE' });
+    expect(s.adresse).toMatchObject({ egid: 1271632, egrid: 'CH586746359755', parzelle: '5711', strasse: 'Maygutstrasse 26', plz: 3084, ort: 'Wabern', gemeinde: 'Köniz', kanton: 'BE' });
     const ids = s.abschnitte.map((a) => a.id);
     expect(ids).toContain('gebaeude');
     expect(ids).toContain('parzelle');
@@ -34,7 +34,9 @@ describe('GET /v1/steckbrief', () => {
     const typ = geb.felder.find((f) => f.key === 'gebaeude.klasse_kurz')!;
     expect(typ.value).toBe('Einfamilienhaus');
     expect(typ.quelle).toBe('gwr');
-    expect(typ.stand).toBe('2026-10-12'); // GWR-Exportdatum, nicht Abrufdatum
+    expect(typ.daten_vom).toBe('2026-10-12'); // GWR-Exportdatum, getrennt vom Abrufdatum
+    expect(typ.abgefragt_am).toMatch(/^\d{4}-\d{2}-\d{2}$/);
+    expect((typ as unknown as Record<string, unknown>).stand).toBeUndefined();
     expect(typ.url).toContain('find?layer=ch.bfs.gebaeude_wohnungs_register');
     // Baujahr fehlt im Register: Lücke, kein erfundener Wert
     expect(s.luecken.find((l) => l.key === 'gebaeude.baujahr')).toMatchObject({ grund: 'fehlt_im_register', quelle: 'gwr' });
@@ -48,17 +50,46 @@ describe('GET /v1/steckbrief', () => {
     expect(idsAlle.indexOf('naturgefahren')).toBeGreaterThan(idsAlle.indexOf('laerm'));
     expect(s.abschnitte.find((a) => a.id === 'ortsbild')?.felder.map((f) => [f.key, f.value])).toEqual([['kulturgut.kgs.betroffen', false]]);
     expect(s.attribution.some((a) => a.includes('BFS'))).toBe(true);
-    // Text-Ausgabe läuft durch
+    // Stand pro Feld: naturgefahren trägt drei Layer-Stände, darum kein daten_vom am Adapter, nur abgefragt_am; gwr hat einen für alle
+    const natur = s.abschnitte.find((a) => a.id === 'naturgefahren')!;
+    expect(natur.felder.map((f) => [f.label, f.daten_vom])).toEqual([
+      ['Oberflächenabfluss bei Starkregen', '2018-05-22'],
+      ['Hochwasser 100-jährlich (Aquaprotect)', '2008-12-18'],
+      ['Erdbebenzone (SIA 261)', '2026-04-13'],
+    ]);
+    const qNatur = s.quellen.find((q) => q.adapter === 'naturgefahren')!;
+    expect(qNatur.daten_vom).toBeUndefined();
+    expect(qNatur.abgefragt_am).toMatch(/^\d{4}-\d{2}-\d{2}$/);
+    expect(s.quellen.find((q) => q.adapter === 'gwr')).toMatchObject({ daten_vom: '2026-10-12' });
+    expect(s.quellen.find((q) => q.adapter === 'radon')?.daten_vom).toBeUndefined();
+    expect(s.quellen.every((q) => !('stand' in q))).toBe(true);
+    // Text-Ausgabe: Kopf in drei Zeilen, Quellenzeile mit Daten vom und abgefragt, Bool-Felder als betroffen / nicht betroffen
     const text = steckbriefAlsText(s);
+    expect(text.split('\n').slice(0, 3)).toEqual(['grundpass · Maygutstrasse 26', '3084 Wabern · Gemeinde Köniz · BE', 'EGID 1271632 · EGRID CH586746359755 · Parzelle 5711']);
     expect(text).toContain('GEBÄUDE');
     expect(text).toContain('Einfamilienhaus');
+    expect(text).toMatch(/Gebäudetyp\s+Einfamilienhaus\s+gwr · Daten vom 2026-10-12 · abgefragt \d{4}-\d{2}-\d{2}/);
+    expect(text).toMatch(/Radon-Wahrscheinlichkeit\s+\d+ %\s+radon · abgefragt \d{4}-\d{2}-\d{2}\n/);
+    expect(text).toMatch(/Oberflächenabfluss bei Starkregen\s+nicht betroffen\s+naturgefahren · Daten vom 2018-05-22/);
+    expect(text).toMatch(/KGS-Inventar \(Kulturgüterschutz\)\s+nicht betroffen/);
+    expect(text).not.toMatch(/\bnein\b/);
+    expect(text).toMatch(/naturgefahren\s+ok\s+\d+ ms  abgefragt \d{4}-\d{2}-\d{2}\n/);
+    expect(text).toMatch(/gwr\s+ok\s+\d+ ms  Daten vom 2026-10-12 · abgefragt \d{4}-\d{2}-\d{2}\n/);
     expect(text).toContain('LÜCKEN');
   });
 
   it('kann auch direkt mit EGID und validiert Eingaben', async () => {
     const ok = await app.request('/v1/steckbrief?egid=1271632');
     expect(ok.status).toBe(200);
-    expect(((await ok.json()) as Steckbrief).quellen.find((q) => q.adapter === 'geocode')?.status).toBe('nicht_anwendbar');
+    const s = (await ok.json()) as Steckbrief;
+    expect(s.quellen.find((q) => q.adapter === 'geocode')?.status).toBe('nicht_anwendbar');
+    // Auch ohne geocode steht der Kopf: Strasse, PLZ Ort, Gemeinde und Kanton kommen aus dem GWR
+    expect(s.adresse).toMatchObject({ label: 'Maygutstrasse 26', strasse: 'Maygutstrasse 26', plz: 3084, ort: 'Wabern', gemeinde: 'Köniz', kanton: 'BE' });
+    expect(steckbriefAlsText(s).split('\n').slice(0, 2)).toEqual(['grundpass · Maygutstrasse 26', '3084 Wabern · Gemeinde Köniz · BE']);
+    expect(adressZeile({ plz: 8001, ort: 'Zürich', gemeinde: 'Zürich', kanton: 'ZH' })).toBe('8001 Zürich · Gemeinde Zürich · ZH');
+    expect(adressZeile({ ort: 'Wabern', kanton: 'BE' })).toBe('Wabern · BE'); // fehlende Teile fallen weg, kein Platzhalter
+    expect(adressZeile({ gemeinde: 'Köniz' })).toBe('Gemeinde Köniz');
+    expect(adressZeile({})).toBe('');
     expect((await app.request('/v1/steckbrief?egid=abc')).status).toBe(400);
     expect((await app.request('/v1/steckbrief')).status).toBe(400);
     expect((await app.request('/v1/steckbrief?adresse=x')).status).toBe(400);

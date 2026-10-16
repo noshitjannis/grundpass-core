@@ -59,7 +59,10 @@ export type Fact = {
   confidence: number;
   /** Lauf, in dem der Fakt entstanden ist. */
   run_id: string;
-  /** Optionaler Stand der Quelle selbst (z.B. GWR-Exportdatum), wenn die Quelle ihn mitliefert. */
+  /**
+   * Optionaler Stand der Quelle selbst (z.B. GWR-Exportdatum, Datenstand eines Layers), wenn die Quelle ihn kennt. Gilt pro Fakt:
+   * Ein Adapter setzt ihn pro Fakt (naturgefahren: drei Layer, drei Stände) oder einmal für alle über `AdapterOutput.source_date`.
+   */
   source_date?: string;
   /** Bei `source: derived`: die Keys, aus denen der Wert berechnet wurde. */
   derived_from?: string[];
@@ -69,7 +72,7 @@ export type Fact = {
 export type AdapterOutput = {
   facts: Array<Omit<Fact, 'subject' | 'source' | 'fetched_at' | 'run_id' | 'confidence'> & { confidence?: number }>;
   keys?: Partial<Keys>;
-  /** Stand der Quelle, falls bekannt. */
+  /** Stand der Quelle für alle Fakten dieses Laufs, falls bekannt. Ein `source_date` am einzelnen Fakt geht vor. */
   source_date?: string;
 };
 

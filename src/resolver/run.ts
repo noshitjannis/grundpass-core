@@ -225,7 +225,9 @@ export async function resolve(input: Partial<Keys>, deps: ResolveDeps): Promise<
         };
         if (f.unit) fact.unit = f.unit;
         if (f.request_url) fact.request_url = f.request_url;
-        if (out.source_date) fact.source_date = out.source_date;
+        // Stand pro Fakt (z.B. Datenstand eines Layers) geht vor dem Stand des ganzen Laufs
+        const sourceDate = f.source_date ?? out.source_date;
+        if (sourceDate) fact.source_date = sourceDate;
         return fact;
       });
       breaker.recordSuccess(id);

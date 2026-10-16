@@ -241,6 +241,13 @@ describe('resolve, Ende zu Ende mit Fixtures (Wabern)', () => {
     expect(r.facts.find((f) => f.key === 'parzelle.bebauter_anteil_prozent')?.derived_from).toEqual(['gebaeude.grundflaeche_m2', 'parzelle.flaeche_grundbuch_m2']);
     expect(r.facts.every((f) => f.source && f.fetched_at)).toBe(true);
     expect(r.facts.length).toBeGreaterThan(60);
+    // source_date pro Fakt (naturgefahren: drei Layer, drei Stände) und pro Lauf (gwr: Exportdatum für alle Fakten) kommen beide durch
+    const sd = (key: string) => r.facts.find((f) => f.key === key)?.source_date;
+    expect(sd('naturgefahr.oberflaechenabfluss.betroffen')).toBe('2018-05-22');
+    expect(sd('naturgefahr.hochwasser.aquaprotect_100')).toBe('2008-12-18');
+    expect(sd('naturgefahr.erdbeben.zone')).toBe('2026-04-13');
+    expect(sd('gebaeude.klasse_kurz')).toBe('2026-10-12');
+    expect(sd('radon.wahrscheinlichkeit_prozent')).toBeUndefined();
     // Raster-Adapter fragen den Gebäudepunkt aus dem GWR ab, nicht den Adresspunkt
     const identify = calls.filter((c) => c.includes('/identify'));
     expect(identify.every((c) => c.includes('geometry=2601737'))).toBe(true);

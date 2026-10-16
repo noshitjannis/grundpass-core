@@ -5,6 +5,7 @@ import { adresseAusZeilen } from '../src/adapters/zustaendige-stellen.ts';
 import { geojsonAreaM2, pointInGeometry } from '../src/adapters/av-parzelle.ts';
 import { BAHN_HINWEIS } from '../src/adapters/laerm-bahn.ts';
 import { KGS_UMKREIS_M, kgsKategorie, kgsNummer } from '../src/adapters/kulturgueter.ts';
+import { DATENSTAND, legendeUrl } from '../src/adapters/naturgefahren.ts';
 import { parseWmsFeatureInfoText } from '../src/http/geoadmin.ts';
 import { FELDER } from '../src/views/felder.ts';
 import { buildSteckbrief } from '../src/views/steckbrief.ts';
@@ -661,6 +662,19 @@ describe('naturgefahren', () => {
       ['naturgefahr.erdbeben.zone', 'Z1b'],
     ]);
     expect(out.facts.every((f) => f.confidence === 1 && f.request_url?.startsWith('https://wms.geo.admin.ch/?'))).toBe(true);
+  });
+
+  it('Stand pro Fakt aus dem Datenstand des Layers (geo.admin-Legende), nicht pro Lauf; Manifest Version 2', async () => {
+    expect(naturgefahren.manifest).toMatchObject({ id: 'naturgefahren', needs: ['lv95_bau'], provides: ['naturgefahr.'], ttlDays: 365, version: 2 });
+    const out = await naturgefahren.resolve(ctxMit(wabernRoutes()));
+    expect(out.source_date).toBeUndefined();
+    expect(out.facts.map((f) => [f.key, f.source_date])).toEqual([
+      ['naturgefahr.oberflaechenabfluss.betroffen', '2018-05-22'],
+      ['naturgefahr.hochwasser.aquaprotect_100', '2008-12-18'],
+      ['naturgefahr.erdbeben.zone', '2026-04-13'],
+    ]);
+    expect(DATENSTAND['ch.bafu.aquaprotect_100']).toBe('2008-12-18');
+    expect(legendeUrl('ch.bafu.aquaprotect_100')).toBe('https://api3.geo.admin.ch/rest/services/api/MapServer/ch.bafu.aquaprotect_100/legend?lang=de');
   });
 
   it('Zürich: Oberflächenabfluss und Aquaprotect betroffen (Feature ohne Attribute), Erdbebenzone Z1a', async () => {

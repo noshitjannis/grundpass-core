@@ -62,7 +62,10 @@ export const meineQuelle: Adapter = {
 - **`EmptyResultError`** für "Quelle hat nichts zu diesem Objekt". Zählt nicht für den Breaker.
 - **Codes nur mappen, wenn sicher.** Lesbarer Wert `null` plus Rohcode, nie raten.
 - **Confidence < 1** für alles, was du selbst berechnest oder interpretierst (z.B. Fläche aus Geometrie 0.95, Lesehilfen 0.8).
-- **`source_date`** setzen, wenn die Quelle ein eigenes Stand-Datum mitliefert. Das wird der "Stand" im Steckbrief.
+- **`source_date`** setzen, wenn die Quelle ein eigenes Stand-Datum kennt. Es wird `daten_vom` im Steckbrief, getrennt vom Abrufdatum `abgefragt_am`.
+  Entweder einmal für den ganzen Lauf (`AdapterOutput.source_date`, z.B. GWR-Exportdatum) oder pro Fakt (`facts[].source_date`, z.B. naturgefahren:
+  drei Layer mit drei Datenständen aus der geo.admin-Legende). Der Wert am Fakt geht vor. Steht das Datum nicht in der Antwort, sondern nur auf der
+  Metadaten-Seite des Layers, kommt es als Konstante mit der URL im Kommentar in den Adapter; ohne Datum gibt es kein `daten_vom`, nie das Abrufdatum als Ersatz.
 - **Nicht in einen anderen Adapter greifen.** Brauchst du etwas, das ein anderer liefert, deklariere es in `needs` als Key. Fehlt der Key als Typ, erweitere `Keys` in `src/types.ts` und `yields` beim Lieferanten.
 - **Kein `fetch` direkt.** Immer `ctx.http`, damit Timeout, Retry, User-Agent und Tests funktionieren.
 - **Raster-Layer**: `identify` geht nicht, `wmsFeatureInfoUrl` benutzen und `ctx.http.text` parsen.

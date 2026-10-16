@@ -13,7 +13,7 @@ export { planFor, type Plan } from './resolver/plan.ts';
 export { resolve, type ResolveDeps } from './resolver/run.ts';
 export { createHttpClient, type HttpClientOptions } from './http/client.ts';
 export { createStore, createPgliteMemoryStore, MemoryStore, SqlStore, type FactStore } from './facts/index.ts';
-export { buildSteckbrief, steckbriefAlsText, type Steckbrief, type SteckbriefAbschnitt, type SteckbriefFeld, type Luecke } from './views/steckbrief.ts';
+export { buildSteckbrief, steckbriefAlsText, adressZeile, quellenText, type Steckbrief, type SteckbriefAbschnitt, type SteckbriefFeld, type Luecke, type QuellenEintrag } from './views/steckbrief.ts';
 export { FELDER, ABSCHNITTE } from './views/felder.ts';
 export { runCanary, type CanaryReport } from './canary/run.ts';
 export { GOLDENE_ADRESSEN } from './canary/adressen.ts';

@@ -7,23 +7,29 @@ Nichts wird geraten. Was fehlt, steht als Lücke da.
 ```
 $ pnpm gp "Maygutstrasse 26, 3084 Wabern"
 
-grundpass · Maygutstrasse 26 3084 Wabern · Köniz BE
+grundpass · Maygutstrasse 26
+3084 Wabern · Gemeinde Köniz · BE
 EGID 1271632 · EGRID CH586746359755 · Parzelle 5711
 
 GEBÄUDE
-  Gebäudetyp          Einfamilienhaus                 gwr · 2026-10-12
-  Bauperiode          1946 bis 1960                   gwr · 2026-10-12
-  Gebäudegrundfläche  139 m2                          gwr · 2026-10-12
+  Gebäudetyp          Einfamilienhaus                 gwr · Daten vom 2026-10-12 · abgefragt 2026-10-16
+  Bauperiode          1946 bis 1960                   gwr · Daten vom 2026-10-12 · abgefragt 2026-10-16
+  Gebäudegrundfläche  139 m2                          gwr · Daten vom 2026-10-12 · abgefragt 2026-10-16
 
 HEIZUNG UND WARMWASSER
-  Heizung             Ölheizung                       gwr · 2026-10-12
+  Heizung             Ölheizung                       gwr · Daten vom 2026-10-12 · abgefragt 2026-10-16
 
 PARZELLE
-  Parzellenfläche     764 m2                          av-parzelle · 2026-10-15
+  Parzellenfläche     764 m2                          av-parzelle · abgefragt 2026-10-16
 
 SONNE UND DACH
-  Solareignung        sehr gut                        sonnendach · 2020-04-13
-  Möglicher Solarstrom 26’392 kWh/a                   sonnendach · 2020-04-13
+  Solareignung        sehr gut                        sonnendach · Daten vom 2020-04-13 · abgefragt 2026-10-16
+  Möglicher Solarstrom 26’392 kWh/a                   sonnendach · Daten vom 2020-04-13 · abgefragt 2026-10-16
+
+NATURGEFAHREN
+  Oberflächenabfluss bei Starkregen      nicht betroffen   naturgefahren · Daten vom 2018-05-22 · abgefragt 2026-10-16
+  Hochwasser 100-jährlich (Aquaprotect)  nicht betroffen   naturgefahren · Daten vom 2008-12-18 · abgefragt 2026-10-16
+  Erdbebenzone (SIA 261)                 Z1b               naturgefahren · Daten vom 2026-04-13 · abgefragt 2026-10-16
 …
 LÜCKEN
   Baujahr: fehlt im Register (gwr)
