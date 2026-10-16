@@ -1,0 +1,1060 @@
+{
+ "_hinweis": "Echte Antwort vom 16.10.2026, verkleinert mit scripts/oereb-fixture.ts: https://www.rdppf.vd.ch/ws/RdppfSVC.svc/extract/json?EGRID=CH907857723624&GEOMETRY=false&WITHIMAGES=false&LANG=fr (Place de la Palud 2, 1003 Lausanne, Lausanne Parzelle 10071, EGID 2119257). Geometrien, Bilder, Glossar und Rechtsvorschriften bis auf eine entfernt.",
+ "Item": {
+  "CreationDate": "/Date(1792131976531)/",
+  "ConcernedTheme": [
+   {
+    "Code": "ch.Nutzungsplanung",
+    "SubCode": "ch.VD.Affectationsprimaires",
+    "Text": [
+     {
+      "Language": 1,
+      "Text": "Plans d'affectation (cantonaux/communaux)"
+     }
+    ]
+   },
+   {
+    "Code": "ch.Nutzungsplanung",
+    "SubCode": "ch.VD.Primtresdesplansenmodification",
+    "Text": [
+     {
+      "Language": 1,
+      "Text": "Plans d'affectation (cantonaux/communaux)"
+     }
+    ]
+   },
+   {
+    "Code": "ch.Nutzungsplanung",
+    "SubCode": "ch.VD.Primtresdesplansenmodification",
+    "Text": [
+     {
+      "Language": 1,
+      "Text": "Plans d'affectation (cantonaux/communaux)"
+     }
+    ]
+   },
+   {
+    "Code": "ch.VD.BaulinienCantonalstrassen",
+    "SubCode": "ch.VD.Bandedimplantationobligatoire",
+    "Text": [
+     {
+      "Language": 1,
+      "Text": "Limites des constructions des routes communales et cantonales"
+     }
+    ]
+   },
+   {
+    "Code": "ch.VD.BaulinienCantonalstrassen",
+    "SubCode": "ch.VD.Bandedimplantationobligatoire",
+    "Text": [
+     {
+      "Language": 1,
+      "Text": "Limites des constructions des routes communales et cantonales"
+     }
+    ]
+   },
+   {
+    "Code": "ch.VD.BaulinienCantonalstrassen",
+    "SubCode": "ch.VD.Bandedimplantationobligatoire",
+    "Text": [
+     {
+      "Language": 1,
+      "Text": "Limites des constructions des routes communales et cantonales"
+     }
+    ]
+   },
+   {
+    "Code": "ch.Laermempfindlichkeitsstufen",
+    "SubCode": null,
+    "Text": [
+     {
+      "Language": 1,
+      "Text": "Degré de sensibilité au bruit (dans les zones d'affectation)"
+     }
+    ]
+   }
+  ],
+  "NotConcernedTheme": [
+   {
+    "Code": "ch.Planungszonen",
+    "SubCode": null,
+    "Text": [
+     {
+      "Language": 1,
+      "Text": "Zones réservées"
+     }
+    ]
+   },
+   {
+    "Code": "ch.ProjektierungszonenNationalstrassen",
+    "SubCode": null,
+    "Text": [
+     {
+      "Language": 1,
+      "Text": "Zones réservées des routes nationales"
+     }
+    ]
+   },
+   {
+    "Code": "ch.BaulinienNationalstrassen",
+    "SubCode": null,
+    "Text": [
+     {
+      "Language": 1,
+      "Text": "Alignements des routes nationales"
+     }
+    ]
+   },
+   {
+    "Code": "ch.ProjektierungszonenEisenbahnanlagen",
+    "SubCode": null,
+    "Text": [
+     {
+      "Language": 1,
+      "Text": "Zones réservées des installations ferroviaires"
+     }
+    ]
+   },
+   {
+    "Code": "ch.BaulinienEisenbahnanlagen",
+    "SubCode": null,
+    "Text": [
+     {
+      "Language": 1,
+      "Text": "Alignements des installations ferroviaires"
+     }
+    ]
+   },
+   {
+    "Code": "ch.ProjektierungszonenFlughafenanlagen",
+    "SubCode": null,
+    "Text": [
+     {
+      "Language": 1,
+      "Text": "Zones réservées des installations aéroportuaires"
+     }
+    ]
+   },
+   {
+    "Code": "ch.BaulinienFlughafenanlagen",
+    "SubCode": null,
+    "Text": [
+     {
+      "Language": 1,
+      "Text": "Alignements des installations aéroportuaires"
+     }
+    ]
+   },
+   {
+    "Code": "ch.Sicherheitszonenplan",
+    "SubCode": null,
+    "Text": [
+     {
+      "Language": 1,
+      "Text": "Plan de la zone de sécurité"
+     }
+    ]
+   },
+   {
+    "Code": "ch.BelasteteStandorte",
+    "SubCode": null,
+    "Text": [
+     {
+      "Language": 1,
+      "Text": "Cadastre des sites pollués"
+     }
+    ]
+   },
+   {
+    "Code": "ch.BelasteteStandorteMilitaer",
+    "SubCode": null,
+    "Text": [
+     {
+      "Language": 1,
+      "Text": "Cadastre des sites pollués - domaine militaire"
+     }
+    ]
+   },
+   {
+    "Code": "ch.BelasteteStandorteZivileFlugplaetze",
+    "SubCode": null,
+    "Text": [
+     {
+      "Language": 1,
+      "Text": "Cadastre des sites pollués - domaine des aérodromes civils"
+     }
+    ]
+   },
+   {
+    "Code": "ch.BelasteteStandorteOeffentlicherVerkehr",
+    "SubCode": null,
+    "Text": [
+     {
+      "Language": 1,
+      "Text": "Cadastre des sites pollués - domaine des transports publics"
+     }
+    ]
+   },
+   {
+    "Code": "ch.Grundwasserschutzzonen",
+    "SubCode": null,
+    "Text": [
+     {
+      "Language": 1,
+      "Text": "Zones de protection des eaux souterraines"
+     }
+    ]
+   },
+   {
+    "Code": "ch.Grundwasserschutzareale",
+    "SubCode": null,
+    "Text": [
+     {
+      "Language": 1,
+      "Text": "Périmètres de protection des eaux souterraines"
+     }
+    ]
+   },
+   {
+    "Code": "ch.StatischeWaldgrenzen",
+    "SubCode": null,
+    "Text": [
+     {
+      "Language": 1,
+      "Text": "Limites forestières statiques"
+     }
+    ]
+   },
+   {
+    "Code": "ch.Waldabstandslinien",
+    "SubCode": null,
+    "Text": [
+     {
+      "Language": 1,
+      "Text": "Distances par rapport à la forêt"
+     }
+    ]
+   },
+   {
+    "Code": "ch.Waldreservate",
+    "SubCode": null,
+    "Text": [
+     {
+      "Language": 1,
+      "Text": "Réserves forestières"
+     }
+    ]
+   },
+   {
+    "Code": "ch.ProjektierungszonenStarkstromanlagen",
+    "SubCode": null,
+    "Text": [
+     {
+      "Language": 1,
+      "Text": "Zones réservées des lignes d’une tension nominale égale ou supérieure à 220 kV"
+     }
+    ]
+   },
+   {
+    "Code": "ch.BaulinienStarkstromanlagen",
+    "SubCode": null,
+    "Text": [
+     {
+      "Language": 1,
+      "Text": "Alignements des installations électriques à courant fort"
+     }
+    ]
+   }
+  ],
+  "ThemeWithoutData": [
+   {
+    "Code": "ch.Gewaesserraum",
+    "SubCode": null,
+    "Text": [
+     {
+      "Language": 1,
+      "Text": "Espace réservé aux eaux"
+     }
+    ]
+   }
+  ],
+  "ExtractIdentifier": "5CA8-6B6A-D0B3-452-132-10071",
+  "RealEstate": {
+   "Number": "10071",
+   "IdentDN": "VD0132000000",
+   "EGRID": "CH907857723624",
+   "Type": {
+    "Code": 0,
+    "Text": [
+     {
+      "Language": 1,
+      "Text": "Bien-fonds"
+     }
+    ]
+   },
+   "Canton": 21,
+   "MunicipalityName": "Lausanne",
+   "MunicipalityCode": "5586",
+   "SubunitOfLandRegister": null,
+   "SubunitOfLandRegisterDesignation": null,
+   "LandRegistryArea": "2864",
+   "RestrictionOnLandownership": [
+    {
+     "LegendText": [
+      {
+       "Language": 1,
+       "Text": "Degré de sensibilité III"
+      }
+     ],
+     "Theme": {
+      "Code": "ch.Laermempfindlichkeitsstufen",
+      "SubCode": null,
+      "Text": [
+       {
+        "Language": 1,
+        "Text": "Degré de sensibilité au bruit (dans les zones d'affectation)"
+       }
+      ]
+     },
+     "TypeCode": "801:1e5ea4d0ea91aa4e1101325b4feb141a",
+     "Lawstatus": {
+      "Code": 0,
+      "Text": [
+       {
+        "Language": 1,
+        "Text": "En vigueur"
+       }
+      ]
+     },
+     "AreaShare": "2863",
+     "PartInPercent": 99.9483984725546,
+     "LengthShare": "0",
+     "NrOfPoints": "0",
+     "LegalProvisions": [
+      {
+       "Type": {
+        "Code": 0,
+        "Text": [
+         {
+          "Language": 1,
+          "Text": "Disposition juridique"
+         }
+        ]
+       },
+       "Title": [
+        {
+         "Language": 1,
+         "Text": "Plan d'affectation cantonal n°296"
+        }
+       ],
+       "Abbreviation": [
+        {
+         "Language": 1,
+         "Text": ""
+        }
+       ],
+       "OfficialNumber": [
+        {
+         "Language": 1,
+         "Text": "60700"
+        }
+       ],
+       "TextAtWeb": [
+        {
+         "Language": 1,
+         "Text": "https://www.rdppf.vd.ch/ws/utilities/GetDocuments.ashx?rep=AMENAGEMENT&nom=5586_60700_R01.pdf"
+        }
+       ],
+       "ArticleNumber": null,
+       "Lawstatus": {
+        "Code": 0,
+        "Text": [
+         {
+          "Language": 1,
+          "Text": "En vigueur"
+         }
+        ]
+       },
+       "Index": "1",
+       "ResponsibleOffice": {
+        "Name": [
+         {
+          "Language": 1,
+          "Text": "Direction générale du territoire et du logement"
+         }
+        ],
+        "OfficeAtWeb": [
+         {
+          "Language": 1,
+          "Text": "https://www.vd.ch/dgtl"
+         }
+        ],
+        "UID": null,
+        "Line1": null,
+        "Line2": null,
+        "Street": null,
+        "Number": null,
+        "PostalCode": null,
+        "City": null
+       }
+      }
+     ],
+     "ResponsibleOffice": {
+      "Name": [
+       {
+        "Language": 1,
+        "Text": "Direction générale du territoire et du logement"
+       }
+      ],
+      "OfficeAtWeb": [
+       {
+        "Language": 1,
+        "Text": "https://www.vd.ch/dgtl"
+       }
+      ],
+      "UID": "DGTL",
+      "Line1": null,
+      "Line2": null,
+      "Street": "Avenue de l'Université",
+      "Number": "5",
+      "PostalCode": "1014",
+      "City": "Lausanne"
+     }
+    },
+    {
+     "LegendText": [
+      {
+       "Language": 1,
+       "Text": "Zone centrale 15 LAT"
+      }
+     ],
+     "Theme": {
+      "Code": "ch.Nutzungsplanung",
+      "SubCode": "ch.VD.Affectationsprimaires",
+      "Text": [
+       {
+        "Language": 1,
+        "Text": "Plans d'affectation (cantonaux/communaux)"
+       }
+      ]
+     },
+     "TypeCode": "203:56666666677666776767",
+     "Lawstatus": {
+      "Code": 0,
+      "Text": [
+       {
+        "Language": 1,
+        "Text": "En vigueur"
+       }
+      ]
+     },
+     "AreaShare": "2863",
+     "PartInPercent": 99.9483984725546,
+     "LengthShare": "0",
+     "NrOfPoints": "0",
+     "LegalProvisions": [
+      {
+       "Type": {
+        "Code": 0,
+        "Text": [
+         {
+          "Language": 1,
+          "Text": "Disposition juridique"
+         }
+        ]
+       },
+       "Title": [
+        {
+         "Language": 1,
+         "Text": "Plan général d'affectation Règlement"
+        }
+       ],
+       "Abbreviation": [
+        {
+         "Language": 1,
+         "Text": ""
+        }
+       ],
+       "OfficialNumber": [
+        {
+         "Language": 1,
+         "Text": "67379"
+        }
+       ],
+       "TextAtWeb": [
+        {
+         "Language": 1,
+         "Text": "https://www.rdppf.vd.ch/ws/utilities/GetDocuments.ashx?rep=AMENAGEMENT&nom=5586_67379_R01.pdf"
+        }
+       ],
+       "ArticleNumber": null,
+       "Lawstatus": {
+        "Code": 0,
+        "Text": [
+         {
+          "Language": 1,
+          "Text": "En vigueur"
+         }
+        ]
+       },
+       "Index": "1",
+       "ResponsibleOffice": {
+        "Name": [
+         {
+          "Language": 1,
+          "Text": "Direction générale du territoire et du logement"
+         }
+        ],
+        "OfficeAtWeb": [
+         {
+          "Language": 1,
+          "Text": "https://www.vd.ch/dgtl"
+         }
+        ],
+        "UID": null,
+        "Line1": null,
+        "Line2": null,
+        "Street": null,
+        "Number": null,
+        "PostalCode": null,
+        "City": null
+       }
+      }
+     ],
+     "ResponsibleOffice": {
+      "Name": [
+       {
+        "Language": 1,
+        "Text": "Direction générale du territoire et du logement"
+       }
+      ],
+      "OfficeAtWeb": [
+       {
+        "Language": 1,
+        "Text": "https://www.vd.ch/dgtl"
+       }
+      ],
+      "UID": "DGTL",
+      "Line1": null,
+      "Line2": null,
+      "Street": "Avenue de l'Université",
+      "Number": "5",
+      "PostalCode": "1014",
+      "City": "Lausanne"
+     }
+    },
+    {
+     "LegendText": [
+      {
+       "Language": 1,
+       "Text": "Zone de desserte 15 LAT"
+      }
+     ],
+     "Theme": {
+      "Code": "ch.Nutzungsplanung",
+      "SubCode": "ch.VD.Affectationsprimaires",
+      "Text": [
+       {
+        "Language": 1,
+        "Text": "Plans d'affectation (cantonaux/communaux)"
+       }
+      ]
+     },
+     "TypeCode": "203:446F6D61696E657075626C6963",
+     "Lawstatus": {
+      "Code": 0,
+      "Text": [
+       {
+        "Language": 1,
+        "Text": "En vigueur"
+       }
+      ]
+     },
+     "AreaShare": "1",
+     "PartInPercent": 0.0517427326677666,
+     "LengthShare": "0",
+     "NrOfPoints": "0",
+     "LegalProvisions": [
+      {
+       "Type": {
+        "Code": 0,
+        "Text": [
+         {
+          "Language": 1,
+          "Text": "Disposition juridique"
+         }
+        ]
+       },
+       "Title": [
+        {
+         "Language": 1,
+         "Text": "Plan général d'affectation Règlement"
+        }
+       ],
+       "Abbreviation": [
+        {
+         "Language": 1,
+         "Text": ""
+        }
+       ],
+       "OfficialNumber": [
+        {
+         "Language": 1,
+         "Text": "67379"
+        }
+       ],
+       "TextAtWeb": [
+        {
+         "Language": 1,
+         "Text": "https://www.rdppf.vd.ch/ws/utilities/GetDocuments.ashx?rep=AMENAGEMENT&nom=5586_67379_R01.pdf"
+        }
+       ],
+       "ArticleNumber": null,
+       "Lawstatus": {
+        "Code": 0,
+        "Text": [
+         {
+          "Language": 1,
+          "Text": "En vigueur"
+         }
+        ]
+       },
+       "Index": "1",
+       "ResponsibleOffice": {
+        "Name": [
+         {
+          "Language": 1,
+          "Text": "Direction générale du territoire et du logement"
+         }
+        ],
+        "OfficeAtWeb": [
+         {
+          "Language": 1,
+          "Text": "https://www.vd.ch/dgtl"
+         }
+        ],
+        "UID": null,
+        "Line1": null,
+        "Line2": null,
+        "Street": null,
+        "Number": null,
+        "PostalCode": null,
+        "City": null
+       }
+      }
+     ],
+     "ResponsibleOffice": {
+      "Name": [
+       {
+        "Language": 1,
+        "Text": "Direction générale du territoire et du logement"
+       }
+      ],
+      "OfficeAtWeb": [
+       {
+        "Language": 1,
+        "Text": "https://www.vd.ch/dgtl"
+       }
+      ],
+      "UID": "DGTL",
+      "Line1": null,
+      "Line2": null,
+      "Street": "Avenue de l'Université",
+      "Number": "5",
+      "PostalCode": "1014",
+      "City": "Lausanne"
+     }
+    },
+    {
+     "LegendText": [
+      {
+       "Language": 1,
+       "Text": "Périmètres des plans d'affectation légalisés"
+      }
+     ],
+     "Theme": {
+      "Code": "ch.Nutzungsplanung",
+      "SubCode": "ch.VD.Primtresdesplansenmodification",
+      "Text": [
+       {
+        "Language": 1,
+        "Text": "Plans d'affectation (cantonaux/communaux)"
+       }
+      ]
+     },
+     "TypeCode": "201:c0b0ff0c97ef5fd944fbe28c8c6e0e57",
+     "Lawstatus": {
+      "Code": 0,
+      "Text": [
+       {
+        "Language": 1,
+        "Text": "En vigueur"
+       }
+      ]
+     },
+     "AreaShare": "2864",
+     "PartInPercent": 100,
+     "LengthShare": "0",
+     "NrOfPoints": "0",
+     "LegalProvisions": [
+      {
+       "Type": {
+        "Code": 0,
+        "Text": [
+         {
+          "Language": 1,
+          "Text": "Disposition juridique"
+         }
+        ]
+       },
+       "Title": [
+        {
+         "Language": 1,
+         "Text": "Plan général d'affectation Règlement"
+        }
+       ],
+       "Abbreviation": [
+        {
+         "Language": 1,
+         "Text": ""
+        }
+       ],
+       "OfficialNumber": [
+        {
+         "Language": 1,
+         "Text": "67379"
+        }
+       ],
+       "TextAtWeb": [
+        {
+         "Language": 1,
+         "Text": "https://www.rdppf.vd.ch/ws/utilities/GetDocuments.ashx?rep=AMENAGEMENT&nom=5586_67379_R01.pdf"
+        }
+       ],
+       "ArticleNumber": null,
+       "Lawstatus": {
+        "Code": 0,
+        "Text": [
+         {
+          "Language": 1,
+          "Text": "En vigueur"
+         }
+        ]
+       },
+       "Index": "1",
+       "ResponsibleOffice": {
+        "Name": [
+         {
+          "Language": 1,
+          "Text": "Direction générale du territoire et du logement"
+         }
+        ],
+        "OfficeAtWeb": [
+         {
+          "Language": 1,
+          "Text": "https://www.vd.ch/dgtl"
+         }
+        ],
+        "UID": null,
+        "Line1": null,
+        "Line2": null,
+        "Street": null,
+        "Number": null,
+        "PostalCode": null,
+        "City": null
+       }
+      }
+     ],
+     "ResponsibleOffice": {
+      "Name": [
+       {
+        "Language": 1,
+        "Text": "Direction générale du territoire et du logement"
+       }
+      ],
+      "OfficeAtWeb": [
+       {
+        "Language": 1,
+        "Text": "https://www.vd.ch/dgtl"
+       }
+      ],
+      "UID": "DGTL",
+      "Line1": null,
+      "Line2": null,
+      "Street": "Avenue de l'Université",
+      "Number": "5",
+      "PostalCode": "1014",
+      "City": "Lausanne"
+     }
+    },
+    {
+     "LegendText": [
+      {
+       "Language": 1,
+       "Text": "Limite des constructions définie par un plan approuvé"
+      }
+     ],
+     "Theme": {
+      "Code": "ch.VD.BaulinienCantonalstrassen",
+      "SubCode": "ch.VD.Bandedimplantationobligatoire",
+      "Text": [
+       {
+        "Language": 1,
+        "Text": "Limites des constructions des routes communales et cantonales"
+       }
+      ]
+     },
+     "TypeCode": "303:13af8be7b62254c9e7ffa445dadec757",
+     "Lawstatus": {
+      "Code": 0,
+      "Text": [
+       {
+        "Language": 1,
+        "Text": "En vigueur"
+       }
+      ]
+     },
+     "AreaShare": "0",
+     "PartInPercent": 0,
+     "LengthShare": "7",
+     "NrOfPoints": "0",
+     "LegalProvisions": [
+      {
+       "Type": {
+        "Code": 0,
+        "Text": [
+         {
+          "Language": 1,
+          "Text": "Disposition juridique"
+         }
+        ]
+       },
+       "Title": [
+        {
+         "Language": 1,
+         "Text": "plan des limites des constructions"
+        }
+       ],
+       "Abbreviation": [
+        {
+         "Language": 1,
+         "Text": ""
+        }
+       ],
+       "OfficialNumber": [
+        {
+         "Language": 1,
+         "Text": "5586_20060504"
+        }
+       ],
+       "TextAtWeb": [
+        {
+         "Language": 1,
+         "Text": "https://www.rdppf.vd.ch/ws/utilities/GetDocuments.ashx?rep=ROUTES&nom=5586_20060504.pdf"
+        }
+       ],
+       "ArticleNumber": null,
+       "Lawstatus": {
+        "Code": 0,
+        "Text": [
+         {
+          "Language": 1,
+          "Text": "En vigueur"
+         }
+        ]
+       },
+       "Index": "10",
+       "ResponsibleOffice": {
+        "Name": [
+         {
+          "Language": 1,
+          "Text": "Direction générale de la mobilité et des routes"
+         }
+        ],
+        "OfficeAtWeb": [
+         {
+          "Language": 1,
+          "Text": "https://www.vd.ch/dgmr"
+         }
+        ],
+        "UID": null,
+        "Line1": null,
+        "Line2": null,
+        "Street": null,
+        "Number": null,
+        "PostalCode": null,
+        "City": null
+       }
+      }
+     ],
+     "ResponsibleOffice": {
+      "Name": [
+       {
+        "Language": 1,
+        "Text": "Direction générale de la mobilité et des routes"
+       }
+      ],
+      "OfficeAtWeb": [
+       {
+        "Language": 1,
+        "Text": "https://www.vd.ch/dgmr"
+       }
+      ],
+      "UID": "DGMR",
+      "Line1": null,
+      "Line2": null,
+      "Street": "Place de la Riponne",
+      "Number": "10",
+      "PostalCode": "1014",
+      "City": "Lausanne"
+     }
+    },
+    {
+     "LegendText": [
+      {
+       "Language": 1,
+       "Text": "Limite des constructions définie par un plan approuvé"
+      }
+     ],
+     "Theme": {
+      "Code": "ch.VD.BaulinienCantonalstrassen",
+      "SubCode": "ch.VD.Bandedimplantationobligatoire",
+      "Text": [
+       {
+        "Language": 1,
+        "Text": "Limites des constructions des routes communales et cantonales"
+       }
+      ]
+     },
+     "TypeCode": "303:13af8be7b62254c9e7ffa445dadec757",
+     "Lawstatus": {
+      "Code": 0,
+      "Text": [
+       {
+        "Language": 1,
+        "Text": "En vigueur"
+       }
+      ]
+     },
+     "AreaShare": "0",
+     "PartInPercent": 0,
+     "LengthShare": "87",
+     "NrOfPoints": "0",
+     "LegalProvisions": [
+      {
+       "Type": {
+        "Code": 0,
+        "Text": [
+         {
+          "Language": 1,
+          "Text": "Disposition juridique"
+         }
+        ]
+       },
+       "Title": [
+        {
+         "Language": 1,
+         "Text": "Quartier au sud de l'Avenue de Chailly"
+        }
+       ],
+       "Abbreviation": [
+        {
+         "Language": 1,
+         "Text": ""
+        }
+       ],
+       "OfficialNumber": [
+        {
+         "Language": 1,
+         "Text": "5586_19310428"
+        }
+       ],
+       "TextAtWeb": [
+        {
+         "Language": 1,
+         "Text": "https://www.rdppf.vd.ch/ws/utilities/GetDocuments.ashx?rep=ROUTES&nom=5586_19310428.pdf"
+        }
+       ],
+       "ArticleNumber": null,
+       "Lawstatus": {
+        "Code": 0,
+        "Text": [
+         {
+          "Language": 1,
+          "Text": "En vigueur"
+         }
+        ]
+       },
+       "Index": "10",
+       "ResponsibleOffice": {
+        "Name": [
+         {
+          "Language": 1,
+          "Text": "Direction générale de la mobilité et des routes"
+         }
+        ],
+        "OfficeAtWeb": [
+         {
+          "Language": 1,
+          "Text": "https://www.vd.ch/dgmr"
+         }
+        ],
+        "UID": null,
+        "Line1": null,
+        "Line2": null,
+        "Street": null,
+        "Number": null,
+        "PostalCode": null,
+        "City": null
+       }
+      }
+     ],
+     "ResponsibleOffice": {
+      "Name": [
+       {
+        "Language": 1,
+        "Text": "Direction générale de la mobilité et des routes"
+       }
+      ],
+      "OfficeAtWeb": [
+       {
+        "Language": 1,
+        "Text": "https://www.vd.ch/dgmr"
+       }
+      ],
+      "UID": "DGMR",
+      "Line1": null,
+      "Line2": null,
+      "Street": "Place de la Riponne",
+      "Number": "10",
+      "PostalCode": "1014",
+      "City": "Lausanne"
+     }
+    }
+   ]
+  },
+  "PLRCadastreAuthority": {
+   "Name": [
+    {
+     "Language": 1,
+     "Text": "Direction du cadastre et de la géoinformation"
+    }
+   ],
+   "OfficeAtWeb": [
+    {
+     "Language": 1,
+     "Text": "https://www.vd.ch/dcg"
+    }
+   ],
+   "UID": "DCG",
+   "Line1": null,
+   "Line2": null,
+   "Street": "Avenue de l'Université",
+   "Number": "5",
+   "PostalCode": "1014",
+   "City": "Lausanne"
+  },
+  "UpdateDateCS": "/Date(1791756000000)/",
+  "id": null
+ }
+}

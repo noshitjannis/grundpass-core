@@ -1,0 +1,1339 @@
+{
+ "_hinweis": "Echte Antwort vom 16.10.2026, verkleinert mit scripts/oereb-fixture.ts: https://geo.jura.ch/crdppf_server/extract/json?EGRID=CH234478060309&GEOMETRY=false&WITHIMAGES=false&LANG=fr (Rue de l'Hôpital 2, 2800 Delémont, Delémont Parzelle 1312, EGID 2013478). Geometrien, Bilder, Glossar und Rechtsvorschriften bis auf eine entfernt.",
+ "$schema": "https://raw.githubusercontent.com/openoereb/schemas/ea4fe8e696b84b923cb9aa9fb27c3ba4e2d8eb5b/extract.json",
+ "GetExtractByIdResponse": {
+  "extract": {
+   "CreationDate": "2026-10-16T08:27:05",
+   "ExtractIdentifier": "b5ae2873-7534-4d5e-a607-c22f824f8b54",
+   "UpdateDateCS": "2026-10-16T08:27:05",
+   "PLRCadastreAuthority": {
+    "Name": [
+     {
+      "Language": "fr",
+      "Text": "Section du cadastre et de la géoinformation"
+     }
+    ],
+    "OfficeAtWeb": [
+     {
+      "Language": "fr",
+      "Text": "http://www.jura.ch/scg"
+     }
+    ],
+    "Street": "Rue du 24-Septembre",
+    "Number": "2",
+    "PostalCode": "2800",
+    "City": "Delémont"
+   },
+   "RealEstate": {
+    "Type": {
+     "Code": "RealEstate",
+     "Text": [
+      {
+       "Language": "fr",
+       "Text": "Bien-fonds"
+      }
+     ]
+    },
+    "Canton": "JU",
+    "MunicipalityName": "Delémont",
+    "MunicipalityCode": 6711,
+    "LandRegistryArea": 1982,
+    "Number": "1312",
+    "IdentDN": "6711_1312",
+    "EGRID": "CH234478060309",
+    "SubunitOfLandRegister": "Delémont",
+    "RestrictionOnLandownership": [
+     {
+      "LegendText": [
+       {
+        "Language": "fr",
+        "Text": "Périmètre de protection archéologique"
+       }
+      ],
+      "Theme": {
+       "Code": "ch.Nutzungsplanung",
+       "Text": [
+        {
+         "Language": "fr",
+         "Text": "Plans d'affectation (cantonaux/communaux)"
+        }
+       ]
+      },
+      "Lawstatus": {
+       "Code": "inForce",
+       "Text": [
+        {
+         "Language": "fr",
+         "Text": "En vigueur"
+        }
+       ]
+      },
+      "ResponsibleOffice": {
+       "Name": [
+        {
+         "Language": "fr",
+         "Text": "Service du développement territorial (SDT)"
+        }
+       ],
+       "OfficeAtWeb": [
+        {
+         "Language": "fr",
+         "Text": "https://www.jura.ch/sdt"
+        }
+       ],
+       "UID": "CHE113426372",
+       "Line1": "Service du développement territorial (SDT)",
+       "Line2": "Département de l'environnement et de la culture (DEC)",
+       "Street": "Rue du 24-Septembre",
+       "Number": "2",
+       "PostalCode": "2800",
+       "City": "Delémont"
+      },
+      "AreaShare": 1982,
+      "TypeCode": "r73_per_superposes_Perimetre_PA",
+      "PartInPercent": 100,
+      "LegalProvisions": [
+       {
+        "Type": {
+         "Code": "LegalProvision",
+         "Text": [
+          {
+           "Language": "fr",
+           "Text": "Disposition juridique"
+          }
+         ]
+        },
+        "Index": 2,
+        "Title": [
+         {
+          "Language": "fr",
+          "Text": "Règlement communal sur les constructions - Delémont"
+         }
+        ],
+        "Lawstatus": {
+         "Code": "inForce",
+         "Text": [
+          {
+           "Language": "fr",
+           "Text": "En vigueur"
+          }
+         ]
+        },
+        "TextAtWeb": [
+         {
+          "Language": "fr",
+          "Text": "https://geo.jura.ch/doc/RCC/6711_RCC_Delemont.pdf"
+         }
+        ],
+        "ResponsibleOffice": {
+         "Name": [
+          {
+           "Language": "fr",
+           "Text": "Service du développement territorial (SDT)"
+          }
+         ],
+         "OfficeAtWeb": [
+          {
+           "Language": "fr",
+           "Text": "https://www.jura.ch/sdt"
+          }
+         ],
+         "UID": "CHE113426372",
+         "Line1": "Service du développement territorial (SDT)",
+         "Line2": "Département de l'environnement et de la culture (DEC)",
+         "Street": "Rue du 24-Septembre",
+         "Number": "2",
+         "PostalCode": "2800",
+         "City": "Delémont"
+        },
+        "Abbreviation": [
+         {
+          "Language": "fr",
+          "Text": "6711_RCC"
+         }
+        ],
+        "OfficialNumber": [
+         {
+          "Language": "fr",
+          "Text": "6711_RCC"
+         }
+        ]
+       }
+      ]
+     },
+     {
+      "LegendText": [
+       {
+        "Language": "fr",
+        "Text": "Périmètre de danger naturel"
+       }
+      ],
+      "Theme": {
+       "Code": "ch.Nutzungsplanung",
+       "Text": [
+        {
+         "Language": "fr",
+         "Text": "Plans d'affectation (cantonaux/communaux)"
+        }
+       ]
+      },
+      "Lawstatus": {
+       "Code": "inForce",
+       "Text": [
+        {
+         "Language": "fr",
+         "Text": "En vigueur"
+        }
+       ]
+      },
+      "ResponsibleOffice": {
+       "Name": [
+        {
+         "Language": "fr",
+         "Text": "Service du développement territorial (SDT)"
+        }
+       ],
+       "OfficeAtWeb": [
+        {
+         "Language": "fr",
+         "Text": "https://www.jura.ch/sdt"
+        }
+       ],
+       "UID": "CHE113426372",
+       "Line1": "Service du développement territorial (SDT)",
+       "Line2": "Département de l'environnement et de la culture (DEC)",
+       "Street": "Rue du 24-Septembre",
+       "Number": "2",
+       "PostalCode": "2800",
+       "City": "Delémont"
+      },
+      "AreaShare": 1687,
+      "TypeCode": "r73_perimetres_superposes_Perimetre_DN",
+      "PartInPercent": 85.1,
+      "LegalProvisions": [
+       {
+        "Type": {
+         "Code": "LegalProvision",
+         "Text": [
+          {
+           "Language": "fr",
+           "Text": "Disposition juridique"
+          }
+         ]
+        },
+        "Index": 2,
+        "Title": [
+         {
+          "Language": "fr",
+          "Text": "Règlement communal sur les constructions - Delémont"
+         }
+        ],
+        "Lawstatus": {
+         "Code": "inForce",
+         "Text": [
+          {
+           "Language": "fr",
+           "Text": "En vigueur"
+          }
+         ]
+        },
+        "TextAtWeb": [
+         {
+          "Language": "fr",
+          "Text": "https://geo.jura.ch/doc/RCC/6711_RCC_Delemont.pdf"
+         }
+        ],
+        "ResponsibleOffice": {
+         "Name": [
+          {
+           "Language": "fr",
+           "Text": "Service du développement territorial (SDT)"
+          }
+         ],
+         "OfficeAtWeb": [
+          {
+           "Language": "fr",
+           "Text": "https://www.jura.ch/sdt"
+          }
+         ],
+         "UID": "CHE113426372",
+         "Line1": "Service du développement territorial (SDT)",
+         "Line2": "Département de l'environnement et de la culture (DEC)",
+         "Street": "Rue du 24-Septembre",
+         "Number": "2",
+         "PostalCode": "2800",
+         "City": "Delémont"
+        },
+        "Abbreviation": [
+         {
+          "Language": "fr",
+          "Text": "6711_RCC"
+         }
+        ],
+        "OfficialNumber": [
+         {
+          "Language": "fr",
+          "Text": "6711_RCC"
+         }
+        ]
+       }
+      ]
+     },
+     {
+      "LegendText": [
+       {
+        "Language": "fr",
+        "Text": "Bâtiment inscrit au RBC"
+       }
+      ],
+      "Theme": {
+       "Code": "ch.Nutzungsplanung",
+       "Text": [
+        {
+         "Language": "fr",
+         "Text": "Plans d'affectation (cantonaux/communaux)"
+        }
+       ]
+      },
+      "Lawstatus": {
+       "Code": "inForce",
+       "Text": [
+        {
+         "Language": "fr",
+         "Text": "En vigueur"
+        }
+       ]
+      },
+      "ResponsibleOffice": {
+       "Name": [
+        {
+         "Language": "fr",
+         "Text": "Service du développement territorial (SDT)"
+        }
+       ],
+       "OfficeAtWeb": [
+        {
+         "Language": "fr",
+         "Text": "https://www.jura.ch/sdt"
+        }
+       ],
+       "UID": "CHE113426372",
+       "Line1": "Service du développement territorial (SDT)",
+       "Line2": "Département de l'environnement et de la culture (DEC)",
+       "Street": "Rue du 24-Septembre",
+       "Number": "2",
+       "PostalCode": "2800",
+       "City": "Delémont"
+      },
+      "NrOfPoints": 1,
+      "TypeCode": "r73_contenus_ponctuels_Bat_inscrit_RBC",
+      "LegalProvisions": [
+       {
+        "Type": {
+         "Code": "LegalProvision",
+         "Text": [
+          {
+           "Language": "fr",
+           "Text": "Disposition juridique"
+          }
+         ]
+        },
+        "Index": 2,
+        "Title": [
+         {
+          "Language": "fr",
+          "Text": "Règlement communal sur les constructions - Delémont"
+         }
+        ],
+        "Lawstatus": {
+         "Code": "inForce",
+         "Text": [
+          {
+           "Language": "fr",
+           "Text": "En vigueur"
+          }
+         ]
+        },
+        "TextAtWeb": [
+         {
+          "Language": "fr",
+          "Text": "https://geo.jura.ch/doc/RCC/6711_RCC_Delemont.pdf"
+         }
+        ],
+        "ResponsibleOffice": {
+         "Name": [
+          {
+           "Language": "fr",
+           "Text": "Service du développement territorial (SDT)"
+          }
+         ],
+         "OfficeAtWeb": [
+          {
+           "Language": "fr",
+           "Text": "https://www.jura.ch/sdt"
+          }
+         ],
+         "UID": "CHE113426372",
+         "Line1": "Service du développement territorial (SDT)",
+         "Line2": "Département de l'environnement et de la culture (DEC)",
+         "Street": "Rue du 24-Septembre",
+         "Number": "2",
+         "PostalCode": "2800",
+         "City": "Delémont"
+        },
+        "Abbreviation": [
+         {
+          "Language": "fr",
+          "Text": "6711_RCC"
+         }
+        ],
+        "OfficialNumber": [
+         {
+          "Language": "fr",
+          "Text": "6711_RCC"
+         }
+        ]
+       }
+      ]
+     },
+     {
+      "LegendText": [
+       {
+        "Language": "fr",
+        "Text": "Bâtiment inscrit au RBC"
+       }
+      ],
+      "Theme": {
+       "Code": "ch.Nutzungsplanung",
+       "Text": [
+        {
+         "Language": "fr",
+         "Text": "Plans d'affectation (cantonaux/communaux)"
+        }
+       ]
+      },
+      "Lawstatus": {
+       "Code": "inForce",
+       "Text": [
+        {
+         "Language": "fr",
+         "Text": "En vigueur"
+        }
+       ]
+      },
+      "ResponsibleOffice": {
+       "Name": [
+        {
+         "Language": "fr",
+         "Text": "Service du développement territorial (SDT)"
+        }
+       ],
+       "OfficeAtWeb": [
+        {
+         "Language": "fr",
+         "Text": "https://www.jura.ch/sdt"
+        }
+       ],
+       "UID": "CHE113426372",
+       "Line1": "Service du développement territorial (SDT)",
+       "Line2": "Département de l'environnement et de la culture (DEC)",
+       "Street": "Rue du 24-Septembre",
+       "Number": "2",
+       "PostalCode": "2800",
+       "City": "Delémont"
+      },
+      "NrOfPoints": 1,
+      "TypeCode": "r73_contenus_ponctuels_Bat_inscrit_RBC",
+      "LegalProvisions": [
+       {
+        "Type": {
+         "Code": "LegalProvision",
+         "Text": [
+          {
+           "Language": "fr",
+           "Text": "Disposition juridique"
+          }
+         ]
+        },
+        "Index": 2,
+        "Title": [
+         {
+          "Language": "fr",
+          "Text": "Règlement communal sur les constructions - Delémont"
+         }
+        ],
+        "Lawstatus": {
+         "Code": "inForce",
+         "Text": [
+          {
+           "Language": "fr",
+           "Text": "En vigueur"
+          }
+         ]
+        },
+        "TextAtWeb": [
+         {
+          "Language": "fr",
+          "Text": "https://geo.jura.ch/doc/RCC/6711_RCC_Delemont.pdf"
+         }
+        ],
+        "ResponsibleOffice": {
+         "Name": [
+          {
+           "Language": "fr",
+           "Text": "Service du développement territorial (SDT)"
+          }
+         ],
+         "OfficeAtWeb": [
+          {
+           "Language": "fr",
+           "Text": "https://www.jura.ch/sdt"
+          }
+         ],
+         "UID": "CHE113426372",
+         "Line1": "Service du développement territorial (SDT)",
+         "Line2": "Département de l'environnement et de la culture (DEC)",
+         "Street": "Rue du 24-Septembre",
+         "Number": "2",
+         "PostalCode": "2800",
+         "City": "Delémont"
+        },
+        "Abbreviation": [
+         {
+          "Language": "fr",
+          "Text": "6711_RCC"
+         }
+        ],
+        "OfficialNumber": [
+         {
+          "Language": "fr",
+          "Text": "6711_RCC"
+         }
+        ]
+       }
+      ]
+     },
+     {
+      "LegendText": [
+       {
+        "Language": "fr",
+        "Text": "Fontaine"
+       }
+      ],
+      "Theme": {
+       "Code": "ch.Nutzungsplanung",
+       "Text": [
+        {
+         "Language": "fr",
+         "Text": "Plans d'affectation (cantonaux/communaux)"
+        }
+       ]
+      },
+      "Lawstatus": {
+       "Code": "inForce",
+       "Text": [
+        {
+         "Language": "fr",
+         "Text": "En vigueur"
+        }
+       ]
+      },
+      "ResponsibleOffice": {
+       "Name": [
+        {
+         "Language": "fr",
+         "Text": "Service du développement territorial (SDT)"
+        }
+       ],
+       "OfficeAtWeb": [
+        {
+         "Language": "fr",
+         "Text": "https://www.jura.ch/sdt"
+        }
+       ],
+       "UID": "CHE113426372",
+       "Line1": "Service du développement territorial (SDT)",
+       "Line2": "Département de l'environnement et de la culture (DEC)",
+       "Street": "Rue du 24-Septembre",
+       "Number": "2",
+       "PostalCode": "2800",
+       "City": "Delémont"
+      },
+      "NrOfPoints": 1,
+      "TypeCode": "r73_contenus_ponctuels_Fontaine",
+      "LegalProvisions": [
+       {
+        "Type": {
+         "Code": "LegalProvision",
+         "Text": [
+          {
+           "Language": "fr",
+           "Text": "Disposition juridique"
+          }
+         ]
+        },
+        "Index": 2,
+        "Title": [
+         {
+          "Language": "fr",
+          "Text": "Règlement communal sur les constructions - Delémont"
+         }
+        ],
+        "Lawstatus": {
+         "Code": "inForce",
+         "Text": [
+          {
+           "Language": "fr",
+           "Text": "En vigueur"
+          }
+         ]
+        },
+        "TextAtWeb": [
+         {
+          "Language": "fr",
+          "Text": "https://geo.jura.ch/doc/RCC/6711_RCC_Delemont.pdf"
+         }
+        ],
+        "ResponsibleOffice": {
+         "Name": [
+          {
+           "Language": "fr",
+           "Text": "Service du développement territorial (SDT)"
+          }
+         ],
+         "OfficeAtWeb": [
+          {
+           "Language": "fr",
+           "Text": "https://www.jura.ch/sdt"
+          }
+         ],
+         "UID": "CHE113426372",
+         "Line1": "Service du développement territorial (SDT)",
+         "Line2": "Département de l'environnement et de la culture (DEC)",
+         "Street": "Rue du 24-Septembre",
+         "Number": "2",
+         "PostalCode": "2800",
+         "City": "Delémont"
+        },
+        "Abbreviation": [
+         {
+          "Language": "fr",
+          "Text": "6711_RCC"
+         }
+        ],
+        "OfficialNumber": [
+         {
+          "Language": "fr",
+          "Text": "6711_RCC"
+         }
+        ]
+       }
+      ]
+     },
+     {
+      "LegendText": [
+       {
+        "Language": "fr",
+        "Text": "Secteur de danger résiduel"
+       }
+      ],
+      "Theme": {
+       "Code": "ch.Nutzungsplanung",
+       "Text": [
+        {
+         "Language": "fr",
+         "Text": "Plans d'affectation (cantonaux/communaux)"
+        }
+       ]
+      },
+      "Lawstatus": {
+       "Code": "inForce",
+       "Text": [
+        {
+         "Language": "fr",
+         "Text": "En vigueur"
+        }
+       ]
+      },
+      "ResponsibleOffice": {
+       "Name": [
+        {
+         "Language": "fr",
+         "Text": "Service du développement territorial (SDT)"
+        }
+       ],
+       "OfficeAtWeb": [
+        {
+         "Language": "fr",
+         "Text": "https://www.jura.ch/sdt"
+        }
+       ],
+       "UID": "CHE113426372",
+       "Line1": "Service du développement territorial (SDT)",
+       "Line2": "Département de l'environnement et de la culture (DEC)",
+       "Street": "Rue du 24-Septembre",
+       "Number": "2",
+       "PostalCode": "2800",
+       "City": "Delémont"
+      },
+      "AreaShare": 1687,
+      "TypeCode": "r73_zones_superpose_Sec_danger_residuel",
+      "PartInPercent": 85.1,
+      "LegalProvisions": [
+       {
+        "Type": {
+         "Code": "LegalProvision",
+         "Text": [
+          {
+           "Language": "fr",
+           "Text": "Disposition juridique"
+          }
+         ]
+        },
+        "Index": 2,
+        "Title": [
+         {
+          "Language": "fr",
+          "Text": "Règlement communal sur les constructions - Delémont"
+         }
+        ],
+        "Lawstatus": {
+         "Code": "inForce",
+         "Text": [
+          {
+           "Language": "fr",
+           "Text": "En vigueur"
+          }
+         ]
+        },
+        "TextAtWeb": [
+         {
+          "Language": "fr",
+          "Text": "https://geo.jura.ch/doc/RCC/6711_RCC_Delemont.pdf"
+         }
+        ],
+        "ResponsibleOffice": {
+         "Name": [
+          {
+           "Language": "fr",
+           "Text": "Service du développement territorial (SDT)"
+          }
+         ],
+         "OfficeAtWeb": [
+          {
+           "Language": "fr",
+           "Text": "https://www.jura.ch/sdt"
+          }
+         ],
+         "UID": "CHE113426372",
+         "Line1": "Service du développement territorial (SDT)",
+         "Line2": "Département de l'environnement et de la culture (DEC)",
+         "Street": "Rue du 24-Septembre",
+         "Number": "2",
+         "PostalCode": "2800",
+         "City": "Delémont"
+        },
+        "Abbreviation": [
+         {
+          "Language": "fr",
+          "Text": "6711_RCC"
+         }
+        ],
+        "OfficialNumber": [
+         {
+          "Language": "fr",
+          "Text": "6711_RCC"
+         }
+        ]
+       }
+      ]
+     },
+     {
+      "LegendText": [
+       {
+        "Language": "fr",
+        "Text": "Zone centre - CA"
+       }
+      ],
+      "Theme": {
+       "Code": "ch.Nutzungsplanung",
+       "Text": [
+        {
+         "Language": "fr",
+         "Text": "Plans d'affectation (cantonaux/communaux)"
+        }
+       ]
+      },
+      "Lawstatus": {
+       "Code": "inForce",
+       "Text": [
+        {
+         "Language": "fr",
+         "Text": "En vigueur"
+        }
+       ]
+      },
+      "ResponsibleOffice": {
+       "Name": [
+        {
+         "Language": "fr",
+         "Text": "Service du développement territorial (SDT)"
+        }
+       ],
+       "OfficeAtWeb": [
+        {
+         "Language": "fr",
+         "Text": "https://www.jura.ch/sdt"
+        }
+       ],
+       "UID": "CHE113426372",
+       "Line1": "Service du développement territorial (SDT)",
+       "Line2": "Département de l'environnement et de la culture (DEC)",
+       "Street": "Rue du 24-Septembre",
+       "Number": "2",
+       "PostalCode": "2800",
+       "City": "Delémont"
+      },
+      "AreaShare": 1982,
+      "TypeCode": "r73_affectations_primaires_Centre_CA",
+      "PartInPercent": 100,
+      "LegalProvisions": [
+       {
+        "Type": {
+         "Code": "LegalProvision",
+         "Text": [
+          {
+           "Language": "fr",
+           "Text": "Disposition juridique"
+          }
+         ]
+        },
+        "Index": 2,
+        "Title": [
+         {
+          "Language": "fr",
+          "Text": "Règlement communal sur les constructions - Delémont"
+         }
+        ],
+        "Lawstatus": {
+         "Code": "inForce",
+         "Text": [
+          {
+           "Language": "fr",
+           "Text": "En vigueur"
+          }
+         ]
+        },
+        "TextAtWeb": [
+         {
+          "Language": "fr",
+          "Text": "https://geo.jura.ch/doc/RCC/6711_RCC_Delemont.pdf"
+         }
+        ],
+        "ResponsibleOffice": {
+         "Name": [
+          {
+           "Language": "fr",
+           "Text": "Service du développement territorial (SDT)"
+          }
+         ],
+         "OfficeAtWeb": [
+          {
+           "Language": "fr",
+           "Text": "https://www.jura.ch/sdt"
+          }
+         ],
+         "UID": "CHE113426372",
+         "Line1": "Service du développement territorial (SDT)",
+         "Line2": "Département de l'environnement et de la culture (DEC)",
+         "Street": "Rue du 24-Septembre",
+         "Number": "2",
+         "PostalCode": "2800",
+         "City": "Delémont"
+        },
+        "Abbreviation": [
+         {
+          "Language": "fr",
+          "Text": "6711_RCC"
+         }
+        ],
+        "OfficialNumber": [
+         {
+          "Language": "fr",
+          "Text": "6711_RCC"
+         }
+        ]
+       }
+      ]
+     },
+     {
+      "LegendText": [
+       {
+        "Language": "fr",
+        "Text": "Degré de sensibilité au bruit III"
+       }
+      ],
+      "Theme": {
+       "Code": "ch.Laermempfindlichkeitsstufen",
+       "Text": [
+        {
+         "Language": "fr",
+         "Text": "Degré de sensibilité au bruit (dans les zones d'affectation)"
+        }
+       ]
+      },
+      "Lawstatus": {
+       "Code": "inForce",
+       "Text": [
+        {
+         "Language": "fr",
+         "Text": "En vigueur"
+        }
+       ]
+      },
+      "ResponsibleOffice": {
+       "Name": [
+        {
+         "Language": "fr",
+         "Text": "Service du développement territorial (SDT)"
+        }
+       ],
+       "OfficeAtWeb": [
+        {
+         "Language": "fr",
+         "Text": "https://www.jura.ch/sdt"
+        }
+       ],
+       "UID": "CHE113426372",
+       "Line1": "Service du développement territorial (SDT)",
+       "Line2": "Département de l'environnement et de la culture (DEC)",
+       "Street": "Rue du 24-Septembre",
+       "Number": "2",
+       "PostalCode": "2800",
+       "City": "Delémont"
+      },
+      "AreaShare": 1982,
+      "TypeCode": "r145_sens_bruit_DS_III",
+      "PartInPercent": 100,
+      "LegalProvisions": [
+       {
+        "Type": {
+         "Code": "LegalProvision",
+         "Text": [
+          {
+           "Language": "fr",
+           "Text": "Disposition juridique"
+          }
+         ]
+        },
+        "Index": 1,
+        "Title": [
+         {
+          "Language": "fr",
+          "Text": "Règlement communal sur les constructions - Delémont"
+         }
+        ],
+        "Lawstatus": {
+         "Code": "inForce",
+         "Text": [
+          {
+           "Language": "fr",
+           "Text": "En vigueur"
+          }
+         ]
+        },
+        "TextAtWeb": [
+         {
+          "Language": "fr",
+          "Text": "https://geo.jura.ch/doc/RCC/6711_RCC_Delemont.pdf"
+         }
+        ],
+        "ResponsibleOffice": {
+         "Name": [
+          {
+           "Language": "fr",
+           "Text": "Service du développement territorial (SDT)"
+          }
+         ],
+         "OfficeAtWeb": [
+          {
+           "Language": "fr",
+           "Text": "https://www.jura.ch/sdt"
+          }
+         ],
+         "UID": "CHE113426372",
+         "Line1": "Service du développement territorial (SDT)",
+         "Line2": "Département de l'environnement et de la culture (DEC)",
+         "Street": "Rue du 24-Septembre",
+         "Number": "2",
+         "PostalCode": "2800",
+         "City": "Delémont"
+        },
+        "Abbreviation": [
+         {
+          "Language": "fr",
+          "Text": "RCC"
+         }
+        ],
+        "OfficialNumber": [
+         {
+          "Language": "fr",
+          "Text": "6711_RCC"
+         }
+        ]
+       }
+      ]
+     },
+     {
+      "LegendText": [
+       {
+        "Language": "fr",
+        "Text": "Site présumé"
+       }
+      ],
+      "Theme": {
+       "Code": "ch.JU.InventoriesArchaelogicalPaleontologicalSites",
+       "Text": [
+        {
+         "Language": "fr",
+         "Text": "Inventaire des sites archéologiques et paléontologiques"
+        }
+       ]
+      },
+      "Lawstatus": {
+       "Code": "inForce",
+       "Text": [
+        {
+         "Language": "fr",
+         "Text": "En vigueur"
+        }
+       ]
+      },
+      "ResponsibleOffice": {
+       "Name": [
+        {
+         "Language": "fr",
+         "Text": "Office de la culture (OCC)"
+        }
+       ],
+       "OfficeAtWeb": [
+        {
+         "Language": "fr",
+         "Text": "https://www.jura.ch/occ"
+        }
+       ],
+       "UID": "CHE113426372",
+       "Line1": "Office de la culture (OCC)",
+       "Line2": "Département de l'environnement et de la culture (DEC)",
+       "Street": "Rue Pierre-Péquignat",
+       "Number": "9",
+       "PostalCode": "2900",
+       "City": "Porrentruy"
+      },
+      "AreaShare": 1982,
+      "TypeCode": "r12-ju_isap_site_presume",
+      "PartInPercent": 100,
+      "LegalProvisions": [
+       {
+        "Type": {
+         "Code": "Law",
+         "Text": [
+          {
+           "Language": "fr",
+           "Text": "Base légale"
+          }
+         ]
+        },
+        "Index": 911,
+        "Title": [
+         {
+          "Language": "fr",
+          "Text": "Loi sur la protection du patrimoine archéologique et paléontologique"
+         }
+        ],
+        "Lawstatus": {
+         "Code": "inForce",
+         "Text": [
+          {
+           "Language": "fr",
+           "Text": "En vigueur"
+          }
+         ]
+        },
+        "TextAtWeb": [
+         {
+          "Language": "fr",
+          "Text": "https://rsju.jura.ch/scripts/modules/PDFViewer/viewer/viewer.html?EnableDownload=1&file=%2Ffr%2Fviewdocument.html%3Fidn%3D20083%26id%3D34692%26v%3D3%26Download%3D1%26Fn%3D445.4_01.09.2015.pdf&FileTitle=445.4%20-%20Loi%20sur%20la%20protection%20du%20patrimoine%20arch%C3%A9ologique%20et%20pal%C3%A9ontologique%20(LPPAP)"
+         }
+        ],
+        "ResponsibleOffice": {
+         "Name": [
+          {
+           "Language": "fr",
+           "Text": "Office de la culture (OCC)"
+          }
+         ],
+         "OfficeAtWeb": [
+          {
+           "Language": "fr",
+           "Text": "https://www.jura.ch/occ"
+          }
+         ],
+         "UID": "CHE113426372",
+         "Line1": "Office de la culture (OCC)",
+         "Line2": "Département de l'environnement et de la culture (DEC)",
+         "Street": "Rue Pierre-Péquignat",
+         "Number": "9",
+         "PostalCode": "2900",
+         "City": "Porrentruy"
+        },
+        "Abbreviation": [
+         {
+          "Language": "fr",
+          "Text": "LPPAP"
+         }
+        ],
+        "OfficialNumber": [
+         {
+          "Language": "fr",
+          "Text": "RSJU 445.4"
+         }
+        ]
+       }
+      ]
+     }
+    ]
+   },
+   "ConcernedTheme": [
+    {
+     "Code": "ch.Nutzungsplanung",
+     "Text": [
+      {
+       "Language": "fr",
+       "Text": "Plans d'affectation (cantonaux/communaux)"
+      }
+     ]
+    },
+    {
+     "Code": "ch.Laermempfindlichkeitsstufen",
+     "Text": [
+      {
+       "Language": "fr",
+       "Text": "Degré de sensibilité au bruit (dans les zones d'affectation)"
+      }
+     ]
+    },
+    {
+     "Code": "ch.JU.InventoriesArchaelogicalPaleontologicalSites",
+     "Text": [
+      {
+       "Language": "fr",
+       "Text": "Inventaire des sites archéologiques et paléontologiques"
+      }
+     ]
+    }
+   ],
+   "NotConcernedTheme": [
+    {
+     "Code": "ch.Planungszonen",
+     "Text": [
+      {
+       "Language": "fr",
+       "Text": "Zones réservées"
+      }
+     ]
+    },
+    {
+     "Code": "ch.ProjektierungszonenNationalstrassen",
+     "Text": [
+      {
+       "Language": "fr",
+       "Text": "Zones réservées des routes nationales"
+      }
+     ]
+    },
+    {
+     "Code": "ch.BaulinienNationalstrassen",
+     "Text": [
+      {
+       "Language": "fr",
+       "Text": "Alignements des routes nationales"
+      }
+     ]
+    },
+    {
+     "Code": "ch.ProjektierungszonenEisenbahnanlagen",
+     "Text": [
+      {
+       "Language": "fr",
+       "Text": "Zones réservées des installations ferroviaires"
+      }
+     ]
+    },
+    {
+     "Code": "ch.BaulinienEisenbahnanlagen",
+     "Text": [
+      {
+       "Language": "fr",
+       "Text": "Alignements des installations ferroviaires"
+      }
+     ]
+    },
+    {
+     "Code": "ch.ProjektierungszonenFlughafenanlagen",
+     "Text": [
+      {
+       "Language": "fr",
+       "Text": "Zones réservées des installations aéroportuaires"
+      }
+     ]
+    },
+    {
+     "Code": "ch.BaulinienFlughafenanlagen",
+     "Text": [
+      {
+       "Language": "fr",
+       "Text": "Alignements des installations aéroportuaires"
+      }
+     ]
+    },
+    {
+     "Code": "ch.Sicherheitszonenplan",
+     "Text": [
+      {
+       "Language": "fr",
+       "Text": "Plan de la zone de sécurité"
+      }
+     ]
+    },
+    {
+     "Code": "ch.BelasteteStandorte",
+     "Text": [
+      {
+       "Language": "fr",
+       "Text": "Cadastre des sites pollués"
+      }
+     ]
+    },
+    {
+     "Code": "ch.BelasteteStandorteMilitaer",
+     "Text": [
+      {
+       "Language": "fr",
+       "Text": "Cadastre des sites pollués – domaine militaire"
+      }
+     ]
+    },
+    {
+     "Code": "ch.BelasteteStandorteZivileFlugplaetze",
+     "Text": [
+      {
+       "Language": "fr",
+       "Text": "Cadastre des sites pollués – domaine des aérodromes civils"
+      }
+     ]
+    },
+    {
+     "Code": "ch.BelasteteStandorteOeffentlicherVerkehr",
+     "Text": [
+      {
+       "Language": "fr",
+       "Text": "Cadastre des sites pollués – domaine des transports publics"
+      }
+     ]
+    },
+    {
+     "Code": "ch.Grundwasserschutzzonen",
+     "Text": [
+      {
+       "Language": "fr",
+       "Text": "Zones de protection des eaux souterraines"
+      }
+     ]
+    },
+    {
+     "Code": "ch.Grundwasserschutzareale",
+     "Text": [
+      {
+       "Language": "fr",
+       "Text": "Périmètres de protection des eaux souterraines"
+      }
+     ]
+    },
+    {
+     "Code": "ch.Gewaesserraum",
+     "Text": [
+      {
+       "Language": "fr",
+       "Text": "Espace réservé aux eaux"
+      }
+     ]
+    },
+    {
+     "Code": "ch.StatischeWaldgrenzen",
+     "Text": [
+      {
+       "Language": "fr",
+       "Text": "Limites forestières statiques"
+      }
+     ]
+    },
+    {
+     "Code": "ch.Waldabstandslinien",
+     "Text": [
+      {
+       "Language": "fr",
+       "Text": "Distances par rapport à la forêt"
+      }
+     ]
+    },
+    {
+     "Code": "ch.Waldreservate",
+     "Text": [
+      {
+       "Language": "fr",
+       "Text": "Réserves forestières"
+      }
+     ]
+    },
+    {
+     "Code": "ch.ProjektierungszonenStarkstromanlagen",
+     "Text": [
+      {
+       "Language": "fr",
+       "Text": "Zones réservées des lignes d'une tension nominale égale ou supérieure à 220 kV"
+      }
+     ]
+    },
+    {
+     "Code": "ch.BaulinienStarkstromanlagen",
+     "Text": [
+      {
+       "Language": "fr",
+       "Text": "Alignements des installations électriques à courant fort"
+      }
+     ]
+    },
+    {
+     "Code": "ch.JU.NatureReservesLandscapeProtectionAreas",
+     "Text": [
+      {
+       "Language": "fr",
+       "Text": "Réserves naturelles et zones de protection paysagère cantonales"
+      }
+     ]
+    },
+    {
+     "Code": "ch.JU.NaturalMonuments",
+     "Text": [
+      {
+       "Language": "fr",
+       "Text": "Monument naturel"
+      }
+     ]
+    }
+   ],
+   "ThemeWithoutData": []
+  }
+ }
+}

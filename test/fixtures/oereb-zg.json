@@ -1,0 +1,841 @@
+{
+ "_hinweis": "Echte Antwort vom 16.10.2026, verkleinert mit scripts/oereb-fixture.ts: https://oereb.zg.ch/ors/extract/json?EGRID=CH246506747623&GEOMETRY=false&WITHIMAGES=false&LANG=de (Seestrasse 2, 6300 Zug, Zug Parzelle 915, EGID 9033799). Geometrien, Bilder, Glossar und Rechtsvorschriften bis auf eine entfernt.",
+ "$schema": "https://raw.githubusercontent.com/openoereb/schemas/ea4fe8e696b84b923cb9aa9fb27c3ba4e2d8eb5b/extract.json",
+ "GetExtractByIdResponse": {
+  "extract": {
+   "CreationDate": "2026-10-16T06:25:38",
+   "ExtractIdentifier": "500c7b1d-7e9e-4bf7-8618-87ecf9a7519e",
+   "UpdateDateCS": "2026-09-25T12:00:00",
+   "PLRCadastreAuthority": {
+    "Name": [
+     {
+      "Language": "de",
+      "Text": "Amt für Grundbuch und Geoinformation"
+     }
+    ],
+    "OfficeAtWeb": [
+     {
+      "Language": "de",
+      "Text": "https://zg.ch/de/direktion-des-innern/amt-fuer-grundbuch-und-geoinformation"
+     }
+    ],
+    "Street": "Aabachstrasse",
+    "Number": "5",
+    "PostalCode": "6300",
+    "City": "Zug"
+   },
+   "RealEstate": {
+    "Type": {
+     "Code": "RealEstate",
+     "Text": [
+      {
+       "Language": "de",
+       "Text": "Liegenschaft"
+      }
+     ]
+    },
+    "Canton": "ZG",
+    "MunicipalityName": "Zug",
+    "MunicipalityCode": 1711,
+    "LandRegistryArea": 2253,
+    "Number": "915",
+    "IdentDN": "ZG0200001711",
+    "EGRID": "CH246506747623",
+    "RestrictionOnLandownership": [
+     {
+      "LegendText": [
+       {
+        "Language": "de",
+        "Text": "Zone des öffentlichen Interesses für Bauten Anlagen"
+       }
+      ],
+      "Theme": {
+       "Code": "ch.Nutzungsplanung",
+       "Text": [
+        {
+         "Language": "de",
+         "Text": "Nutzungsplanung (kantonal/kommunal)"
+        }
+       ]
+      },
+      "Lawstatus": {
+       "Code": "inForce",
+       "Text": [
+        {
+         "Language": "de",
+         "Text": "Rechtskräftig"
+        }
+       ]
+      },
+      "ResponsibleOffice": {
+       "Name": [
+        {
+         "Language": "de",
+         "Text": "Stadt Zug"
+        }
+       ],
+       "OfficeAtWeb": [
+        {
+         "Language": "de",
+         "Text": "https://www.stadtzug.ch/aemter/6621"
+        }
+       ]
+      },
+      "AreaShare": 2253,
+      "TypeCode": "150101",
+      "PartInPercent": 100,
+      "LegalProvisions": [
+       {
+        "Type": {
+         "Code": "LegalProvision",
+         "Text": [
+          {
+           "Language": "de",
+           "Text": "Rechtsvorschrift"
+          }
+         ]
+        },
+        "Index": 0,
+        "Title": [
+         {
+          "Language": "de",
+          "Text": "Bauordnung der Stadt Zug"
+         }
+        ],
+        "Lawstatus": {
+         "Code": "inForce",
+         "Text": [
+          {
+           "Language": "de",
+           "Text": "Rechtskräftig"
+          }
+         ]
+        },
+        "TextAtWeb": [
+         {
+          "Language": "de",
+          "Text": "https://oereblex.zg.ch/api/attachments/1373"
+         }
+        ],
+        "ResponsibleOffice": {
+         "Name": [
+          {
+           "Language": "de",
+           "Text": "Gemeinde (Gde.)"
+          }
+         ],
+         "OfficeAtWeb": [
+          {
+           "Language": "de",
+           "Text": "https://www.stadtzug.ch/de/"
+          }
+         ]
+        },
+        "OfficialNumber": [
+         {
+          "Language": "de",
+          "Text": "401"
+         }
+        ]
+       }
+      ]
+     },
+     {
+      "LegendText": [
+       {
+        "Language": "de",
+        "Text": "Ortsbildschutzzone"
+       }
+      ],
+      "Theme": {
+       "Code": "ch.Nutzungsplanung",
+       "Text": [
+        {
+         "Language": "de",
+         "Text": "Nutzungsplanung (kantonal/kommunal)"
+        }
+       ]
+      },
+      "Lawstatus": {
+       "Code": "inForce",
+       "Text": [
+        {
+         "Language": "de",
+         "Text": "Rechtskräftig"
+        }
+       ]
+      },
+      "ResponsibleOffice": {
+       "Name": [
+        {
+         "Language": "de",
+         "Text": "Stadt Zug"
+        }
+       ],
+       "OfficeAtWeb": [
+        {
+         "Language": "de",
+         "Text": "https://www.stadtzug.ch/aemter/6621"
+        }
+       ]
+      },
+      "AreaShare": 2253,
+      "TypeCode": "512001",
+      "PartInPercent": 100,
+      "LegalProvisions": [
+       {
+        "Type": {
+         "Code": "LegalProvision",
+         "Text": [
+          {
+           "Language": "de",
+           "Text": "Rechtsvorschrift"
+          }
+         ]
+        },
+        "Index": 0,
+        "Title": [
+         {
+          "Language": "de",
+          "Text": "Bauordnung der Stadt Zug"
+         }
+        ],
+        "Lawstatus": {
+         "Code": "inForce",
+         "Text": [
+          {
+           "Language": "de",
+           "Text": "Rechtskräftig"
+          }
+         ]
+        },
+        "TextAtWeb": [
+         {
+          "Language": "de",
+          "Text": "https://oereblex.zg.ch/api/attachments/1373"
+         }
+        ],
+        "ResponsibleOffice": {
+         "Name": [
+          {
+           "Language": "de",
+           "Text": "Gemeinde (Gde.)"
+          }
+         ],
+         "OfficeAtWeb": [
+          {
+           "Language": "de",
+           "Text": "https://www.stadtzug.ch/de/"
+          }
+         ]
+        },
+        "OfficialNumber": [
+         {
+          "Language": "de",
+          "Text": "401"
+         }
+        ]
+       }
+      ]
+     },
+     {
+      "LegendText": [
+       {
+        "Language": "de",
+        "Text": "Gefahrenzone 2"
+       }
+      ],
+      "Theme": {
+       "Code": "ch.Nutzungsplanung",
+       "Text": [
+        {
+         "Language": "de",
+         "Text": "Nutzungsplanung (kantonal/kommunal)"
+        }
+       ]
+      },
+      "Lawstatus": {
+       "Code": "inForce",
+       "Text": [
+        {
+         "Language": "de",
+         "Text": "Rechtskräftig"
+        }
+       ]
+      },
+      "ResponsibleOffice": {
+       "Name": [
+        {
+         "Language": "de",
+         "Text": "Stadt Zug"
+        }
+       ],
+       "OfficeAtWeb": [
+        {
+         "Language": "de",
+         "Text": "https://www.stadtzug.ch/aemter/6621"
+        }
+       ]
+      },
+      "AreaShare": 395,
+      "TypeCode": "532201",
+      "PartInPercent": 17.5,
+      "LegalProvisions": [
+       {
+        "Type": {
+         "Code": "LegalProvision",
+         "Text": [
+          {
+           "Language": "de",
+           "Text": "Rechtsvorschrift"
+          }
+         ]
+        },
+        "Index": 0,
+        "Title": [
+         {
+          "Language": "de",
+          "Text": "Bauordnung der Stadt Zug"
+         }
+        ],
+        "Lawstatus": {
+         "Code": "inForce",
+         "Text": [
+          {
+           "Language": "de",
+           "Text": "Rechtskräftig"
+          }
+         ]
+        },
+        "TextAtWeb": [
+         {
+          "Language": "de",
+          "Text": "https://oereblex.zg.ch/api/attachments/1373"
+         }
+        ],
+        "ResponsibleOffice": {
+         "Name": [
+          {
+           "Language": "de",
+           "Text": "Gemeinde (Gde.)"
+          }
+         ],
+         "OfficeAtWeb": [
+          {
+           "Language": "de",
+           "Text": "https://www.stadtzug.ch/de/"
+          }
+         ]
+        },
+        "OfficialNumber": [
+         {
+          "Language": "de",
+          "Text": "401"
+         }
+        ]
+       }
+      ]
+     },
+     {
+      "LegendText": [
+       {
+        "Language": "de",
+        "Text": "Gefahrenzone 3"
+       }
+      ],
+      "Theme": {
+       "Code": "ch.Nutzungsplanung",
+       "Text": [
+        {
+         "Language": "de",
+         "Text": "Nutzungsplanung (kantonal/kommunal)"
+        }
+       ]
+      },
+      "Lawstatus": {
+       "Code": "inForce",
+       "Text": [
+        {
+         "Language": "de",
+         "Text": "Rechtskräftig"
+        }
+       ]
+      },
+      "ResponsibleOffice": {
+       "Name": [
+        {
+         "Language": "de",
+         "Text": "Stadt Zug"
+        }
+       ],
+       "OfficeAtWeb": [
+        {
+         "Language": "de",
+         "Text": "https://www.stadtzug.ch/aemter/6621"
+        }
+       ]
+      },
+      "AreaShare": 1858,
+      "TypeCode": "532301",
+      "PartInPercent": 82.5,
+      "LegalProvisions": [
+       {
+        "Type": {
+         "Code": "LegalProvision",
+         "Text": [
+          {
+           "Language": "de",
+           "Text": "Rechtsvorschrift"
+          }
+         ]
+        },
+        "Index": 0,
+        "Title": [
+         {
+          "Language": "de",
+          "Text": "Bauordnung der Stadt Zug"
+         }
+        ],
+        "Lawstatus": {
+         "Code": "inForce",
+         "Text": [
+          {
+           "Language": "de",
+           "Text": "Rechtskräftig"
+          }
+         ]
+        },
+        "TextAtWeb": [
+         {
+          "Language": "de",
+          "Text": "https://oereblex.zg.ch/api/attachments/1373"
+         }
+        ],
+        "ResponsibleOffice": {
+         "Name": [
+          {
+           "Language": "de",
+           "Text": "Gemeinde (Gde.)"
+          }
+         ],
+         "OfficeAtWeb": [
+          {
+           "Language": "de",
+           "Text": "https://www.stadtzug.ch/de/"
+          }
+         ]
+        },
+        "OfficialNumber": [
+         {
+          "Language": "de",
+          "Text": "401"
+         }
+        ]
+       }
+      ]
+     },
+     {
+      "LegendText": [
+       {
+        "Language": "de",
+        "Text": "Archäologische Fundstätte"
+       }
+      ],
+      "Theme": {
+       "Code": "ch.Nutzungsplanung",
+       "Text": [
+        {
+         "Language": "de",
+         "Text": "Nutzungsplanung (kantonal/kommunal)"
+        }
+       ]
+      },
+      "Lawstatus": {
+       "Code": "inForce",
+       "Text": [
+        {
+         "Language": "de",
+         "Text": "Rechtskräftig"
+        }
+       ]
+      },
+      "ResponsibleOffice": {
+       "Name": [
+        {
+         "Language": "de",
+         "Text": "Stadt Zug"
+        }
+       ],
+       "OfficeAtWeb": [
+        {
+         "Language": "de",
+         "Text": "https://www.stadtzug.ch/aemter/6621"
+        }
+       ]
+      },
+      "AreaShare": 2253,
+      "TypeCode": "691001",
+      "PartInPercent": 100,
+      "LegalProvisions": [
+       {
+        "Type": {
+         "Code": "LegalProvision",
+         "Text": [
+          {
+           "Language": "de",
+           "Text": "Rechtsvorschrift"
+          }
+         ]
+        },
+        "Index": 0,
+        "Title": [
+         {
+          "Language": "de",
+          "Text": "Bauordnung der Stadt Zug"
+         }
+        ],
+        "Lawstatus": {
+         "Code": "inForce",
+         "Text": [
+          {
+           "Language": "de",
+           "Text": "Rechtskräftig"
+          }
+         ]
+        },
+        "TextAtWeb": [
+         {
+          "Language": "de",
+          "Text": "https://oereblex.zg.ch/api/attachments/1373"
+         }
+        ],
+        "ResponsibleOffice": {
+         "Name": [
+          {
+           "Language": "de",
+           "Text": "Gemeinde (Gde.)"
+          }
+         ],
+         "OfficeAtWeb": [
+          {
+           "Language": "de",
+           "Text": "https://www.stadtzug.ch/de/"
+          }
+         ]
+        },
+        "OfficialNumber": [
+         {
+          "Language": "de",
+          "Text": "401"
+         }
+        ]
+       }
+      ]
+     },
+     {
+      "LegendText": [
+       {
+        "Language": "de",
+        "Text": "Empfindlichkeitsstufe II"
+       }
+      ],
+      "Theme": {
+       "Code": "ch.Laermempfindlichkeitsstufen",
+       "Text": [
+        {
+         "Language": "de",
+         "Text": "Lärmempfindlichkeitsstufen (in Nutzungszonen)"
+        }
+       ]
+      },
+      "Lawstatus": {
+       "Code": "inForce",
+       "Text": [
+        {
+         "Language": "de",
+         "Text": "Rechtskräftig"
+        }
+       ]
+      },
+      "ResponsibleOffice": {
+       "Name": [
+        {
+         "Language": "de",
+         "Text": "Amt für Umwelt"
+        }
+       ],
+       "OfficeAtWeb": [
+        {
+         "Language": "de",
+         "Text": "https://zg.ch/de/baudirektion/amt-fuer-umwelt/luft"
+        }
+       ]
+      },
+      "AreaShare": 2253,
+      "TypeCode": "110202",
+      "PartInPercent": 100,
+      "LegalProvisions": [
+       {
+        "Type": {
+         "Code": "LegalProvision",
+         "Text": [
+          {
+           "Language": "de",
+           "Text": "Rechtsvorschrift"
+          }
+         ]
+        },
+        "Index": 0,
+        "Title": [
+         {
+          "Language": "de",
+          "Text": "Bauordnung der Stadt Zug"
+         }
+        ],
+        "Lawstatus": {
+         "Code": "inForce",
+         "Text": [
+          {
+           "Language": "de",
+           "Text": "Rechtskräftig"
+          }
+         ]
+        },
+        "TextAtWeb": [
+         {
+          "Language": "de",
+          "Text": "https://oereblex.zg.ch/api/attachments/1373"
+         }
+        ],
+        "ResponsibleOffice": {
+         "Name": [
+          {
+           "Language": "de",
+           "Text": "Gemeinde (Gde.)"
+          }
+         ],
+         "OfficeAtWeb": [
+          {
+           "Language": "de",
+           "Text": "https://www.stadtzug.ch/de/"
+          }
+         ]
+        },
+        "OfficialNumber": [
+         {
+          "Language": "de",
+          "Text": "401"
+         }
+        ]
+       }
+      ]
+     }
+    ]
+   },
+   "ConcernedTheme": [
+    {
+     "Code": "ch.Nutzungsplanung",
+     "Text": [
+      {
+       "Language": "de",
+       "Text": "Nutzungsplanung (kantonal/kommunal)"
+      }
+     ]
+    },
+    {
+     "Code": "ch.Laermempfindlichkeitsstufen",
+     "Text": [
+      {
+       "Language": "de",
+       "Text": "Lärmempfindlichkeitsstufen (in Nutzungszonen)"
+      }
+     ]
+    }
+   ],
+   "NotConcernedTheme": [
+    {
+     "Code": "ch.Planungszonen",
+     "Text": [
+      {
+       "Language": "de",
+       "Text": "Planungszonen"
+      }
+     ]
+    },
+    {
+     "Code": "ch.ProjektierungszonenNationalstrassen",
+     "Text": [
+      {
+       "Language": "de",
+       "Text": "Projektierungszonen Nationalstrassen"
+      }
+     ]
+    },
+    {
+     "Code": "ch.BaulinienNationalstrassen",
+     "Text": [
+      {
+       "Language": "de",
+       "Text": "Baulinien Nationalstrassen"
+      }
+     ]
+    },
+    {
+     "Code": "ch.ProjektierungszonenEisenbahnanlagen",
+     "Text": [
+      {
+       "Language": "de",
+       "Text": "Projektierungszonen Eisenbahnanlagen"
+      }
+     ]
+    },
+    {
+     "Code": "ch.BaulinienEisenbahnanlagen",
+     "Text": [
+      {
+       "Language": "de",
+       "Text": "Baulinien Eisenbahnanlagen"
+      }
+     ]
+    },
+    {
+     "Code": "ch.ProjektierungszonenFlughafenanlagen",
+     "Text": [
+      {
+       "Language": "de",
+       "Text": "Projektierungszonen Flughafenanlagen"
+      }
+     ]
+    },
+    {
+     "Code": "ch.BaulinienFlughafenanlagen",
+     "Text": [
+      {
+       "Language": "de",
+       "Text": "Baulinien Flughafenanlagen"
+      }
+     ]
+    },
+    {
+     "Code": "ch.Sicherheitszonenplan",
+     "Text": [
+      {
+       "Language": "de",
+       "Text": "Sicherheitszonenplan"
+      }
+     ]
+    },
+    {
+     "Code": "ch.BelasteteStandorte",
+     "Text": [
+      {
+       "Language": "de",
+       "Text": "Kataster der belasteten Standorte"
+      }
+     ]
+    },
+    {
+     "Code": "ch.BelasteteStandorteMilitaer",
+     "Text": [
+      {
+       "Language": "de",
+       "Text": "Kataster der belasteten Standorte im Bereich des Militärs"
+      }
+     ]
+    },
+    {
+     "Code": "ch.BelasteteStandorteZivileFlugplaetze",
+     "Text": [
+      {
+       "Language": "de",
+       "Text": "Kataster der belasteten Standorte im Bereich der zivilen Flugplätze"
+      }
+     ]
+    },
+    {
+     "Code": "ch.BelasteteStandorteOeffentlicherVerkehr",
+     "Text": [
+      {
+       "Language": "de",
+       "Text": "Kataster der belasteten Standorte im Bereich des öffentlichen Verkehrs"
+      }
+     ]
+    },
+    {
+     "Code": "ch.Grundwasserschutzzonen",
+     "Text": [
+      {
+       "Language": "de",
+       "Text": "Grundwasserschutzzonen"
+      }
+     ]
+    },
+    {
+     "Code": "ch.Grundwasserschutzareale",
+     "Text": [
+      {
+       "Language": "de",
+       "Text": "Grundwasserschutzareale"
+      }
+     ]
+    },
+    {
+     "Code": "ch.StatischeWaldgrenzen",
+     "Text": [
+      {
+       "Language": "de",
+       "Text": "Statische Waldgrenzen"
+      }
+     ]
+    },
+    {
+     "Code": "ch.Waldabstandslinien",
+     "Text": [
+      {
+       "Language": "de",
+       "Text": "Waldabstandslinien"
+      }
+     ]
+    },
+    {
+     "Code": "ch.Waldreservate",
+     "Text": [
+      {
+       "Language": "de",
+       "Text": "Waldreservate"
+      }
+     ]
+    },
+    {
+     "Code": "ch.ProjektierungszonenStarkstromanlagen",
+     "Text": [
+      {
+       "Language": "de",
+       "Text": "Projektierungszonen Leitungen mit einer Nennspannung von 220 kV oder höher"
+      }
+     ]
+    },
+    {
+     "Code": "ch.BaulinienStarkstromanlagen",
+     "Text": [
+      {
+       "Language": "de",
+       "Text": "Baulinien Starkstromanlagen"
+      }
+     ]
+    }
+   ],
+   "ThemeWithoutData": [
+    {
+     "Code": "ch.Gewaesserraum",
+     "Text": [
+      {
+       "Language": "de",
+       "Text": "Gewässerraum"
+      }
+     ]
+    }
+   ]
+  }
+ }
+}

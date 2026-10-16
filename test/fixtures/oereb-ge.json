@@ -1,0 +1,950 @@
+{
+ "_hinweis": "Echte Antwort vom 16.10.2026, verkleinert mit scripts/oereb-fixture.ts: https://ge.ch/terecadastrews/RdppfSVC.svc/extract/json?EGRID=CH328197656307&GEOMETRY=false&WITHIMAGES=false&LANG=fr (Rue de l'Hôtel-de-Ville 2, 1204 Genève, Genève Parzelle 4727, EGID 2036896). Geometrien, Bilder, Glossar und Rechtsvorschriften bis auf eine entfernt.",
+ "Item": {
+  "CreationDate": "/Date(1792132024231)/",
+  "ConcernedTheme": [
+   {
+    "Code": "ch.Nutzungsplanung",
+    "SubCode": "ch.GE.Zonesdaffectationsynthse",
+    "Text": [
+     {
+      "Language": 1,
+      "Text": "Plans d'affectation (cantonaux/communaux): Zones d'affectation - synthèse"
+     }
+    ]
+   },
+   {
+    "Code": "ch.Nutzungsplanung",
+    "SubCode": "ch.GE.Zonedaffectationprimaire",
+    "Text": [
+     {
+      "Language": 1,
+      "Text": "Plans d'affectation (cantonaux/communaux): Zone d'affectation primaire"
+     }
+    ]
+   },
+   {
+    "Code": "ch.Nutzungsplanung",
+    "SubCode": "ch.GE.Plandutilisationdusol",
+    "Text": [
+     {
+      "Language": 1,
+      "Text": "Plans d'affectation (cantonaux/communaux): Plan d'utilisation du sol"
+     }
+    ]
+   },
+   {
+    "Code": "ch.Nutzungsplanung",
+    "SubCode": "ch.GE.Zoneprotge",
+    "Text": [
+     {
+      "Language": 1,
+      "Text": "Plans d'affectation (cantonaux/communaux): Zone protégée"
+     }
+    ]
+   },
+   {
+    "Code": "ch.Laermempfindlichkeitsstufen",
+    "SubCode": null,
+    "Text": [
+     {
+      "Language": 1,
+      "Text": "Degré de sensibilité au bruit (dans les zones d'affectation)"
+     }
+    ]
+   }
+  ],
+  "NotConcernedTheme": [
+   {
+    "Code": "ch.Planungszonen",
+    "SubCode": null,
+    "Text": [
+     {
+      "Language": 1,
+      "Text": "Zones réservées"
+     }
+    ]
+   },
+   {
+    "Code": "ch.Nutzungsplanung",
+    "SubCode": "ch.GE.Zonedaffectationsuperpose",
+    "Text": [
+     {
+      "Language": 1,
+      "Text": "Plans d'affectation (cantonaux/communaux): Zone d'affectation superposée"
+     }
+    ]
+   },
+   {
+    "Code": "ch.Nutzungsplanung",
+    "SubCode": "ch.GE.Planlocalisdequartier",
+    "Text": [
+     {
+      "Language": 1,
+      "Text": "Plans d'affectation (cantonaux/communaux): Plan localisé de quartier"
+     }
+    ]
+   },
+   {
+    "Code": "ch.Nutzungsplanung",
+    "SubCode": "ch.GE.Plandesite",
+    "Text": [
+     {
+      "Language": 1,
+      "Text": "Plans d'affectation (cantonaux/communaux): Plan de site"
+     }
+    ]
+   },
+   {
+    "Code": "ch.Nutzungsplanung",
+    "SubCode": "ch.GE.Plandirecteurdeszonesdedveloppementdactivitsmixtes",
+    "Text": [
+     {
+      "Language": 1,
+      "Text": "Plans d'affectation (cantonaux/communaux): Plan directeur des zones de développement d'activités mixtes"
+     }
+    ]
+   },
+   {
+    "Code": "ch.Nutzungsplanung",
+    "SubCode": "ch.GE.Plandirecteurdeszonesdedveloppementindustriel",
+    "Text": [
+     {
+      "Language": 1,
+      "Text": "Plans d'affectation (cantonaux/communaux): Plan directeur des zones de développement industriel"
+     }
+    ]
+   },
+   {
+    "Code": "ch.Nutzungsplanung",
+    "SubCode": "ch.GE.Planlocalisagricole",
+    "Text": [
+     {
+      "Language": 1,
+      "Text": "Plans d'affectation (cantonaux/communaux): Plan localisé agricole"
+     }
+    ]
+   },
+   {
+    "Code": "ch.Nutzungsplanung",
+    "SubCode": "ch.GE.Planlocalisdecheminpdestre",
+    "Text": [
+     {
+      "Language": 1,
+      "Text": "Plans d'affectation (cantonaux/communaux): Plan localisé de chemin pédestre"
+     }
+    ]
+   },
+   {
+    "Code": "ch.Nutzungsplanung",
+    "SubCode": "ch.GE.Plandextractiondesgravires",
+    "Text": [
+     {
+      "Language": 1,
+      "Text": "Plans d'affectation (cantonaux/communaux): Plan d'extraction des gravières"
+     }
+    ]
+   },
+   {
+    "Code": "ch.Nutzungsplanung",
+    "SubCode": "ch.GE.Plandessurfacesinconstructibles",
+    "Text": [
+     {
+      "Language": 1,
+      "Text": "Plans d'affectation (cantonaux/communaux): Plan des surfaces inconstructibles"
+     }
+    ]
+   },
+   {
+    "Code": "ch.Nutzungsplanung",
+    "SubCode": "ch.GE.Zonesuperposedeprotectiondelanaturedupaysage",
+    "Text": [
+     {
+      "Language": 1,
+      "Text": "Plans d'affectation (cantonaux/communaux): Zone superposée de protection de la nature du paysage"
+     }
+    ]
+   },
+   {
+    "Code": "ch.Nutzungsplanung",
+    "SubCode": "ch.GE.Rglementsspciaux",
+    "Text": [
+     {
+      "Language": 1,
+      "Text": "Plans d'affectation (cantonaux/communaux): Règlements spéciaux"
+     }
+    ]
+   },
+   {
+    "Code": "ch.ProjektierungszonenNationalstrassen",
+    "SubCode": null,
+    "Text": [
+     {
+      "Language": 1,
+      "Text": "Zones réservées des routes nationales"
+     }
+    ]
+   },
+   {
+    "Code": "ch.BaulinienNationalstrassen",
+    "SubCode": null,
+    "Text": [
+     {
+      "Language": 1,
+      "Text": "Alignements des routes nationales"
+     }
+    ]
+   },
+   {
+    "Code": "ch.GE.LimitesRoutesCantComm",
+    "SubCode": null,
+    "Text": [
+     {
+      "Language": 1,
+      "Text": "Alignements de construction des routes cantonales et communales - LRoutes Art. 11 (Information supplémentaire selon l'art. 8b, al. 1, let. b OCRDP)"
+     }
+    ]
+   },
+   {
+    "Code": "ch.ProjektierungszonenEisenbahnanlagen",
+    "SubCode": null,
+    "Text": [
+     {
+      "Language": 1,
+      "Text": "Zones réservées des installations ferroviaires"
+     }
+    ]
+   },
+   {
+    "Code": "ch.BaulinienEisenbahnanlagen",
+    "SubCode": null,
+    "Text": [
+     {
+      "Language": 1,
+      "Text": "Alignements des installations ferroviaires"
+     }
+    ]
+   },
+   {
+    "Code": "ch.ProjektierungszonenFlughafenanlagen",
+    "SubCode": null,
+    "Text": [
+     {
+      "Language": 1,
+      "Text": "Zones réservées des installations aéroportuaires"
+     }
+    ]
+   },
+   {
+    "Code": "ch.BaulinienFlughafenanlagen",
+    "SubCode": null,
+    "Text": [
+     {
+      "Language": 1,
+      "Text": "Alignements des installations aéroportuaires"
+     }
+    ]
+   },
+   {
+    "Code": "ch.Sicherheitszonenplan",
+    "SubCode": null,
+    "Text": [
+     {
+      "Language": 1,
+      "Text": "Plan de la zone de sécurité"
+     }
+    ]
+   },
+   {
+    "Code": "ch.BelasteteStandorte",
+    "SubCode": null,
+    "Text": [
+     {
+      "Language": 1,
+      "Text": "Cadastre des sites pollués"
+     }
+    ]
+   },
+   {
+    "Code": "ch.BelasteteStandorteMilitaer",
+    "SubCode": null,
+    "Text": [
+     {
+      "Language": 1,
+      "Text": "Cadastre des sites pollués – domaine militaire"
+     }
+    ]
+   },
+   {
+    "Code": "ch.BelasteteStandorteZivileFlugplaetze",
+    "SubCode": null,
+    "Text": [
+     {
+      "Language": 1,
+      "Text": "Cadastre des sites pollués – domaine des aérodromes civils"
+     }
+    ]
+   },
+   {
+    "Code": "ch.BelasteteStandorteOeffentlicherVerkehr",
+    "SubCode": null,
+    "Text": [
+     {
+      "Language": 1,
+      "Text": "Cadastre des sites pollués – domaine des transports publics"
+     }
+    ]
+   },
+   {
+    "Code": "ch.Grundwasserschutzzonen",
+    "SubCode": null,
+    "Text": [
+     {
+      "Language": 1,
+      "Text": "Zones de protection des eaux souterraines"
+     }
+    ]
+   },
+   {
+    "Code": "ch.Grundwasserschutzareale",
+    "SubCode": null,
+    "Text": [
+     {
+      "Language": 1,
+      "Text": "Périmètres de protection des eaux souterraines"
+     }
+    ]
+   },
+   {
+    "Code": "ch.StatischeWaldgrenzen",
+    "SubCode": null,
+    "Text": [
+     {
+      "Language": 1,
+      "Text": "Limites forestières statiques"
+     }
+    ]
+   },
+   {
+    "Code": "ch.Waldabstandslinien",
+    "SubCode": null,
+    "Text": [
+     {
+      "Language": 1,
+      "Text": "Distances par rapport à la forêt"
+     }
+    ]
+   },
+   {
+    "Code": "ch.Waldreservate",
+    "SubCode": null,
+    "Text": [
+     {
+      "Language": 1,
+      "Text": "Réserves forestières"
+     }
+    ]
+   },
+   {
+    "Code": "ch.GE.CadastreForestier",
+    "SubCode": null,
+    "Text": [
+     {
+      "Language": 1,
+      "Text": "Cadastre de la forêt (Information supplémentaire selon l'art. 8b, al. 1, let. b OCRDP)"
+     }
+    ]
+   },
+   {
+    "Code": "ch.ProjektierungszonenStarkstromanlagen",
+    "SubCode": null,
+    "Text": [
+     {
+      "Language": 1,
+      "Text": "Zones réservées des lignes d'une tension nominale égale ou supérieure à 220 kV"
+     }
+    ]
+   },
+   {
+    "Code": "ch.BaulinienStarkstromanlagen",
+    "SubCode": null,
+    "Text": [
+     {
+      "Language": 1,
+      "Text": "Alignements des installations électriques à courant fort"
+     }
+    ]
+   },
+   {
+    "Code": "ch.GE.OuvragesSouterrains",
+    "SubCode": null,
+    "Text": [
+     {
+      "Language": 1,
+      "Text": "Ouvrages souterrains - LPMNS Art. 41 a-j (Information supplémentaire selon l'art. 8b, al. 1, let. b OCRDP)"
+     }
+    ]
+   }
+  ],
+  "ThemeWithoutData": [
+   {
+    "Code": "ch.Gewaesserraum",
+    "SubCode": null,
+    "Text": [
+     {
+      "Language": 1,
+      "Text": "Espace réservé aux eaux"
+     }
+    ]
+   }
+  ],
+  "ExtractIdentifier": "8FEE-A71A-7218-44F-21-4727",
+  "RealEstate": {
+   "Number": "4727",
+   "IdentDN": "21",
+   "EGRID": "CH328197656307",
+   "Type": {
+    "Code": 0,
+    "Text": [
+     {
+      "Language": 1,
+      "Text": "Bien-fonds"
+     }
+    ]
+   },
+   "Canton": 24,
+   "MunicipalityName": "Genève",
+   "MunicipalityCode": "6621",
+   "SubunitOfLandRegister": "Cité",
+   "SubunitOfLandRegisterDesignation": "Section",
+   "LandRegistryArea": "1851",
+   "RestrictionOnLandownership": [
+    {
+     "LegendText": [
+      {
+       "Language": 1,
+       "Text": "Zone 1"
+      }
+     ],
+     "Theme": {
+      "Code": "ch.Nutzungsplanung",
+      "SubCode": "ch.GE.Zonesdaffectationsynthse",
+      "Text": [
+       {
+        "Language": 1,
+        "Text": "Plans d'affectation (cantonaux/communaux): Zones d'affectation - synthèse"
+       }
+      ]
+     },
+     "TypeCode": "52:ee46ef24f47951de0763dc91a471faad",
+     "Lawstatus": {
+      "Code": 0,
+      "Text": [
+       {
+        "Language": 1,
+        "Text": "En vigueur"
+       }
+      ]
+     },
+     "AreaShare": "1851",
+     "PartInPercent": 100,
+     "LengthShare": "0",
+     "NrOfPoints": "0",
+     "LegalProvisions": [],
+     "ResponsibleOffice": {
+      "Name": [
+       {
+        "Language": 1,
+        "Text": "Office de l'urbanisme"
+       }
+      ],
+      "OfficeAtWeb": [
+       {
+        "Language": 1,
+        "Text": "https://www.ge.ch/organisation/office-urbanisme"
+       }
+      ],
+      "UID": null,
+      "Line1": null,
+      "Line2": null,
+      "Street": null,
+      "Number": null,
+      "PostalCode": null,
+      "City": null
+     }
+    },
+    {
+     "LegendText": [
+      {
+       "Language": 1,
+       "Text": "Zone 1"
+      }
+     ],
+     "Theme": {
+      "Code": "ch.Nutzungsplanung",
+      "SubCode": "ch.GE.Zonedaffectationprimaire",
+      "Text": [
+       {
+        "Language": 1,
+        "Text": "Plans d'affectation (cantonaux/communaux): Zone d'affectation primaire"
+       }
+      ]
+     },
+     "TypeCode": "53:ee46ef24f47951de0763dc91a471faad",
+     "Lawstatus": {
+      "Code": 0,
+      "Text": [
+       {
+        "Language": 1,
+        "Text": "En vigueur"
+       }
+      ]
+     },
+     "AreaShare": "1851",
+     "PartInPercent": 100,
+     "LengthShare": "0",
+     "NrOfPoints": "0",
+     "LegalProvisions": [
+      {
+       "Type": {
+        "Code": 0,
+        "Text": [
+         {
+          "Language": 1,
+          "Text": "Disposition juridique"
+         }
+        ]
+       },
+       "Title": [
+        {
+         "Language": 1,
+         "Text": "Plan"
+        }
+       ],
+       "Abbreviation": null,
+       "OfficialNumber": null,
+       "TextAtWeb": [
+        {
+         "Language": 1,
+         "Text": "https://ge.ch/sitg/RDPPF/RDPPF-AMENAGEMENT/MZ/27527.pdf"
+        }
+       ],
+       "ArticleNumber": null,
+       "Lawstatus": {
+        "Code": 0,
+        "Text": [
+         {
+          "Language": 1,
+          "Text": "En vigueur"
+         }
+        ]
+       },
+       "Index": "1",
+       "ResponsibleOffice": {
+        "Name": [
+         {
+          "Language": 1,
+          "Text": "Office de l'urbanisme"
+         }
+        ],
+        "OfficeAtWeb": [
+         {
+          "Language": 1,
+          "Text": "https://www.ge.ch/organisation/office-urbanisme"
+         }
+        ],
+        "UID": null,
+        "Line1": null,
+        "Line2": null,
+        "Street": null,
+        "Number": null,
+        "PostalCode": null,
+        "City": null
+       }
+      }
+     ],
+     "ResponsibleOffice": {
+      "Name": [
+       {
+        "Language": 1,
+        "Text": "Office de l'urbanisme"
+       }
+      ],
+      "OfficeAtWeb": [
+       {
+        "Language": 1,
+        "Text": "https://www.ge.ch/organisation/office-urbanisme"
+       }
+      ],
+      "UID": null,
+      "Line1": null,
+      "Line2": null,
+      "Street": null,
+      "Number": null,
+      "PostalCode": null,
+      "City": null
+     }
+    },
+    {
+     "LegendText": [
+      {
+       "Language": 1,
+       "Text": "Plan d'utilisation du sol"
+      }
+     ],
+     "Theme": {
+      "Code": "ch.Nutzungsplanung",
+      "SubCode": "ch.GE.Plandutilisationdusol",
+      "Text": [
+       {
+        "Language": 1,
+        "Text": "Plans d'affectation (cantonaux/communaux): Plan d'utilisation du sol"
+       }
+      ]
+     },
+     "TypeCode": "56:3f41226350979941af278e38acc76373",
+     "Lawstatus": {
+      "Code": 0,
+      "Text": [
+       {
+        "Language": 1,
+        "Text": "En vigueur"
+       }
+      ]
+     },
+     "AreaShare": "1851",
+     "PartInPercent": 100,
+     "LengthShare": "0",
+     "NrOfPoints": "0",
+     "LegalProvisions": [
+      {
+       "Type": {
+        "Code": 0,
+        "Text": [
+         {
+          "Language": 1,
+          "Text": "Disposition juridique"
+         }
+        ]
+       },
+       "Title": [
+        {
+         "Language": 1,
+         "Text": "Plan"
+        }
+       ],
+       "Abbreviation": null,
+       "OfficialNumber": null,
+       "TextAtWeb": [
+        {
+         "Language": 1,
+         "Text": "https://ge.ch/sitg/RDPPF/RDPPF-AMENAGEMENT/PUS/PUS_VDG.pdf"
+        }
+       ],
+       "ArticleNumber": null,
+       "Lawstatus": {
+        "Code": 0,
+        "Text": [
+         {
+          "Language": 1,
+          "Text": "En vigueur"
+         }
+        ]
+       },
+       "Index": "1",
+       "ResponsibleOffice": {
+        "Name": [
+         {
+          "Language": 1,
+          "Text": "Office de l'urbanisme"
+         }
+        ],
+        "OfficeAtWeb": [
+         {
+          "Language": 1,
+          "Text": "https://www.ge.ch/organisation/office-urbanisme"
+         }
+        ],
+        "UID": null,
+        "Line1": null,
+        "Line2": null,
+        "Street": null,
+        "Number": null,
+        "PostalCode": null,
+        "City": null
+       }
+      }
+     ],
+     "ResponsibleOffice": {
+      "Name": [
+       {
+        "Language": 1,
+        "Text": "Office de l'urbanisme"
+       }
+      ],
+      "OfficeAtWeb": [
+       {
+        "Language": 1,
+        "Text": "https://www.ge.ch/organisation/office-urbanisme"
+       }
+      ],
+      "UID": null,
+      "Line1": null,
+      "Line2": null,
+      "Street": null,
+      "Number": null,
+      "PostalCode": null,
+      "City": null
+     }
+    },
+    {
+     "LegendText": [
+      {
+       "Language": 1,
+       "Text": "Degré de sensibilité II"
+      }
+     ],
+     "Theme": {
+      "Code": "ch.Laermempfindlichkeitsstufen",
+      "SubCode": null,
+      "Text": [
+       {
+        "Language": 1,
+        "Text": "Degré de sensibilité au bruit (dans les zones d'affectation)"
+       }
+      ]
+     },
+     "TypeCode": "64:fe0db1f4dba34a9ac23d9374cfe2f6da",
+     "Lawstatus": {
+      "Code": 0,
+      "Text": [
+       {
+        "Language": 1,
+        "Text": "En vigueur"
+       }
+      ]
+     },
+     "AreaShare": "1851",
+     "PartInPercent": 100,
+     "LengthShare": "0",
+     "NrOfPoints": "0",
+     "LegalProvisions": [
+      {
+       "Type": {
+        "Code": 0,
+        "Text": [
+         {
+          "Language": 1,
+          "Text": "Disposition juridique"
+         }
+        ]
+       },
+       "Title": [
+        {
+         "Language": 1,
+         "Text": "Plan"
+        }
+       ],
+       "Abbreviation": null,
+       "OfficialNumber": null,
+       "TextAtWeb": [
+        {
+         "Language": 1,
+         "Text": "https://ge.ch/sitg/RDPPF/RDPPF-AMENAGEMENT/DSOPB/29321.pdf"
+        }
+       ],
+       "ArticleNumber": null,
+       "Lawstatus": {
+        "Code": 0,
+        "Text": [
+         {
+          "Language": 1,
+          "Text": "En vigueur"
+         }
+        ]
+       },
+       "Index": "1",
+       "ResponsibleOffice": {
+        "Name": [
+         {
+          "Language": 1,
+          "Text": "Office de l'urbanisme"
+         }
+        ],
+        "OfficeAtWeb": [
+         {
+          "Language": 1,
+          "Text": "https://www.ge.ch/organisation/office-urbanisme"
+         }
+        ],
+        "UID": null,
+        "Line1": null,
+        "Line2": null,
+        "Street": null,
+        "Number": null,
+        "PostalCode": null,
+        "City": null
+       }
+      }
+     ],
+     "ResponsibleOffice": {
+      "Name": [
+       {
+        "Language": 1,
+        "Text": "Office de l'urbanisme"
+       }
+      ],
+      "OfficeAtWeb": [
+       {
+        "Language": 1,
+        "Text": "https://www.ge.ch/organisation/office-urbanisme"
+       }
+      ],
+      "UID": null,
+      "Line1": null,
+      "Line2": null,
+      "Street": null,
+      "Number": null,
+      "PostalCode": null,
+      "City": null
+     }
+    },
+    {
+     "LegendText": [
+      {
+       "Language": 1,
+       "Text": "Zone protégée"
+      }
+     ],
+     "Theme": {
+      "Code": "ch.Nutzungsplanung",
+      "SubCode": "ch.GE.Zoneprotge",
+      "Text": [
+       {
+        "Language": 1,
+        "Text": "Plans d'affectation (cantonaux/communaux): Zone protégée"
+       }
+      ]
+     },
+     "TypeCode": "99:08b4b17c7bf0712a0f0008e2799a0b1a",
+     "Lawstatus": {
+      "Code": 0,
+      "Text": [
+       {
+        "Language": 1,
+        "Text": "En vigueur"
+       }
+      ]
+     },
+     "AreaShare": "1851",
+     "PartInPercent": 100,
+     "LengthShare": "0",
+     "NrOfPoints": "0",
+     "LegalProvisions": [
+      {
+       "Type": {
+        "Code": 0,
+        "Text": [
+         {
+          "Language": 1,
+          "Text": "Disposition juridique"
+         }
+        ]
+       },
+       "Title": [
+        {
+         "Language": 1,
+         "Text": "Plan"
+        }
+       ],
+       "Abbreviation": null,
+       "OfficialNumber": null,
+       "TextAtWeb": [
+        {
+         "Language": 1,
+         "Text": "https://ge.ch/sitg/RDPPF/RDPPF-PATRIMOINE/ZP/27889.pdf"
+        }
+       ],
+       "ArticleNumber": null,
+       "Lawstatus": {
+        "Code": 0,
+        "Text": [
+         {
+          "Language": 1,
+          "Text": "En vigueur"
+         }
+        ]
+       },
+       "Index": "1",
+       "ResponsibleOffice": {
+        "Name": [
+         {
+          "Language": 1,
+          "Text": "Office du patrimoine et des sites"
+         }
+        ],
+        "OfficeAtWeb": [
+         {
+          "Language": 1,
+          "Text": "https://www.ge.ch/organisation/office-du-patrimoine-sites"
+         }
+        ],
+        "UID": null,
+        "Line1": null,
+        "Line2": null,
+        "Street": null,
+        "Number": null,
+        "PostalCode": null,
+        "City": null
+       }
+      }
+     ],
+     "ResponsibleOffice": {
+      "Name": [
+       {
+        "Language": 1,
+        "Text": "Office du patrimoine et des sites"
+       }
+      ],
+      "OfficeAtWeb": [
+       {
+        "Language": 1,
+        "Text": "https://www.ge.ch/organisation/office-du-patrimoine-sites"
+       }
+      ],
+      "UID": null,
+      "Line1": null,
+      "Line2": null,
+      "Street": null,
+      "Number": null,
+      "PostalCode": null,
+      "City": null
+     }
+    }
+   ]
+  },
+  "PLRCadastreAuthority": {
+   "Name": [
+    {
+     "Language": 1,
+     "Text": "Office de l'urbanisme"
+    }
+   ],
+   "OfficeAtWeb": [
+    {
+     "Language": 1,
+     "Text": "http://ge.ch/amenagement"
+    }
+   ],
+   "UID": null,
+   "Line1": "Case postale 224",
+   "Line2": "1211 Genève 8",
+   "Street": "Rue David-Dufour",
+   "Number": "5",
+   "PostalCode": "1211",
+   "City": "Genève 8"
+  },
+  "UpdateDateCS": "/Date(1792132024231)/",
+  "id": null
+ }
+}

@@ -1,0 +1,868 @@
+{
+ "_hinweis": "Echte Antwort vom 16.10.2026, verkleinert mit scripts/oereb-fixture.ts: https://map.geo.tg.ch/services/oereb/extract/json?EGRID=CH507729918047&GEOMETRY=false&WITHIMAGES=false&LANG=de (Rathausplatz 1, 8500 Frauenfeld, Frauenfeld Parzelle 164, EGID 9083089). Geometrien, Bilder, Glossar und Rechtsvorschriften bis auf eine entfernt.",
+ "GetExtractByIdResponse": {
+  "extract": {
+   "CreationDate": "2026-10-16T08:26:09",
+   "PLRCadastreAuthority": {
+    "Name": [
+     {
+      "Text": "Amt für Geoinformation Kanton Thurgau",
+      "Language": "de"
+     }
+    ],
+    "OfficeAtWeb": [
+     {
+      "Text": "http://geoinformation.tg.ch",
+      "Language": "de"
+     }
+    ],
+    "Street": "Staubeggstrasse",
+    "Number": "3",
+    "PostalCode": "8510",
+    "City": "Frauenfeld"
+   },
+   "ConcernedTheme": [
+    {
+     "Code": "ch.Nutzungsplanung",
+     "Text": [
+      {
+       "Text": "Nutzungsplanung (kantonal/kommunal)",
+       "Language": "de"
+      }
+     ]
+    },
+    {
+     "Code": "ch.TG.Baulinienplaene",
+     "Text": [
+      {
+       "Text": "Baulinienplan",
+       "Language": "de"
+      }
+     ]
+    },
+    {
+     "Code": "ch.Laermempfindlichkeitsstufen",
+     "Text": [
+      {
+       "Text": "Lärmempfindlichkeitsstufen (in Nutzungszonen)",
+       "Language": "de"
+      }
+     ]
+    }
+   ],
+   "NotConcernedTheme": [
+    {
+     "Code": "ch.Planungszonen",
+     "Text": [
+      {
+       "Text": "Planungszonen",
+       "Language": "de"
+      }
+     ]
+    },
+    {
+     "Code": "ch.TG.VorpublikationNutzungsplanung",
+     "Text": [
+      {
+       "Text": "Vorpublikation Nutzungsplanung",
+       "Language": "de"
+      }
+     ]
+    },
+    {
+     "Code": "ch.TG.Gestaltungsplaene",
+     "Text": [
+      {
+       "Text": "Gestaltungsplan",
+       "Language": "de"
+      }
+     ]
+    },
+    {
+     "Code": "ch.TG.NaturKulturobjekte",
+     "Text": [
+      {
+       "Text": "Natur- und Kulturobjekte",
+       "Language": "de"
+      }
+     ]
+    },
+    {
+     "Code": "ch.TG.Amphibienlaichgebiete",
+     "Text": [
+      {
+       "Text": "Schutzpläne der Amphibienlaichgebiete von nationaler Bedeutung",
+       "Language": "de"
+      }
+     ]
+    },
+    {
+     "Code": "ch.TG.Auengebiete",
+     "Text": [
+      {
+       "Text": "Schutzpläne der Auengebiete von nationaler Bedeutung",
+       "Language": "de"
+      }
+     ]
+    },
+    {
+     "Code": "ch.TG.Flachmoore",
+     "Text": [
+      {
+       "Text": "Schutzpläne der Flachmoore von nationaler Bedeutung",
+       "Language": "de"
+      }
+     ]
+    },
+    {
+     "Code": "ch.TG.Hochuebergangsmoore",
+     "Text": [
+      {
+       "Text": "Schutzpläne der Hoch- und Übergangsmoore von nationaler Bedeutung",
+       "Language": "de"
+      }
+     ]
+    },
+    {
+     "Code": "ch.TG.Kleinsiedlungen",
+     "Text": [
+      {
+       "Text": "Kleinsiedlungen",
+       "Language": "de"
+      }
+     ]
+    },
+    {
+     "Code": "ch.ProjektierungszonenNationalstrassen",
+     "Text": [
+      {
+       "Text": "Projektierungszonen Nationalstrassen",
+       "Language": "de"
+      }
+     ]
+    },
+    {
+     "Code": "ch.BaulinienNationalstrassen",
+     "Text": [
+      {
+       "Text": "Baulinien Nationalstrassen",
+       "Language": "de"
+      }
+     ]
+    },
+    {
+     "Code": "ch.ProjektierungszonenEisenbahnanlagen",
+     "Text": [
+      {
+       "Text": "Projektierungszonen Eisenbahnanlagen",
+       "Language": "de"
+      }
+     ]
+    },
+    {
+     "Code": "ch.BaulinienEisenbahnanlagen",
+     "Text": [
+      {
+       "Text": "Baulinien Eisenbahnanlagen",
+       "Language": "de"
+      }
+     ]
+    },
+    {
+     "Code": "ch.ProjektierungszonenFlughafenanlagen",
+     "Text": [
+      {
+       "Text": "Projektierungszonen Flughafenanlagen",
+       "Language": "de"
+      }
+     ]
+    },
+    {
+     "Code": "ch.BaulinienFlughafenanlagen",
+     "Text": [
+      {
+       "Text": "Baulinien Flughafenanlagen",
+       "Language": "de"
+      }
+     ]
+    },
+    {
+     "Code": "ch.Sicherheitszonenplan",
+     "Text": [
+      {
+       "Text": "Sicherheitszonenplan",
+       "Language": "de"
+      }
+     ]
+    },
+    {
+     "Code": "ch.BelasteteStandorte",
+     "Text": [
+      {
+       "Text": "Kataster der belasteten Standorte",
+       "Language": "de"
+      }
+     ]
+    },
+    {
+     "Code": "ch.BelasteteStandorteMilitaer",
+     "Text": [
+      {
+       "Text": "Kataster der belasteten Standorte im Bereich des Militärs",
+       "Language": "de"
+      }
+     ]
+    },
+    {
+     "Code": "ch.BelasteteStandorteZivileFlugplaetze",
+     "Text": [
+      {
+       "Text": "Kataster der belasteten Standorte im Bereich der zivilen Flugplätze",
+       "Language": "de"
+      }
+     ]
+    },
+    {
+     "Code": "ch.BelasteteStandorteOeffentlicherVerkehr",
+     "Text": [
+      {
+       "Text": "Kataster der belasteten Standorte im Bereich des öffentlichen Verkehrs",
+       "Language": "de"
+      }
+     ]
+    },
+    {
+     "Code": "ch.Grundwasserschutzzonen",
+     "Text": [
+      {
+       "Text": "Grundwasserschutzzonen",
+       "Language": "de"
+      }
+     ]
+    },
+    {
+     "Code": "ch.Grundwasserschutzareale",
+     "Text": [
+      {
+       "Text": "Grundwasserschutzareale",
+       "Language": "de"
+      }
+     ]
+    },
+    {
+     "Code": "ch.StatischeWaldgrenzen",
+     "Text": [
+      {
+       "Text": "Statische Waldgrenzen",
+       "Language": "de"
+      }
+     ]
+    },
+    {
+     "Code": "ch.Waldreservate",
+     "Text": [
+      {
+       "Text": "Waldreservate",
+       "Language": "de"
+      }
+     ]
+    },
+    {
+     "Code": "ch.ProjektierungszonenStarkstromanlagen",
+     "Text": [
+      {
+       "Text": "Projektierungszonen Leitungen mit einer Nennspannung von 220 kV oder höher",
+       "Language": "de"
+      }
+     ]
+    },
+    {
+     "Code": "ch.BaulinienStarkstromanlagen",
+     "Text": [
+      {
+       "Text": "Baulinien Starkstromanlagen",
+       "Language": "de"
+      }
+     ]
+    }
+   ],
+   "ThemeWithoutData": [
+    {
+     "Code": "ch.Gewaesserraum",
+     "Text": [
+      {
+       "Text": "Gewässerraum",
+       "Language": "de"
+      }
+     ]
+    },
+    {
+     "Code": "ch.GewaesserraumVerzicht",
+     "Text": [
+      {
+       "Text": "Gewässerraum: Zusatzinformation nach Art. 8b Abs. 1 Bst. B ÖREBKV",
+       "Language": "de"
+      }
+     ]
+    },
+    {
+     "Code": "ch.Waldabstandslinien",
+     "Text": [
+      {
+       "Text": "Waldabstandslinien",
+       "Language": "de"
+      }
+     ]
+    }
+   ],
+   "RealEstate": {
+    "Number": "164",
+    "IdentDN": "TG4566",
+    "EGRID": "CH507729918047",
+    "Type": {
+     "Code": "RealEstate",
+     "Text": [
+      {
+       "Language": "de",
+       "Text": "Liegenschaft"
+      }
+     ]
+    },
+    "Canton": "TG",
+    "MunicipalityName": "Frauenfeld",
+    "MunicipalityCode": 8500,
+    "SubunitOfLandRegister": "Frauenfeld",
+    "SubunitOfLandRegisterDesignation": "Grundbuch",
+    "LandRegistryArea": 199,
+    "RestrictionOnLandownership": [
+     {
+      "LegendText": [
+       {
+        "Text": "Kernzone Altstadt (KA)",
+        "Language": "de"
+       }
+      ],
+      "Theme": {
+       "Code": "ch.Nutzungsplanung",
+       "SubCode": "ch.TG.NutzungsplanungGrundnutzung",
+       "Text": [
+        {
+         "Text": "Nutzungsplanung (kantonal/kommunal)",
+         "Language": "de"
+        }
+       ]
+      },
+      "TypeCode": "1405",
+      "Lawstatus": {
+       "Code": "inForce",
+       "Text": [
+        {
+         "Language": "de",
+         "Text": "Rechtskräftig"
+        }
+       ]
+      },
+      "AreaShare": 199,
+      "PartInPercent": 100,
+      "LegalProvisions": [
+       {
+        "Type": {
+         "Code": "LegalProvision",
+         "Text": [
+          {
+           "Text": "Rechtsvorschrift",
+           "Language": "de"
+          }
+         ]
+        },
+        "Title": [
+         {
+          "Text": "Baureglement",
+          "Language": "de"
+         }
+        ],
+        "Abbreviation": [
+         {
+          "Text": "",
+          "Language": "de"
+         }
+        ],
+        "OfficialNumber": [
+         {
+          "Text": "DBU 65",
+          "Language": "de"
+         }
+        ],
+        "TextAtWeb": [
+         {
+          "Text": "https://oereblex.tg.ch/api/attachments/15891",
+          "Language": "de"
+         }
+        ],
+        "Lawstatus": {
+         "Code": "inForce",
+         "Text": [
+          {
+           "Text": "Rechtskräftig",
+           "Language": "de"
+          }
+         ]
+        },
+        "Index": 1,
+        "ResponsibleOffice": {
+         "Name": [
+          {
+           "Text": "Bauverwaltung Gemeinde Frauenfeld",
+           "Language": "de"
+          }
+         ],
+         "OfficeAtWeb": [
+          {
+           "Text": "http://www.frauenfeld.ch",
+           "Language": "de"
+          }
+         ]
+        }
+       }
+      ],
+      "ResponsibleOffice": {
+       "Name": [
+        {
+         "Text": "Bauverwaltung Gemeinde Frauenfeld",
+         "Language": "de"
+        }
+       ],
+       "OfficeAtWeb": [
+        {
+         "Text": "http://www.frauenfeld.ch",
+         "Language": "de"
+        }
+       ]
+      }
+     },
+     {
+      "LegendText": [
+       {
+        "Text": "Ortsbild-/ Umgebungsschutzzone (Os)",
+        "Language": "de"
+       }
+      ],
+      "Theme": {
+       "Code": "ch.Nutzungsplanung",
+       "SubCode": "ch.TG.NutzungsplanungGrundnutzung",
+       "Text": [
+        {
+         "Text": "Nutzungsplanung (kantonal/kommunal)",
+         "Language": "de"
+        }
+       ]
+      },
+      "TypeCode": "",
+      "Lawstatus": {
+       "Code": "inForce",
+       "Text": [
+        {
+         "Language": "de",
+         "Text": "Rechtskräftig"
+        }
+       ]
+      },
+      "AreaShare": 199,
+      "PartInPercent": 100,
+      "LegalProvisions": [
+       {
+        "Type": {
+         "Code": "LegalProvision",
+         "Text": [
+          {
+           "Text": "Rechtsvorschrift",
+           "Language": "de"
+          }
+         ]
+        },
+        "Title": [
+         {
+          "Text": "Baureglement",
+          "Language": "de"
+         }
+        ],
+        "Abbreviation": [
+         {
+          "Text": "",
+          "Language": "de"
+         }
+        ],
+        "OfficialNumber": [
+         {
+          "Text": "DBU 65",
+          "Language": "de"
+         }
+        ],
+        "TextAtWeb": [
+         {
+          "Text": "https://oereblex.tg.ch/api/attachments/15891",
+          "Language": "de"
+         }
+        ],
+        "Lawstatus": {
+         "Code": "inForce",
+         "Text": [
+          {
+           "Text": "Rechtskräftig",
+           "Language": "de"
+          }
+         ]
+        },
+        "Index": 1,
+        "ResponsibleOffice": {
+         "Name": [
+          {
+           "Text": "Bauverwaltung Gemeinde Frauenfeld",
+           "Language": "de"
+          }
+         ],
+         "OfficeAtWeb": [
+          {
+           "Text": "http://www.frauenfeld.ch",
+           "Language": "de"
+          }
+         ]
+        }
+       }
+      ],
+      "ResponsibleOffice": {
+       "Name": [
+        {
+         "Text": "Bauverwaltung Gemeinde Frauenfeld",
+         "Language": "de"
+        }
+       ],
+       "OfficeAtWeb": [
+        {
+         "Text": "http://www.frauenfeld.ch",
+         "Language": "de"
+        }
+       ]
+      }
+     },
+     {
+      "LegendText": [
+       {
+        "Text": "Baulinienplan",
+        "Language": "de"
+       }
+      ],
+      "Theme": {
+       "Code": "ch.TG.Baulinienplaene",
+       "Text": [
+        {
+         "Text": "Baulinienplan",
+         "Language": "de"
+        }
+       ]
+      },
+      "TypeCode": "",
+      "Lawstatus": {
+       "Code": "inForce",
+       "Text": [
+        {
+         "Language": "de",
+         "Text": "Rechtskräftig"
+        }
+       ]
+      },
+      "AreaShare": 199,
+      "PartInPercent": 100,
+      "LegalProvisions": [
+       {
+        "Type": {
+         "Code": "LegalProvision",
+         "Text": [
+          {
+           "Text": "Rechtsvorschrift",
+           "Language": "de"
+          }
+         ]
+        },
+        "Title": [
+         {
+          "Text": "Sondernutzungsplan Zürcherstrasse (Murg bis Kath. Kirche) in Kraft seit 18.07.1933",
+          "Language": "de"
+         }
+        ],
+        "Abbreviation": [
+         {
+          "Text": "",
+          "Language": "de"
+         }
+        ],
+        "OfficialNumber": [
+         {
+          "Text": "Nr. 1519",
+          "Language": "de"
+         }
+        ],
+        "TextAtWeb": [
+         {
+          "Text": "https://oereblex.tg.ch/api/attachments/8354",
+          "Language": "de"
+         }
+        ],
+        "Lawstatus": {
+         "Code": "inForce",
+         "Text": [
+          {
+           "Text": "Rechtskräftig",
+           "Language": "de"
+          }
+         ]
+        },
+        "Index": 0,
+        "ResponsibleOffice": {
+         "Name": [
+          {
+           "Text": "Bauverwaltung Gemeinde Frauenfeld",
+           "Language": "de"
+          }
+         ],
+         "OfficeAtWeb": [
+          {
+           "Text": "http://www.frauenfeld.ch",
+           "Language": "de"
+          }
+         ]
+        }
+       }
+      ],
+      "ResponsibleOffice": {
+       "Name": [
+        {
+         "Text": "Bauverwaltung Gemeinde Frauenfeld",
+         "Language": "de"
+        }
+       ],
+       "OfficeAtWeb": [
+        {
+         "Text": "http://www.frauenfeld.ch",
+         "Language": "de"
+        }
+       ]
+      }
+     },
+     {
+      "LegendText": [
+       {
+        "Text": "Baulinienplan",
+        "Language": "de"
+       }
+      ],
+      "Theme": {
+       "Code": "ch.TG.Baulinienplaene",
+       "Text": [
+        {
+         "Text": "Baulinienplan",
+         "Language": "de"
+        }
+       ]
+      },
+      "TypeCode": "",
+      "Lawstatus": {
+       "Code": "inForce",
+       "Text": [
+        {
+         "Language": "de",
+         "Text": "Rechtskräftig"
+        }
+       ]
+      },
+      "AreaShare": 199,
+      "PartInPercent": 100,
+      "LegalProvisions": [
+       {
+        "Type": {
+         "Code": "LegalProvision",
+         "Text": [
+          {
+           "Text": "Rechtsvorschrift",
+           "Language": "de"
+          }
+         ]
+        },
+        "Title": [
+         {
+          "Text": "Sondernutzungsplan Mittelgasse in Kraft seit 25.06.1934",
+          "Language": "de"
+         }
+        ],
+        "Abbreviation": [
+         {
+          "Text": "",
+          "Language": "de"
+         }
+        ],
+        "OfficialNumber": [
+         {
+          "Text": "Nr. 1392",
+          "Language": "de"
+         }
+        ],
+        "TextAtWeb": [
+         {
+          "Text": "https://oereblex.tg.ch/api/attachments/8506",
+          "Language": "de"
+         }
+        ],
+        "Lawstatus": {
+         "Code": "inForce",
+         "Text": [
+          {
+           "Text": "Rechtskräftig",
+           "Language": "de"
+          }
+         ]
+        },
+        "Index": 0,
+        "ResponsibleOffice": {
+         "Name": [
+          {
+           "Text": "Bauverwaltung Gemeinde Frauenfeld",
+           "Language": "de"
+          }
+         ],
+         "OfficeAtWeb": [
+          {
+           "Text": "http://www.frauenfeld.ch",
+           "Language": "de"
+          }
+         ]
+        }
+       }
+      ],
+      "ResponsibleOffice": {
+       "Name": [
+        {
+         "Text": "Bauverwaltung Gemeinde Frauenfeld",
+         "Language": "de"
+        }
+       ],
+       "OfficeAtWeb": [
+        {
+         "Text": "http://www.frauenfeld.ch",
+         "Language": "de"
+        }
+       ]
+      }
+     },
+     {
+      "LegendText": [
+       {
+        "Text": "Empfindlichkeitsstufe III",
+        "Language": "de"
+       }
+      ],
+      "Theme": {
+       "Code": "ch.Laermempfindlichkeitsstufen",
+       "Text": [
+        {
+         "Text": "Lärmempfindlichkeitsstufen (in Nutzungszonen)",
+         "Language": "de"
+        }
+       ]
+      },
+      "TypeCode": "1405",
+      "Lawstatus": {
+       "Code": "inForce",
+       "Text": [
+        {
+         "Language": "de",
+         "Text": "Rechtskräftig"
+        }
+       ]
+      },
+      "AreaShare": 199,
+      "PartInPercent": 100,
+      "LegalProvisions": [
+       {
+        "Type": {
+         "Code": "LegalProvision",
+         "Text": [
+          {
+           "Text": "Rechtsvorschrift",
+           "Language": "de"
+          }
+         ]
+        },
+        "Title": [
+         {
+          "Text": "Baureglement",
+          "Language": "de"
+         }
+        ],
+        "Abbreviation": [
+         {
+          "Text": "",
+          "Language": "de"
+         }
+        ],
+        "OfficialNumber": [
+         {
+          "Text": "DBU 65",
+          "Language": "de"
+         }
+        ],
+        "TextAtWeb": [
+         {
+          "Text": "https://oereblex.tg.ch/api/attachments/15891",
+          "Language": "de"
+         }
+        ],
+        "Lawstatus": {
+         "Code": "inForce",
+         "Text": [
+          {
+           "Text": "Rechtskräftig",
+           "Language": "de"
+          }
+         ]
+        },
+        "Index": 1,
+        "ResponsibleOffice": {
+         "Name": [
+          {
+           "Text": "Bauverwaltung Gemeinde Frauenfeld",
+           "Language": "de"
+          }
+         ],
+         "OfficeAtWeb": [
+          {
+           "Text": "http://www.frauenfeld.ch",
+           "Language": "de"
+          }
+         ]
+        }
+       }
+      ],
+      "ResponsibleOffice": {
+       "Name": [
+        {
+         "Text": "Bauverwaltung Gemeinde Frauenfeld",
+         "Language": "de"
+        }
+       ],
+       "OfficeAtWeb": [
+        {
+         "Text": "http://www.frauenfeld.ch",
+         "Language": "de"
+        }
+       ]
+      }
+     }
+    ]
+   },
+   "SubunitOfLandRegister": "",
+   "SubunitOfLandRegisterDesignation": "",
+   "ExtractIdentifier": "158e1808-b18c-4db8-a3f7-208a0c7b274f",
+   "UpdateDateCS": "2026-09-24T00:00:00"
+  }
+ }
+}

@@ -1,0 +1,1412 @@
+{
+ "_hinweis": "Echte Antwort vom 16.10.2026, verkleinert mit scripts/oereb-fixture.ts: https://svc.geo.lu.ch/oereb/extract/json?EGRID=CH373588605080&GEOMETRY=false&WITHIMAGES=false&LANG=de (Kornmarkt 3, 6004 Luzern, Luzern Parzelle 188, EGID 211748). Geometrien, Bilder, Glossar und Rechtsvorschriften bis auf eine entfernt.",
+ "schemaLocation": "http://schemas.geo.admin.ch/V_D/OeREB/2.0/Extract http://schemas.geo.admin.ch/V_D/OeREB/2.0/Extract.xsd",
+ "Extract": {
+  "CreationDate": "2026-10-16T08:24:26.9168905+02:00",
+  "ConcernedTheme": [
+   {
+    "Code": "ch.Nutzungsplanung",
+    "Text": [
+     {
+      "Language": "de",
+      "Text": "Nutzungsplanung (kantonal/kommunal)"
+     }
+    ]
+   },
+   {
+    "Code": "ch.Laermempfindlichkeitsstufen",
+    "Text": [
+     {
+      "Language": "de",
+      "Text": "Lärmempfindlichkeitsstufen (in Nutzungszonen)"
+     }
+    ]
+   },
+   {
+    "Code": "ch.LU.NaturalHazardMaps",
+    "Text": [
+     {
+      "Language": "de",
+      "Text": "Gefahrenkarte"
+     }
+    ]
+   },
+   {
+    "Code": "ch.LU.CulturalMonuments",
+    "Text": [
+     {
+      "Language": "de",
+      "Text": "Kulturdenkmäler"
+     }
+    ]
+   },
+   {
+    "Code": "ch.LU.ArchaeologicalSites",
+    "Text": [
+     {
+      "Language": "de",
+      "Text": "Archäologische Fundstellen"
+     }
+    ]
+   },
+   {
+    "Code": "ch.LU.PruefperimeterBodenverschiebung",
+    "Text": [
+     {
+      "Language": "de",
+      "Text": "Zusatzinformation: Prüfperimeter Bodenverschiebungen"
+     }
+    ]
+   }
+  ],
+  "NotConcernedTheme": [
+   {
+    "Code": "ch.LU.CantonalPlanningZones",
+    "Text": [
+     {
+      "Language": "de",
+      "Text": "Planungszonen kantonal"
+     }
+    ]
+   },
+   {
+    "Code": "ch.LU.MunicipalPlanningZones",
+    "Text": [
+     {
+      "Language": "de",
+      "Text": "Planungszonen kommunal"
+     }
+    ]
+   },
+   {
+    "Code": "ch.LU.LocalLandUsePlans",
+    "Text": [
+     {
+      "Language": "de",
+      "Text": "Sondernutzungsplanung"
+     }
+    ]
+   },
+   {
+    "Code": "ch.LU.ValueAddedTax",
+    "Text": [
+     {
+      "Language": "de",
+      "Text": "Mehrwertabgabe"
+     }
+    ]
+   },
+   {
+    "Code": "ch.LU.BuildingAreaTransfer",
+    "Text": [
+     {
+      "Language": "de",
+      "Text": "Gebäudeflächenübertrag"
+     }
+    ]
+   },
+   {
+    "Code": "ch.ProjektierungszonenNationalstrassen",
+    "Text": [
+     {
+      "Language": "de",
+      "Text": "Projektierungszonen Nationalstrassen"
+     }
+    ]
+   },
+   {
+    "Code": "ch.BaulinienNationalstrassen",
+    "Text": [
+     {
+      "Language": "de",
+      "Text": "Baulinien Nationalstrassen"
+     }
+    ]
+   },
+   {
+    "Code": "ch.LU.BuildlingLines",
+    "Text": [
+     {
+      "Language": "de",
+      "Text": "Baulinien kantonal"
+     }
+    ]
+   },
+   {
+    "Code": "ch.LU.BuildingLinesOngoingChanges",
+    "Text": [
+     {
+      "Language": "de",
+      "Text": "Baulinien kantonal (Änderungen mit Vorwirkung)"
+     }
+    ]
+   },
+   {
+    "Code": "ch.LU.LocalBuildingLines",
+    "Text": [
+     {
+      "Language": "de",
+      "Text": "Baulinien kommunal"
+     }
+    ]
+   },
+   {
+    "Code": "ch.LU.LocalBuildingLinesOngoingChanges",
+    "Text": [
+     {
+      "Language": "de",
+      "Text": "Baulinien kommunal (Änderungen mit Vorwirkung)"
+     }
+    ]
+   },
+   {
+    "Code": "ch.ProjektierungszonenEisenbahnanlagen",
+    "Text": [
+     {
+      "Language": "de",
+      "Text": "Projektierungszonen Eisenbahnanlagen"
+     }
+    ]
+   },
+   {
+    "Code": "ch.BaulinienEisenbahnanlagen",
+    "Text": [
+     {
+      "Language": "de",
+      "Text": "Baulinien Eisenbahnanlagen"
+     }
+    ]
+   },
+   {
+    "Code": "ch.ProjektierungszonenFlughafenanlagen",
+    "Text": [
+     {
+      "Language": "de",
+      "Text": "Projektierungszonen Flughafenanlagen"
+     }
+    ]
+   },
+   {
+    "Code": "ch.BaulinienFlughafenanlagen",
+    "Text": [
+     {
+      "Language": "de",
+      "Text": "Baulinien Flughafenanlagen"
+     }
+    ]
+   },
+   {
+    "Code": "ch.Sicherheitszonenplan",
+    "Text": [
+     {
+      "Language": "de",
+      "Text": "Sicherheitszonenplan"
+     }
+    ]
+   },
+   {
+    "Code": "ch.LU.SicherheitszonenplanOngoingChanges",
+    "Text": [
+     {
+      "Language": "de",
+      "Text": "Sicherheitszonenplan (Änderung mit Vorwirkung)"
+     }
+    ]
+   },
+   {
+    "Code": "ch.BelasteteStandorte",
+    "Text": [
+     {
+      "Language": "de",
+      "Text": "Kataster der belasteten Standorte"
+     }
+    ]
+   },
+   {
+    "Code": "ch.BelasteteStandorteMilitaer",
+    "Text": [
+     {
+      "Language": "de",
+      "Text": "Kataster der belasteten Standorte im Bereich des Militärs"
+     }
+    ]
+   },
+   {
+    "Code": "ch.BelasteteStandorteZivileFlugplaetze",
+    "Text": [
+     {
+      "Language": "de",
+      "Text": "Kataster der belasteten Standorte im Bereich der zivilen Flugplätze"
+     }
+    ]
+   },
+   {
+    "Code": "ch.BelasteteStandorteOeffentlicherVerkehr",
+    "Text": [
+     {
+      "Language": "de",
+      "Text": "Kataster der belasteten Standorte im Bereich des öffentlichen Verkehrs"
+     }
+    ]
+   },
+   {
+    "Code": "ch.Grundwasserschutzzonen",
+    "Text": [
+     {
+      "Language": "de",
+      "Text": "Grundwasserschutzzonen"
+     }
+    ]
+   },
+   {
+    "Code": "ch.Gewaesserraum",
+    "Text": [
+     {
+      "Language": "de",
+      "Text": "Gewässerraum"
+     }
+    ]
+   },
+   {
+    "Code": "ch.StatischeWaldgrenzen",
+    "Text": [
+     {
+      "Language": "de",
+      "Text": "Statische Waldgrenzen"
+     }
+    ]
+   },
+   {
+    "Code": "ch.Waldreservate",
+    "Text": [
+     {
+      "Language": "de",
+      "Text": "Waldreservate"
+     }
+    ]
+   },
+   {
+    "Code": "ch.LU.ReservedZonesPowerInstallations",
+    "Text": [
+     {
+      "Language": "de",
+      "Text": "Projektierungszonen Leitungen mit einer Nennspannung von 220 kV oder höher"
+     }
+    ]
+   },
+   {
+    "Code": "ch.LU.BuildingLinesPowerInstallations",
+    "Text": [
+     {
+      "Language": "de",
+      "Text": "Baulinien Starkstromanlagen"
+     }
+    ]
+   },
+   {
+    "Code": "ch.LU.NaturalHazardZones",
+    "Text": [
+     {
+      "Language": "de",
+      "Text": "Gefahrenzonen"
+     }
+    ]
+   },
+   {
+    "Code": "ch.LU.NatureReserves",
+    "Text": [
+     {
+      "Language": "de",
+      "Text": "Kantonale Schutzverordnungen"
+     }
+    ]
+   },
+   {
+    "Code": "ch.Trockensubstanzpotential",
+    "Text": [
+     {
+      "Language": "de",
+      "Text": "Trockensubstanzpotential"
+     }
+    ]
+   },
+   {
+    "Code": "ch.LU.TechnischeGefahren",
+    "Text": [
+     {
+      "Language": "de",
+      "Text": "Zusatzinformation: Technische Gefahren"
+     }
+    ]
+   }
+  ],
+  "ThemeWithoutData": [],
+  "ExtractIdentifier": "ch.LU.20261016082426916",
+  "LocalisedText": [
+   {
+    "Language": "de",
+    "Text": "Der Inhalt des Katasters wird als bekannt vorausgesetzt. Der Kanton Luzern ist für die Genauigkeit und Verlässlichkeit der gesetzgebenden Dokumente in elektronischer Form nicht haftbar. Der Auszug hat rein informativen Charakter und begründet insbesondere keine Rechte und Pflichten. Rechtsverbindlich sind diejenigen Dokumente, welche rechtskräftig verabschiedet oder veröffentlicht worden sind. Mit der Beglaubigung des Auszugs wird seine Übereinstimmung mit dem Kataster zum Erstellungszeitpunkt des Auszugs bestätigt."
+   }
+  ],
+  "RealEstate": {
+   "Number": "188",
+   "IdentDN": "LU04GBPER112",
+   "EGRID": "CH373588605080",
+   "Type": {
+    "Code": "RealEstate",
+    "Text": [
+     {
+      "Language": "de",
+      "Text": "Liegenschaft"
+     }
+    ]
+   },
+   "Canton": "LU",
+   "MunicipalityName": "Luzern",
+   "MunicipalityCode": "1061",
+   "SubunitOfLandRegister": "Luzern rechtes Ufer",
+   "LandRegistryArea": "609",
+   "RestrictionOnLandownership": [
+    {
+     "LocalisedText": [
+      {
+       "Language": "de",
+       "Text": "Weitere Mischzone"
+      }
+     ],
+     "Theme": {
+      "Code": "ch.Nutzungsplanung",
+      "Text": [
+       {
+        "Language": "de",
+        "Text": "Nutzungsplanung (kantonal/kommunal)"
+       }
+      ]
+     },
+     "TypeCode": "3900",
+     "Lawstatus": {
+      "Code": "inForce",
+      "Text": [
+       {
+        "Language": "de",
+        "Text": "in Kraft"
+       }
+      ]
+     },
+     "AreaShare": "609",
+     "PartInPercent": 100,
+     "LengthShare": "116",
+     "LegalProvisions": [
+      {
+       "Type": {
+        "Code": "LegalProvision",
+        "Text": [
+         {
+          "Language": "de",
+          "Text": "Rechtsvorschrift"
+         }
+        ]
+       },
+       "Title": [
+        {
+         "Language": "de",
+         "Text": "Bau- und Zonenreglement (Luzern)"
+        }
+       ],
+       "LocalisedText": [
+        {
+         "Language": "de",
+         "Text": "https://www.geo.lu.ch/doc/ZONPLANX_COL/ZONPLANX_COL_V3/luze_BZR.pdf"
+        }
+       ],
+       "Lawstatus": {
+        "Code": "inForce",
+        "Text": [
+         {
+          "Language": "de",
+          "Text": "rechtskräftig"
+         }
+        ]
+       },
+       "Index": "1",
+       "ResponsibleOffice": {
+        "Name": [
+         {
+          "Language": "de",
+          "Text": "Städtebau Luzern"
+         }
+        ],
+        "LocalisedText": [
+         {
+          "Language": "de",
+          "Text": "https://www.stadtluzern.ch"
+         }
+        ],
+        "Street": "Hirschengraben",
+        "Number": "17",
+        "PostalCode": "6002",
+        "City": "Luzern"
+       }
+      }
+     ],
+     "ResponsibleOffice": {
+      "Name": [
+       {
+        "Language": "de",
+        "Text": "Städtebau Luzern"
+       }
+      ],
+      "LocalisedText": [
+       {
+        "Language": "de",
+        "Text": "https://www.stadtluzern.ch"
+       }
+      ],
+      "Street": "Hirschengraben",
+      "Number": "17",
+      "PostalCode": "6002",
+      "City": "Luzern"
+     }
+    },
+    {
+     "LocalisedText": [
+      {
+       "Language": "de",
+       "Text": "Ortsbildschutzzone"
+      }
+     ],
+     "Theme": {
+      "Code": "ch.Nutzungsplanung",
+      "Text": [
+       {
+        "Language": "de",
+        "Text": "Nutzungsplanung (kantonal/kommunal)"
+       }
+      ]
+     },
+     "TypeCode": "7010",
+     "Lawstatus": {
+      "Code": "inForce",
+      "Text": [
+       {
+        "Language": "de",
+        "Text": "in Kraft"
+       }
+      ]
+     },
+     "AreaShare": "609",
+     "PartInPercent": 100,
+     "LengthShare": "116",
+     "LegalProvisions": [
+      {
+       "Type": {
+        "Code": "LegalProvision",
+        "Text": [
+         {
+          "Language": "de",
+          "Text": "Rechtsvorschrift"
+         }
+        ]
+       },
+       "Title": [
+        {
+         "Language": "de",
+         "Text": "Bau- und Zonenreglement (Luzern)"
+        }
+       ],
+       "LocalisedText": [
+        {
+         "Language": "de",
+         "Text": "https://www.geo.lu.ch/doc/ZONPLANX_COL/ZONPLANX_COL_V3/luze_BZR.pdf"
+        }
+       ],
+       "Lawstatus": {
+        "Code": "inForce",
+        "Text": [
+         {
+          "Language": "de",
+          "Text": "rechtskräftig"
+         }
+        ]
+       },
+       "Index": "1",
+       "ResponsibleOffice": {
+        "Name": [
+         {
+          "Language": "de",
+          "Text": "Städtebau Luzern"
+         }
+        ],
+        "LocalisedText": [
+         {
+          "Language": "de",
+          "Text": "https://www.stadtluzern.ch"
+         }
+        ],
+        "Street": "Hirschengraben",
+        "Number": "17",
+        "PostalCode": "6002",
+        "City": "Luzern"
+       }
+      }
+     ],
+     "ResponsibleOffice": {
+      "Name": [
+       {
+        "Language": "de",
+        "Text": "Städtebau Luzern"
+       }
+      ],
+      "LocalisedText": [
+       {
+        "Language": "de",
+        "Text": "https://www.stadtluzern.ch"
+       }
+      ],
+      "Street": "Hirschengraben",
+      "Number": "17",
+      "PostalCode": "6002",
+      "City": "Luzern"
+     }
+    },
+    {
+     "LocalisedText": [
+      {
+       "Language": "de",
+       "Text": "Empfindlichkeitsstufe III"
+      }
+     ],
+     "Theme": {
+      "Code": "ch.Laermempfindlichkeitsstufen",
+      "Text": [
+       {
+        "Language": "de",
+        "Text": "Lärmempfindlichkeitsstufen (in Nutzungszonen)"
+       }
+      ]
+     },
+     "TypeCode": "3",
+     "Lawstatus": {
+      "Code": "inForce",
+      "Text": [
+       {
+        "Language": "de",
+        "Text": "in Kraft"
+       }
+      ]
+     },
+     "AreaShare": "609",
+     "PartInPercent": 100,
+     "LengthShare": "116",
+     "LegalProvisions": [
+      {
+       "Type": {
+        "Code": "LegalProvision",
+        "Text": [
+         {
+          "Language": "de",
+          "Text": "Rechtsvorschrift"
+         }
+        ]
+       },
+       "Title": [
+        {
+         "Language": "de",
+         "Text": "Bau- und Zonenreglement (Luzern)"
+        }
+       ],
+       "LocalisedText": [
+        {
+         "Language": "de",
+         "Text": "https://www.geo.lu.ch/doc/ZONPLANX_COL/ZONPLANX_COL_V3/luze_BZR.pdf"
+        }
+       ],
+       "Lawstatus": {
+        "Code": "inForce",
+        "Text": [
+         {
+          "Language": "de",
+          "Text": "rechtskräftig"
+         }
+        ]
+       },
+       "Index": "1",
+       "ResponsibleOffice": {
+        "Name": [
+         {
+          "Language": "de",
+          "Text": "Städtebau Luzern"
+         }
+        ],
+        "LocalisedText": [
+         {
+          "Language": "de",
+          "Text": "https://www.stadtluzern.ch"
+         }
+        ],
+        "Street": "Hirschengraben",
+        "Number": "17",
+        "PostalCode": "6002",
+        "City": "Luzern"
+       }
+      }
+     ],
+     "ResponsibleOffice": {
+      "Name": [
+       {
+        "Language": "de",
+        "Text": "Städtebau Luzern"
+       }
+      ],
+      "LocalisedText": [
+       {
+        "Language": "de",
+        "Text": "https://www.stadtluzern.ch"
+       }
+      ],
+      "Street": "Hirschengraben",
+      "Number": "17",
+      "PostalCode": "6002",
+      "City": "Luzern"
+     }
+    },
+    {
+     "LocalisedText": [
+      {
+       "Language": "de",
+       "Text": "Gebiet vertiefter Gefahrenbeurteilung"
+      }
+     ],
+     "Theme": {
+      "Code": "ch.LU.NaturalHazardMaps",
+      "Text": [
+       {
+        "Language": "de",
+        "Text": "Gefahrenkarte"
+       }
+      ]
+     },
+     "TypeCode": "",
+     "Lawstatus": {
+      "Code": "inForce",
+      "Text": [
+       {
+        "Language": "de",
+        "Text": "rechtskräftig"
+       }
+      ]
+     },
+     "AreaShare": "609",
+     "PartInPercent": 100,
+     "LengthShare": "116",
+     "LegalProvisions": [
+      {
+       "Type": {
+        "Code": "LegalProvision",
+        "Text": [
+         {
+          "Language": "de",
+          "Text": "Rechtsvorschrift"
+         }
+        ]
+       },
+       "Title": [
+        {
+         "Language": "de",
+         "Text": "Bau- und Zonenreglement (Luzern)"
+        }
+       ],
+       "LocalisedText": [
+        {
+         "Language": "de",
+         "Text": "https://www.geo.lu.ch/doc/ZONPLANX_COL/ZONPLANX_COL_V3/luze_BZR.pdf"
+        }
+       ],
+       "Lawstatus": {
+        "Code": "inForce",
+        "Text": [
+         {
+          "Language": "de",
+          "Text": "rechtskräftig"
+         }
+        ]
+       },
+       "Index": "1",
+       "ResponsibleOffice": {
+        "Name": [
+         {
+          "Language": "de",
+          "Text": "Städtebau Luzern"
+         }
+        ],
+        "LocalisedText": [
+         {
+          "Language": "de",
+          "Text": "https://www.stadtluzern.ch"
+         }
+        ],
+        "Street": "Hirschengraben",
+        "Number": "17",
+        "PostalCode": "6002",
+        "City": "Luzern"
+       }
+      }
+     ],
+     "ResponsibleOffice": {
+      "Name": [
+       {
+        "Language": "de",
+        "Text": "Städtebau Luzern"
+       }
+      ],
+      "LocalisedText": [
+       {
+        "Language": "de",
+        "Text": "https://www.stadtluzern.ch"
+       }
+      ],
+      "Street": "Hirschengraben",
+      "Number": "17",
+      "PostalCode": "6002",
+      "City": "Luzern"
+     }
+    },
+    {
+     "LocalisedText": [
+      {
+       "Language": "de",
+       "Text": "geringe Gefährdung"
+      }
+     ],
+     "Theme": {
+      "Code": "ch.LU.NaturalHazardMaps",
+      "Text": [
+       {
+        "Language": "de",
+        "Text": "Gefahrenkarte"
+       }
+      ]
+     },
+     "TypeCode": "1",
+     "Lawstatus": {
+      "Code": "inForce",
+      "Text": [
+       {
+        "Language": "de",
+        "Text": "rechtskräftig"
+       }
+      ]
+     },
+     "AreaShare": "83",
+     "PartInPercent": 13.7,
+     "LengthShare": "61",
+     "LegalProvisions": [
+      {
+       "Type": {
+        "Code": "LegalProvision",
+        "Text": [
+         {
+          "Language": "de",
+          "Text": "Rechtsvorschrift"
+         }
+        ]
+       },
+       "Title": [
+        {
+         "Language": "de",
+         "Text": "Bau- und Zonenreglement (Luzern)"
+        }
+       ],
+       "LocalisedText": [
+        {
+         "Language": "de",
+         "Text": "https://www.geo.lu.ch/doc/ZONPLANX_COL/ZONPLANX_COL_V3/luze_BZR.pdf"
+        }
+       ],
+       "Lawstatus": {
+        "Code": "inForce",
+        "Text": [
+         {
+          "Language": "de",
+          "Text": "rechtskräftig"
+         }
+        ]
+       },
+       "Index": "1",
+       "ResponsibleOffice": {
+        "Name": [
+         {
+          "Language": "de",
+          "Text": "Städtebau Luzern"
+         }
+        ],
+        "LocalisedText": [
+         {
+          "Language": "de",
+          "Text": "https://www.stadtluzern.ch"
+         }
+        ],
+        "Street": "Hirschengraben",
+        "Number": "17",
+        "PostalCode": "6002",
+        "City": "Luzern"
+       }
+      }
+     ],
+     "ResponsibleOffice": {
+      "Name": [
+       {
+        "Language": "de",
+        "Text": "Städtebau Luzern"
+       }
+      ],
+      "LocalisedText": [
+       {
+        "Language": "de",
+        "Text": "https://www.stadtluzern.ch"
+       }
+      ],
+      "Street": "Hirschengraben",
+      "Number": "17",
+      "PostalCode": "6002",
+      "City": "Luzern"
+     }
+    },
+    {
+     "LocalisedText": [
+      {
+       "Language": "de",
+       "Text": "mittlere Gefährdung"
+      }
+     ],
+     "Theme": {
+      "Code": "ch.LU.NaturalHazardMaps",
+      "Text": [
+       {
+        "Language": "de",
+        "Text": "Gefahrenkarte"
+       }
+      ]
+     },
+     "TypeCode": "2",
+     "Lawstatus": {
+      "Code": "inForce",
+      "Text": [
+       {
+        "Language": "de",
+        "Text": "rechtskräftig"
+       }
+      ]
+     },
+     "AreaShare": "8",
+     "PartInPercent": 1.2,
+     "LengthShare": "44",
+     "LegalProvisions": [
+      {
+       "Type": {
+        "Code": "LegalProvision",
+        "Text": [
+         {
+          "Language": "de",
+          "Text": "Rechtsvorschrift"
+         }
+        ]
+       },
+       "Title": [
+        {
+         "Language": "de",
+         "Text": "Bau- und Zonenreglement (Luzern)"
+        }
+       ],
+       "LocalisedText": [
+        {
+         "Language": "de",
+         "Text": "https://www.geo.lu.ch/doc/ZONPLANX_COL/ZONPLANX_COL_V3/luze_BZR.pdf"
+        }
+       ],
+       "Lawstatus": {
+        "Code": "inForce",
+        "Text": [
+         {
+          "Language": "de",
+          "Text": "rechtskräftig"
+         }
+        ]
+       },
+       "Index": "1",
+       "ResponsibleOffice": {
+        "Name": [
+         {
+          "Language": "de",
+          "Text": "Städtebau Luzern"
+         }
+        ],
+        "LocalisedText": [
+         {
+          "Language": "de",
+          "Text": "https://www.stadtluzern.ch"
+         }
+        ],
+        "Street": "Hirschengraben",
+        "Number": "17",
+        "PostalCode": "6002",
+        "City": "Luzern"
+       }
+      }
+     ],
+     "ResponsibleOffice": {
+      "Name": [
+       {
+        "Language": "de",
+        "Text": "Städtebau Luzern"
+       }
+      ],
+      "LocalisedText": [
+       {
+        "Language": "de",
+        "Text": "https://www.stadtluzern.ch"
+       }
+      ],
+      "Street": "Hirschengraben",
+      "Number": "17",
+      "PostalCode": "6002",
+      "City": "Luzern"
+     }
+    },
+    {
+     "LocalisedText": [
+      {
+       "Language": "de",
+       "Text": "geschütztes Objekt"
+      }
+     ],
+     "Theme": {
+      "Code": "ch.LU.CulturalMonuments",
+      "Text": [
+       {
+        "Language": "de",
+        "Text": "Kulturdenkmäler"
+       }
+      ]
+     },
+     "TypeCode": "",
+     "Lawstatus": {
+      "Code": "inForce",
+      "Text": [
+       {
+        "Language": "de",
+        "Text": "rechtskräftig"
+       }
+      ]
+     },
+     "AreaShare": "586",
+     "PartInPercent": 96.2,
+     "LengthShare": "137",
+     "LegalProvisions": [
+      {
+       "Type": {
+        "Code": "LegalProvision",
+        "Text": [
+         {
+          "Language": "de",
+          "Text": "Rechtsvorschrift"
+         }
+        ]
+       },
+       "Title": [
+        {
+         "Language": "de",
+         "Text": "Bauinventar"
+        }
+       ],
+       "LocalisedText": [
+        {
+         "Language": "de",
+         "Text": "http://www.geo.lu.ch/oereb/pdf/kultur/luzern.pdf\n"
+        }
+       ],
+       "Lawstatus": {
+        "Code": "inForce",
+        "Text": [
+         {
+          "Language": "de",
+          "Text": "rechtskräftig"
+         }
+        ]
+       },
+       "Index": "1",
+       "ResponsibleOffice": {
+        "Name": [
+         {
+          "Language": "de",
+          "Text": "Denkmalpflege und Archäologie (da)"
+         }
+        ],
+        "LocalisedText": [
+         {
+          "Language": "de",
+          "Text": "https://denkmalpflege.lu.ch"
+         }
+        ],
+        "Line1": "Denkmalpflege",
+        "Street": "Libellenrain",
+        "Number": "15",
+        "PostalCode": "6002",
+        "City": "Luzern"
+       }
+      }
+     ],
+     "ResponsibleOffice": {
+      "Name": [
+       {
+        "Language": "de",
+        "Text": "Denkmalpflege und Archäologie (da)"
+       }
+      ],
+      "LocalisedText": [
+       {
+        "Language": "de",
+        "Text": "https://denkmalpflege.lu.ch"
+       }
+      ],
+      "Line1": "Denkmalpflege",
+      "Street": "Libellenrain",
+      "Number": "15",
+      "PostalCode": "6002",
+      "City": "Luzern"
+     }
+    },
+    {
+     "LocalisedText": [
+      {
+       "Language": "de",
+       "Text": "schützenswert"
+      }
+     ],
+     "Theme": {
+      "Code": "ch.LU.CulturalMonuments",
+      "Text": [
+       {
+        "Language": "de",
+        "Text": "Kulturdenkmäler"
+       }
+      ]
+     },
+     "TypeCode": "3",
+     "Lawstatus": {
+      "Code": "inForce",
+      "Text": [
+       {
+        "Language": "de",
+        "Text": "rechtskräftig"
+       }
+      ]
+     },
+     "AreaShare": "586",
+     "PartInPercent": 96.2,
+     "LengthShare": "137",
+     "LegalProvisions": [
+      {
+       "Type": {
+        "Code": "LegalProvision",
+        "Text": [
+         {
+          "Language": "de",
+          "Text": "Rechtsvorschrift"
+         }
+        ]
+       },
+       "Title": [
+        {
+         "Language": "de",
+         "Text": "Bauinventar"
+        }
+       ],
+       "LocalisedText": [
+        {
+         "Language": "de",
+         "Text": "http://www.geo.lu.ch/oereb/pdf/kultur/luzern.pdf\n"
+        }
+       ],
+       "Lawstatus": {
+        "Code": "inForce",
+        "Text": [
+         {
+          "Language": "de",
+          "Text": "rechtskräftig"
+         }
+        ]
+       },
+       "Index": "1",
+       "ResponsibleOffice": {
+        "Name": [
+         {
+          "Language": "de",
+          "Text": "Denkmalpflege und Archäologie (da)"
+         }
+        ],
+        "LocalisedText": [
+         {
+          "Language": "de",
+          "Text": "https://denkmalpflege.lu.ch"
+         }
+        ],
+        "Line1": "Denkmalpflege",
+        "Street": "Libellenrain",
+        "Number": "15",
+        "PostalCode": "6002",
+        "City": "Luzern"
+       }
+      }
+     ],
+     "ResponsibleOffice": {
+      "Name": [
+       {
+        "Language": "de",
+        "Text": "Denkmalpflege und Archäologie (da)"
+       }
+      ],
+      "LocalisedText": [
+       {
+        "Language": "de",
+        "Text": "https://denkmalpflege.lu.ch"
+       }
+      ],
+      "Line1": "Denkmalpflege",
+      "Street": "Libellenrain",
+      "Number": "15",
+      "PostalCode": "6002",
+      "City": "Luzern"
+     }
+    },
+    {
+     "LocalisedText": [
+      {
+       "Language": "de",
+       "Text": "Fundstelle"
+      }
+     ],
+     "Theme": {
+      "Code": "ch.LU.ArchaeologicalSites",
+      "Text": [
+       {
+        "Language": "de",
+        "Text": "Archäologische Fundstellen"
+       }
+      ]
+     },
+     "TypeCode": "",
+     "Lawstatus": {
+      "Code": "inForce",
+      "Text": [
+       {
+        "Language": "de",
+        "Text": "rechtskräftig"
+       }
+      ]
+     },
+     "AreaShare": "609",
+     "PartInPercent": 100,
+     "LengthShare": "116",
+     "LegalProvisions": [
+      {
+       "Type": {
+        "Code": "Hint",
+        "Text": [
+         {
+          "Language": "de",
+          "Text": "Hinweis"
+         }
+        ]
+       },
+       "Title": [
+        {
+         "Language": "de",
+         "Text": "Die Rechtsvorschriften können bei begründeten Anträgen bei der zuständigen Stelle eingesehen werden."
+        }
+       ],
+       "Lawstatus": {
+        "Code": "inForce",
+        "Text": [
+         {
+          "Language": "de",
+          "Text": "rechtskräftig"
+         }
+        ]
+       },
+       "Index": "1",
+       "ResponsibleOffice": {
+        "Name": [
+         {
+          "Language": "de",
+          "Text": "Denkmalpflege und Archäologie (da)"
+         }
+        ],
+        "LocalisedText": [
+         {
+          "Language": "de",
+          "Text": "https://archaeologie.lu.ch/"
+         }
+        ],
+        "Line1": "Archäologie",
+        "Street": "Libellenrain",
+        "Number": "15",
+        "PostalCode": "6002",
+        "City": "Luzern"
+       }
+      }
+     ],
+     "ResponsibleOffice": {
+      "Name": [
+       {
+        "Language": "de",
+        "Text": "Denkmalpflege und Archäologie (da)"
+       }
+      ],
+      "LocalisedText": [
+       {
+        "Language": "de",
+        "Text": "https://archaeologie.lu.ch/"
+       }
+      ],
+      "Line1": "Archäologie",
+      "Street": "Libellenrain",
+      "Number": "15",
+      "PostalCode": "6002",
+      "City": "Luzern"
+     }
+    },
+    {
+     "LocalisedText": [
+      {
+       "Language": "de",
+       "Text": "Diffuse Belastungen"
+      }
+     ],
+     "Theme": {
+      "Code": "ch.LU.PruefperimeterBodenverschiebung",
+      "Text": [
+       {
+        "Language": "de",
+        "Text": "Zusatzinformation: Prüfperimeter Bodenverschiebungen"
+       }
+      ]
+     },
+     "TypeCode": "7,14",
+     "Lawstatus": {
+      "Code": "inForce",
+      "Text": [
+       {
+        "Language": "de",
+        "Text": "rechtskräftig"
+       }
+      ]
+     },
+     "AreaShare": "609",
+     "PartInPercent": 100,
+     "LengthShare": "116",
+     "LegalProvisions": [
+      {
+       "Type": {
+        "Code": "Law",
+        "Text": [
+         {
+          "Language": "de",
+          "Text": "Gesetzliche Grundlage"
+         }
+        ]
+       },
+       "Title": [
+        {
+         "Language": "de",
+         "Text": "Bundesgesetz über den Umweltschutz (Umweltschutzgesetz, USG)"
+        }
+       ],
+       "OfficialNumber": [
+        {
+         "Language": "de",
+         "Text": "SR 814.01"
+        }
+       ],
+       "LocalisedText": [
+        {
+         "Language": "de",
+         "Text": "www.admin.ch/opc/de/classified-compilation/19830267"
+        }
+       ],
+       "Lawstatus": {
+        "Code": "inForce",
+        "Text": [
+         {
+          "Language": "de",
+          "Text": "rechtskräftig"
+         }
+        ]
+       },
+       "Index": "1",
+       "ResponsibleOffice": {
+        "Name": [
+         {
+          "Language": "de",
+          "Text": "Umwelt und Energie (uwe)"
+         }
+        ],
+        "LocalisedText": [
+         {
+          "Language": "de",
+          "Text": "https://uwe.lu.ch"
+         }
+        ],
+        "Line1": "Abteilung Gewässer und Boden",
+        "Street": "Libellenrain",
+        "Number": "15",
+        "PostalCode": "6002",
+        "City": "Luzern"
+       }
+      }
+     ],
+     "ResponsibleOffice": {
+      "Name": [
+       {
+        "Language": "de",
+        "Text": "Umwelt und Energie (uwe)"
+       }
+      ],
+      "LocalisedText": [
+       {
+        "Language": "de",
+        "Text": "https://uwe.lu.ch"
+       }
+      ],
+      "Line1": "Abteilung Gewässer und Boden",
+      "Street": "Libellenrain",
+      "Number": "15",
+      "PostalCode": "6002",
+      "City": "Luzern"
+     }
+    }
+   ]
+  },
+  "PLRCadastreAuthority": {
+   "Name": [
+    {
+     "Language": "de",
+     "Text": "Raum und Wirtschaft (rawi)"
+    }
+   ],
+   "LocalisedText": [
+    {
+     "Language": "de",
+     "Text": "https://rawi.lu.ch"
+    }
+   ],
+   "Line1": "Abteilung Geoinformation",
+   "Street": "Murbacherstrasse",
+   "Number": "21",
+   "PostalCode": "6002",
+   "City": "Luzern"
+  },
+  "UpdateDateCS": "2026-10-15T00:00:00+02:00",
+  "id": "ch.LU.20261016082426916"
+ }
+}

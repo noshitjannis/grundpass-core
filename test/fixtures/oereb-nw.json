@@ -1,0 +1,1985 @@
+{
+ "_hinweis": "Echte Antwort vom 16.10.2026, verkleinert mit scripts/oereb-fixture.ts: https://www.gis-daten.ch/oereb/extract/json?EGRID=CH933477050848&GEOMETRY=false&WITHIMAGES=false&LANG=de (Dorfplatz 2, 6370 Stans, Stans Parzelle 32, EGID 284958). Geometrien, Bilder, Glossar und Rechtsvorschriften bis auf eine entfernt.",
+ "?xml": {
+  "@version": "1.0",
+  "@encoding": "utf-8"
+ },
+ "Extract": {
+  "@xmlns:gml": "http://www.opengis.net/gml/3.2",
+  "@xmlns:xlink": "http://www.w3.org/1999/xlink",
+  "@xmlns:xsd": "http://www.w3.org/2001/XMLSchema",
+  "@xmlns:extract": "http://schemas.geo.admin.ch/V_D/OeREB/2.0/Extract",
+  "@xmlns:xsi": "http://www.w3.org/2001/XMLSchema-instance",
+  "@xmlns:geo": "http://www.interlis.ch/geometry/1.0",
+  "@xmlns": "http://schemas.geo.admin.ch/V_D/OeREB/2.0/ExtractData",
+  "CreationDate": "2026-10-16T08:27:27.9140096+02:00",
+  "ConcernedTheme": [
+   {
+    "Code": "ch.Nutzungsplanung",
+    "Text": {
+     "LocalisedText": {
+      "Language": "de",
+      "Text": "Nutzungsplanung (kantonal/kommunal)"
+     }
+    }
+   },
+   {
+    "Code": "ch.Laermempfindlichkeitsstufen",
+    "Text": {
+     "LocalisedText": {
+      "Language": "de",
+      "Text": "Lärmempfindlichkeitsstufen (in Nutzungszonen)"
+     }
+    }
+   },
+   {
+    "Code": "ch.NW.Kulturobjekte",
+    "Text": {
+     "LocalisedText": {
+      "Language": "de",
+      "Text": "Kulturobjekte"
+     }
+    }
+   }
+  ],
+  "NotConcernedTheme": [
+   {
+    "Code": "ch.NW.KantonalePlanungszonen",
+    "Text": {
+     "LocalisedText": {
+      "Language": "de",
+      "Text": "Planungszonen kantonal"
+     }
+    }
+   },
+   {
+    "Code": "ch.Planungszonen",
+    "Text": {
+     "LocalisedText": {
+      "Language": "de",
+      "Text": "Planungszonen"
+     }
+    }
+   },
+   {
+    "Code": "ch.NutzungsplanungAenderungMitVorwirkung",
+    "Text": {
+     "LocalisedText": {
+      "Language": "de",
+      "Text": "Nutzungsplanung Teilrevision (Änderung mit Vorwirkung)"
+     }
+    }
+   },
+   {
+    "Code": "ch.NutzungsplanungAenderungOhneVorwirkung",
+    "Text": {
+     "LocalisedText": {
+      "Language": "de",
+      "Text": "Nutzungsplanung Gesamtrevision (Änderung ohne Vorwirkung)"
+     }
+    }
+   },
+   {
+    "Code": "ch.NW.Bebauungsplan",
+    "Text": {
+     "LocalisedText": {
+      "Language": "de",
+      "Text": "Bebauungsplan (Sondernutzungsplan)"
+     }
+    }
+   },
+   {
+    "Code": "ch.NW.BebauungsplanAenderungMitVorwirkung",
+    "Text": {
+     "LocalisedText": {
+      "Language": "de",
+      "Text": "Bebauungsplan (Sondernutzungsplan) (Änderung mit Vorwirkung)"
+     }
+    }
+   },
+   {
+    "Code": "ch.NW.Gestaltungsplaene",
+    "Text": {
+     "LocalisedText": {
+      "Language": "de",
+      "Text": "Gestaltungsplan (Sondernutzungsplan)"
+     }
+    }
+   },
+   {
+    "Code": "ch.NW.GestaltungsplaeneAenderungOhneVorwirkung",
+    "Text": {
+     "LocalisedText": {
+      "Language": "de",
+      "Text": "Gestaltungsplan (Sondernutzungsplan) (Änderung ohne Vorwirkung)"
+     }
+    }
+   },
+   {
+    "Code": "ch.ProjektierungszonenNationalstrassen",
+    "Text": {
+     "LocalisedText": {
+      "Language": "de",
+      "Text": "Projektierungszonen Nationalstrassen"
+     }
+    }
+   },
+   {
+    "Code": "ch.BaulinienNationalstrassen",
+    "Text": {
+     "LocalisedText": {
+      "Language": "de",
+      "Text": "Baulinien Nationalstrassen"
+     }
+    }
+   },
+   {
+    "Code": "ch.BaulinienNationalstrassenAenderungOhneVorwirkung",
+    "Text": {
+     "LocalisedText": {
+      "Language": "de",
+      "Text": "Baulinien Nationalstrassen (Änderung ohne Vorwirkung)"
+     }
+    }
+   },
+   {
+    "Code": "ch.ProjektierungszonenEisenbahnanlagen",
+    "Text": {
+     "LocalisedText": {
+      "Language": "de",
+      "Text": "Projektierungszonen Eisenbahnanlagen"
+     }
+    }
+   },
+   {
+    "Code": "ch.BaulinienEisenbahnanlagen",
+    "Text": {
+     "LocalisedText": {
+      "Language": "de",
+      "Text": "Baulinien Eisenbahnanlagen"
+     }
+    }
+   },
+   {
+    "Code": "ch.ProjektierungszonenFlughafenanlagen",
+    "Text": {
+     "LocalisedText": {
+      "Language": "de",
+      "Text": "Projektierungszonen Flughafenanlagen"
+     }
+    }
+   },
+   {
+    "Code": "ch.BaulinienFlughafenanlagen",
+    "Text": {
+     "LocalisedText": {
+      "Language": "de",
+      "Text": "Baulinien Flughafenanlagen"
+     }
+    }
+   },
+   {
+    "Code": "ch.Sicherheitszonenplan",
+    "Text": {
+     "LocalisedText": {
+      "Language": "de",
+      "Text": "Sicherheitszonenplan"
+     }
+    }
+   },
+   {
+    "Code": "ch.SicherheitszonenplanAenderungMitVorwirkung",
+    "Text": {
+     "LocalisedText": {
+      "Language": "de",
+      "Text": "Sicherheitszonenplan (Änderung mit Vorwirkung)"
+     }
+    }
+   },
+   {
+    "Code": "ch.BelasteteStandorte",
+    "Text": {
+     "LocalisedText": {
+      "Language": "de",
+      "Text": "Kataster der belasteten Standorte"
+     }
+    }
+   },
+   {
+    "Code": "ch.BelasteteStandorteMilitaer",
+    "Text": {
+     "LocalisedText": {
+      "Language": "de",
+      "Text": "Kataster der belasteten Standorte im Bereich des Militärs"
+     }
+    }
+   },
+   {
+    "Code": "ch.BelasteteStandorteZivileFlugplaetze",
+    "Text": {
+     "LocalisedText": {
+      "Language": "de",
+      "Text": "Kataster der belasteten Standorte im Bereich der zivilen Flugplätze"
+     }
+    }
+   },
+   {
+    "Code": "ch.BelasteteStandorteOeffentlicherVerkehr",
+    "Text": {
+     "LocalisedText": {
+      "Language": "de",
+      "Text": "Kataster der belasteten Standorte im Bereich des öffentlichen Verkehrs"
+     }
+    }
+   },
+   {
+    "Code": "ch.Grundwasserschutzzonen",
+    "Text": {
+     "LocalisedText": {
+      "Language": "de",
+      "Text": "Grundwasserschutzzonen"
+     }
+    }
+   },
+   {
+    "Code": "ch.GrundwasserschutzzonenAenderungOhneVorwirkung",
+    "Text": {
+     "LocalisedText": {
+      "Language": "de",
+      "Text": "Grundwasserschutzzonen (Änderung ohne Vorwirkung)"
+     }
+    }
+   },
+   {
+    "Code": "ch.Grundwasserschutzareale",
+    "Text": {
+     "LocalisedText": {
+      "Language": "de",
+      "Text": "Grundwasserschutzareale"
+     }
+    }
+   },
+   {
+    "Code": "ch.GrundwasserschutzarealeAenderungOhneVorwirkung",
+    "Text": {
+     "LocalisedText": {
+      "Language": "de",
+      "Text": "Grundwasserschutzareale (Änderung ohne Vorwirkung)"
+     }
+    }
+   },
+   {
+    "Code": "ch.Gewaesserraum",
+    "Text": {
+     "LocalisedText": {
+      "Language": "de",
+      "Text": "Gewässerraum"
+     }
+    }
+   },
+   {
+    "Code": "ch.GewaesserraumAenderungMitVorwirkung",
+    "Text": {
+     "LocalisedText": {
+      "Language": "de",
+      "Text": "Gewässerraum (Änderung mit Vorwirkung)"
+     }
+    }
+   },
+   {
+    "Code": "ch.GewaesserraumAenderungOhneVorwirkung",
+    "Text": {
+     "LocalisedText": {
+      "Language": "de",
+      "Text": "Gewässerraum (Änderung ohne Vorwirkung)"
+     }
+    }
+   },
+   {
+    "Code": "ch.LaermempfindlichkeitsstufenAenderungMitVorwirkung",
+    "Text": {
+     "LocalisedText": {
+      "Language": "de",
+      "Text": "Lärmempfindlichkeitsstufen (in Nutzungszonen) (Änderung mit Vorwirkung)"
+     }
+    }
+   },
+   {
+    "Code": "ch.LaermempfindlichkeitsstufenAenderungOhneVorwirkung",
+    "Text": {
+     "LocalisedText": {
+      "Language": "de",
+      "Text": "Lärmempfindlichkeitsstufen (in Nutzungszonen) (Änderung ohne Vorwirkung)"
+     }
+    }
+   },
+   {
+    "Code": "ch.StatischeWaldgrenzen",
+    "Text": {
+     "LocalisedText": {
+      "Language": "de",
+      "Text": "Statische Waldgrenzen"
+     }
+    }
+   },
+   {
+    "Code": "ch.StatischeWaldgrenzenAenderungOhneVorwirkung",
+    "Text": {
+     "LocalisedText": {
+      "Language": "de",
+      "Text": "Statische Waldgrenzen (Änderung ohne Vorwirkung)"
+     }
+    }
+   },
+   {
+    "Code": "ch.Waldabstandslinien",
+    "Text": {
+     "LocalisedText": {
+      "Language": "de",
+      "Text": "Waldabstandslinien"
+     }
+    }
+   },
+   {
+    "Code": "ch.WaldabstandslinienAenderungMitVorwirkung",
+    "Text": {
+     "LocalisedText": {
+      "Language": "de",
+      "Text": "Waldabstandslinien (Änderung mit Vorwirkung)"
+     }
+    }
+   },
+   {
+    "Code": "ch.WaldabstandslinienAenderungOhneVorwirkung",
+    "Text": {
+     "LocalisedText": {
+      "Language": "de",
+      "Text": "Waldabstandslinien (Änderung ohne Vorwirkung)"
+     }
+    }
+   },
+   {
+    "Code": "ch.Waldreservate",
+    "Text": {
+     "LocalisedText": {
+      "Language": "de",
+      "Text": "Waldreservate"
+     }
+    }
+   },
+   {
+    "Code": "ch.ProjektierungszonenStarkstromanlagen",
+    "Text": {
+     "LocalisedText": {
+      "Language": "de",
+      "Text": "Projektierungszonen Leitungen mit einer Nennspannung von 220 kV oder höher"
+     }
+    }
+   },
+   {
+    "Code": "ch.ProjektierungszonenStarkstromanlagenAenderungOhneVorwirkung",
+    "Text": {
+     "LocalisedText": {
+      "Language": "de",
+      "Text": "Projektierungszonen Leitungen mit einer Nennspannung von 220 kV oder höher (Änderung ohne Vorwirkung)"
+     }
+    }
+   },
+   {
+    "Code": "ch.BaulinienStarkstromanlagen",
+    "Text": {
+     "LocalisedText": {
+      "Language": "de",
+      "Text": "Baulinien Starkstromanlagen"
+     }
+    }
+   },
+   {
+    "Code": "ch.BaulinienStarkstromanlagenAenderungOhneVorwirkung",
+    "Text": {
+     "LocalisedText": {
+      "Language": "de",
+      "Text": "Baulinien Starkstromanlagen (Änderung ohne Vorwirkung)"
+     }
+    }
+   },
+   {
+    "Code": "ch.OW.Quartierplaene",
+    "Text": {
+     "LocalisedText": {
+      "Language": "de",
+      "Text": "Quartierplan (Sondernutzungsplan)"
+     }
+    }
+   },
+   {
+    "Code": "ch.OW.QuartierplaeneAenderungOhneVorwirkung",
+    "Text": {
+     "LocalisedText": {
+      "Language": "de",
+      "Text": "Quartierplan (Sondernutzungsplan) (Änderung ohne Vorwirkung)"
+     }
+    }
+   },
+   {
+    "Code": "ch.OW.SondernutzungsplanFussWanderwege",
+    "Text": {
+     "LocalisedText": {
+      "Language": "de",
+      "Text": "Sondernutzungsplan Fuss- und Wanderwege"
+     }
+    }
+   },
+   {
+    "Code": "ch.OW.KantonaleNutzungsplanung",
+    "Text": {
+     "LocalisedText": {
+      "Language": "de",
+      "Text": "Nutzungsplanung kantonal"
+     }
+    }
+   },
+   {
+    "Code": "ch.OW.KantonaleNutzungsplanungAenderungOhneVorwirkung",
+    "Text": {
+     "LocalisedText": {
+      "Language": "de",
+      "Text": "Nutzungsplanung kantonal (Änderung ohne Vorwirkung)"
+     }
+    }
+   }
+  ],
+  "ThemeWithoutData": {
+   "Code": "ch.OW.KantonalePlanungszonen",
+   "Text": {
+    "LocalisedText": {
+     "Language": "de",
+     "Text": "Planungszonen kantonal"
+    }
+   }
+  },
+  "ExtractIdentifier": "096e506b-f9d3-4a57-bdaa-e08bc9df3b34",
+  "RealEstate": {
+   "Number": "32",
+   "IdentDN": "NW0200001509",
+   "EGRID": "CH933477050848",
+   "Type": {
+    "Code": "RealEstate",
+    "Text": {
+     "LocalisedText": {
+      "Language": "de",
+      "Text": "Liegenschaft"
+     }
+    }
+   },
+   "Canton": "NW",
+   "MunicipalityName": "Stans",
+   "MunicipalityCode": "1509",
+   "SubunitOfLandRegister": null,
+   "SubunitOfLandRegisterDesignation": null,
+   "LandRegistryArea": "1303",
+   "RestrictionOnLandownership": [
+    {
+     "LegendText": {
+      "LocalisedText": {
+       "Language": "de",
+       "Text": "Grundnutzung Stans"
+      }
+     },
+     "Theme": {
+      "Code": "ch.Nutzungsplanung",
+      "Text": {
+       "LocalisedText": {
+        "Language": "de",
+        "Text": "Nutzungsplanung (kantonal/kommunal)"
+       }
+      }
+     },
+     "TypeCode": "161e2705:L:3982",
+     "Lawstatus": {
+      "Code": "inForce",
+      "Text": {
+       "LocalisedText": {
+        "Language": "de",
+        "Text": "Rechtskräftig"
+       }
+      }
+     },
+     "AreaShare": "0",
+     "PartInPercent": "0",
+     "Map": {
+      "OtherLegend": [
+       {
+        "LegendText": {
+         "LocalisedText": {
+          "Language": "de",
+          "Text": "Kernzone 14a, K14a"
+         }
+        },
+        "TypeCode": "161e2705:L:7244",
+        "Theme": {
+         "Code": "ch.Nutzungsplanung",
+         "Text": {
+          "LocalisedText": {
+           "Language": "de",
+           "Text": "Nutzungsplanung (kantonal/kommunal)"
+          }
+         }
+        }
+       },
+       {
+        "LegendText": {
+         "LocalisedText": {
+          "Language": "de",
+          "Text": "Grünzone, GR"
+         }
+        },
+        "TypeCode": "161e2705:L:7291",
+        "Theme": {
+         "Code": "ch.Nutzungsplanung",
+         "Text": {
+          "LocalisedText": {
+           "Language": "de",
+           "Text": "Nutzungsplanung (kantonal/kommunal)"
+          }
+         }
+        }
+       },
+       {
+        "LegendText": {
+         "LocalisedText": {
+          "Language": "de",
+          "Text": "Verkehrszone, V"
+         }
+        },
+        "TypeCode": "161e2705:L:3982",
+        "Theme": {
+         "Code": "ch.Nutzungsplanung",
+         "Text": {
+          "LocalisedText": {
+           "Language": "de",
+           "Text": "Nutzungsplanung (kantonal/kommunal)"
+          }
+         }
+        }
+       }
+      ]
+     },
+     "LegalProvisions": [
+      {
+       "Type": {
+        "Code": "LegalProvision",
+        "Text": {
+         "LocalisedText": {
+          "Language": "de",
+          "Text": "Rechtsvorschrift"
+         }
+        }
+       },
+       "Title": {
+        "LocalisedText": {
+         "Language": "de",
+         "Text": "Bau- und Zonenreglement der Gemeinde Stans"
+        }
+       },
+       "Abbreviation": {
+        "LocalisedText": {
+         "Language": "de",
+         "Text": "BZR"
+        }
+       },
+       "OfficialNumber": {
+        "LocalisedText": {
+         "Language": "de",
+         "Text": null
+        }
+       },
+       "TextAtWeb": {
+        "LocalisedText": {
+         "Language": "de",
+         "Text": "https://www.gis-daten.ch/rd/BZR/ST_Bau-_und_Zonenreglement.pdf"
+        }
+       },
+       "Lawstatus": {
+        "Code": "inForce",
+        "Text": {
+         "LocalisedText": {
+          "Language": "de",
+          "Text": "Rechtskräftig"
+         }
+        }
+       },
+       "Index": "2",
+       "ResponsibleOffice": {
+        "Name": {
+         "LocalisedText": {
+          "Language": "de",
+          "Text": "Bauamt Stans"
+         }
+        },
+        "OfficeAtWeb": {
+         "LocalisedText": {
+          "Language": "de",
+          "Text": "https://www.stans.ch/gemeindeverwaltung/6358"
+         }
+        }
+       }
+      }
+     ],
+     "ResponsibleOffice": {
+      "Name": {
+       "LocalisedText": {
+        "Language": "de",
+        "Text": "Bauamt Stans"
+       }
+      },
+      "OfficeAtWeb": {
+       "LocalisedText": {
+        "Language": "de",
+        "Text": "https://www.stans.ch/gemeindeverwaltung/6358"
+       }
+      }
+     }
+    },
+    {
+     "LegendText": {
+      "LocalisedText": {
+       "Language": "de",
+       "Text": "Grundnutzung Stans"
+      }
+     },
+     "Theme": {
+      "Code": "ch.Nutzungsplanung",
+      "Text": {
+       "LocalisedText": {
+        "Language": "de",
+        "Text": "Nutzungsplanung (kantonal/kommunal)"
+       }
+      }
+     },
+     "TypeCode": "161e2705:L:7244",
+     "Lawstatus": {
+      "Code": "inForce",
+      "Text": {
+       "LocalisedText": {
+        "Language": "de",
+        "Text": "Rechtskräftig"
+       }
+      }
+     },
+     "AreaShare": "1303",
+     "PartInPercent": "100",
+     "Map": {
+      "OtherLegend": [
+       {
+        "LegendText": {
+         "LocalisedText": {
+          "Language": "de",
+          "Text": "Kernzone 14a, K14a"
+         }
+        },
+        "TypeCode": "161e2705:L:7244",
+        "Theme": {
+         "Code": "ch.Nutzungsplanung",
+         "Text": {
+          "LocalisedText": {
+           "Language": "de",
+           "Text": "Nutzungsplanung (kantonal/kommunal)"
+          }
+         }
+        }
+       },
+       {
+        "LegendText": {
+         "LocalisedText": {
+          "Language": "de",
+          "Text": "Grünzone, GR"
+         }
+        },
+        "TypeCode": "161e2705:L:7291",
+        "Theme": {
+         "Code": "ch.Nutzungsplanung",
+         "Text": {
+          "LocalisedText": {
+           "Language": "de",
+           "Text": "Nutzungsplanung (kantonal/kommunal)"
+          }
+         }
+        }
+       },
+       {
+        "LegendText": {
+         "LocalisedText": {
+          "Language": "de",
+          "Text": "Verkehrszone, V"
+         }
+        },
+        "TypeCode": "161e2705:L:3982",
+        "Theme": {
+         "Code": "ch.Nutzungsplanung",
+         "Text": {
+          "LocalisedText": {
+           "Language": "de",
+           "Text": "Nutzungsplanung (kantonal/kommunal)"
+          }
+         }
+        }
+       }
+      ]
+     },
+     "LegalProvisions": [
+      {
+       "Type": {
+        "Code": "LegalProvision",
+        "Text": {
+         "LocalisedText": {
+          "Language": "de",
+          "Text": "Rechtsvorschrift"
+         }
+        }
+       },
+       "Title": {
+        "LocalisedText": {
+         "Language": "de",
+         "Text": "Bau- und Zonenreglement der Gemeinde Stans"
+        }
+       },
+       "Abbreviation": {
+        "LocalisedText": {
+         "Language": "de",
+         "Text": "BZR"
+        }
+       },
+       "OfficialNumber": {
+        "LocalisedText": {
+         "Language": "de",
+         "Text": null
+        }
+       },
+       "TextAtWeb": {
+        "LocalisedText": {
+         "Language": "de",
+         "Text": "https://www.gis-daten.ch/rd/BZR/ST_Bau-_und_Zonenreglement.pdf"
+        }
+       },
+       "Lawstatus": {
+        "Code": "inForce",
+        "Text": {
+         "LocalisedText": {
+          "Language": "de",
+          "Text": "Rechtskräftig"
+         }
+        }
+       },
+       "Index": "2",
+       "ResponsibleOffice": {
+        "Name": {
+         "LocalisedText": {
+          "Language": "de",
+          "Text": "Bauamt Stans"
+         }
+        },
+        "OfficeAtWeb": {
+         "LocalisedText": {
+          "Language": "de",
+          "Text": "https://www.stans.ch/gemeindeverwaltung/6358"
+         }
+        }
+       }
+      }
+     ],
+     "ResponsibleOffice": {
+      "Name": {
+       "LocalisedText": {
+        "Language": "de",
+        "Text": "Bauamt Stans"
+       }
+      },
+      "OfficeAtWeb": {
+       "LocalisedText": {
+        "Language": "de",
+        "Text": "https://www.stans.ch/gemeindeverwaltung/6358"
+       }
+      }
+     }
+    },
+    {
+     "LegendText": {
+      "LocalisedText": {
+       "Language": "de",
+       "Text": "Flächenbezogene Festlegung (Stans)"
+      }
+     },
+     "Theme": {
+      "Code": "ch.Nutzungsplanung",
+      "Text": {
+       "LocalisedText": {
+        "Language": "de",
+        "Text": "Nutzungsplanung (kantonal/kommunal)"
+       }
+      }
+     },
+     "TypeCode": "b5246f1b:L:4446",
+     "Lawstatus": {
+      "Code": "inForce",
+      "Text": {
+       "LocalisedText": {
+        "Language": "de",
+        "Text": "Rechtskräftig"
+       }
+      }
+     },
+     "AreaShare": "900",
+     "PartInPercent": "69",
+     "Map": {
+      "OtherLegend": [
+       {
+        "LegendText": {
+         "LocalisedText": {
+          "Language": "de",
+          "Text": "Sondernutzungszone publikumsorientierte Nutzung"
+         }
+        },
+        "TypeCode": "b5246f1b:L:4446",
+        "Theme": {
+         "Code": "ch.Nutzungsplanung",
+         "Text": {
+          "LocalisedText": {
+           "Language": "de",
+           "Text": "Nutzungsplanung (kantonal/kommunal)"
+          }
+         }
+        }
+       },
+       {
+        "LegendText": {
+         "LocalisedText": {
+          "Language": "de",
+          "Text": "Ortsbildschutzzone"
+         }
+        },
+        "TypeCode": "b5246f1b:L:3212",
+        "Theme": {
+         "Code": "ch.Nutzungsplanung",
+         "Text": {
+          "LocalisedText": {
+           "Language": "de",
+           "Text": "Nutzungsplanung (kantonal/kommunal)"
+          }
+         }
+        }
+       }
+      ]
+     },
+     "LegalProvisions": [
+      {
+       "Type": {
+        "Code": "LegalProvision",
+        "Text": {
+         "LocalisedText": {
+          "Language": "de",
+          "Text": "Rechtsvorschrift"
+         }
+        }
+       },
+       "Title": {
+        "LocalisedText": {
+         "Language": "de",
+         "Text": "Bau- und Zonenreglement der Gemeinde Stans"
+        }
+       },
+       "Abbreviation": {
+        "LocalisedText": {
+         "Language": "de",
+         "Text": "BZR"
+        }
+       },
+       "OfficialNumber": {
+        "LocalisedText": {
+         "Language": "de",
+         "Text": null
+        }
+       },
+       "TextAtWeb": {
+        "LocalisedText": {
+         "Language": "de",
+         "Text": "https://www.gis-daten.ch/rd/BZR/ST_Bau-_und_Zonenreglement.pdf"
+        }
+       },
+       "Lawstatus": {
+        "Code": "inForce",
+        "Text": {
+         "LocalisedText": {
+          "Language": "de",
+          "Text": "Rechtskräftig"
+         }
+        }
+       },
+       "Index": "2",
+       "ResponsibleOffice": {
+        "Name": {
+         "LocalisedText": {
+          "Language": "de",
+          "Text": "Bauamt Stans"
+         }
+        },
+        "OfficeAtWeb": {
+         "LocalisedText": {
+          "Language": "de",
+          "Text": "https://www.stans.ch/gemeindeverwaltung/6358"
+         }
+        }
+       }
+      }
+     ],
+     "ResponsibleOffice": {
+      "Name": {
+       "LocalisedText": {
+        "Language": "de",
+        "Text": "Bauamt Stans"
+       }
+      },
+      "OfficeAtWeb": {
+       "LocalisedText": {
+        "Language": "de",
+        "Text": "https://www.stans.ch/gemeindeverwaltung/6358"
+       }
+      }
+     }
+    },
+    {
+     "LegendText": {
+      "LocalisedText": {
+       "Language": "de",
+       "Text": "Flächenbezogene Festlegung (Stans)"
+      }
+     },
+     "Theme": {
+      "Code": "ch.Nutzungsplanung",
+      "Text": {
+       "LocalisedText": {
+        "Language": "de",
+        "Text": "Nutzungsplanung (kantonal/kommunal)"
+       }
+      }
+     },
+     "TypeCode": "b5246f1b:L:3212",
+     "Lawstatus": {
+      "Code": "inForce",
+      "Text": {
+       "LocalisedText": {
+        "Language": "de",
+        "Text": "Rechtskräftig"
+       }
+      }
+     },
+     "AreaShare": "1303",
+     "PartInPercent": "100",
+     "Map": {
+      "OtherLegend": [
+       {
+        "LegendText": {
+         "LocalisedText": {
+          "Language": "de",
+          "Text": "Sondernutzungszone publikumsorientierte Nutzung"
+         }
+        },
+        "TypeCode": "b5246f1b:L:4446",
+        "Theme": {
+         "Code": "ch.Nutzungsplanung",
+         "Text": {
+          "LocalisedText": {
+           "Language": "de",
+           "Text": "Nutzungsplanung (kantonal/kommunal)"
+          }
+         }
+        }
+       },
+       {
+        "LegendText": {
+         "LocalisedText": {
+          "Language": "de",
+          "Text": "Ortsbildschutzzone"
+         }
+        },
+        "TypeCode": "b5246f1b:L:3212",
+        "Theme": {
+         "Code": "ch.Nutzungsplanung",
+         "Text": {
+          "LocalisedText": {
+           "Language": "de",
+           "Text": "Nutzungsplanung (kantonal/kommunal)"
+          }
+         }
+        }
+       }
+      ]
+     },
+     "LegalProvisions": [
+      {
+       "Type": {
+        "Code": "LegalProvision",
+        "Text": {
+         "LocalisedText": {
+          "Language": "de",
+          "Text": "Rechtsvorschrift"
+         }
+        }
+       },
+       "Title": {
+        "LocalisedText": {
+         "Language": "de",
+         "Text": "Bau- und Zonenreglement der Gemeinde Stans"
+        }
+       },
+       "Abbreviation": {
+        "LocalisedText": {
+         "Language": "de",
+         "Text": "BZR"
+        }
+       },
+       "OfficialNumber": {
+        "LocalisedText": {
+         "Language": "de",
+         "Text": null
+        }
+       },
+       "TextAtWeb": {
+        "LocalisedText": {
+         "Language": "de",
+         "Text": "https://www.gis-daten.ch/rd/BZR/ST_Bau-_und_Zonenreglement.pdf"
+        }
+       },
+       "Lawstatus": {
+        "Code": "inForce",
+        "Text": {
+         "LocalisedText": {
+          "Language": "de",
+          "Text": "Rechtskräftig"
+         }
+        }
+       },
+       "Index": "2",
+       "ResponsibleOffice": {
+        "Name": {
+         "LocalisedText": {
+          "Language": "de",
+          "Text": "Bauamt Stans"
+         }
+        },
+        "OfficeAtWeb": {
+         "LocalisedText": {
+          "Language": "de",
+          "Text": "https://www.stans.ch/gemeindeverwaltung/6358"
+         }
+        }
+       }
+      }
+     ],
+     "ResponsibleOffice": {
+      "Name": {
+       "LocalisedText": {
+        "Language": "de",
+        "Text": "Bauamt Stans"
+       }
+      },
+      "OfficeAtWeb": {
+       "LocalisedText": {
+        "Language": "de",
+        "Text": "https://www.stans.ch/gemeindeverwaltung/6358"
+       }
+      }
+     }
+    },
+    {
+     "LegendText": {
+      "LocalisedText": {
+       "Language": "de",
+       "Text": "Gefahrenzone (Stans)"
+      }
+     },
+     "Theme": {
+      "Code": "ch.Nutzungsplanung",
+      "Text": {
+       "LocalisedText": {
+        "Language": "de",
+        "Text": "Nutzungsplanung (kantonal/kommunal)"
+       }
+      }
+     },
+     "TypeCode": "63e3bac9:L:8864",
+     "Lawstatus": {
+      "Code": "inForce",
+      "Text": {
+       "LocalisedText": {
+        "Language": "de",
+        "Text": "Rechtskräftig"
+       }
+      }
+     },
+     "AreaShare": "1303",
+     "PartInPercent": "100",
+     "Map": {
+      "OtherLegend": [
+       {
+        "LegendText": {
+         "LocalisedText": {
+          "Language": "de",
+          "Text": "Gefahrenzone 2"
+         }
+        },
+        "TypeCode": "63e3bac9:L:8864",
+        "Theme": {
+         "Code": "ch.Nutzungsplanung",
+         "Text": {
+          "LocalisedText": {
+           "Language": "de",
+           "Text": "Nutzungsplanung (kantonal/kommunal)"
+          }
+         }
+        }
+       },
+       {
+        "LegendText": {
+         "LocalisedText": {
+          "Language": "de",
+          "Text": "Gefahrenzone 3"
+         }
+        },
+        "TypeCode": "63e3bac9:L:4736",
+        "Theme": {
+         "Code": "ch.Nutzungsplanung",
+         "Text": {
+          "LocalisedText": {
+           "Language": "de",
+           "Text": "Nutzungsplanung (kantonal/kommunal)"
+          }
+         }
+        }
+       }
+      ]
+     },
+     "LegalProvisions": [
+      {
+       "Type": {
+        "Code": "LegalProvision",
+        "Text": {
+         "LocalisedText": {
+          "Language": "de",
+          "Text": "Rechtsvorschrift"
+         }
+        }
+       },
+       "Title": {
+        "LocalisedText": {
+         "Language": "de",
+         "Text": "Bau- und Zonenreglement der Gemeinde Stans"
+        }
+       },
+       "Abbreviation": {
+        "LocalisedText": {
+         "Language": "de",
+         "Text": "BZR"
+        }
+       },
+       "OfficialNumber": {
+        "LocalisedText": {
+         "Language": "de",
+         "Text": null
+        }
+       },
+       "TextAtWeb": {
+        "LocalisedText": {
+         "Language": "de",
+         "Text": "https://www.gis-daten.ch/rd/BZR/ST_Bau-_und_Zonenreglement.pdf"
+        }
+       },
+       "Lawstatus": {
+        "Code": "inForce",
+        "Text": {
+         "LocalisedText": {
+          "Language": "de",
+          "Text": "Rechtskräftig"
+         }
+        }
+       },
+       "Index": "2",
+       "ResponsibleOffice": {
+        "Name": {
+         "LocalisedText": {
+          "Language": "de",
+          "Text": "Bauamt Stans"
+         }
+        },
+        "OfficeAtWeb": {
+         "LocalisedText": {
+          "Language": "de",
+          "Text": "https://www.stans.ch/gemeindeverwaltung/6358"
+         }
+        }
+       }
+      }
+     ],
+     "ResponsibleOffice": {
+      "Name": {
+       "LocalisedText": {
+        "Language": "de",
+        "Text": "Bauamt Stans"
+       }
+      },
+      "OfficeAtWeb": {
+       "LocalisedText": {
+        "Language": "de",
+        "Text": "https://www.stans.ch/gemeindeverwaltung/6358"
+       }
+      }
+     }
+    },
+    {
+     "LegendText": {
+      "LocalisedText": {
+       "Language": "de",
+       "Text": "Baulinien (Linienbezogene Festlegung, Stans)"
+      }
+     },
+     "Theme": {
+      "Code": "ch.Nutzungsplanung",
+      "Text": {
+       "LocalisedText": {
+        "Language": "de",
+        "Text": "Nutzungsplanung (kantonal/kommunal)"
+       }
+      }
+     },
+     "TypeCode": "5843a06b:L:1187",
+     "Lawstatus": {
+      "Code": "inForce",
+      "Text": {
+       "LocalisedText": {
+        "Language": "de",
+        "Text": "Rechtskräftig"
+       }
+      }
+     },
+     "AreaShare": "0",
+     "PartInPercent": "0",
+     "LengthShare": "21",
+     "Map": {
+      "OtherLegend": [
+       {
+        "LegendText": {
+         "LocalisedText": {
+          "Language": "de",
+          "Text": "Baubegrenzungslinie Strassen- / Grenzabstand"
+         }
+        },
+        "TypeCode": "5843a06b:L:1187",
+        "Theme": {
+         "Code": "ch.Nutzungsplanung",
+         "Text": {
+          "LocalisedText": {
+           "Language": "de",
+           "Text": "Nutzungsplanung (kantonal/kommunal)"
+          }
+         }
+        }
+       },
+       {
+        "LegendText": {
+         "LocalisedText": {
+          "Language": "de",
+          "Text": "Pflichtbaulinie Strassen- / Grenzabstand"
+         }
+        },
+        "TypeCode": "5843a06b:L:1057",
+        "Theme": {
+         "Code": "ch.Nutzungsplanung",
+         "Text": {
+          "LocalisedText": {
+           "Language": "de",
+           "Text": "Nutzungsplanung (kantonal/kommunal)"
+          }
+         }
+        }
+       },
+       {
+        "LegendText": {
+         "LocalisedText": {
+          "Language": "de",
+          "Text": "eingedoltes Gewässer"
+         }
+        },
+        "TypeCode": "5843a06b:L:4501",
+        "Theme": {
+         "Code": "ch.Nutzungsplanung",
+         "Text": {
+          "LocalisedText": {
+           "Language": "de",
+           "Text": "Nutzungsplanung (kantonal/kommunal)"
+          }
+         }
+        }
+       }
+      ]
+     },
+     "LegalProvisions": [
+      {
+       "Type": {
+        "Code": "LegalProvision",
+        "Text": {
+         "LocalisedText": {
+          "Language": "de",
+          "Text": "Rechtsvorschrift"
+         }
+        }
+       },
+       "Title": {
+        "LocalisedText": {
+         "Language": "de",
+         "Text": "Bau- und Zonenreglement der Gemeinde Stans"
+        }
+       },
+       "Abbreviation": {
+        "LocalisedText": {
+         "Language": "de",
+         "Text": "BZR"
+        }
+       },
+       "OfficialNumber": {
+        "LocalisedText": {
+         "Language": "de",
+         "Text": null
+        }
+       },
+       "TextAtWeb": {
+        "LocalisedText": {
+         "Language": "de",
+         "Text": "https://www.gis-daten.ch/rd/BZR/ST_Bau-_und_Zonenreglement.pdf"
+        }
+       },
+       "Lawstatus": {
+        "Code": "inForce",
+        "Text": {
+         "LocalisedText": {
+          "Language": "de",
+          "Text": "Rechtskräftig"
+         }
+        }
+       },
+       "Index": "2",
+       "ResponsibleOffice": {
+        "Name": {
+         "LocalisedText": {
+          "Language": "de",
+          "Text": "Bauamt Stans"
+         }
+        },
+        "OfficeAtWeb": {
+         "LocalisedText": {
+          "Language": "de",
+          "Text": "https://www.stans.ch/gemeindeverwaltung/6358"
+         }
+        }
+       }
+      }
+     ],
+     "ResponsibleOffice": {
+      "Name": {
+       "LocalisedText": {
+        "Language": "de",
+        "Text": "Bauamt Stans"
+       }
+      },
+      "OfficeAtWeb": {
+       "LocalisedText": {
+        "Language": "de",
+        "Text": "https://www.stans.ch/gemeindeverwaltung/6358"
+       }
+      }
+     }
+    },
+    {
+     "LegendText": {
+      "LocalisedText": {
+       "Language": "de",
+       "Text": "Baulinien (Linienbezogene Festlegung, Stans)"
+      }
+     },
+     "Theme": {
+      "Code": "ch.Nutzungsplanung",
+      "Text": {
+       "LocalisedText": {
+        "Language": "de",
+        "Text": "Nutzungsplanung (kantonal/kommunal)"
+       }
+      }
+     },
+     "TypeCode": "5843a06b:L:1057",
+     "Lawstatus": {
+      "Code": "inForce",
+      "Text": {
+       "LocalisedText": {
+        "Language": "de",
+        "Text": "Rechtskräftig"
+       }
+      }
+     },
+     "AreaShare": "0",
+     "PartInPercent": "0",
+     "LengthShare": "49",
+     "Map": {
+      "OtherLegend": [
+       {
+        "LegendText": {
+         "LocalisedText": {
+          "Language": "de",
+          "Text": "Baubegrenzungslinie Strassen- / Grenzabstand"
+         }
+        },
+        "TypeCode": "5843a06b:L:1187",
+        "Theme": {
+         "Code": "ch.Nutzungsplanung",
+         "Text": {
+          "LocalisedText": {
+           "Language": "de",
+           "Text": "Nutzungsplanung (kantonal/kommunal)"
+          }
+         }
+        }
+       },
+       {
+        "LegendText": {
+         "LocalisedText": {
+          "Language": "de",
+          "Text": "Pflichtbaulinie Strassen- / Grenzabstand"
+         }
+        },
+        "TypeCode": "5843a06b:L:1057",
+        "Theme": {
+         "Code": "ch.Nutzungsplanung",
+         "Text": {
+          "LocalisedText": {
+           "Language": "de",
+           "Text": "Nutzungsplanung (kantonal/kommunal)"
+          }
+         }
+        }
+       },
+       {
+        "LegendText": {
+         "LocalisedText": {
+          "Language": "de",
+          "Text": "eingedoltes Gewässer"
+         }
+        },
+        "TypeCode": "5843a06b:L:4501",
+        "Theme": {
+         "Code": "ch.Nutzungsplanung",
+         "Text": {
+          "LocalisedText": {
+           "Language": "de",
+           "Text": "Nutzungsplanung (kantonal/kommunal)"
+          }
+         }
+        }
+       }
+      ]
+     },
+     "LegalProvisions": [
+      {
+       "Type": {
+        "Code": "LegalProvision",
+        "Text": {
+         "LocalisedText": {
+          "Language": "de",
+          "Text": "Rechtsvorschrift"
+         }
+        }
+       },
+       "Title": {
+        "LocalisedText": {
+         "Language": "de",
+         "Text": "Bau- und Zonenreglement der Gemeinde Stans"
+        }
+       },
+       "Abbreviation": {
+        "LocalisedText": {
+         "Language": "de",
+         "Text": "BZR"
+        }
+       },
+       "OfficialNumber": {
+        "LocalisedText": {
+         "Language": "de",
+         "Text": null
+        }
+       },
+       "TextAtWeb": {
+        "LocalisedText": {
+         "Language": "de",
+         "Text": "https://www.gis-daten.ch/rd/BZR/ST_Bau-_und_Zonenreglement.pdf"
+        }
+       },
+       "Lawstatus": {
+        "Code": "inForce",
+        "Text": {
+         "LocalisedText": {
+          "Language": "de",
+          "Text": "Rechtskräftig"
+         }
+        }
+       },
+       "Index": "2",
+       "ResponsibleOffice": {
+        "Name": {
+         "LocalisedText": {
+          "Language": "de",
+          "Text": "Bauamt Stans"
+         }
+        },
+        "OfficeAtWeb": {
+         "LocalisedText": {
+          "Language": "de",
+          "Text": "https://www.stans.ch/gemeindeverwaltung/6358"
+         }
+        }
+       }
+      }
+     ],
+     "ResponsibleOffice": {
+      "Name": {
+       "LocalisedText": {
+        "Language": "de",
+        "Text": "Bauamt Stans"
+       }
+      },
+      "OfficeAtWeb": {
+       "LocalisedText": {
+        "Language": "de",
+        "Text": "https://www.stans.ch/gemeindeverwaltung/6358"
+       }
+      }
+     }
+    },
+    {
+     "LegendText": {
+      "LocalisedText": {
+       "Language": "de",
+       "Text": "Lärmempfindlichkeitsstufen (Stans)"
+      }
+     },
+     "Theme": {
+      "Code": "ch.Laermempfindlichkeitsstufen",
+      "Text": {
+       "LocalisedText": {
+        "Language": "de",
+        "Text": "Lärmempfindlichkeitsstufen (in Nutzungszonen)"
+       }
+      }
+     },
+     "TypeCode": "ad016c50:L:5565",
+     "Lawstatus": {
+      "Code": "inForce",
+      "Text": {
+       "LocalisedText": {
+        "Language": "de",
+        "Text": "Rechtskräftig"
+       }
+      }
+     },
+     "AreaShare": "1303",
+     "PartInPercent": "100",
+     "Map": {
+      "OtherLegend": [
+       {
+        "LegendText": {
+         "LocalisedText": {
+          "Language": "de",
+          "Text": "Keine Empfindlichkeitsstufe"
+         }
+        },
+        "TypeCode": "ad016c50:L:6706",
+        "Theme": {
+         "Code": "ch.Laermempfindlichkeitsstufen",
+         "Text": {
+          "LocalisedText": {
+           "Language": "de",
+           "Text": "Lärmempfindlichkeitsstufen (in Nutzungszonen)"
+          }
+         }
+        }
+       },
+       {
+        "LegendText": {
+         "LocalisedText": {
+          "Language": "de",
+          "Text": "Empfindlichkeitsstufe III"
+         }
+        },
+        "TypeCode": "ad016c50:L:5565",
+        "Theme": {
+         "Code": "ch.Laermempfindlichkeitsstufen",
+         "Text": {
+          "LocalisedText": {
+           "Language": "de",
+           "Text": "Lärmempfindlichkeitsstufen (in Nutzungszonen)"
+          }
+         }
+        }
+       }
+      ]
+     },
+     "LegalProvisions": [
+      {
+       "Type": {
+        "Code": "LegalProvision",
+        "Text": {
+         "LocalisedText": {
+          "Language": "de",
+          "Text": "Rechtsvorschrift"
+         }
+        }
+       },
+       "Title": {
+        "LocalisedText": {
+         "Language": "de",
+         "Text": "Bau- und Zonenreglement der Gemeinde Stans (BZR)"
+        }
+       },
+       "Abbreviation": {
+        "LocalisedText": {
+         "Language": "de",
+         "Text": "ohne übergeordnete RV"
+        }
+       },
+       "OfficialNumber": {
+        "LocalisedText": {
+         "Language": "de",
+         "Text": null
+        }
+       },
+       "TextAtWeb": {
+        "LocalisedText": {
+         "Language": "de",
+         "Text": "https://www.gis-daten.ch/rd/BZR/ST_Bau-_und_Zonenreglement.pdf"
+        }
+       },
+       "Lawstatus": {
+        "Code": "inForce",
+        "Text": {
+         "LocalisedText": {
+          "Language": "de",
+          "Text": "Rechtskräftig"
+         }
+        }
+       },
+       "Index": "2",
+       "ResponsibleOffice": {
+        "Name": {
+         "LocalisedText": {
+          "Language": "de",
+          "Text": "Bauamt Stans"
+         }
+        },
+        "OfficeAtWeb": {
+         "LocalisedText": {
+          "Language": "de",
+          "Text": "https://www.stans.ch/gemeindeverwaltung/6358"
+         }
+        }
+       }
+      }
+     ],
+     "ResponsibleOffice": {
+      "Name": {
+       "LocalisedText": {
+        "Language": "de",
+        "Text": "Bauamt Stans"
+       }
+      },
+      "OfficeAtWeb": {
+       "LocalisedText": {
+        "Language": "de",
+        "Text": "https://www.stans.ch/gemeindeverwaltung/6358"
+       }
+      }
+     }
+    },
+    {
+     "LegendText": {
+      "LocalisedText": {
+       "Language": "de",
+       "Text": "geschützte Kulturobjekte Flächen NW (kantonal)"
+      }
+     },
+     "Theme": {
+      "Code": "ch.NW.Kulturobjekte",
+      "Text": {
+       "LocalisedText": {
+        "Language": "de",
+        "Text": "Kulturobjekte"
+       }
+      }
+     },
+     "TypeCode": "185038d1:L:2193",
+     "Lawstatus": {
+      "Code": "inForce",
+      "Text": {
+       "LocalisedText": {
+        "Language": "de",
+        "Text": "Rechtskräftig"
+       }
+      }
+     },
+     "AreaShare": "309",
+     "PartInPercent": "24",
+     "Map": {
+      "OtherLegend": [
+       {
+        "LegendText": {
+         "LocalisedText": {
+          "Language": "de",
+          "Text": "geschützt, Kulturobjekt  N (von nationaler Bedeutung), Hotel Engel"
+         }
+        },
+        "TypeCode": "185038d1:L:8215",
+        "Theme": {
+         "Code": "ch.NW.Kulturobjekte",
+         "Text": {
+          "LocalisedText": {
+           "Language": "de",
+           "Text": "Kulturobjekte"
+          }
+         }
+        }
+       },
+       {
+        "LegendText": {
+         "LocalisedText": {
+          "Language": "de",
+          "Text": "geschützt, Kulturobjekt  N (von nationaler Bedeutung), Sigristenhaus"
+         }
+        },
+        "TypeCode": "185038d1:L:3122",
+        "Theme": {
+         "Code": "ch.NW.Kulturobjekte",
+         "Text": {
+          "LocalisedText": {
+           "Language": "de",
+           "Text": "Kulturobjekte"
+          }
+         }
+        }
+       },
+       {
+        "LegendText": {
+         "LocalisedText": {
+          "Language": "de",
+          "Text": "geschützt, Kulturobjekt  R (von regionaler Bedeutung), Regierungsgebäude"
+         }
+        },
+        "TypeCode": "185038d1:L:2193",
+        "Theme": {
+         "Code": "ch.NW.Kulturobjekte",
+         "Text": {
+          "LocalisedText": {
+           "Language": "de",
+           "Text": "Kulturobjekte"
+          }
+         }
+        }
+       },
+       {
+        "LegendText": {
+         "LocalisedText": {
+          "Language": "de",
+          "Text": "geschützt, Kulturobjekt  R (von regionaler Bedeutung), Wohn- und Geschäftshaus Durrer"
+         }
+        },
+        "TypeCode": "185038d1:L:2537",
+        "Theme": {
+         "Code": "ch.NW.Kulturobjekte",
+         "Text": {
+          "LocalisedText": {
+           "Language": "de",
+           "Text": "Kulturobjekte"
+          }
+         }
+        }
+       },
+       {
+        "LegendText": {
+         "LocalisedText": {
+          "Language": "de",
+          "Text": "geschützt, Kulturobjekt  R (von regionaler Bedeutung), Wohn- und Geschäftshaus"
+         }
+        },
+        "TypeCode": "185038d1:L:8705",
+        "Theme": {
+         "Code": "ch.NW.Kulturobjekte",
+         "Text": {
+          "LocalisedText": {
+           "Language": "de",
+           "Text": "Kulturobjekte"
+          }
+         }
+        }
+       },
+       {
+        "LegendText": {
+         "LocalisedText": {
+          "Language": "de",
+          "Text": "geschützt, Kulturobjekt  R (von regionaler Bedeutung), Wohn- und Geschäftshaus «Furger»"
+         }
+        },
+        "TypeCode": "185038d1:L:7927",
+        "Theme": {
+         "Code": "ch.NW.Kulturobjekte",
+         "Text": {
+          "LocalisedText": {
+           "Language": "de",
+           "Text": "Kulturobjekte"
+          }
+         }
+        }
+       },
+       {
+        "LegendText": {
+         "LocalisedText": {
+          "Language": "de",
+          "Text": "geschützt, Kulturobjekt  N (von nationaler Bedeutung), Wohn- und Geschäftshaus «Haus Infanger»"
+         }
+        },
+        "TypeCode": "185038d1:L:7928",
+        "Theme": {
+         "Code": "ch.NW.Kulturobjekte",
+         "Text": {
+          "LocalisedText": {
+           "Language": "de",
+           "Text": "Kulturobjekte"
+          }
+         }
+        }
+       },
+       {
+        "LegendText": {
+         "LocalisedText": {
+          "Language": "de",
+          "Text": "geschützt, Kulturobjekt  N (von nationaler Bedeutung), Höfli, Rosenburg"
+         }
+        },
+        "TypeCode": "185038d1:L:3495",
+        "Theme": {
+         "Code": "ch.NW.Kulturobjekte",
+         "Text": {
+          "LocalisedText": {
+           "Language": "de",
+           "Text": "Kulturobjekte"
+          }
+         }
+        }
+       }
+      ]
+     },
+     "LegalProvisions": [
+      {
+       "Type": {
+        "Code": "LegalProvision",
+        "Text": {
+         "LocalisedText": {
+          "Language": "de",
+          "Text": "Rechtsvorschrift"
+         }
+        }
+       },
+       "Title": {
+        "LocalisedText": {
+         "Language": "de",
+         "Text": "Hinweis zu den Schutzmassnahmen"
+        }
+       },
+       "Abbreviation": {
+        "LocalisedText": {
+         "Language": "de",
+         "Text": "Kulturobjekte NW"
+        }
+       },
+       "OfficialNumber": {
+        "LocalisedText": {
+         "Language": "de",
+         "Text": null
+        }
+       },
+       "TextAtWeb": {
+        "LocalisedText": {
+         "Language": "de",
+         "Text": "https://www.gis-daten.ch/rd/Kulturobjekte/Hinweis_Kulturobjekte_ohne_Dokumente_NW.pdf"
+        }
+       },
+       "Lawstatus": {
+        "Code": "inForce",
+        "Text": {
+         "LocalisedText": {
+          "Language": "de",
+          "Text": "Rechtskräftig"
+         }
+        }
+       },
+       "Index": "1",
+       "ResponsibleOffice": {
+        "Name": {
+         "LocalisedText": {
+          "Language": "de",
+          "Text": "Amt für Kultur "
+         }
+        },
+        "OfficeAtWeb": {
+         "LocalisedText": {
+          "Language": "de",
+          "Text": "https://www.nw.ch/amtkultur/270"
+         }
+        }
+       }
+      }
+     ],
+     "ResponsibleOffice": {
+      "Name": {
+       "LocalisedText": {
+        "Language": "de",
+        "Text": "Amt für Kultur "
+       }
+      },
+      "OfficeAtWeb": {
+       "LocalisedText": {
+        "Language": "de",
+        "Text": "https://www.nw.ch/amtkultur/270"
+       }
+      }
+     }
+    }
+   ]
+  },
+  "PLRCadastreAuthority": {
+   "Name": {
+    "LocalisedText": {
+     "Language": "de",
+     "Text": "GIS Daten AG"
+    }
+   },
+   "OfficeAtWeb": {
+    "LocalisedText": {
+     "Language": "de",
+     "Text": "https://www.gis-daten.ch/"
+    }
+   },
+   "UID": "-",
+   "Line1": null,
+   "Line2": null,
+   "Street": "Aemättlistrasse",
+   "Number": "2",
+   "PostalCode": "6370",
+   "City": "Stans"
+  },
+  "UpdateDateCS": "2026-10-15T08:27:27.9140096+02:00"
+ }
+}

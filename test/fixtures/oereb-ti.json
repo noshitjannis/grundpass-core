@@ -1,0 +1,4337 @@
+{
+ "_hinweis": "Echte Antwort vom 16.10.2026, verkleinert mit scripts/oereb-fixture.ts: https://crdpp.geo.ti.ch/oereb2/extract/json?EGRID=CH990287070740&GEOMETRY=false&WITHIMAGES=false&LANG=it (Piazza Nosetto 5, 6500 Bellinzona, Bellinzona Parzelle 1329, EGID 1628108). Geometrien, Bilder, Glossar und Rechtsvorschriften bis auf eine entfernt.",
+ "$schema": "https://raw.githubusercontent.com/openoereb/schemas/ea4fe8e696b84b923cb9aa9fb27c3ba4e2d8eb5b/extract.json",
+ "GetExtractByIdResponse": {
+  "extract": {
+   "CreationDate": "2026-10-16T08:26:12",
+   "ExtractIdentifier": "a9f8d6ed-c835-439d-9e12-becce624de68",
+   "UpdateDateCS": "2026-10-13T00:00:00",
+   "PLRCadastreAuthority": {
+    "Name": [
+     {
+      "Language": "it",
+      "Text": "Ufficio della geomatica"
+     }
+    ],
+    "OfficeAtWeb": [
+     {
+      "Language": "it",
+      "Text": "https://www4.ti.ch/dt/sg/sai/ugeo/ufficio/"
+     }
+    ],
+    "Street": "Via Franco Zorzi",
+    "Number": "13",
+    "PostalCode": "6501",
+    "City": "Bellinzona"
+   },
+   "RealEstate": {
+    "Type": {
+     "Code": "RealEstate",
+     "Text": [
+      {
+       "Language": "it",
+       "Text": "Bene immobile"
+      }
+     ]
+    },
+    "Canton": "TI",
+    "MunicipalityName": "Bellinzona",
+    "MunicipalityCode": 5002,
+    "LandRegistryArea": 2685,
+    "Number": "1329",
+    "IdentDN": "TI12101",
+    "EGRID": "CH990287070740",
+    "SubunitOfLandRegister": "Bellinzona",
+    "RestrictionOnLandownership": [
+     {
+      "LegendText": [
+       {
+        "Language": "it",
+        "Text": "Comparto soggetto a Piano Particolareggiato"
+       }
+      ],
+      "Theme": {
+       "Code": "ch.Nutzungsplanung",
+       "Text": [
+        {
+         "Language": "it",
+         "Text": "PR Bellinzona-Bellinzona / Piano zone"
+        }
+       ],
+       "SubCode": "ch.TI.ch08d8qu143100028"
+      },
+      "Lawstatus": {
+       "Code": "inForce",
+       "Text": [
+        {
+         "Language": "it",
+         "Text": "In vigore"
+        }
+       ]
+      },
+      "ResponsibleOffice": {
+       "Name": [
+        {
+         "Language": "it",
+         "Text": "Ufficio della pianificazione locale"
+        }
+       ],
+       "OfficeAtWeb": [
+        {
+         "Language": "it",
+         "Text": "https://www4.ti.ch/dt/dstm/sst/upl/ufficio/"
+        }
+       ],
+       "Street": "Via Franco Zorzi",
+       "Number": "13",
+       "PostalCode": "6501",
+       "City": "Bellinzona"
+      },
+      "AreaShare": 2685,
+      "TypeCode": "S_14_047_0015_4175",
+      "PartInPercent": 100,
+      "LegalProvisions": [
+       {
+        "Type": {
+         "Code": "LegalProvision",
+         "Text": [
+          {
+           "Language": "it",
+           "Text": "Prescrizione legale"
+          }
+         ]
+        },
+        "Index": 48,
+        "Title": [
+         {
+          "Language": "it",
+          "Text": "Regolamento edilizio - PR BELLINZONA-BELLINZONA"
+         }
+        ],
+        "Lawstatus": {
+         "Code": "inForce",
+         "Text": [
+          {
+           "Language": "it",
+           "Text": "In vigore"
+          }
+         ]
+        },
+        "TextAtWeb": [
+         {
+          "Language": "it",
+          "Text": "https://www4.ti.ch/fileadmin/GENERALE/IGDAC/ti_028b_1_version1_0_mn95/RE_ch08d8qu_ch08d8qu294100000.pdf"
+         }
+        ],
+        "ResponsibleOffice": {
+         "Name": [
+          {
+           "Language": "it",
+           "Text": "Ufficio della pianificazione locale"
+          }
+         ],
+         "OfficeAtWeb": [
+          {
+           "Language": "it",
+           "Text": "https://www4.ti.ch/dt/dstm/sst/upl/ufficio/"
+          }
+         ],
+         "Street": "Via Franco Zorzi",
+         "Number": "13",
+         "PostalCode": "6501",
+         "City": "Bellinzona"
+        },
+        "Abbreviation": [
+         {
+          "Language": "it",
+          "Text": "RE"
+         }
+        ]
+       }
+      ]
+     },
+     {
+      "LegendText": [
+       {
+        "Language": "it",
+        "Text": "Comparto soggetto a Piano Particolareggiato"
+       }
+      ],
+      "Theme": {
+       "Code": "ch.Nutzungsplanung",
+       "Text": [
+        {
+         "Language": "it",
+         "Text": "PR Bellinzona-Bellinzona / Piano traffico"
+        }
+       ],
+       "SubCode": "ch.TI.ch08d8qu216103571"
+      },
+      "Lawstatus": {
+       "Code": "inForce",
+       "Text": [
+        {
+         "Language": "it",
+         "Text": "In vigore"
+        }
+       ]
+      },
+      "ResponsibleOffice": {
+       "Name": [
+        {
+         "Language": "it",
+         "Text": "Ufficio della pianificazione locale"
+        }
+       ],
+       "OfficeAtWeb": [
+        {
+         "Language": "it",
+         "Text": "https://www4.ti.ch/dt/dstm/sst/upl/ufficio/"
+        }
+       ],
+       "Street": "Via Franco Zorzi",
+       "Number": "13",
+       "PostalCode": "6501",
+       "City": "Bellinzona"
+      },
+      "AreaShare": 2685,
+      "TypeCode": "S_14_047_0015_4335",
+      "PartInPercent": 100,
+      "LegalProvisions": [
+       {
+        "Type": {
+         "Code": "LegalProvision",
+         "Text": [
+          {
+           "Language": "it",
+           "Text": "Prescrizione legale"
+          }
+         ]
+        },
+        "Index": 48,
+        "Title": [
+         {
+          "Language": "it",
+          "Text": "Regolamento edilizio - PR BELLINZONA-BELLINZONA"
+         }
+        ],
+        "Lawstatus": {
+         "Code": "inForce",
+         "Text": [
+          {
+           "Language": "it",
+           "Text": "In vigore"
+          }
+         ]
+        },
+        "TextAtWeb": [
+         {
+          "Language": "it",
+          "Text": "https://www4.ti.ch/fileadmin/GENERALE/IGDAC/ti_028b_1_version1_0_mn95/RE_ch08d8qu_ch08d8qu294100000.pdf"
+         }
+        ],
+        "ResponsibleOffice": {
+         "Name": [
+          {
+           "Language": "it",
+           "Text": "Ufficio della pianificazione locale"
+          }
+         ],
+         "OfficeAtWeb": [
+          {
+           "Language": "it",
+           "Text": "https://www4.ti.ch/dt/dstm/sst/upl/ufficio/"
+          }
+         ],
+         "Street": "Via Franco Zorzi",
+         "Number": "13",
+         "PostalCode": "6501",
+         "City": "Bellinzona"
+        },
+        "Abbreviation": [
+         {
+          "Language": "it",
+          "Text": "RE"
+         }
+        ]
+       }
+      ]
+     },
+     {
+      "LegendText": [
+       {
+        "Language": "it",
+        "Text": "Comparto soggetto a Piano Particolareggiato"
+       }
+      ],
+      "Theme": {
+       "Code": "ch.Nutzungsplanung",
+       "Text": [
+        {
+         "Language": "it",
+         "Text": "PR Bellinzona-Bellinzona / Piano paesaggio"
+        }
+       ],
+       "SubCode": "ch.TI.ch08d8qu216103572"
+      },
+      "Lawstatus": {
+       "Code": "inForce",
+       "Text": [
+        {
+         "Language": "it",
+         "Text": "In vigore"
+        }
+       ]
+      },
+      "ResponsibleOffice": {
+       "Name": [
+        {
+         "Language": "it",
+         "Text": "Ufficio della pianificazione locale"
+        }
+       ],
+       "OfficeAtWeb": [
+        {
+         "Language": "it",
+         "Text": "https://www4.ti.ch/dt/dstm/sst/upl/ufficio/"
+        }
+       ],
+       "Street": "Via Franco Zorzi",
+       "Number": "13",
+       "PostalCode": "6501",
+       "City": "Bellinzona"
+      },
+      "AreaShare": 2685,
+      "TypeCode": "S_17_056_0013_4171",
+      "PartInPercent": 100,
+      "LegalProvisions": [
+       {
+        "Type": {
+         "Code": "LegalProvision",
+         "Text": [
+          {
+           "Language": "it",
+           "Text": "Prescrizione legale"
+          }
+         ]
+        },
+        "Index": 48,
+        "Title": [
+         {
+          "Language": "it",
+          "Text": "Regolamento edilizio - PR BELLINZONA-BELLINZONA"
+         }
+        ],
+        "Lawstatus": {
+         "Code": "inForce",
+         "Text": [
+          {
+           "Language": "it",
+           "Text": "In vigore"
+          }
+         ]
+        },
+        "TextAtWeb": [
+         {
+          "Language": "it",
+          "Text": "https://www4.ti.ch/fileadmin/GENERALE/IGDAC/ti_028b_1_version1_0_mn95/RE_ch08d8qu_ch08d8qu294100000.pdf"
+         }
+        ],
+        "ResponsibleOffice": {
+         "Name": [
+          {
+           "Language": "it",
+           "Text": "Ufficio della pianificazione locale"
+          }
+         ],
+         "OfficeAtWeb": [
+          {
+           "Language": "it",
+           "Text": "https://www4.ti.ch/dt/dstm/sst/upl/ufficio/"
+          }
+         ],
+         "Street": "Via Franco Zorzi",
+         "Number": "13",
+         "PostalCode": "6501",
+         "City": "Bellinzona"
+        },
+        "Abbreviation": [
+         {
+          "Language": "it",
+          "Text": "RE"
+         }
+        ]
+       }
+      ]
+     },
+     {
+      "LegendText": [
+       {
+        "Language": "it",
+        "Text": "Perimetro di rispetto dei beni culturali di interesse cantonale"
+       }
+      ],
+      "Theme": {
+       "Code": "ch.Nutzungsplanung",
+       "Text": [
+        {
+         "Language": "it",
+         "Text": "PR Bellinzona-Bellinzona / Piano paesaggio"
+        }
+       ],
+       "SubCode": "ch.TI.ch08d8qu216103572"
+      },
+      "Lawstatus": {
+       "Code": "inForce",
+       "Text": [
+        {
+         "Language": "it",
+         "Text": "In vigore"
+        }
+       ]
+      },
+      "ResponsibleOffice": {
+       "Name": [
+        {
+         "Language": "it",
+         "Text": "Ufficio della pianificazione locale"
+        }
+       ],
+       "OfficeAtWeb": [
+        {
+         "Language": "it",
+         "Text": "https://www4.ti.ch/dt/dstm/sst/upl/ufficio/"
+        }
+       ],
+       "Street": "Via Franco Zorzi",
+       "Number": "13",
+       "PostalCode": "6501",
+       "City": "Bellinzona"
+      },
+      "AreaShare": 2685,
+      "TypeCode": "S_01_002_0004_4177",
+      "PartInPercent": 100,
+      "LegalProvisions": [
+       {
+        "Type": {
+         "Code": "LegalProvision",
+         "Text": [
+          {
+           "Language": "it",
+           "Text": "Prescrizione legale"
+          }
+         ]
+        },
+        "Index": 48,
+        "Title": [
+         {
+          "Language": "it",
+          "Text": "Regolamento edilizio - PR BELLINZONA-BELLINZONA"
+         }
+        ],
+        "Lawstatus": {
+         "Code": "inForce",
+         "Text": [
+          {
+           "Language": "it",
+           "Text": "In vigore"
+          }
+         ]
+        },
+        "TextAtWeb": [
+         {
+          "Language": "it",
+          "Text": "https://www4.ti.ch/fileadmin/GENERALE/IGDAC/ti_028b_1_version1_0_mn95/RE_ch08d8qu_ch08d8qu294100000.pdf"
+         }
+        ],
+        "ResponsibleOffice": {
+         "Name": [
+          {
+           "Language": "it",
+           "Text": "Ufficio della pianificazione locale"
+          }
+         ],
+         "OfficeAtWeb": [
+          {
+           "Language": "it",
+           "Text": "https://www4.ti.ch/dt/dstm/sst/upl/ufficio/"
+          }
+         ],
+         "Street": "Via Franco Zorzi",
+         "Number": "13",
+         "PostalCode": "6501",
+         "City": "Bellinzona"
+        },
+        "Abbreviation": [
+         {
+          "Language": "it",
+          "Text": "RE"
+         }
+        ]
+       }
+      ]
+     },
+     {
+      "LegendText": [
+       {
+        "Language": "it",
+        "Text": "Zona d'interesse archeologico"
+       }
+      ],
+      "Theme": {
+       "Code": "ch.Nutzungsplanung",
+       "Text": [
+        {
+         "Language": "it",
+         "Text": "PR Bellinzona-Bellinzona / Piano paesaggio"
+        }
+       ],
+       "SubCode": "ch.TI.ch08d8qu216103572"
+      },
+      "Lawstatus": {
+       "Code": "inForce",
+       "Text": [
+        {
+         "Language": "it",
+         "Text": "In vigore"
+        }
+       ]
+      },
+      "ResponsibleOffice": {
+       "Name": [
+        {
+         "Language": "it",
+         "Text": "Ufficio della pianificazione locale"
+        }
+       ],
+       "OfficeAtWeb": [
+        {
+         "Language": "it",
+         "Text": "https://www4.ti.ch/dt/dstm/sst/upl/ufficio/"
+        }
+       ],
+       "Street": "Via Franco Zorzi",
+       "Number": "13",
+       "PostalCode": "6501",
+       "City": "Bellinzona"
+      },
+      "AreaShare": 2685,
+      "TypeCode": "S_11_042_0018_13917",
+      "PartInPercent": 100,
+      "LegalProvisions": [
+       {
+        "Type": {
+         "Code": "LegalProvision",
+         "Text": [
+          {
+           "Language": "it",
+           "Text": "Prescrizione legale"
+          }
+         ]
+        },
+        "Index": 48,
+        "Title": [
+         {
+          "Language": "it",
+          "Text": "Regolamento edilizio - PR BELLINZONA-BELLINZONA"
+         }
+        ],
+        "Lawstatus": {
+         "Code": "inForce",
+         "Text": [
+          {
+           "Language": "it",
+           "Text": "In vigore"
+          }
+         ]
+        },
+        "TextAtWeb": [
+         {
+          "Language": "it",
+          "Text": "https://www4.ti.ch/fileadmin/GENERALE/IGDAC/ti_028b_1_version1_0_mn95/RE_ch08d8qu_ch08d8qu294100000.pdf"
+         }
+        ],
+        "ResponsibleOffice": {
+         "Name": [
+          {
+           "Language": "it",
+           "Text": "Ufficio della pianificazione locale"
+          }
+         ],
+         "OfficeAtWeb": [
+          {
+           "Language": "it",
+           "Text": "https://www4.ti.ch/dt/dstm/sst/upl/ufficio/"
+          }
+         ],
+         "Street": "Via Franco Zorzi",
+         "Number": "13",
+         "PostalCode": "6501",
+         "City": "Bellinzona"
+        },
+        "Abbreviation": [
+         {
+          "Language": "it",
+          "Text": "RE"
+         }
+        ]
+       }
+      ]
+     },
+     {
+      "LegendText": [
+       {
+        "Language": "it",
+        "Text": "Siti pittoreschi"
+       }
+      ],
+      "Theme": {
+       "Code": "ch.Nutzungsplanung",
+       "Text": [
+        {
+         "Language": "it",
+         "Text": "PR Bellinzona-Bellinzona / Piano paesaggio"
+        }
+       ],
+       "SubCode": "ch.TI.ch08d8qu216103572"
+      },
+      "Lawstatus": {
+       "Code": "inForce",
+       "Text": [
+        {
+         "Language": "it",
+         "Text": "In vigore"
+        }
+       ]
+      },
+      "ResponsibleOffice": {
+       "Name": [
+        {
+         "Language": "it",
+         "Text": "Ufficio della pianificazione locale"
+        }
+       ],
+       "OfficeAtWeb": [
+        {
+         "Language": "it",
+         "Text": "https://www4.ti.ch/dt/dstm/sst/upl/ufficio/"
+        }
+       ],
+       "Street": "Via Franco Zorzi",
+       "Number": "13",
+       "PostalCode": "6501",
+       "City": "Bellinzona"
+      },
+      "AreaShare": 2685,
+      "TypeCode": "S_09_035_0033_13949",
+      "PartInPercent": 100,
+      "LegalProvisions": [
+       {
+        "Type": {
+         "Code": "LegalProvision",
+         "Text": [
+          {
+           "Language": "it",
+           "Text": "Prescrizione legale"
+          }
+         ]
+        },
+        "Index": 48,
+        "Title": [
+         {
+          "Language": "it",
+          "Text": "Regolamento edilizio - PR BELLINZONA-BELLINZONA"
+         }
+        ],
+        "Lawstatus": {
+         "Code": "inForce",
+         "Text": [
+          {
+           "Language": "it",
+           "Text": "In vigore"
+          }
+         ]
+        },
+        "TextAtWeb": [
+         {
+          "Language": "it",
+          "Text": "https://www4.ti.ch/fileadmin/GENERALE/IGDAC/ti_028b_1_version1_0_mn95/RE_ch08d8qu_ch08d8qu294100000.pdf"
+         }
+        ],
+        "ResponsibleOffice": {
+         "Name": [
+          {
+           "Language": "it",
+           "Text": "Ufficio della pianificazione locale"
+          }
+         ],
+         "OfficeAtWeb": [
+          {
+           "Language": "it",
+           "Text": "https://www4.ti.ch/dt/dstm/sst/upl/ufficio/"
+          }
+         ],
+         "Street": "Via Franco Zorzi",
+         "Number": "13",
+         "PostalCode": "6501",
+         "City": "Bellinzona"
+        },
+        "Abbreviation": [
+         {
+          "Language": "it",
+          "Text": "RE"
+         }
+        ]
+       }
+      ]
+     },
+     {
+      "LegendText": [
+       {
+        "Language": "it",
+        "Text": "Paesaggi pittoreschi"
+       }
+      ],
+      "Theme": {
+       "Code": "ch.Nutzungsplanung",
+       "Text": [
+        {
+         "Language": "it",
+         "Text": "PR Bellinzona-Bellinzona / Piano paesaggio"
+        }
+       ],
+       "SubCode": "ch.TI.ch08d8qu216103572"
+      },
+      "Lawstatus": {
+       "Code": "inForce",
+       "Text": [
+        {
+         "Language": "it",
+         "Text": "In vigore"
+        }
+       ]
+      },
+      "ResponsibleOffice": {
+       "Name": [
+        {
+         "Language": "it",
+         "Text": "Ufficio della pianificazione locale"
+        }
+       ],
+       "OfficeAtWeb": [
+        {
+         "Language": "it",
+         "Text": "https://www4.ti.ch/dt/dstm/sst/upl/ufficio/"
+        }
+       ],
+       "Street": "Via Franco Zorzi",
+       "Number": "13",
+       "PostalCode": "6501",
+       "City": "Bellinzona"
+      },
+      "AreaShare": 2685,
+      "TypeCode": "S_05_141_0001_13951",
+      "PartInPercent": 100,
+      "LegalProvisions": [
+       {
+        "Type": {
+         "Code": "LegalProvision",
+         "Text": [
+          {
+           "Language": "it",
+           "Text": "Prescrizione legale"
+          }
+         ]
+        },
+        "Index": 48,
+        "Title": [
+         {
+          "Language": "it",
+          "Text": "Regolamento edilizio - PR BELLINZONA-BELLINZONA"
+         }
+        ],
+        "Lawstatus": {
+         "Code": "inForce",
+         "Text": [
+          {
+           "Language": "it",
+           "Text": "In vigore"
+          }
+         ]
+        },
+        "TextAtWeb": [
+         {
+          "Language": "it",
+          "Text": "https://www4.ti.ch/fileadmin/GENERALE/IGDAC/ti_028b_1_version1_0_mn95/RE_ch08d8qu_ch08d8qu294100000.pdf"
+         }
+        ],
+        "ResponsibleOffice": {
+         "Name": [
+          {
+           "Language": "it",
+           "Text": "Ufficio della pianificazione locale"
+          }
+         ],
+         "OfficeAtWeb": [
+          {
+           "Language": "it",
+           "Text": "https://www4.ti.ch/dt/dstm/sst/upl/ufficio/"
+          }
+         ],
+         "Street": "Via Franco Zorzi",
+         "Number": "13",
+         "PostalCode": "6501",
+         "City": "Bellinzona"
+        },
+        "Abbreviation": [
+         {
+          "Language": "it",
+          "Text": "RE"
+         }
+        ]
+       }
+      ]
+     },
+     {
+      "LegendText": [
+       {
+        "Language": "it",
+        "Text": "Beni culturali Cantonali"
+       }
+      ],
+      "Theme": {
+       "Code": "ch.Nutzungsplanung",
+       "Text": [
+        {
+         "Language": "it",
+         "Text": "PR Bellinzona-Bellinzona / Piano paesaggio"
+        }
+       ],
+       "SubCode": "ch.TI.ch08d8qu216103572"
+      },
+      "Lawstatus": {
+       "Code": "inForce",
+       "Text": [
+        {
+         "Language": "it",
+         "Text": "In vigore"
+        }
+       ]
+      },
+      "ResponsibleOffice": {
+       "Name": [
+        {
+         "Language": "it",
+         "Text": "Ufficio della pianificazione locale"
+        }
+       ],
+       "OfficeAtWeb": [
+        {
+         "Language": "it",
+         "Text": "https://www4.ti.ch/dt/dstm/sst/upl/ufficio/"
+        }
+       ],
+       "Street": "Via Franco Zorzi",
+       "Number": "13",
+       "PostalCode": "6501",
+       "City": "Bellinzona"
+      },
+      "NrOfPoints": 2,
+      "TypeCode": "P_27_128_0001_1725",
+      "LegalProvisions": [
+       {
+        "Type": {
+         "Code": "LegalProvision",
+         "Text": [
+          {
+           "Language": "it",
+           "Text": "Prescrizione legale"
+          }
+         ]
+        },
+        "Index": 48,
+        "Title": [
+         {
+          "Language": "it",
+          "Text": "Regolamento edilizio - PR BELLINZONA-BELLINZONA"
+         }
+        ],
+        "Lawstatus": {
+         "Code": "inForce",
+         "Text": [
+          {
+           "Language": "it",
+           "Text": "In vigore"
+          }
+         ]
+        },
+        "TextAtWeb": [
+         {
+          "Language": "it",
+          "Text": "https://www4.ti.ch/fileadmin/GENERALE/IGDAC/ti_028b_1_version1_0_mn95/RE_ch08d8qu_ch08d8qu294100000.pdf"
+         }
+        ],
+        "ResponsibleOffice": {
+         "Name": [
+          {
+           "Language": "it",
+           "Text": "Ufficio della pianificazione locale"
+          }
+         ],
+         "OfficeAtWeb": [
+          {
+           "Language": "it",
+           "Text": "https://www4.ti.ch/dt/dstm/sst/upl/ufficio/"
+          }
+         ],
+         "Street": "Via Franco Zorzi",
+         "Number": "13",
+         "PostalCode": "6501",
+         "City": "Bellinzona"
+        },
+        "Abbreviation": [
+         {
+          "Language": "it",
+          "Text": "RE"
+         }
+        ]
+       }
+      ]
+     },
+     {
+      "LegendText": [
+       {
+        "Language": "it",
+        "Text": "Perimetro di rispetto dei beni culturali di interesse cantonale"
+       }
+      ],
+      "Theme": {
+       "Code": "ch.Nutzungsplanung",
+       "Text": [
+        {
+         "Language": "it",
+         "Text": "PR Bellinzona-Bellinzona / Piano paesaggio (montano)"
+        }
+       ],
+       "SubCode": "ch.TI.ch08d8qu216103574"
+      },
+      "Lawstatus": {
+       "Code": "inForce",
+       "Text": [
+        {
+         "Language": "it",
+         "Text": "In vigore"
+        }
+       ]
+      },
+      "ResponsibleOffice": {
+       "Name": [
+        {
+         "Language": "it",
+         "Text": "Ufficio della pianificazione locale"
+        }
+       ],
+       "OfficeAtWeb": [
+        {
+         "Language": "it",
+         "Text": "https://www4.ti.ch/dt/dstm/sst/upl/ufficio/"
+        }
+       ],
+       "Street": "Via Franco Zorzi",
+       "Number": "13",
+       "PostalCode": "6501",
+       "City": "Bellinzona"
+      },
+      "AreaShare": 2685,
+      "TypeCode": "S_01_002_0004_4117",
+      "PartInPercent": 100,
+      "LegalProvisions": [
+       {
+        "Type": {
+         "Code": "LegalProvision",
+         "Text": [
+          {
+           "Language": "it",
+           "Text": "Prescrizione legale"
+          }
+         ]
+        },
+        "Index": 48,
+        "Title": [
+         {
+          "Language": "it",
+          "Text": "Regolamento edilizio - PR BELLINZONA-BELLINZONA"
+         }
+        ],
+        "Lawstatus": {
+         "Code": "inForce",
+         "Text": [
+          {
+           "Language": "it",
+           "Text": "In vigore"
+          }
+         ]
+        },
+        "TextAtWeb": [
+         {
+          "Language": "it",
+          "Text": "https://www4.ti.ch/fileadmin/GENERALE/IGDAC/ti_028b_1_version1_0_mn95/RE_ch08d8qu_ch08d8qu294100000.pdf"
+         }
+        ],
+        "ResponsibleOffice": {
+         "Name": [
+          {
+           "Language": "it",
+           "Text": "Ufficio della pianificazione locale"
+          }
+         ],
+         "OfficeAtWeb": [
+          {
+           "Language": "it",
+           "Text": "https://www4.ti.ch/dt/dstm/sst/upl/ufficio/"
+          }
+         ],
+         "Street": "Via Franco Zorzi",
+         "Number": "13",
+         "PostalCode": "6501",
+         "City": "Bellinzona"
+        },
+        "Abbreviation": [
+         {
+          "Language": "it",
+          "Text": "RE"
+         }
+        ]
+       }
+      ]
+     },
+     {
+      "LegendText": [
+       {
+        "Language": "it",
+        "Text": "Comparto soggetto a Piano Particolareggiato"
+       }
+      ],
+      "Theme": {
+       "Code": "ch.Nutzungsplanung",
+       "Text": [
+        {
+         "Language": "it",
+         "Text": "PR Bellinzona-Bellinzona / Piano paesaggio (montano)"
+        }
+       ],
+       "SubCode": "ch.TI.ch08d8qu216103574"
+      },
+      "Lawstatus": {
+       "Code": "inForce",
+       "Text": [
+        {
+         "Language": "it",
+         "Text": "In vigore"
+        }
+       ]
+      },
+      "ResponsibleOffice": {
+       "Name": [
+        {
+         "Language": "it",
+         "Text": "Ufficio della pianificazione locale"
+        }
+       ],
+       "OfficeAtWeb": [
+        {
+         "Language": "it",
+         "Text": "https://www4.ti.ch/dt/dstm/sst/upl/ufficio/"
+        }
+       ],
+       "Street": "Via Franco Zorzi",
+       "Number": "13",
+       "PostalCode": "6501",
+       "City": "Bellinzona"
+      },
+      "AreaShare": 2685,
+      "TypeCode": "S_17_056_0013_4173",
+      "PartInPercent": 100,
+      "LegalProvisions": [
+       {
+        "Type": {
+         "Code": "LegalProvision",
+         "Text": [
+          {
+           "Language": "it",
+           "Text": "Prescrizione legale"
+          }
+         ]
+        },
+        "Index": 48,
+        "Title": [
+         {
+          "Language": "it",
+          "Text": "Regolamento edilizio - PR BELLINZONA-BELLINZONA"
+         }
+        ],
+        "Lawstatus": {
+         "Code": "inForce",
+         "Text": [
+          {
+           "Language": "it",
+           "Text": "In vigore"
+          }
+         ]
+        },
+        "TextAtWeb": [
+         {
+          "Language": "it",
+          "Text": "https://www4.ti.ch/fileadmin/GENERALE/IGDAC/ti_028b_1_version1_0_mn95/RE_ch08d8qu_ch08d8qu294100000.pdf"
+         }
+        ],
+        "ResponsibleOffice": {
+         "Name": [
+          {
+           "Language": "it",
+           "Text": "Ufficio della pianificazione locale"
+          }
+         ],
+         "OfficeAtWeb": [
+          {
+           "Language": "it",
+           "Text": "https://www4.ti.ch/dt/dstm/sst/upl/ufficio/"
+          }
+         ],
+         "Street": "Via Franco Zorzi",
+         "Number": "13",
+         "PostalCode": "6501",
+         "City": "Bellinzona"
+        },
+        "Abbreviation": [
+         {
+          "Language": "it",
+          "Text": "RE"
+         }
+        ]
+       }
+      ]
+     },
+     {
+      "LegendText": [
+       {
+        "Language": "it",
+        "Text": "Zona d'interesse archeologico"
+       }
+      ],
+      "Theme": {
+       "Code": "ch.Nutzungsplanung",
+       "Text": [
+        {
+         "Language": "it",
+         "Text": "PR Bellinzona-Bellinzona / Piano paesaggio (montano)"
+        }
+       ],
+       "SubCode": "ch.TI.ch08d8qu216103574"
+      },
+      "Lawstatus": {
+       "Code": "inForce",
+       "Text": [
+        {
+         "Language": "it",
+         "Text": "In vigore"
+        }
+       ]
+      },
+      "ResponsibleOffice": {
+       "Name": [
+        {
+         "Language": "it",
+         "Text": "Ufficio della pianificazione locale"
+        }
+       ],
+       "OfficeAtWeb": [
+        {
+         "Language": "it",
+         "Text": "https://www4.ti.ch/dt/dstm/sst/upl/ufficio/"
+        }
+       ],
+       "Street": "Via Franco Zorzi",
+       "Number": "13",
+       "PostalCode": "6501",
+       "City": "Bellinzona"
+      },
+      "AreaShare": 2685,
+      "TypeCode": "S_11_042_0018_13945",
+      "PartInPercent": 100,
+      "LegalProvisions": [
+       {
+        "Type": {
+         "Code": "LegalProvision",
+         "Text": [
+          {
+           "Language": "it",
+           "Text": "Prescrizione legale"
+          }
+         ]
+        },
+        "Index": 48,
+        "Title": [
+         {
+          "Language": "it",
+          "Text": "Regolamento edilizio - PR BELLINZONA-BELLINZONA"
+         }
+        ],
+        "Lawstatus": {
+         "Code": "inForce",
+         "Text": [
+          {
+           "Language": "it",
+           "Text": "In vigore"
+          }
+         ]
+        },
+        "TextAtWeb": [
+         {
+          "Language": "it",
+          "Text": "https://www4.ti.ch/fileadmin/GENERALE/IGDAC/ti_028b_1_version1_0_mn95/RE_ch08d8qu_ch08d8qu294100000.pdf"
+         }
+        ],
+        "ResponsibleOffice": {
+         "Name": [
+          {
+           "Language": "it",
+           "Text": "Ufficio della pianificazione locale"
+          }
+         ],
+         "OfficeAtWeb": [
+          {
+           "Language": "it",
+           "Text": "https://www4.ti.ch/dt/dstm/sst/upl/ufficio/"
+          }
+         ],
+         "Street": "Via Franco Zorzi",
+         "Number": "13",
+         "PostalCode": "6501",
+         "City": "Bellinzona"
+        },
+        "Abbreviation": [
+         {
+          "Language": "it",
+          "Text": "RE"
+         }
+        ]
+       }
+      ]
+     },
+     {
+      "LegendText": [
+       {
+        "Language": "it",
+        "Text": "Beni culturali Cantonali"
+       }
+      ],
+      "Theme": {
+       "Code": "ch.Nutzungsplanung",
+       "Text": [
+        {
+         "Language": "it",
+         "Text": "PR Bellinzona-Bellinzona / Piano paesaggio (montano)"
+        }
+       ],
+       "SubCode": "ch.TI.ch08d8qu216103574"
+      },
+      "Lawstatus": {
+       "Code": "inForce",
+       "Text": [
+        {
+         "Language": "it",
+         "Text": "In vigore"
+        }
+       ]
+      },
+      "ResponsibleOffice": {
+       "Name": [
+        {
+         "Language": "it",
+         "Text": "Ufficio della pianificazione locale"
+        }
+       ],
+       "OfficeAtWeb": [
+        {
+         "Language": "it",
+         "Text": "https://www4.ti.ch/dt/dstm/sst/upl/ufficio/"
+        }
+       ],
+       "Street": "Via Franco Zorzi",
+       "Number": "13",
+       "PostalCode": "6501",
+       "City": "Bellinzona"
+      },
+      "NrOfPoints": 2,
+      "TypeCode": "P_27_128_0001_1433",
+      "LegalProvisions": [
+       {
+        "Type": {
+         "Code": "LegalProvision",
+         "Text": [
+          {
+           "Language": "it",
+           "Text": "Prescrizione legale"
+          }
+         ]
+        },
+        "Index": 48,
+        "Title": [
+         {
+          "Language": "it",
+          "Text": "Regolamento edilizio - PR BELLINZONA-BELLINZONA"
+         }
+        ],
+        "Lawstatus": {
+         "Code": "inForce",
+         "Text": [
+          {
+           "Language": "it",
+           "Text": "In vigore"
+          }
+         ]
+        },
+        "TextAtWeb": [
+         {
+          "Language": "it",
+          "Text": "https://www4.ti.ch/fileadmin/GENERALE/IGDAC/ti_028b_1_version1_0_mn95/RE_ch08d8qu_ch08d8qu294100000.pdf"
+         }
+        ],
+        "ResponsibleOffice": {
+         "Name": [
+          {
+           "Language": "it",
+           "Text": "Ufficio della pianificazione locale"
+          }
+         ],
+         "OfficeAtWeb": [
+          {
+           "Language": "it",
+           "Text": "https://www4.ti.ch/dt/dstm/sst/upl/ufficio/"
+          }
+         ],
+         "Street": "Via Franco Zorzi",
+         "Number": "13",
+         "PostalCode": "6501",
+         "City": "Bellinzona"
+        },
+        "Abbreviation": [
+         {
+          "Language": "it",
+          "Text": "RE"
+         }
+        ]
+       }
+      ]
+     },
+     {
+      "LegendText": [
+       {
+        "Language": "it",
+        "Text": "Siti pittoreschi"
+       }
+      ],
+      "Theme": {
+       "Code": "ch.Nutzungsplanung",
+       "Text": [
+        {
+         "Language": "it",
+         "Text": "PR Bellinzona-Bellinzona / Piano paesaggio (montano)"
+        }
+       ],
+       "SubCode": "ch.TI.ch08d8qu216103574"
+      },
+      "Lawstatus": {
+       "Code": "inForce",
+       "Text": [
+        {
+         "Language": "it",
+         "Text": "In vigore"
+        }
+       ]
+      },
+      "ResponsibleOffice": {
+       "Name": [
+        {
+         "Language": "it",
+         "Text": "Ufficio della pianificazione locale"
+        }
+       ],
+       "OfficeAtWeb": [
+        {
+         "Language": "it",
+         "Text": "https://www4.ti.ch/dt/dstm/sst/upl/ufficio/"
+        }
+       ],
+       "Street": "Via Franco Zorzi",
+       "Number": "13",
+       "PostalCode": "6501",
+       "City": "Bellinzona"
+      },
+      "AreaShare": 2685,
+      "TypeCode": "S_09_035_0033_16825",
+      "PartInPercent": 100,
+      "LegalProvisions": [
+       {
+        "Type": {
+         "Code": "LegalProvision",
+         "Text": [
+          {
+           "Language": "it",
+           "Text": "Prescrizione legale"
+          }
+         ]
+        },
+        "Index": 48,
+        "Title": [
+         {
+          "Language": "it",
+          "Text": "Regolamento edilizio - PR BELLINZONA-BELLINZONA"
+         }
+        ],
+        "Lawstatus": {
+         "Code": "inForce",
+         "Text": [
+          {
+           "Language": "it",
+           "Text": "In vigore"
+          }
+         ]
+        },
+        "TextAtWeb": [
+         {
+          "Language": "it",
+          "Text": "https://www4.ti.ch/fileadmin/GENERALE/IGDAC/ti_028b_1_version1_0_mn95/RE_ch08d8qu_ch08d8qu294100000.pdf"
+         }
+        ],
+        "ResponsibleOffice": {
+         "Name": [
+          {
+           "Language": "it",
+           "Text": "Ufficio della pianificazione locale"
+          }
+         ],
+         "OfficeAtWeb": [
+          {
+           "Language": "it",
+           "Text": "https://www4.ti.ch/dt/dstm/sst/upl/ufficio/"
+          }
+         ],
+         "Street": "Via Franco Zorzi",
+         "Number": "13",
+         "PostalCode": "6501",
+         "City": "Bellinzona"
+        },
+        "Abbreviation": [
+         {
+          "Language": "it",
+          "Text": "RE"
+         }
+        ]
+       }
+      ]
+     },
+     {
+      "LegendText": [
+       {
+        "Language": "it",
+        "Text": "Paesaggi pittoreschi"
+       }
+      ],
+      "Theme": {
+       "Code": "ch.Nutzungsplanung",
+       "Text": [
+        {
+         "Language": "it",
+         "Text": "PR Bellinzona-Bellinzona / Piano paesaggio (montano)"
+        }
+       ],
+       "SubCode": "ch.TI.ch08d8qu216103574"
+      },
+      "Lawstatus": {
+       "Code": "inForce",
+       "Text": [
+        {
+         "Language": "it",
+         "Text": "In vigore"
+        }
+       ]
+      },
+      "ResponsibleOffice": {
+       "Name": [
+        {
+         "Language": "it",
+         "Text": "Ufficio della pianificazione locale"
+        }
+       ],
+       "OfficeAtWeb": [
+        {
+         "Language": "it",
+         "Text": "https://www4.ti.ch/dt/dstm/sst/upl/ufficio/"
+        }
+       ],
+       "Street": "Via Franco Zorzi",
+       "Number": "13",
+       "PostalCode": "6501",
+       "City": "Bellinzona"
+      },
+      "AreaShare": 2685,
+      "TypeCode": "S_05_141_0001_16827",
+      "PartInPercent": 100,
+      "LegalProvisions": [
+       {
+        "Type": {
+         "Code": "LegalProvision",
+         "Text": [
+          {
+           "Language": "it",
+           "Text": "Prescrizione legale"
+          }
+         ]
+        },
+        "Index": 48,
+        "Title": [
+         {
+          "Language": "it",
+          "Text": "Regolamento edilizio - PR BELLINZONA-BELLINZONA"
+         }
+        ],
+        "Lawstatus": {
+         "Code": "inForce",
+         "Text": [
+          {
+           "Language": "it",
+           "Text": "In vigore"
+          }
+         ]
+        },
+        "TextAtWeb": [
+         {
+          "Language": "it",
+          "Text": "https://www4.ti.ch/fileadmin/GENERALE/IGDAC/ti_028b_1_version1_0_mn95/RE_ch08d8qu_ch08d8qu294100000.pdf"
+         }
+        ],
+        "ResponsibleOffice": {
+         "Name": [
+          {
+           "Language": "it",
+           "Text": "Ufficio della pianificazione locale"
+          }
+         ],
+         "OfficeAtWeb": [
+          {
+           "Language": "it",
+           "Text": "https://www4.ti.ch/dt/dstm/sst/upl/ufficio/"
+          }
+         ],
+         "Street": "Via Franco Zorzi",
+         "Number": "13",
+         "PostalCode": "6501",
+         "City": "Bellinzona"
+        },
+        "Abbreviation": [
+         {
+          "Language": "it",
+          "Text": "RE"
+         }
+        ]
+       }
+      ]
+     },
+     {
+      "LegendText": [
+       {
+        "Language": "it",
+        "Text": "Castelli, mura medioevali, monumento storici ed artistici"
+       }
+      ],
+      "Theme": {
+       "Code": "ch.Nutzungsplanung",
+       "Text": [
+        {
+         "Language": "it",
+         "Text": "PR Bellinzona-Bellinzona / Assetto degli spazi pubblici"
+        }
+       ],
+       "SubCode": "ch.TI.ch08d8qu264100024"
+      },
+      "Lawstatus": {
+       "Code": "inForce",
+       "Text": [
+        {
+         "Language": "it",
+         "Text": "In vigore"
+        }
+       ]
+      },
+      "ResponsibleOffice": {
+       "Name": [
+        {
+         "Language": "it",
+         "Text": "Ufficio della pianificazione locale"
+        }
+       ],
+       "OfficeAtWeb": [
+        {
+         "Language": "it",
+         "Text": "https://www4.ti.ch/dt/dstm/sst/upl/ufficio/"
+        }
+       ],
+       "Street": "Via Franco Zorzi",
+       "Number": "13",
+       "PostalCode": "6501",
+       "City": "Bellinzona"
+      },
+      "AreaShare": 16,
+      "TypeCode": "S_05_017_0002_32595",
+      "PartInPercent": 0.6,
+      "LegalProvisions": [
+       {
+        "Type": {
+         "Code": "LegalProvision",
+         "Text": [
+          {
+           "Language": "it",
+           "Text": "Prescrizione legale"
+          }
+         ]
+        },
+        "Index": 48,
+        "Title": [
+         {
+          "Language": "it",
+          "Text": "Regolamento edilizio - PR BELLINZONA-BELLINZONA"
+         }
+        ],
+        "Lawstatus": {
+         "Code": "inForce",
+         "Text": [
+          {
+           "Language": "it",
+           "Text": "In vigore"
+          }
+         ]
+        },
+        "TextAtWeb": [
+         {
+          "Language": "it",
+          "Text": "https://www4.ti.ch/fileadmin/GENERALE/IGDAC/ti_028b_1_version1_0_mn95/RE_ch08d8qu_ch08d8qu294100000.pdf"
+         }
+        ],
+        "ResponsibleOffice": {
+         "Name": [
+          {
+           "Language": "it",
+           "Text": "Ufficio della pianificazione locale"
+          }
+         ],
+         "OfficeAtWeb": [
+          {
+           "Language": "it",
+           "Text": "https://www4.ti.ch/dt/dstm/sst/upl/ufficio/"
+          }
+         ],
+         "Street": "Via Franco Zorzi",
+         "Number": "13",
+         "PostalCode": "6501",
+         "City": "Bellinzona"
+        },
+        "Abbreviation": [
+         {
+          "Language": "it",
+          "Text": "RE"
+         }
+        ]
+       }
+      ]
+     },
+     {
+      "LegendText": [
+       {
+        "Language": "it",
+        "Text": "Tetto a falde vincolante"
+       }
+      ],
+      "Theme": {
+       "Code": "ch.Nutzungsplanung",
+       "Text": [
+        {
+         "Language": "it",
+         "Text": "PR Bellinzona-Bellinzona / Assetto degli spazi pubblici"
+        }
+       ],
+       "SubCode": "ch.TI.ch08d8qu264100024"
+      },
+      "Lawstatus": {
+       "Code": "inForce",
+       "Text": [
+        {
+         "Language": "it",
+         "Text": "In vigore"
+        }
+       ]
+      },
+      "ResponsibleOffice": {
+       "Name": [
+        {
+         "Language": "it",
+         "Text": "Ufficio della pianificazione locale"
+        }
+       ],
+       "OfficeAtWeb": [
+        {
+         "Language": "it",
+         "Text": "https://www4.ti.ch/dt/dstm/sst/upl/ufficio/"
+        }
+       ],
+       "Street": "Via Franco Zorzi",
+       "Number": "13",
+       "PostalCode": "6501",
+       "City": "Bellinzona"
+      },
+      "LengthShare": 150,
+      "TypeCode": "L_19_101_0006_7757",
+      "LegalProvisions": [
+       {
+        "Type": {
+         "Code": "LegalProvision",
+         "Text": [
+          {
+           "Language": "it",
+           "Text": "Prescrizione legale"
+          }
+         ]
+        },
+        "Index": 48,
+        "Title": [
+         {
+          "Language": "it",
+          "Text": "Regolamento edilizio - PR BELLINZONA-BELLINZONA"
+         }
+        ],
+        "Lawstatus": {
+         "Code": "inForce",
+         "Text": [
+          {
+           "Language": "it",
+           "Text": "In vigore"
+          }
+         ]
+        },
+        "TextAtWeb": [
+         {
+          "Language": "it",
+          "Text": "https://www4.ti.ch/fileadmin/GENERALE/IGDAC/ti_028b_1_version1_0_mn95/RE_ch08d8qu_ch08d8qu294100000.pdf"
+         }
+        ],
+        "ResponsibleOffice": {
+         "Name": [
+          {
+           "Language": "it",
+           "Text": "Ufficio della pianificazione locale"
+          }
+         ],
+         "OfficeAtWeb": [
+          {
+           "Language": "it",
+           "Text": "https://www4.ti.ch/dt/dstm/sst/upl/ufficio/"
+          }
+         ],
+         "Street": "Via Franco Zorzi",
+         "Number": "13",
+         "PostalCode": "6501",
+         "City": "Bellinzona"
+        },
+        "Abbreviation": [
+         {
+          "Language": "it",
+          "Text": "RE"
+         }
+        ]
+       }
+      ]
+     },
+     {
+      "LegendText": [
+       {
+        "Language": "it",
+        "Text": "Tetto a falde vincolante"
+       }
+      ],
+      "Theme": {
+       "Code": "ch.Nutzungsplanung",
+       "Text": [
+        {
+         "Language": "it",
+         "Text": "PR Bellinzona-Bellinzona / Assetto degli spazi pubblici"
+        }
+       ],
+       "SubCode": "ch.TI.ch08d8qu264100024"
+      },
+      "Lawstatus": {
+       "Code": "inForce",
+       "Text": [
+        {
+         "Language": "it",
+         "Text": "In vigore"
+        }
+       ]
+      },
+      "ResponsibleOffice": {
+       "Name": [
+        {
+         "Language": "it",
+         "Text": "Ufficio della pianificazione locale"
+        }
+       ],
+       "OfficeAtWeb": [
+        {
+         "Language": "it",
+         "Text": "https://www4.ti.ch/dt/dstm/sst/upl/ufficio/"
+        }
+       ],
+       "Street": "Via Franco Zorzi",
+       "Number": "13",
+       "PostalCode": "6501",
+       "City": "Bellinzona"
+      },
+      "AreaShare": 918,
+      "TypeCode": "S_01_084_0001_13299",
+      "PartInPercent": 34.2,
+      "LegalProvisions": [
+       {
+        "Type": {
+         "Code": "LegalProvision",
+         "Text": [
+          {
+           "Language": "it",
+           "Text": "Prescrizione legale"
+          }
+         ]
+        },
+        "Index": 48,
+        "Title": [
+         {
+          "Language": "it",
+          "Text": "Regolamento edilizio - PR BELLINZONA-BELLINZONA"
+         }
+        ],
+        "Lawstatus": {
+         "Code": "inForce",
+         "Text": [
+          {
+           "Language": "it",
+           "Text": "In vigore"
+          }
+         ]
+        },
+        "TextAtWeb": [
+         {
+          "Language": "it",
+          "Text": "https://www4.ti.ch/fileadmin/GENERALE/IGDAC/ti_028b_1_version1_0_mn95/RE_ch08d8qu_ch08d8qu294100000.pdf"
+         }
+        ],
+        "ResponsibleOffice": {
+         "Name": [
+          {
+           "Language": "it",
+           "Text": "Ufficio della pianificazione locale"
+          }
+         ],
+         "OfficeAtWeb": [
+          {
+           "Language": "it",
+           "Text": "https://www4.ti.ch/dt/dstm/sst/upl/ufficio/"
+          }
+         ],
+         "Street": "Via Franco Zorzi",
+         "Number": "13",
+         "PostalCode": "6501",
+         "City": "Bellinzona"
+        },
+        "Abbreviation": [
+         {
+          "Language": "it",
+          "Text": "RE"
+         }
+        ]
+       }
+      ]
+     },
+     {
+      "LegendText": [
+       {
+        "Language": "it",
+        "Text": "Dadi in porfido"
+       }
+      ],
+      "Theme": {
+       "Code": "ch.Nutzungsplanung",
+       "Text": [
+        {
+         "Language": "it",
+         "Text": "PR Bellinzona-Bellinzona / Assetto degli spazi pubblici"
+        }
+       ],
+       "SubCode": "ch.TI.ch08d8qu264100024"
+      },
+      "Lawstatus": {
+       "Code": "inForce",
+       "Text": [
+        {
+         "Language": "it",
+         "Text": "In vigore"
+        }
+       ]
+      },
+      "ResponsibleOffice": {
+       "Name": [
+        {
+         "Language": "it",
+         "Text": "Ufficio della pianificazione locale"
+        }
+       ],
+       "OfficeAtWeb": [
+        {
+         "Language": "it",
+         "Text": "https://www4.ti.ch/dt/dstm/sst/upl/ufficio/"
+        }
+       ],
+       "Street": "Via Franco Zorzi",
+       "Number": "13",
+       "PostalCode": "6501",
+       "City": "Bellinzona"
+      },
+      "AreaShare": 959,
+      "TypeCode": "S_18_064_0001_15421",
+      "PartInPercent": 35.7,
+      "LegalProvisions": [
+       {
+        "Type": {
+         "Code": "LegalProvision",
+         "Text": [
+          {
+           "Language": "it",
+           "Text": "Prescrizione legale"
+          }
+         ]
+        },
+        "Index": 48,
+        "Title": [
+         {
+          "Language": "it",
+          "Text": "Regolamento edilizio - PR BELLINZONA-BELLINZONA"
+         }
+        ],
+        "Lawstatus": {
+         "Code": "inForce",
+         "Text": [
+          {
+           "Language": "it",
+           "Text": "In vigore"
+          }
+         ]
+        },
+        "TextAtWeb": [
+         {
+          "Language": "it",
+          "Text": "https://www4.ti.ch/fileadmin/GENERALE/IGDAC/ti_028b_1_version1_0_mn95/RE_ch08d8qu_ch08d8qu294100000.pdf"
+         }
+        ],
+        "ResponsibleOffice": {
+         "Name": [
+          {
+           "Language": "it",
+           "Text": "Ufficio della pianificazione locale"
+          }
+         ],
+         "OfficeAtWeb": [
+          {
+           "Language": "it",
+           "Text": "https://www4.ti.ch/dt/dstm/sst/upl/ufficio/"
+          }
+         ],
+         "Street": "Via Franco Zorzi",
+         "Number": "13",
+         "PostalCode": "6501",
+         "City": "Bellinzona"
+        },
+        "Abbreviation": [
+         {
+          "Language": "it",
+          "Text": "RE"
+         }
+        ]
+       }
+      ]
+     },
+     {
+      "LegendText": [
+       {
+        "Language": "it",
+        "Text": "Tetto piatto o terrazza"
+       }
+      ],
+      "Theme": {
+       "Code": "ch.Nutzungsplanung",
+       "Text": [
+        {
+         "Language": "it",
+         "Text": "PR Bellinzona-Bellinzona / Assetto degli spazi pubblici"
+        }
+       ],
+       "SubCode": "ch.TI.ch08d8qu264100024"
+      },
+      "Lawstatus": {
+       "Code": "inForce",
+       "Text": [
+        {
+         "Language": "it",
+         "Text": "In vigore"
+        }
+       ]
+      },
+      "ResponsibleOffice": {
+       "Name": [
+        {
+         "Language": "it",
+         "Text": "Ufficio della pianificazione locale"
+        }
+       ],
+       "OfficeAtWeb": [
+        {
+         "Language": "it",
+         "Text": "https://www4.ti.ch/dt/dstm/sst/upl/ufficio/"
+        }
+       ],
+       "Street": "Via Franco Zorzi",
+       "Number": "13",
+       "PostalCode": "6501",
+       "City": "Bellinzona"
+      },
+      "AreaShare": 656,
+      "TypeCode": "S_01_084_0001_15425",
+      "PartInPercent": 24.4,
+      "LegalProvisions": [
+       {
+        "Type": {
+         "Code": "LegalProvision",
+         "Text": [
+          {
+           "Language": "it",
+           "Text": "Prescrizione legale"
+          }
+         ]
+        },
+        "Index": 48,
+        "Title": [
+         {
+          "Language": "it",
+          "Text": "Regolamento edilizio - PR BELLINZONA-BELLINZONA"
+         }
+        ],
+        "Lawstatus": {
+         "Code": "inForce",
+         "Text": [
+          {
+           "Language": "it",
+           "Text": "In vigore"
+          }
+         ]
+        },
+        "TextAtWeb": [
+         {
+          "Language": "it",
+          "Text": "https://www4.ti.ch/fileadmin/GENERALE/IGDAC/ti_028b_1_version1_0_mn95/RE_ch08d8qu_ch08d8qu294100000.pdf"
+         }
+        ],
+        "ResponsibleOffice": {
+         "Name": [
+          {
+           "Language": "it",
+           "Text": "Ufficio della pianificazione locale"
+          }
+         ],
+         "OfficeAtWeb": [
+          {
+           "Language": "it",
+           "Text": "https://www4.ti.ch/dt/dstm/sst/upl/ufficio/"
+          }
+         ],
+         "Street": "Via Franco Zorzi",
+         "Number": "13",
+         "PostalCode": "6501",
+         "City": "Bellinzona"
+        },
+        "Abbreviation": [
+         {
+          "Language": "it",
+          "Text": "RE"
+         }
+        ]
+       }
+      ]
+     },
+     {
+      "LegendText": [
+       {
+        "Language": "it",
+        "Text": "Portici e sottopassi"
+       }
+      ],
+      "Theme": {
+       "Code": "ch.Nutzungsplanung",
+       "Text": [
+        {
+         "Language": "it",
+         "Text": "PR Bellinzona-Bellinzona / Assetto degli spazi pubblici"
+        }
+       ],
+       "SubCode": "ch.TI.ch08d8qu264100024"
+      },
+      "Lawstatus": {
+       "Code": "inForce",
+       "Text": [
+        {
+         "Language": "it",
+         "Text": "In vigore"
+        }
+       ]
+      },
+      "ResponsibleOffice": {
+       "Name": [
+        {
+         "Language": "it",
+         "Text": "Ufficio della pianificazione locale"
+        }
+       ],
+       "OfficeAtWeb": [
+        {
+         "Language": "it",
+         "Text": "https://www4.ti.ch/dt/dstm/sst/upl/ufficio/"
+        }
+       ],
+       "Street": "Via Franco Zorzi",
+       "Number": "13",
+       "PostalCode": "6501",
+       "City": "Bellinzona"
+      },
+      "AreaShare": 406,
+      "TypeCode": "S_01_089_0013_16839",
+      "PartInPercent": 15.1,
+      "LegalProvisions": [
+       {
+        "Type": {
+         "Code": "LegalProvision",
+         "Text": [
+          {
+           "Language": "it",
+           "Text": "Prescrizione legale"
+          }
+         ]
+        },
+        "Index": 48,
+        "Title": [
+         {
+          "Language": "it",
+          "Text": "Regolamento edilizio - PR BELLINZONA-BELLINZONA"
+         }
+        ],
+        "Lawstatus": {
+         "Code": "inForce",
+         "Text": [
+          {
+           "Language": "it",
+           "Text": "In vigore"
+          }
+         ]
+        },
+        "TextAtWeb": [
+         {
+          "Language": "it",
+          "Text": "https://www4.ti.ch/fileadmin/GENERALE/IGDAC/ti_028b_1_version1_0_mn95/RE_ch08d8qu_ch08d8qu294100000.pdf"
+         }
+        ],
+        "ResponsibleOffice": {
+         "Name": [
+          {
+           "Language": "it",
+           "Text": "Ufficio della pianificazione locale"
+          }
+         ],
+         "OfficeAtWeb": [
+          {
+           "Language": "it",
+           "Text": "https://www4.ti.ch/dt/dstm/sst/upl/ufficio/"
+          }
+         ],
+         "Street": "Via Franco Zorzi",
+         "Number": "13",
+         "PostalCode": "6501",
+         "City": "Bellinzona"
+        },
+        "Abbreviation": [
+         {
+          "Language": "it",
+          "Text": "RE"
+         }
+        ]
+       }
+      ]
+     },
+     {
+      "LegendText": [
+       {
+        "Language": "it",
+        "Text": "Comparti edificabili speciali"
+       }
+      ],
+      "Theme": {
+       "Code": "ch.Nutzungsplanung",
+       "Text": [
+        {
+         "Language": "it",
+         "Text": "PR Bellinzona-Bellinzona / Assetto degli spazi pubblici"
+        }
+       ],
+       "SubCode": "ch.TI.ch08d8qu264100024"
+      },
+      "Lawstatus": {
+       "Code": "inForce",
+       "Text": [
+        {
+         "Language": "it",
+         "Text": "In vigore"
+        }
+       ]
+      },
+      "ResponsibleOffice": {
+       "Name": [
+        {
+         "Language": "it",
+         "Text": "Ufficio della pianificazione locale"
+        }
+       ],
+       "OfficeAtWeb": [
+        {
+         "Language": "it",
+         "Text": "https://www4.ti.ch/dt/dstm/sst/upl/ufficio/"
+        }
+       ],
+       "Street": "Via Franco Zorzi",
+       "Number": "13",
+       "PostalCode": "6501",
+       "City": "Bellinzona"
+      },
+      "AreaShare": 633,
+      "TypeCode": "S_01_089_0013_16851",
+      "PartInPercent": 23.6,
+      "LegalProvisions": [
+       {
+        "Type": {
+         "Code": "LegalProvision",
+         "Text": [
+          {
+           "Language": "it",
+           "Text": "Prescrizione legale"
+          }
+         ]
+        },
+        "Index": 48,
+        "Title": [
+         {
+          "Language": "it",
+          "Text": "Regolamento edilizio - PR BELLINZONA-BELLINZONA"
+         }
+        ],
+        "Lawstatus": {
+         "Code": "inForce",
+         "Text": [
+          {
+           "Language": "it",
+           "Text": "In vigore"
+          }
+         ]
+        },
+        "TextAtWeb": [
+         {
+          "Language": "it",
+          "Text": "https://www4.ti.ch/fileadmin/GENERALE/IGDAC/ti_028b_1_version1_0_mn95/RE_ch08d8qu_ch08d8qu294100000.pdf"
+         }
+        ],
+        "ResponsibleOffice": {
+         "Name": [
+          {
+           "Language": "it",
+           "Text": "Ufficio della pianificazione locale"
+          }
+         ],
+         "OfficeAtWeb": [
+          {
+           "Language": "it",
+           "Text": "https://www4.ti.ch/dt/dstm/sst/upl/ufficio/"
+          }
+         ],
+         "Street": "Via Franco Zorzi",
+         "Number": "13",
+         "PostalCode": "6501",
+         "City": "Bellinzona"
+        },
+        "Abbreviation": [
+         {
+          "Language": "it",
+          "Text": "RE"
+         }
+        ]
+       }
+      ]
+     },
+     {
+      "LegendText": [
+       {
+        "Language": "it",
+        "Text": "Castelli, mura medioevali, monumento storici ed artistici"
+       }
+      ],
+      "Theme": {
+       "Code": "ch.Nutzungsplanung",
+       "Text": [
+        {
+         "Language": "it",
+         "Text": "PR Bellinzona-Bellinzona / Configurazione dei tetti"
+        }
+       ],
+       "SubCode": "ch.TI.ch08d8qu264100023"
+      },
+      "Lawstatus": {
+       "Code": "inForce",
+       "Text": [
+        {
+         "Language": "it",
+         "Text": "In vigore"
+        }
+       ]
+      },
+      "ResponsibleOffice": {
+       "Name": [
+        {
+         "Language": "it",
+         "Text": "Ufficio della pianificazione locale"
+        }
+       ],
+       "OfficeAtWeb": [
+        {
+         "Language": "it",
+         "Text": "https://www4.ti.ch/dt/dstm/sst/upl/ufficio/"
+        }
+       ],
+       "Street": "Via Franco Zorzi",
+       "Number": "13",
+       "PostalCode": "6501",
+       "City": "Bellinzona"
+      },
+      "AreaShare": 16,
+      "TypeCode": "S_05_017_0002_32593",
+      "PartInPercent": 0.6,
+      "LegalProvisions": [
+       {
+        "Type": {
+         "Code": "LegalProvision",
+         "Text": [
+          {
+           "Language": "it",
+           "Text": "Prescrizione legale"
+          }
+         ]
+        },
+        "Index": 48,
+        "Title": [
+         {
+          "Language": "it",
+          "Text": "Regolamento edilizio - PR BELLINZONA-BELLINZONA"
+         }
+        ],
+        "Lawstatus": {
+         "Code": "inForce",
+         "Text": [
+          {
+           "Language": "it",
+           "Text": "In vigore"
+          }
+         ]
+        },
+        "TextAtWeb": [
+         {
+          "Language": "it",
+          "Text": "https://www4.ti.ch/fileadmin/GENERALE/IGDAC/ti_028b_1_version1_0_mn95/RE_ch08d8qu_ch08d8qu294100000.pdf"
+         }
+        ],
+        "ResponsibleOffice": {
+         "Name": [
+          {
+           "Language": "it",
+           "Text": "Ufficio della pianificazione locale"
+          }
+         ],
+         "OfficeAtWeb": [
+          {
+           "Language": "it",
+           "Text": "https://www4.ti.ch/dt/dstm/sst/upl/ufficio/"
+          }
+         ],
+         "Street": "Via Franco Zorzi",
+         "Number": "13",
+         "PostalCode": "6501",
+         "City": "Bellinzona"
+        },
+        "Abbreviation": [
+         {
+          "Language": "it",
+          "Text": "RE"
+         }
+        ]
+       }
+      ]
+     },
+     {
+      "LegendText": [
+       {
+        "Language": "it",
+        "Text": "Tetto a falde vincolante"
+       }
+      ],
+      "Theme": {
+       "Code": "ch.Nutzungsplanung",
+       "Text": [
+        {
+         "Language": "it",
+         "Text": "PR Bellinzona-Bellinzona / Configurazione dei tetti"
+        }
+       ],
+       "SubCode": "ch.TI.ch08d8qu264100023"
+      },
+      "Lawstatus": {
+       "Code": "inForce",
+       "Text": [
+        {
+         "Language": "it",
+         "Text": "In vigore"
+        }
+       ]
+      },
+      "ResponsibleOffice": {
+       "Name": [
+        {
+         "Language": "it",
+         "Text": "Ufficio della pianificazione locale"
+        }
+       ],
+       "OfficeAtWeb": [
+        {
+         "Language": "it",
+         "Text": "https://www4.ti.ch/dt/dstm/sst/upl/ufficio/"
+        }
+       ],
+       "Street": "Via Franco Zorzi",
+       "Number": "13",
+       "PostalCode": "6501",
+       "City": "Bellinzona"
+      },
+      "LengthShare": 150,
+      "TypeCode": "L_19_101_0006_7755",
+      "LegalProvisions": [
+       {
+        "Type": {
+         "Code": "LegalProvision",
+         "Text": [
+          {
+           "Language": "it",
+           "Text": "Prescrizione legale"
+          }
+         ]
+        },
+        "Index": 48,
+        "Title": [
+         {
+          "Language": "it",
+          "Text": "Regolamento edilizio - PR BELLINZONA-BELLINZONA"
+         }
+        ],
+        "Lawstatus": {
+         "Code": "inForce",
+         "Text": [
+          {
+           "Language": "it",
+           "Text": "In vigore"
+          }
+         ]
+        },
+        "TextAtWeb": [
+         {
+          "Language": "it",
+          "Text": "https://www4.ti.ch/fileadmin/GENERALE/IGDAC/ti_028b_1_version1_0_mn95/RE_ch08d8qu_ch08d8qu294100000.pdf"
+         }
+        ],
+        "ResponsibleOffice": {
+         "Name": [
+          {
+           "Language": "it",
+           "Text": "Ufficio della pianificazione locale"
+          }
+         ],
+         "OfficeAtWeb": [
+          {
+           "Language": "it",
+           "Text": "https://www4.ti.ch/dt/dstm/sst/upl/ufficio/"
+          }
+         ],
+         "Street": "Via Franco Zorzi",
+         "Number": "13",
+         "PostalCode": "6501",
+         "City": "Bellinzona"
+        },
+        "Abbreviation": [
+         {
+          "Language": "it",
+          "Text": "RE"
+         }
+        ]
+       }
+      ]
+     },
+     {
+      "LegendText": [
+       {
+        "Language": "it",
+        "Text": "Tetto piatto o terrazza"
+       }
+      ],
+      "Theme": {
+       "Code": "ch.Nutzungsplanung",
+       "Text": [
+        {
+         "Language": "it",
+         "Text": "PR Bellinzona-Bellinzona / Configurazione dei tetti"
+        }
+       ],
+       "SubCode": "ch.TI.ch08d8qu264100023"
+      },
+      "Lawstatus": {
+       "Code": "inForce",
+       "Text": [
+        {
+         "Language": "it",
+         "Text": "In vigore"
+        }
+       ]
+      },
+      "ResponsibleOffice": {
+       "Name": [
+        {
+         "Language": "it",
+         "Text": "Ufficio della pianificazione locale"
+        }
+       ],
+       "OfficeAtWeb": [
+        {
+         "Language": "it",
+         "Text": "https://www4.ti.ch/dt/dstm/sst/upl/ufficio/"
+        }
+       ],
+       "Street": "Via Franco Zorzi",
+       "Number": "13",
+       "PostalCode": "6501",
+       "City": "Bellinzona"
+      },
+      "AreaShare": 656,
+      "TypeCode": "S_01_084_0001_13293",
+      "PartInPercent": 24.4,
+      "LegalProvisions": [
+       {
+        "Type": {
+         "Code": "LegalProvision",
+         "Text": [
+          {
+           "Language": "it",
+           "Text": "Prescrizione legale"
+          }
+         ]
+        },
+        "Index": 48,
+        "Title": [
+         {
+          "Language": "it",
+          "Text": "Regolamento edilizio - PR BELLINZONA-BELLINZONA"
+         }
+        ],
+        "Lawstatus": {
+         "Code": "inForce",
+         "Text": [
+          {
+           "Language": "it",
+           "Text": "In vigore"
+          }
+         ]
+        },
+        "TextAtWeb": [
+         {
+          "Language": "it",
+          "Text": "https://www4.ti.ch/fileadmin/GENERALE/IGDAC/ti_028b_1_version1_0_mn95/RE_ch08d8qu_ch08d8qu294100000.pdf"
+         }
+        ],
+        "ResponsibleOffice": {
+         "Name": [
+          {
+           "Language": "it",
+           "Text": "Ufficio della pianificazione locale"
+          }
+         ],
+         "OfficeAtWeb": [
+          {
+           "Language": "it",
+           "Text": "https://www4.ti.ch/dt/dstm/sst/upl/ufficio/"
+          }
+         ],
+         "Street": "Via Franco Zorzi",
+         "Number": "13",
+         "PostalCode": "6501",
+         "City": "Bellinzona"
+        },
+        "Abbreviation": [
+         {
+          "Language": "it",
+          "Text": "RE"
+         }
+        ]
+       }
+      ]
+     },
+     {
+      "LegendText": [
+       {
+        "Language": "it",
+        "Text": "Tetto a falde vincolante"
+       }
+      ],
+      "Theme": {
+       "Code": "ch.Nutzungsplanung",
+       "Text": [
+        {
+         "Language": "it",
+         "Text": "PR Bellinzona-Bellinzona / Configurazione dei tetti"
+        }
+       ],
+       "SubCode": "ch.TI.ch08d8qu264100023"
+      },
+      "Lawstatus": {
+       "Code": "inForce",
+       "Text": [
+        {
+         "Language": "it",
+         "Text": "In vigore"
+        }
+       ]
+      },
+      "ResponsibleOffice": {
+       "Name": [
+        {
+         "Language": "it",
+         "Text": "Ufficio della pianificazione locale"
+        }
+       ],
+       "OfficeAtWeb": [
+        {
+         "Language": "it",
+         "Text": "https://www4.ti.ch/dt/dstm/sst/upl/ufficio/"
+        }
+       ],
+       "Street": "Via Franco Zorzi",
+       "Number": "13",
+       "PostalCode": "6501",
+       "City": "Bellinzona"
+      },
+      "AreaShare": 918,
+      "TypeCode": "S_18_073_0004_13297",
+      "PartInPercent": 34.2,
+      "LegalProvisions": [
+       {
+        "Type": {
+         "Code": "LegalProvision",
+         "Text": [
+          {
+           "Language": "it",
+           "Text": "Prescrizione legale"
+          }
+         ]
+        },
+        "Index": 48,
+        "Title": [
+         {
+          "Language": "it",
+          "Text": "Regolamento edilizio - PR BELLINZONA-BELLINZONA"
+         }
+        ],
+        "Lawstatus": {
+         "Code": "inForce",
+         "Text": [
+          {
+           "Language": "it",
+           "Text": "In vigore"
+          }
+         ]
+        },
+        "TextAtWeb": [
+         {
+          "Language": "it",
+          "Text": "https://www4.ti.ch/fileadmin/GENERALE/IGDAC/ti_028b_1_version1_0_mn95/RE_ch08d8qu_ch08d8qu294100000.pdf"
+         }
+        ],
+        "ResponsibleOffice": {
+         "Name": [
+          {
+           "Language": "it",
+           "Text": "Ufficio della pianificazione locale"
+          }
+         ],
+         "OfficeAtWeb": [
+          {
+           "Language": "it",
+           "Text": "https://www4.ti.ch/dt/dstm/sst/upl/ufficio/"
+          }
+         ],
+         "Street": "Via Franco Zorzi",
+         "Number": "13",
+         "PostalCode": "6501",
+         "City": "Bellinzona"
+        },
+        "Abbreviation": [
+         {
+          "Language": "it",
+          "Text": "RE"
+         }
+        ]
+       }
+      ]
+     },
+     {
+      "LegendText": [
+       {
+        "Language": "it",
+        "Text": "Castelli, mura medioevali, monumento storici ed artistici"
+       }
+      ],
+      "Theme": {
+       "Code": "ch.Nutzungsplanung",
+       "Text": [
+        {
+         "Language": "it",
+         "Text": "PR Bellinzona-Bellinzona / PP Centro storico"
+        }
+       ],
+       "SubCode": "ch.TI.ch08d8qu264100022"
+      },
+      "Lawstatus": {
+       "Code": "inForce",
+       "Text": [
+        {
+         "Language": "it",
+         "Text": "In vigore"
+        }
+       ]
+      },
+      "ResponsibleOffice": {
+       "Name": [
+        {
+         "Language": "it",
+         "Text": "Ufficio della pianificazione locale"
+        }
+       ],
+       "OfficeAtWeb": [
+        {
+         "Language": "it",
+         "Text": "https://www4.ti.ch/dt/dstm/sst/upl/ufficio/"
+        }
+       ],
+       "Street": "Via Franco Zorzi",
+       "Number": "13",
+       "PostalCode": "6501",
+       "City": "Bellinzona"
+      },
+      "AreaShare": 16,
+      "TypeCode": "S_05_017_0002_25441",
+      "PartInPercent": 0.6,
+      "LegalProvisions": [
+       {
+        "Type": {
+         "Code": "LegalProvision",
+         "Text": [
+          {
+           "Language": "it",
+           "Text": "Prescrizione legale"
+          }
+         ]
+        },
+        "Index": 48,
+        "Title": [
+         {
+          "Language": "it",
+          "Text": "Regolamento edilizio - PR BELLINZONA-BELLINZONA"
+         }
+        ],
+        "Lawstatus": {
+         "Code": "inForce",
+         "Text": [
+          {
+           "Language": "it",
+           "Text": "In vigore"
+          }
+         ]
+        },
+        "TextAtWeb": [
+         {
+          "Language": "it",
+          "Text": "https://www4.ti.ch/fileadmin/GENERALE/IGDAC/ti_028b_1_version1_0_mn95/RE_ch08d8qu_ch08d8qu294100000.pdf"
+         }
+        ],
+        "ResponsibleOffice": {
+         "Name": [
+          {
+           "Language": "it",
+           "Text": "Ufficio della pianificazione locale"
+          }
+         ],
+         "OfficeAtWeb": [
+          {
+           "Language": "it",
+           "Text": "https://www4.ti.ch/dt/dstm/sst/upl/ufficio/"
+          }
+         ],
+         "Street": "Via Franco Zorzi",
+         "Number": "13",
+         "PostalCode": "6501",
+         "City": "Bellinzona"
+        },
+        "Abbreviation": [
+         {
+          "Language": "it",
+          "Text": "RE"
+         }
+        ]
+       }
+      ]
+     },
+     {
+      "LegendText": [
+       {
+        "Language": "it",
+        "Text": "Edifici soggetti ad interventi conservativi"
+       }
+      ],
+      "Theme": {
+       "Code": "ch.Nutzungsplanung",
+       "Text": [
+        {
+         "Language": "it",
+         "Text": "PR Bellinzona-Bellinzona / PP Centro storico"
+        }
+       ],
+       "SubCode": "ch.TI.ch08d8qu264100022"
+      },
+      "Lawstatus": {
+       "Code": "inForce",
+       "Text": [
+        {
+         "Language": "it",
+         "Text": "In vigore"
+        }
+       ]
+      },
+      "ResponsibleOffice": {
+       "Name": [
+        {
+         "Language": "it",
+         "Text": "Ufficio della pianificazione locale"
+        }
+       ],
+       "OfficeAtWeb": [
+        {
+         "Language": "it",
+         "Text": "https://www4.ti.ch/dt/dstm/sst/upl/ufficio/"
+        }
+       ],
+       "Street": "Via Franco Zorzi",
+       "Number": "13",
+       "PostalCode": "6501",
+       "City": "Bellinzona"
+      },
+      "AreaShare": 933,
+      "TypeCode": "S_18_065_0003_25443",
+      "PartInPercent": 34.7,
+      "LegalProvisions": [
+       {
+        "Type": {
+         "Code": "LegalProvision",
+         "Text": [
+          {
+           "Language": "it",
+           "Text": "Prescrizione legale"
+          }
+         ]
+        },
+        "Index": 48,
+        "Title": [
+         {
+          "Language": "it",
+          "Text": "Regolamento edilizio - PR BELLINZONA-BELLINZONA"
+         }
+        ],
+        "Lawstatus": {
+         "Code": "inForce",
+         "Text": [
+          {
+           "Language": "it",
+           "Text": "In vigore"
+          }
+         ]
+        },
+        "TextAtWeb": [
+         {
+          "Language": "it",
+          "Text": "https://www4.ti.ch/fileadmin/GENERALE/IGDAC/ti_028b_1_version1_0_mn95/RE_ch08d8qu_ch08d8qu294100000.pdf"
+         }
+        ],
+        "ResponsibleOffice": {
+         "Name": [
+          {
+           "Language": "it",
+           "Text": "Ufficio della pianificazione locale"
+          }
+         ],
+         "OfficeAtWeb": [
+          {
+           "Language": "it",
+           "Text": "https://www4.ti.ch/dt/dstm/sst/upl/ufficio/"
+          }
+         ],
+         "Street": "Via Franco Zorzi",
+         "Number": "13",
+         "PostalCode": "6501",
+         "City": "Bellinzona"
+        },
+        "Abbreviation": [
+         {
+          "Language": "it",
+          "Text": "RE"
+         }
+        ]
+       }
+      ]
+     },
+     {
+      "LegendText": [
+       {
+        "Language": "it",
+        "Text": "Altezze di riferimento"
+       }
+      ],
+      "Theme": {
+       "Code": "ch.Nutzungsplanung",
+       "Text": [
+        {
+         "Language": "it",
+         "Text": "PR Bellinzona-Bellinzona / PP Centro storico"
+        }
+       ],
+       "SubCode": "ch.TI.ch08d8qu264100022"
+      },
+      "Lawstatus": {
+       "Code": "inForce",
+       "Text": [
+        {
+         "Language": "it",
+         "Text": "In vigore"
+        }
+       ]
+      },
+      "ResponsibleOffice": {
+       "Name": [
+        {
+         "Language": "it",
+         "Text": "Ufficio della pianificazione locale"
+        }
+       ],
+       "OfficeAtWeb": [
+        {
+         "Language": "it",
+         "Text": "https://www4.ti.ch/dt/dstm/sst/upl/ufficio/"
+        }
+       ],
+       "Street": "Via Franco Zorzi",
+       "Number": "13",
+       "PostalCode": "6501",
+       "City": "Bellinzona"
+      },
+      "NrOfPoints": 1,
+      "TypeCode": "P_26_125_0008_2659",
+      "LegalProvisions": [
+       {
+        "Type": {
+         "Code": "LegalProvision",
+         "Text": [
+          {
+           "Language": "it",
+           "Text": "Prescrizione legale"
+          }
+         ]
+        },
+        "Index": 48,
+        "Title": [
+         {
+          "Language": "it",
+          "Text": "Regolamento edilizio - PR BELLINZONA-BELLINZONA"
+         }
+        ],
+        "Lawstatus": {
+         "Code": "inForce",
+         "Text": [
+          {
+           "Language": "it",
+           "Text": "In vigore"
+          }
+         ]
+        },
+        "TextAtWeb": [
+         {
+          "Language": "it",
+          "Text": "https://www4.ti.ch/fileadmin/GENERALE/IGDAC/ti_028b_1_version1_0_mn95/RE_ch08d8qu_ch08d8qu294100000.pdf"
+         }
+        ],
+        "ResponsibleOffice": {
+         "Name": [
+          {
+           "Language": "it",
+           "Text": "Ufficio della pianificazione locale"
+          }
+         ],
+         "OfficeAtWeb": [
+          {
+           "Language": "it",
+           "Text": "https://www4.ti.ch/dt/dstm/sst/upl/ufficio/"
+          }
+         ],
+         "Street": "Via Franco Zorzi",
+         "Number": "13",
+         "PostalCode": "6501",
+         "City": "Bellinzona"
+        },
+        "Abbreviation": [
+         {
+          "Language": "it",
+          "Text": "RE"
+         }
+        ]
+       }
+      ]
+     },
+     {
+      "LegendText": [
+       {
+        "Language": "it",
+        "Text": "Altezza comparti edificabili speciali"
+       }
+      ],
+      "Theme": {
+       "Code": "ch.Nutzungsplanung",
+       "Text": [
+        {
+         "Language": "it",
+         "Text": "PR Bellinzona-Bellinzona / PP Centro storico"
+        }
+       ],
+       "SubCode": "ch.TI.ch08d8qu264100022"
+      },
+      "Lawstatus": {
+       "Code": "inForce",
+       "Text": [
+        {
+         "Language": "it",
+         "Text": "In vigore"
+        }
+       ]
+      },
+      "ResponsibleOffice": {
+       "Name": [
+        {
+         "Language": "it",
+         "Text": "Ufficio della pianificazione locale"
+        }
+       ],
+       "OfficeAtWeb": [
+        {
+         "Language": "it",
+         "Text": "https://www4.ti.ch/dt/dstm/sst/upl/ufficio/"
+        }
+       ],
+       "Street": "Via Franco Zorzi",
+       "Number": "13",
+       "PostalCode": "6501",
+       "City": "Bellinzona"
+      },
+      "NrOfPoints": 1,
+      "TypeCode": "P_26_126_0007_2661",
+      "LegalProvisions": [
+       {
+        "Type": {
+         "Code": "LegalProvision",
+         "Text": [
+          {
+           "Language": "it",
+           "Text": "Prescrizione legale"
+          }
+         ]
+        },
+        "Index": 48,
+        "Title": [
+         {
+          "Language": "it",
+          "Text": "Regolamento edilizio - PR BELLINZONA-BELLINZONA"
+         }
+        ],
+        "Lawstatus": {
+         "Code": "inForce",
+         "Text": [
+          {
+           "Language": "it",
+           "Text": "In vigore"
+          }
+         ]
+        },
+        "TextAtWeb": [
+         {
+          "Language": "it",
+          "Text": "https://www4.ti.ch/fileadmin/GENERALE/IGDAC/ti_028b_1_version1_0_mn95/RE_ch08d8qu_ch08d8qu294100000.pdf"
+         }
+        ],
+        "ResponsibleOffice": {
+         "Name": [
+          {
+           "Language": "it",
+           "Text": "Ufficio della pianificazione locale"
+          }
+         ],
+         "OfficeAtWeb": [
+          {
+           "Language": "it",
+           "Text": "https://www4.ti.ch/dt/dstm/sst/upl/ufficio/"
+          }
+         ],
+         "Street": "Via Franco Zorzi",
+         "Number": "13",
+         "PostalCode": "6501",
+         "City": "Bellinzona"
+        },
+        "Abbreviation": [
+         {
+          "Language": "it",
+          "Text": "RE"
+         }
+        ]
+       }
+      ]
+     },
+     {
+      "LegendText": [
+       {
+        "Language": "it",
+        "Text": "Elementi architettonici interni soggetti a vincolo di restauro"
+       }
+      ],
+      "Theme": {
+       "Code": "ch.Nutzungsplanung",
+       "Text": [
+        {
+         "Language": "it",
+         "Text": "PR Bellinzona-Bellinzona / PP Centro storico"
+        }
+       ],
+       "SubCode": "ch.TI.ch08d8qu264100022"
+      },
+      "Lawstatus": {
+       "Code": "inForce",
+       "Text": [
+        {
+         "Language": "it",
+         "Text": "In vigore"
+        }
+       ]
+      },
+      "ResponsibleOffice": {
+       "Name": [
+        {
+         "Language": "it",
+         "Text": "Ufficio della pianificazione locale"
+        }
+       ],
+       "OfficeAtWeb": [
+        {
+         "Language": "it",
+         "Text": "https://www4.ti.ch/dt/dstm/sst/upl/ufficio/"
+        }
+       ],
+       "Street": "Via Franco Zorzi",
+       "Number": "13",
+       "PostalCode": "6501",
+       "City": "Bellinzona"
+      },
+      "NrOfPoints": 1,
+      "TypeCode": "P_26_120_0014_2669",
+      "LegalProvisions": [
+       {
+        "Type": {
+         "Code": "LegalProvision",
+         "Text": [
+          {
+           "Language": "it",
+           "Text": "Prescrizione legale"
+          }
+         ]
+        },
+        "Index": 48,
+        "Title": [
+         {
+          "Language": "it",
+          "Text": "Regolamento edilizio - PR BELLINZONA-BELLINZONA"
+         }
+        ],
+        "Lawstatus": {
+         "Code": "inForce",
+         "Text": [
+          {
+           "Language": "it",
+           "Text": "In vigore"
+          }
+         ]
+        },
+        "TextAtWeb": [
+         {
+          "Language": "it",
+          "Text": "https://www4.ti.ch/fileadmin/GENERALE/IGDAC/ti_028b_1_version1_0_mn95/RE_ch08d8qu_ch08d8qu294100000.pdf"
+         }
+        ],
+        "ResponsibleOffice": {
+         "Name": [
+          {
+           "Language": "it",
+           "Text": "Ufficio della pianificazione locale"
+          }
+         ],
+         "OfficeAtWeb": [
+          {
+           "Language": "it",
+           "Text": "https://www4.ti.ch/dt/dstm/sst/upl/ufficio/"
+          }
+         ],
+         "Street": "Via Franco Zorzi",
+         "Number": "13",
+         "PostalCode": "6501",
+         "City": "Bellinzona"
+        },
+        "Abbreviation": [
+         {
+          "Language": "it",
+          "Text": "RE"
+         }
+        ]
+       }
+      ]
+     },
+     {
+      "LegendText": [
+       {
+        "Language": "it",
+        "Text": "Comparto soggetto a Piano Particolareggiato"
+       }
+      ],
+      "Theme": {
+       "Code": "ch.Nutzungsplanung",
+       "Text": [
+        {
+         "Language": "it",
+         "Text": "PR Bellinzona-Bellinzona / PP Centro storico"
+        }
+       ],
+       "SubCode": "ch.TI.ch08d8qu264100022"
+      },
+      "Lawstatus": {
+       "Code": "inForce",
+       "Text": [
+        {
+         "Language": "it",
+         "Text": "In vigore"
+        }
+       ]
+      },
+      "ResponsibleOffice": {
+       "Name": [
+        {
+         "Language": "it",
+         "Text": "Ufficio della pianificazione locale"
+        }
+       ],
+       "OfficeAtWeb": [
+        {
+         "Language": "it",
+         "Text": "https://www4.ti.ch/dt/dstm/sst/upl/ufficio/"
+        }
+       ],
+       "Street": "Via Franco Zorzi",
+       "Number": "13",
+       "PostalCode": "6501",
+       "City": "Bellinzona"
+      },
+      "AreaShare": 2685,
+      "TypeCode": "S_17_056_0001_4337",
+      "PartInPercent": 100,
+      "LegalProvisions": [
+       {
+        "Type": {
+         "Code": "LegalProvision",
+         "Text": [
+          {
+           "Language": "it",
+           "Text": "Prescrizione legale"
+          }
+         ]
+        },
+        "Index": 48,
+        "Title": [
+         {
+          "Language": "it",
+          "Text": "Regolamento edilizio - PR BELLINZONA-BELLINZONA"
+         }
+        ],
+        "Lawstatus": {
+         "Code": "inForce",
+         "Text": [
+          {
+           "Language": "it",
+           "Text": "In vigore"
+          }
+         ]
+        },
+        "TextAtWeb": [
+         {
+          "Language": "it",
+          "Text": "https://www4.ti.ch/fileadmin/GENERALE/IGDAC/ti_028b_1_version1_0_mn95/RE_ch08d8qu_ch08d8qu294100000.pdf"
+         }
+        ],
+        "ResponsibleOffice": {
+         "Name": [
+          {
+           "Language": "it",
+           "Text": "Ufficio della pianificazione locale"
+          }
+         ],
+         "OfficeAtWeb": [
+          {
+           "Language": "it",
+           "Text": "https://www4.ti.ch/dt/dstm/sst/upl/ufficio/"
+          }
+         ],
+         "Street": "Via Franco Zorzi",
+         "Number": "13",
+         "PostalCode": "6501",
+         "City": "Bellinzona"
+        },
+        "Abbreviation": [
+         {
+          "Language": "it",
+          "Text": "RE"
+         }
+        ]
+       }
+      ]
+     },
+     {
+      "LegendText": [
+       {
+        "Language": "it",
+        "Text": "Facciata di valore ambientale"
+       }
+      ],
+      "Theme": {
+       "Code": "ch.Nutzungsplanung",
+       "Text": [
+        {
+         "Language": "it",
+         "Text": "PR Bellinzona-Bellinzona / PP Centro storico"
+        }
+       ],
+       "SubCode": "ch.TI.ch08d8qu264100022"
+      },
+      "Lawstatus": {
+       "Code": "inForce",
+       "Text": [
+        {
+         "Language": "it",
+         "Text": "In vigore"
+        }
+       ]
+      },
+      "ResponsibleOffice": {
+       "Name": [
+        {
+         "Language": "it",
+         "Text": "Ufficio della pianificazione locale"
+        }
+       ],
+       "OfficeAtWeb": [
+        {
+         "Language": "it",
+         "Text": "https://www4.ti.ch/dt/dstm/sst/upl/ufficio/"
+        }
+       ],
+       "Street": "Via Franco Zorzi",
+       "Number": "13",
+       "PostalCode": "6501",
+       "City": "Bellinzona"
+      },
+      "LengthShare": 56,
+      "TypeCode": "L_22_093_0035_7751",
+      "LegalProvisions": [
+       {
+        "Type": {
+         "Code": "LegalProvision",
+         "Text": [
+          {
+           "Language": "it",
+           "Text": "Prescrizione legale"
+          }
+         ]
+        },
+        "Index": 48,
+        "Title": [
+         {
+          "Language": "it",
+          "Text": "Regolamento edilizio - PR BELLINZONA-BELLINZONA"
+         }
+        ],
+        "Lawstatus": {
+         "Code": "inForce",
+         "Text": [
+          {
+           "Language": "it",
+           "Text": "In vigore"
+          }
+         ]
+        },
+        "TextAtWeb": [
+         {
+          "Language": "it",
+          "Text": "https://www4.ti.ch/fileadmin/GENERALE/IGDAC/ti_028b_1_version1_0_mn95/RE_ch08d8qu_ch08d8qu294100000.pdf"
+         }
+        ],
+        "ResponsibleOffice": {
+         "Name": [
+          {
+           "Language": "it",
+           "Text": "Ufficio della pianificazione locale"
+          }
+         ],
+         "OfficeAtWeb": [
+          {
+           "Language": "it",
+           "Text": "https://www4.ti.ch/dt/dstm/sst/upl/ufficio/"
+          }
+         ],
+         "Street": "Via Franco Zorzi",
+         "Number": "13",
+         "PostalCode": "6501",
+         "City": "Bellinzona"
+        },
+        "Abbreviation": [
+         {
+          "Language": "it",
+          "Text": "RE"
+         }
+        ]
+       }
+      ]
+     },
+     {
+      "LegendText": [
+       {
+        "Language": "it",
+        "Text": "Allineamento obbligatorio delle nuove costruzioni"
+       }
+      ],
+      "Theme": {
+       "Code": "ch.Nutzungsplanung",
+       "Text": [
+        {
+         "Language": "it",
+         "Text": "PR Bellinzona-Bellinzona / PP Centro storico"
+        }
+       ],
+       "SubCode": "ch.TI.ch08d8qu264100022"
+      },
+      "Lawstatus": {
+       "Code": "inForce",
+       "Text": [
+        {
+         "Language": "it",
+         "Text": "In vigore"
+        }
+       ]
+      },
+      "ResponsibleOffice": {
+       "Name": [
+        {
+         "Language": "it",
+         "Text": "Ufficio della pianificazione locale"
+        }
+       ],
+       "OfficeAtWeb": [
+        {
+         "Language": "it",
+         "Text": "https://www4.ti.ch/dt/dstm/sst/upl/ufficio/"
+        }
+       ],
+       "Street": "Via Franco Zorzi",
+       "Number": "13",
+       "PostalCode": "6501",
+       "City": "Bellinzona"
+      },
+      "LengthShare": 18,
+      "TypeCode": "L_22_093_0048_7753",
+      "LegalProvisions": [
+       {
+        "Type": {
+         "Code": "LegalProvision",
+         "Text": [
+          {
+           "Language": "it",
+           "Text": "Prescrizione legale"
+          }
+         ]
+        },
+        "Index": 48,
+        "Title": [
+         {
+          "Language": "it",
+          "Text": "Regolamento edilizio - PR BELLINZONA-BELLINZONA"
+         }
+        ],
+        "Lawstatus": {
+         "Code": "inForce",
+         "Text": [
+          {
+           "Language": "it",
+           "Text": "In vigore"
+          }
+         ]
+        },
+        "TextAtWeb": [
+         {
+          "Language": "it",
+          "Text": "https://www4.ti.ch/fileadmin/GENERALE/IGDAC/ti_028b_1_version1_0_mn95/RE_ch08d8qu_ch08d8qu294100000.pdf"
+         }
+        ],
+        "ResponsibleOffice": {
+         "Name": [
+          {
+           "Language": "it",
+           "Text": "Ufficio della pianificazione locale"
+          }
+         ],
+         "OfficeAtWeb": [
+          {
+           "Language": "it",
+           "Text": "https://www4.ti.ch/dt/dstm/sst/upl/ufficio/"
+          }
+         ],
+         "Street": "Via Franco Zorzi",
+         "Number": "13",
+         "PostalCode": "6501",
+         "City": "Bellinzona"
+        },
+        "Abbreviation": [
+         {
+          "Language": "it",
+          "Text": "RE"
+         }
+        ]
+       }
+      ]
+     },
+     {
+      "LegendText": [
+       {
+        "Language": "it",
+        "Text": "Facciata di disegno unitario"
+       }
+      ],
+      "Theme": {
+       "Code": "ch.Nutzungsplanung",
+       "Text": [
+        {
+         "Language": "it",
+         "Text": "PR Bellinzona-Bellinzona / PP Centro storico"
+        }
+       ],
+       "SubCode": "ch.TI.ch08d8qu264100022"
+      },
+      "Lawstatus": {
+       "Code": "inForce",
+       "Text": [
+        {
+         "Language": "it",
+         "Text": "In vigore"
+        }
+       ]
+      },
+      "ResponsibleOffice": {
+       "Name": [
+        {
+         "Language": "it",
+         "Text": "Ufficio della pianificazione locale"
+        }
+       ],
+       "OfficeAtWeb": [
+        {
+         "Language": "it",
+         "Text": "https://www4.ti.ch/dt/dstm/sst/upl/ufficio/"
+        }
+       ],
+       "Street": "Via Franco Zorzi",
+       "Number": "13",
+       "PostalCode": "6501",
+       "City": "Bellinzona"
+      },
+      "LengthShare": 100,
+      "TypeCode": "L_19_149_0001_7783",
+      "LegalProvisions": [
+       {
+        "Type": {
+         "Code": "LegalProvision",
+         "Text": [
+          {
+           "Language": "it",
+           "Text": "Prescrizione legale"
+          }
+         ]
+        },
+        "Index": 48,
+        "Title": [
+         {
+          "Language": "it",
+          "Text": "Regolamento edilizio - PR BELLINZONA-BELLINZONA"
+         }
+        ],
+        "Lawstatus": {
+         "Code": "inForce",
+         "Text": [
+          {
+           "Language": "it",
+           "Text": "In vigore"
+          }
+         ]
+        },
+        "TextAtWeb": [
+         {
+          "Language": "it",
+          "Text": "https://www4.ti.ch/fileadmin/GENERALE/IGDAC/ti_028b_1_version1_0_mn95/RE_ch08d8qu_ch08d8qu294100000.pdf"
+         }
+        ],
+        "ResponsibleOffice": {
+         "Name": [
+          {
+           "Language": "it",
+           "Text": "Ufficio della pianificazione locale"
+          }
+         ],
+         "OfficeAtWeb": [
+          {
+           "Language": "it",
+           "Text": "https://www4.ti.ch/dt/dstm/sst/upl/ufficio/"
+          }
+         ],
+         "Street": "Via Franco Zorzi",
+         "Number": "13",
+         "PostalCode": "6501",
+         "City": "Bellinzona"
+        },
+        "Abbreviation": [
+         {
+          "Language": "it",
+          "Text": "RE"
+         }
+        ]
+       }
+      ]
+     },
+     {
+      "LegendText": [
+       {
+        "Language": "it",
+        "Text": "Portici e sottopassi"
+       }
+      ],
+      "Theme": {
+       "Code": "ch.Nutzungsplanung",
+       "Text": [
+        {
+         "Language": "it",
+         "Text": "PR Bellinzona-Bellinzona / PP Centro storico"
+        }
+       ],
+       "SubCode": "ch.TI.ch08d8qu264100022"
+      },
+      "Lawstatus": {
+       "Code": "inForce",
+       "Text": [
+        {
+         "Language": "it",
+         "Text": "In vigore"
+        }
+       ]
+      },
+      "ResponsibleOffice": {
+       "Name": [
+        {
+         "Language": "it",
+         "Text": "Ufficio della pianificazione locale"
+        }
+       ],
+       "OfficeAtWeb": [
+        {
+         "Language": "it",
+         "Text": "https://www4.ti.ch/dt/dstm/sst/upl/ufficio/"
+        }
+       ],
+       "Street": "Via Franco Zorzi",
+       "Number": "13",
+       "PostalCode": "6501",
+       "City": "Bellinzona"
+      },
+      "AreaShare": 406,
+      "TypeCode": "S_01_089_0013_13295",
+      "PartInPercent": 15.1,
+      "LegalProvisions": [
+       {
+        "Type": {
+         "Code": "LegalProvision",
+         "Text": [
+          {
+           "Language": "it",
+           "Text": "Prescrizione legale"
+          }
+         ]
+        },
+        "Index": 48,
+        "Title": [
+         {
+          "Language": "it",
+          "Text": "Regolamento edilizio - PR BELLINZONA-BELLINZONA"
+         }
+        ],
+        "Lawstatus": {
+         "Code": "inForce",
+         "Text": [
+          {
+           "Language": "it",
+           "Text": "In vigore"
+          }
+         ]
+        },
+        "TextAtWeb": [
+         {
+          "Language": "it",
+          "Text": "https://www4.ti.ch/fileadmin/GENERALE/IGDAC/ti_028b_1_version1_0_mn95/RE_ch08d8qu_ch08d8qu294100000.pdf"
+         }
+        ],
+        "ResponsibleOffice": {
+         "Name": [
+          {
+           "Language": "it",
+           "Text": "Ufficio della pianificazione locale"
+          }
+         ],
+         "OfficeAtWeb": [
+          {
+           "Language": "it",
+           "Text": "https://www4.ti.ch/dt/dstm/sst/upl/ufficio/"
+          }
+         ],
+         "Street": "Via Franco Zorzi",
+         "Number": "13",
+         "PostalCode": "6501",
+         "City": "Bellinzona"
+        },
+        "Abbreviation": [
+         {
+          "Language": "it",
+          "Text": "RE"
+         }
+        ]
+       }
+      ]
+     },
+     {
+      "LegendText": [
+       {
+        "Language": "it",
+        "Text": "Area di circolazione pubblica"
+       }
+      ],
+      "Theme": {
+       "Code": "ch.Nutzungsplanung",
+       "Text": [
+        {
+         "Language": "it",
+         "Text": "PR Bellinzona-Bellinzona / PP Centro storico"
+        }
+       ],
+       "SubCode": "ch.TI.ch08d8qu264100022"
+      },
+      "Lawstatus": {
+       "Code": "inForce",
+       "Text": [
+        {
+         "Language": "it",
+         "Text": "In vigore"
+        }
+       ]
+      },
+      "ResponsibleOffice": {
+       "Name": [
+        {
+         "Language": "it",
+         "Text": "Ufficio della pianificazione locale"
+        }
+       ],
+       "OfficeAtWeb": [
+        {
+         "Language": "it",
+         "Text": "https://www4.ti.ch/dt/dstm/sst/upl/ufficio/"
+        }
+       ],
+       "Street": "Via Franco Zorzi",
+       "Number": "13",
+       "PostalCode": "6501",
+       "City": "Bellinzona"
+      },
+      "AreaShare": 959,
+      "TypeCode": "S_18_074_0010_13977",
+      "PartInPercent": 35.7,
+      "LegalProvisions": [
+       {
+        "Type": {
+         "Code": "LegalProvision",
+         "Text": [
+          {
+           "Language": "it",
+           "Text": "Prescrizione legale"
+          }
+         ]
+        },
+        "Index": 48,
+        "Title": [
+         {
+          "Language": "it",
+          "Text": "Regolamento edilizio - PR BELLINZONA-BELLINZONA"
+         }
+        ],
+        "Lawstatus": {
+         "Code": "inForce",
+         "Text": [
+          {
+           "Language": "it",
+           "Text": "In vigore"
+          }
+         ]
+        },
+        "TextAtWeb": [
+         {
+          "Language": "it",
+          "Text": "https://www4.ti.ch/fileadmin/GENERALE/IGDAC/ti_028b_1_version1_0_mn95/RE_ch08d8qu_ch08d8qu294100000.pdf"
+         }
+        ],
+        "ResponsibleOffice": {
+         "Name": [
+          {
+           "Language": "it",
+           "Text": "Ufficio della pianificazione locale"
+          }
+         ],
+         "OfficeAtWeb": [
+          {
+           "Language": "it",
+           "Text": "https://www4.ti.ch/dt/dstm/sst/upl/ufficio/"
+          }
+         ],
+         "Street": "Via Franco Zorzi",
+         "Number": "13",
+         "PostalCode": "6501",
+         "City": "Bellinzona"
+        },
+        "Abbreviation": [
+         {
+          "Language": "it",
+          "Text": "RE"
+         }
+        ]
+       }
+      ]
+     },
+     {
+      "LegendText": [
+       {
+        "Language": "it",
+        "Text": "Aree precluse all'edificazione"
+       }
+      ],
+      "Theme": {
+       "Code": "ch.Nutzungsplanung",
+       "Text": [
+        {
+         "Language": "it",
+         "Text": "PR Bellinzona-Bellinzona / PP Centro storico"
+        }
+       ],
+       "SubCode": "ch.TI.ch08d8qu264100022"
+      },
+      "Lawstatus": {
+       "Code": "inForce",
+       "Text": [
+        {
+         "Language": "it",
+         "Text": "In vigore"
+        }
+       ]
+      },
+      "ResponsibleOffice": {
+       "Name": [
+        {
+         "Language": "it",
+         "Text": "Ufficio della pianificazione locale"
+        }
+       ],
+       "OfficeAtWeb": [
+        {
+         "Language": "it",
+         "Text": "https://www4.ti.ch/dt/dstm/sst/upl/ufficio/"
+        }
+       ],
+       "Street": "Via Franco Zorzi",
+       "Number": "13",
+       "PostalCode": "6501",
+       "City": "Bellinzona"
+      },
+      "AreaShare": 202,
+      "TypeCode": "S_18_079_0002_15427",
+      "PartInPercent": 7.5,
+      "LegalProvisions": [
+       {
+        "Type": {
+         "Code": "LegalProvision",
+         "Text": [
+          {
+           "Language": "it",
+           "Text": "Prescrizione legale"
+          }
+         ]
+        },
+        "Index": 48,
+        "Title": [
+         {
+          "Language": "it",
+          "Text": "Regolamento edilizio - PR BELLINZONA-BELLINZONA"
+         }
+        ],
+        "Lawstatus": {
+         "Code": "inForce",
+         "Text": [
+          {
+           "Language": "it",
+           "Text": "In vigore"
+          }
+         ]
+        },
+        "TextAtWeb": [
+         {
+          "Language": "it",
+          "Text": "https://www4.ti.ch/fileadmin/GENERALE/IGDAC/ti_028b_1_version1_0_mn95/RE_ch08d8qu_ch08d8qu294100000.pdf"
+         }
+        ],
+        "ResponsibleOffice": {
+         "Name": [
+          {
+           "Language": "it",
+           "Text": "Ufficio della pianificazione locale"
+          }
+         ],
+         "OfficeAtWeb": [
+          {
+           "Language": "it",
+           "Text": "https://www4.ti.ch/dt/dstm/sst/upl/ufficio/"
+          }
+         ],
+         "Street": "Via Franco Zorzi",
+         "Number": "13",
+         "PostalCode": "6501",
+         "City": "Bellinzona"
+        },
+        "Abbreviation": [
+         {
+          "Language": "it",
+          "Text": "RE"
+         }
+        ]
+       }
+      ]
+     },
+     {
+      "LegendText": [
+       {
+        "Language": "it",
+        "Text": "Comparti edificabili speciali"
+       }
+      ],
+      "Theme": {
+       "Code": "ch.Nutzungsplanung",
+       "Text": [
+        {
+         "Language": "it",
+         "Text": "PR Bellinzona-Bellinzona / PP Centro storico"
+        }
+       ],
+       "SubCode": "ch.TI.ch08d8qu264100022"
+      },
+      "Lawstatus": {
+       "Code": "inForce",
+       "Text": [
+        {
+         "Language": "it",
+         "Text": "In vigore"
+        }
+       ]
+      },
+      "ResponsibleOffice": {
+       "Name": [
+        {
+         "Language": "it",
+         "Text": "Ufficio della pianificazione locale"
+        }
+       ],
+       "OfficeAtWeb": [
+        {
+         "Language": "it",
+         "Text": "https://www4.ti.ch/dt/dstm/sst/upl/ufficio/"
+        }
+       ],
+       "Street": "Via Franco Zorzi",
+       "Number": "13",
+       "PostalCode": "6501",
+       "City": "Bellinzona"
+      },
+      "AreaShare": 633,
+      "TypeCode": "S_18_068_0002_15429",
+      "PartInPercent": 23.6,
+      "LegalProvisions": [
+       {
+        "Type": {
+         "Code": "LegalProvision",
+         "Text": [
+          {
+           "Language": "it",
+           "Text": "Prescrizione legale"
+          }
+         ]
+        },
+        "Index": 48,
+        "Title": [
+         {
+          "Language": "it",
+          "Text": "Regolamento edilizio - PR BELLINZONA-BELLINZONA"
+         }
+        ],
+        "Lawstatus": {
+         "Code": "inForce",
+         "Text": [
+          {
+           "Language": "it",
+           "Text": "In vigore"
+          }
+         ]
+        },
+        "TextAtWeb": [
+         {
+          "Language": "it",
+          "Text": "https://www4.ti.ch/fileadmin/GENERALE/IGDAC/ti_028b_1_version1_0_mn95/RE_ch08d8qu_ch08d8qu294100000.pdf"
+         }
+        ],
+        "ResponsibleOffice": {
+         "Name": [
+          {
+           "Language": "it",
+           "Text": "Ufficio della pianificazione locale"
+          }
+         ],
+         "OfficeAtWeb": [
+          {
+           "Language": "it",
+           "Text": "https://www4.ti.ch/dt/dstm/sst/upl/ufficio/"
+          }
+         ],
+         "Street": "Via Franco Zorzi",
+         "Number": "13",
+         "PostalCode": "6501",
+         "City": "Bellinzona"
+        },
+        "Abbreviation": [
+         {
+          "Language": "it",
+          "Text": "RE"
+         }
+        ]
+       }
+      ]
+     }
+    ]
+   },
+   "ConcernedTheme": [
+    {
+     "Code": "ch.Nutzungsplanung",
+     "Text": [
+      {
+       "Language": "it",
+       "Text": "Piani di utilizzazione (cantonali/comunali)"
+      }
+     ]
+    }
+   ],
+   "NotConcernedTheme": [
+    {
+     "Code": "ch.TI.AreePianificateProgettiStradaliCantonali",
+     "Text": [
+      {
+       "Language": "it",
+       "Text": "Aree pianificate dai progetti stradali cantonali"
+      }
+     ]
+    },
+    {
+     "Code": "ch.TI.PianiCantonaliAutorizzazioneCostruire",
+     "Text": [
+      {
+       "Language": "it",
+       "Text": "Piani cantonali con autorizzazione a costruire"
+      }
+     ]
+    },
+    {
+     "Code": "ch.ProjektierungszonenNationalstrassen",
+     "Text": [
+      {
+       "Language": "it",
+       "Text": "Zone riservate per le strade nazionali"
+      }
+     ]
+    },
+    {
+     "Code": "ch.BaulinienNationalstrassen",
+     "Text": [
+      {
+       "Language": "it",
+       "Text": "Allineamenti per le strade nazionali"
+      }
+     ]
+    },
+    {
+     "Code": "ch.ProjektierungszonenEisenbahnanlagen",
+     "Text": [
+      {
+       "Language": "it",
+       "Text": "Zone riservate per gli impianti ferroviari"
+      }
+     ]
+    },
+    {
+     "Code": "ch.BaulinienEisenbahnanlagen",
+     "Text": [
+      {
+       "Language": "it",
+       "Text": "Allineamenti per gli impianti ferroviari"
+      }
+     ]
+    },
+    {
+     "Code": "ch.ProjektierungszonenFlughafenanlagen",
+     "Text": [
+      {
+       "Language": "it",
+       "Text": "Zone riservate per gli impianti aeroportuali"
+      }
+     ]
+    },
+    {
+     "Code": "ch.BaulinienFlughafenanlagen",
+     "Text": [
+      {
+       "Language": "it",
+       "Text": "Allineamenti per gli impianti aeroportuali"
+      }
+     ]
+    },
+    {
+     "Code": "ch.Sicherheitszonenplan",
+     "Text": [
+      {
+       "Language": "it",
+       "Text": "Piano delle zone di sicurezza"
+      }
+     ]
+    },
+    {
+     "Code": "ch.BelasteteStandorte",
+     "Text": [
+      {
+       "Language": "it",
+       "Text": "Catasto dei siti inquinati"
+      }
+     ]
+    },
+    {
+     "Code": "ch.BelasteteStandorteMilitaer",
+     "Text": [
+      {
+       "Language": "it",
+       "Text": "Catasto dei siti inquinati nel settore militare"
+      }
+     ]
+    },
+    {
+     "Code": "ch.BelasteteStandorteZivileFlugplaetze",
+     "Text": [
+      {
+       "Language": "it",
+       "Text": "Catasto dei siti inquinati nel settore degli aeroporti civili"
+      }
+     ]
+    },
+    {
+     "Code": "ch.BelasteteStandorteOeffentlicherVerkehr",
+     "Text": [
+      {
+       "Language": "it",
+       "Text": "Catasto dei siti inquinati nel settore dei trasporti pubblici"
+      }
+     ]
+    },
+    {
+     "Code": "ch.Grundwasserschutzzonen",
+     "Text": [
+      {
+       "Language": "it",
+       "Text": "Zone di protezione delle acque sotterranee"
+      }
+     ]
+    },
+    {
+     "Code": "ch.Grundwasserschutzareale",
+     "Text": [
+      {
+       "Language": "it",
+       "Text": "Aree di protezione delle acque sotterranee"
+      }
+     ]
+    },
+    {
+     "Code": "ch.StatischeWaldgrenzen",
+     "Text": [
+      {
+       "Language": "it",
+       "Text": "Margini statici della foresta"
+      }
+     ]
+    },
+    {
+     "Code": "ch.Waldabstandslinien",
+     "Text": [
+      {
+       "Language": "it",
+       "Text": "Linee di distanza dalla foresta"
+      }
+     ]
+    },
+    {
+     "Code": "ch.Waldreservate",
+     "Text": [
+      {
+       "Language": "it",
+       "Text": "Riserve forestali"
+      }
+     ]
+    },
+    {
+     "Code": "ch.ProjektierungszonenStarkstromanlagen",
+     "Text": [
+      {
+       "Language": "it",
+       "Text": "Zone riservate per linee con una tensione nominale pari o superiore a 220 kV"
+      }
+     ]
+    },
+    {
+     "Code": "ch.BaulinienStarkstromanlagen",
+     "Text": [
+      {
+       "Language": "it",
+       "Text": "Allineamenti per impianti a corrente forte"
+      }
+     ]
+    },
+    {
+     "Code": "ch.TI.DecretiProtezione",
+     "Text": [
+      {
+       "Language": "it",
+       "Text": "Decreti di protezione"
+      }
+     ]
+    }
+   ],
+   "ThemeWithoutData": [
+    {
+     "Code": "ch.Planungszonen",
+     "Text": [
+      {
+       "Language": "it",
+       "Text": "Zone di pianificazione"
+      }
+     ]
+    },
+    {
+     "Code": "ch.Gewaesserraum",
+     "Text": [
+      {
+       "Language": "it",
+       "Text": "Spazio riservato alle acque"
+      }
+     ]
+    },
+    {
+     "Code": "ch.Laermempfindlichkeitsstufen",
+     "Text": [
+      {
+       "Language": "it",
+       "Text": "Gradi di sensibilità al rumore (in zone d'utilizzazione)"
+      }
+     ]
+    }
+   ]
+  }
+ }
+}

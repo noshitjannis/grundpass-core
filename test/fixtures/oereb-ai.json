@@ -1,0 +1,1014 @@
+{
+ "_hinweis": "Echte Antwort vom 16.10.2026, verkleinert mit scripts/oereb-fixture.ts: https://oereb.ai.ch/ktai/wsgi/oereb/extract/json?EGRID=CH527730594111&GEOMETRY=false&WITHIMAGES=false&LANG=de (Marktgasse 2, 9050 Appenzell, Appenzell Parzelle 67, EGID 9018135). Geometrien, Bilder, Glossar und Rechtsvorschriften bis auf eine entfernt.",
+ "$schema": "https://raw.githubusercontent.com/openoereb/schemas/ea4fe8e696b84b923cb9aa9fb27c3ba4e2d8eb5b/extract.json",
+ "GetExtractByIdResponse": {
+  "extract": {
+   "CreationDate": "2026-10-16T08:26:01",
+   "ExtractIdentifier": "4d9dec23-ed8b-4e99-b64d-8948f5887a99",
+   "UpdateDateCS": "2026-10-16T08:26:01",
+   "PLRCadastreAuthority": {
+    "Name": [
+     {
+      "Language": "de",
+      "Text": "Amt für Geoinformation"
+     }
+    ],
+    "OfficeAtWeb": [
+     {
+      "Language": "de",
+      "Text": "https://geo.ai.ch"
+     }
+    ],
+    "Street": "Gaiserstrasse",
+    "Number": "8",
+    "PostalCode": "9050",
+    "City": "Appenzell"
+   },
+   "RealEstate": {
+    "Type": {
+     "Code": "RealEstate",
+     "Text": [
+      {
+       "Language": "de",
+       "Text": "Liegenschaft"
+      }
+     ]
+    },
+    "Canton": "AI",
+    "MunicipalityName": "Appenzell (Bez)",
+    "MunicipalityCode": 3101,
+    "LandRegistryArea": 1698,
+    "Number": "67",
+    "IdentDN": "AI02003101",
+    "EGRID": "CH527730594111",
+    "SubunitOfLandRegister": "3101 - Appenzell",
+    "RestrictionOnLandownership": [
+     {
+      "LegendText": [
+       {
+        "Language": "de",
+        "Text": "Zone für öffentliche Bauten und Anlagen"
+       }
+      ],
+      "Theme": {
+       "Code": "ch.Nutzungsplanung",
+       "Text": [
+        {
+         "Language": "de",
+         "Text": "Nutzungsplanung (kommunal)"
+        }
+       ],
+       "SubCode": "ch.NutzungsplanungKommunal"
+      },
+      "Lawstatus": {
+       "Code": "inForce",
+       "Text": [
+        {
+         "Language": "de",
+         "Text": "Rechtskräftig"
+        }
+       ]
+      },
+      "ResponsibleOffice": {
+       "Name": [
+        {
+         "Language": "de",
+         "Text": "Amt für Raumentwicklung"
+        }
+       ],
+       "OfficeAtWeb": [
+        {
+         "Language": "de",
+         "Text": "https://www.ai.ch/verwaltung/bau-und-umweltdepartement/amt-fuer-raumentwicklung/kontakt/addressblock_detail_view"
+        }
+       ],
+       "Street": "Gaiserstrasse",
+       "Number": "8",
+       "PostalCode": "9050",
+       "City": "Appenzell"
+      },
+      "AreaShare": 1698,
+      "TypeCode": "Oe",
+      "PartInPercent": 100,
+      "LegalProvisions": [
+       {
+        "Type": {
+         "Code": "LegalProvision",
+         "Text": [
+          {
+           "Language": "de",
+           "Text": "Rechtsvorschrift"
+          }
+         ]
+        },
+        "Index": 0,
+        "Title": [
+         {
+          "Language": "de",
+          "Text": "Baureglement_FSG_Appenzell_2026.pdf"
+         }
+        ],
+        "Lawstatus": {
+         "Code": "inForce",
+         "Text": [
+          {
+           "Language": "de",
+           "Text": "Rechtskräftig"
+          }
+         ]
+        },
+        "TextAtWeb": [
+         {
+          "Language": "de",
+          "Text": "https://oereblex.ai.ch/api/attachments/2412"
+         }
+        ],
+        "ResponsibleOffice": {
+         "Name": [
+          {
+           "Language": "de",
+           "Text": "Feuerschaugemeinde"
+          }
+         ],
+         "OfficeAtWeb": [
+          {
+           "Language": "de",
+           "Text": "https://www.ai.ch/feuerschaugemeinde/"
+          }
+         ]
+        },
+        "OfficialNumber": [
+         {
+          "Language": "de",
+          "Text": "126/26"
+         }
+        ]
+       }
+      ]
+     },
+     {
+      "LegendText": [
+       {
+        "Language": "de",
+        "Text": "Ortsbildschutzzone I"
+       }
+      ],
+      "Theme": {
+       "Code": "ch.Nutzungsplanung",
+       "Text": [
+        {
+         "Language": "de",
+         "Text": "Nutzungsplanung (kommunal)"
+        }
+       ],
+       "SubCode": "ch.NutzungsplanungKommunal"
+      },
+      "Lawstatus": {
+       "Code": "inForce",
+       "Text": [
+        {
+         "Language": "de",
+         "Text": "Rechtskräftig"
+        }
+       ]
+      },
+      "ResponsibleOffice": {
+       "Name": [
+        {
+         "Language": "de",
+         "Text": "Amt für Raumentwicklung"
+        }
+       ],
+       "OfficeAtWeb": [
+        {
+         "Language": "de",
+         "Text": "https://www.ai.ch/verwaltung/bau-und-umweltdepartement/amt-fuer-raumentwicklung/kontakt/addressblock_detail_view"
+        }
+       ],
+       "Street": "Gaiserstrasse",
+       "Number": "8",
+       "PostalCode": "9050",
+       "City": "Appenzell"
+      },
+      "AreaShare": 1698,
+      "TypeCode": "OS-I",
+      "PartInPercent": 100,
+      "LegalProvisions": [
+       {
+        "Type": {
+         "Code": "LegalProvision",
+         "Text": [
+          {
+           "Language": "de",
+           "Text": "Rechtsvorschrift"
+          }
+         ]
+        },
+        "Index": 0,
+        "Title": [
+         {
+          "Language": "de",
+          "Text": "Zonenplan Schutz, Feuerschaugemeinde Appenzell"
+         }
+        ],
+        "Lawstatus": {
+         "Code": "inForce",
+         "Text": [
+          {
+           "Language": "de",
+           "Text": "Rechtskräftig"
+          }
+         ]
+        },
+        "TextAtWeb": [
+         {
+          "Language": "de",
+          "Text": "https://oereblex.ai.ch/api/attachments/2406"
+         }
+        ],
+        "ResponsibleOffice": {
+         "Name": [
+          {
+           "Language": "de",
+           "Text": "Feuerschaugemeinde"
+          }
+         ],
+         "OfficeAtWeb": [
+          {
+           "Language": "de",
+           "Text": "https://www.ai.ch/feuerschaugemeinde/"
+          }
+         ]
+        },
+        "OfficialNumber": [
+         {
+          "Language": "de",
+          "Text": "126/26"
+         }
+        ]
+       }
+      ]
+     },
+     {
+      "LegendText": [
+       {
+        "Language": "de",
+        "Text": "Archäologiezone"
+       }
+      ],
+      "Theme": {
+       "Code": "ch.Nutzungsplanung",
+       "Text": [
+        {
+         "Language": "de",
+         "Text": "Nutzungsplanung (kommunal)"
+        }
+       ],
+       "SubCode": "ch.NutzungsplanungKommunal"
+      },
+      "Lawstatus": {
+       "Code": "inForce",
+       "Text": [
+        {
+         "Language": "de",
+         "Text": "Rechtskräftig"
+        }
+       ]
+      },
+      "ResponsibleOffice": {
+       "Name": [
+        {
+         "Language": "de",
+         "Text": "Amt für Raumentwicklung"
+        }
+       ],
+       "OfficeAtWeb": [
+        {
+         "Language": "de",
+         "Text": "https://www.ai.ch/verwaltung/bau-und-umweltdepartement/amt-fuer-raumentwicklung/kontakt/addressblock_detail_view"
+        }
+       ],
+       "Street": "Gaiserstrasse",
+       "Number": "8",
+       "PostalCode": "9050",
+       "City": "Appenzell"
+      },
+      "AreaShare": 1698,
+      "TypeCode": "ArZ",
+      "PartInPercent": 100,
+      "LegalProvisions": [
+       {
+        "Type": {
+         "Code": "LegalProvision",
+         "Text": [
+          {
+           "Language": "de",
+           "Text": "Rechtsvorschrift"
+          }
+         ]
+        },
+        "Index": 0,
+        "Title": [
+         {
+          "Language": "de",
+          "Text": "Zonenplan Schutz, Feuerschaugemeinde Appenzell"
+         }
+        ],
+        "Lawstatus": {
+         "Code": "inForce",
+         "Text": [
+          {
+           "Language": "de",
+           "Text": "Rechtskräftig"
+          }
+         ]
+        },
+        "TextAtWeb": [
+         {
+          "Language": "de",
+          "Text": "https://oereblex.ai.ch/api/attachments/2406"
+         }
+        ],
+        "ResponsibleOffice": {
+         "Name": [
+          {
+           "Language": "de",
+           "Text": "Feuerschaugemeinde"
+          }
+         ],
+         "OfficeAtWeb": [
+          {
+           "Language": "de",
+           "Text": "https://www.ai.ch/feuerschaugemeinde/"
+          }
+         ]
+        },
+        "OfficialNumber": [
+         {
+          "Language": "de",
+          "Text": "126/26"
+         }
+        ]
+       }
+      ]
+     },
+     {
+      "LegendText": [
+       {
+        "Language": "de",
+        "Text": "Kulturobjekt Kulturobjekt"
+       }
+      ],
+      "Theme": {
+       "Code": "ch.AI.ZonenplanSchutz",
+       "Text": [
+        {
+         "Language": "de",
+         "Text": "Zonenplan Schutz"
+        }
+       ]
+      },
+      "Lawstatus": {
+       "Code": "inForce",
+       "Text": [
+        {
+         "Language": "de",
+         "Text": "Rechtskräftig"
+        }
+       ]
+      },
+      "ResponsibleOffice": {
+       "Name": [
+        {
+         "Language": "de",
+         "Text": "Amt für Raumentwicklung"
+        }
+       ],
+       "OfficeAtWeb": [
+        {
+         "Language": "de",
+         "Text": "https://www.ai.ch/verwaltung/bau-und-umweltdepartement/amt-fuer-raumentwicklung/kontakt/addressblock_detail_viewhttps://www.ai.ch/verwaltung/bau-und-umweltdepartement/amt-fuer-raumentwicklung/kontakt/addressblock_detail_view"
+        }
+       ],
+       "Street": "Gaiserstrasse",
+       "Number": "8",
+       "PostalCode": "9050",
+       "City": "Appenzel"
+      },
+      "NrOfPoints": 1,
+      "TypeCode": "C",
+      "LegalProvisions": [
+       {
+        "Type": {
+         "Code": "LegalProvision",
+         "Text": [
+          {
+           "Language": "de",
+           "Text": "Rechtsvorschrift"
+          }
+         ]
+        },
+        "Index": 0,
+        "Title": [
+         {
+          "Language": "de",
+          "Text": "Zonenplan Schutz, Feuerschaugemeinde Appenzell"
+         }
+        ],
+        "Lawstatus": {
+         "Code": "inForce",
+         "Text": [
+          {
+           "Language": "de",
+           "Text": "Rechtskräftig"
+          }
+         ]
+        },
+        "TextAtWeb": [
+         {
+          "Language": "de",
+          "Text": "https://oereblex.ai.ch/api/attachments/2406"
+         }
+        ],
+        "ResponsibleOffice": {
+         "Name": [
+          {
+           "Language": "de",
+           "Text": "Feuerschaugemeinde"
+          }
+         ],
+         "OfficeAtWeb": [
+          {
+           "Language": "de",
+           "Text": "https://www.ai.ch/feuerschaugemeinde/"
+          }
+         ]
+        },
+        "OfficialNumber": [
+         {
+          "Language": "de",
+          "Text": "126/26"
+         }
+        ]
+       }
+      ]
+     },
+     {
+      "LegendText": [
+       {
+        "Language": "de",
+        "Text": "Kulturobjekt unbekannt"
+       }
+      ],
+      "Theme": {
+       "Code": "ch.AI.ZonenplanSchutz",
+       "Text": [
+        {
+         "Language": "de",
+         "Text": "Zonenplan Schutz"
+        }
+       ]
+      },
+      "Lawstatus": {
+       "Code": "inForce",
+       "Text": [
+        {
+         "Language": "de",
+         "Text": "Rechtskräftig"
+        }
+       ]
+      },
+      "ResponsibleOffice": {
+       "Name": [
+        {
+         "Language": "de",
+         "Text": "Amt für Raumentwicklung"
+        }
+       ],
+       "OfficeAtWeb": [
+        {
+         "Language": "de",
+         "Text": "https://www.ai.ch/verwaltung/bau-und-umweltdepartement/amt-fuer-raumentwicklung/kontakt/addressblock_detail_viewhttps://www.ai.ch/verwaltung/bau-und-umweltdepartement/amt-fuer-raumentwicklung/kontakt/addressblock_detail_view"
+        }
+       ],
+       "Street": "Gaiserstrasse",
+       "Number": "8",
+       "PostalCode": "9050",
+       "City": "Appenzel"
+      },
+      "NrOfPoints": 1,
+      "TypeCode": "A",
+      "LegalProvisions": [
+       {
+        "Type": {
+         "Code": "LegalProvision",
+         "Text": [
+          {
+           "Language": "de",
+           "Text": "Rechtsvorschrift"
+          }
+         ]
+        },
+        "Index": 0,
+        "Title": [
+         {
+          "Language": "de",
+          "Text": "Zonenplan Schutz, Feuerschaugemeinde Appenzell"
+         }
+        ],
+        "Lawstatus": {
+         "Code": "inForce",
+         "Text": [
+          {
+           "Language": "de",
+           "Text": "Rechtskräftig"
+          }
+         ]
+        },
+        "TextAtWeb": [
+         {
+          "Language": "de",
+          "Text": "https://oereblex.ai.ch/api/attachments/2406"
+         }
+        ],
+        "ResponsibleOffice": {
+         "Name": [
+          {
+           "Language": "de",
+           "Text": "Feuerschaugemeinde"
+          }
+         ],
+         "OfficeAtWeb": [
+          {
+           "Language": "de",
+           "Text": "https://www.ai.ch/feuerschaugemeinde/"
+          }
+         ]
+        },
+        "OfficialNumber": [
+         {
+          "Language": "de",
+          "Text": "126/26"
+         }
+        ]
+       }
+      ]
+     },
+     {
+      "LegendText": [
+       {
+        "Language": "de",
+        "Text": "Kulturobjekt Kulturobjekt"
+       }
+      ],
+      "Theme": {
+       "Code": "ch.AI.ZonenplanSchutz",
+       "Text": [
+        {
+         "Language": "de",
+         "Text": "Zonenplan Schutz"
+        }
+       ]
+      },
+      "Lawstatus": {
+       "Code": "inForce",
+       "Text": [
+        {
+         "Language": "de",
+         "Text": "Rechtskräftig"
+        }
+       ]
+      },
+      "ResponsibleOffice": {
+       "Name": [
+        {
+         "Language": "de",
+         "Text": "Amt für Raumentwicklung"
+        }
+       ],
+       "OfficeAtWeb": [
+        {
+         "Language": "de",
+         "Text": "https://www.ai.ch/verwaltung/bau-und-umweltdepartement/amt-fuer-raumentwicklung/kontakt/addressblock_detail_viewhttps://www.ai.ch/verwaltung/bau-und-umweltdepartement/amt-fuer-raumentwicklung/kontakt/addressblock_detail_view"
+        }
+       ],
+       "Street": "Gaiserstrasse",
+       "Number": "8",
+       "PostalCode": "9050",
+       "City": "Appenzel"
+      },
+      "NrOfPoints": 1,
+      "TypeCode": "B",
+      "LegalProvisions": [
+       {
+        "Type": {
+         "Code": "LegalProvision",
+         "Text": [
+          {
+           "Language": "de",
+           "Text": "Rechtsvorschrift"
+          }
+         ]
+        },
+        "Index": 0,
+        "Title": [
+         {
+          "Language": "de",
+          "Text": "Zonenplan Schutz, Feuerschaugemeinde Appenzell"
+         }
+        ],
+        "Lawstatus": {
+         "Code": "inForce",
+         "Text": [
+          {
+           "Language": "de",
+           "Text": "Rechtskräftig"
+          }
+         ]
+        },
+        "TextAtWeb": [
+         {
+          "Language": "de",
+          "Text": "https://oereblex.ai.ch/api/attachments/2406"
+         }
+        ],
+        "ResponsibleOffice": {
+         "Name": [
+          {
+           "Language": "de",
+           "Text": "Feuerschaugemeinde"
+          }
+         ],
+         "OfficeAtWeb": [
+          {
+           "Language": "de",
+           "Text": "https://www.ai.ch/feuerschaugemeinde/"
+          }
+         ]
+        },
+        "OfficialNumber": [
+         {
+          "Language": "de",
+          "Text": "126/26"
+         }
+        ]
+       }
+      ]
+     },
+     {
+      "LegendText": [
+       {
+        "Language": "de",
+        "Text": "Abweichende Empfindlichkeitsstufe II"
+       }
+      ],
+      "Theme": {
+       "Code": "ch.Laermempfindlichkeitsstufen",
+       "Text": [
+        {
+         "Language": "de",
+         "Text": "Lärmempfindlichkeitsstufen (in Nutzungszonen)"
+        }
+       ]
+      },
+      "Lawstatus": {
+       "Code": "inForce",
+       "Text": [
+        {
+         "Language": "de",
+         "Text": "Rechtskräftig"
+        }
+       ]
+      },
+      "ResponsibleOffice": {
+       "Name": [
+        {
+         "Language": "de",
+         "Text": "Amt für Raumentwicklung"
+        }
+       ],
+       "OfficeAtWeb": [
+        {
+         "Language": "de",
+         "Text": "https://www.ai.ch/verwaltung/bau-und-umweltdepartement/amt-fuer-raumentwicklung"
+        }
+       ],
+       "Street": "Gaiserstrasse",
+       "Number": "8",
+       "PostalCode": "9050",
+       "City": "Appenzell"
+      },
+      "AreaShare": 1698,
+      "TypeCode": "II",
+      "PartInPercent": 100,
+      "LegalProvisions": [
+       {
+        "Type": {
+         "Code": "LegalProvision",
+         "Text": [
+          {
+           "Language": "de",
+           "Text": "Rechtsvorschrift"
+          }
+         ]
+        },
+        "Index": 0,
+        "Title": [
+         {
+          "Language": "de",
+          "Text": "Entscheid Nr. 126 vom 17. Februar 2026.pdf"
+         }
+        ],
+        "Lawstatus": {
+         "Code": "inForce",
+         "Text": [
+          {
+           "Language": "de",
+           "Text": "Rechtskräftig"
+          }
+         ]
+        },
+        "TextAtWeb": [
+         {
+          "Language": "de",
+          "Text": "https://oereblex.ai.ch/api/attachments/2416"
+         }
+        ],
+        "ResponsibleOffice": {
+         "Name": [
+          {
+           "Language": "de",
+           "Text": "Feuerschaugemeinde"
+          }
+         ],
+         "OfficeAtWeb": [
+          {
+           "Language": "de",
+           "Text": "https://www.ai.ch/feuerschaugemeinde/"
+          }
+         ]
+        },
+        "OfficialNumber": [
+         {
+          "Language": "de",
+          "Text": "126/26"
+         }
+        ]
+       }
+      ]
+     }
+    ]
+   },
+   "ConcernedTheme": [
+    {
+     "Code": "ch.Nutzungsplanung",
+     "Text": [
+      {
+       "Language": "de",
+       "Text": "Nutzungsplanung"
+      }
+     ]
+    },
+    {
+     "Code": "ch.AI.ZonenplanSchutz",
+     "Text": [
+      {
+       "Language": "de",
+       "Text": "Zonenplan Schutz"
+      }
+     ]
+    },
+    {
+     "Code": "ch.Laermempfindlichkeitsstufen",
+     "Text": [
+      {
+       "Language": "de",
+       "Text": "Lärmempfindlichkeitsstufen (in Nutzungszonen)"
+      }
+     ]
+    }
+   ],
+   "NotConcernedTheme": [
+    {
+     "Code": "ch.Planungszonen",
+     "Text": [
+      {
+       "Language": "de",
+       "Text": "Planungszonen"
+      }
+     ]
+    },
+    {
+     "Code": "ch.Nutzungsplanung",
+     "Text": [
+      {
+       "Language": "de",
+       "Text": "Nutzungsplanung: Nutzungsplanung (kantonal)"
+      }
+     ],
+     "SubCode": "ch.NutzungsplanungKantonal"
+    },
+    {
+     "Code": "ch.AI.Quartierplaene",
+     "Text": [
+      {
+       "Language": "de",
+       "Text": "Quartierpläne"
+      }
+     ]
+    },
+    {
+     "Code": "ch.AI.Baulinien",
+     "Text": [
+      {
+       "Language": "de",
+       "Text": "Baulinien"
+      }
+     ]
+    },
+    {
+     "Code": "ch.ProjektierungszonenNationalstrassen",
+     "Text": [
+      {
+       "Language": "de",
+       "Text": "Projektierungszonen Nationalstrassen"
+      }
+     ]
+    },
+    {
+     "Code": "ch.BaulinienNationalstrassen",
+     "Text": [
+      {
+       "Language": "de",
+       "Text": "Baulinien Nationalstrassen"
+      }
+     ]
+    },
+    {
+     "Code": "ch.ProjektierungszonenEisenbahnanlagen",
+     "Text": [
+      {
+       "Language": "de",
+       "Text": "Projektierungszonen Eisenbahnanlagen"
+      }
+     ]
+    },
+    {
+     "Code": "ch.BaulinienEisenbahnanlagen",
+     "Text": [
+      {
+       "Language": "de",
+       "Text": "Baulinien Eisenbahnanlagen"
+      }
+     ]
+    },
+    {
+     "Code": "ch.ProjektierungszonenFlughafenanlagen",
+     "Text": [
+      {
+       "Language": "de",
+       "Text": "Projektierungszonen Flughafenanlagen"
+      }
+     ]
+    },
+    {
+     "Code": "ch.BaulinienFlughafenanlagen",
+     "Text": [
+      {
+       "Language": "de",
+       "Text": "Baulinien Flughafenanlagen"
+      }
+     ]
+    },
+    {
+     "Code": "ch.Sicherheitszonenplan",
+     "Text": [
+      {
+       "Language": "de",
+       "Text": "Sicherheitszonenplan"
+      }
+     ]
+    },
+    {
+     "Code": "ch.BelasteteStandorte",
+     "Text": [
+      {
+       "Language": "de",
+       "Text": "Kataster der belasteten Standorte"
+      }
+     ]
+    },
+    {
+     "Code": "ch.BelasteteStandorteMilitaer",
+     "Text": [
+      {
+       "Language": "de",
+       "Text": "Kataster der belasteten Standorte im Bereich des Militärs"
+      }
+     ]
+    },
+    {
+     "Code": "ch.BelasteteStandorteZivileFlugplaetze",
+     "Text": [
+      {
+       "Language": "de",
+       "Text": "Kataster der belasteten Standorte im Bereich der zivilen Flugplätze"
+      }
+     ]
+    },
+    {
+     "Code": "ch.BelasteteStandorteOeffentlicherVerkehr",
+     "Text": [
+      {
+       "Language": "de",
+       "Text": "Kataster der belasteten Standorte im Bereich des öffentlichen Verkehrs"
+      }
+     ]
+    },
+    {
+     "Code": "ch.Grundwasserschutzzonen",
+     "Text": [
+      {
+       "Language": "de",
+       "Text": "Grundwasserschutzzonen"
+      }
+     ]
+    },
+    {
+     "Code": "ch.Grundwasserschutzareale",
+     "Text": [
+      {
+       "Language": "de",
+       "Text": "Grundwasserschutzareale"
+      }
+     ]
+    },
+    {
+     "Code": "ch.AI.Gewaesserabstandslinien",
+     "Text": [
+      {
+       "Language": "de",
+       "Text": "Gewässerabstandslinien"
+      }
+     ]
+    },
+    {
+     "Code": "ch.StatischeWaldgrenzen",
+     "Text": [
+      {
+       "Language": "de",
+       "Text": "Statische Waldgrenzen"
+      }
+     ]
+    },
+    {
+     "Code": "ch.Waldabstandslinien",
+     "Text": [
+      {
+       "Language": "de",
+       "Text": "Waldabstandslinien"
+      }
+     ]
+    },
+    {
+     "Code": "ch.Waldreservate",
+     "Text": [
+      {
+       "Language": "de",
+       "Text": "Waldreservate"
+      }
+     ]
+    },
+    {
+     "Code": "ch.ProjektierungszonenStarkstromanlagen",
+     "Text": [
+      {
+       "Language": "de",
+       "Text": "Projektierungszonen Leitungen mit einer Nennspannung von 220 kV oder höher"
+      }
+     ]
+    },
+    {
+     "Code": "ch.BaulinienStarkstromanlagen",
+     "Text": [
+      {
+       "Language": "de",
+       "Text": "Baulinien Starkstromanlagen"
+      }
+     ]
+    }
+   ],
+   "ThemeWithoutData": [
+    {
+     "Code": "ch.Gewaesserraum",
+     "Text": [
+      {
+       "Language": "de",
+       "Text": "Gewässerraum"
+      }
+     ]
+    }
+   ]
+  }
+ }
+}

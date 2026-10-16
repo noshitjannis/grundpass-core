@@ -1,0 +1,1009 @@
+{
+ "_hinweis": "Echte Antwort vom 16.10.2026, verkleinert mit scripts/oereb-fixture.ts: https://oereb.geo.sg.ch/ktsg/wsgi/oereb/extract/json?EGRID=CH352187785981&GEOMETRY=false&WITHIMAGES=false&LANG=de (Klosterhof 1, 9000 St. Gallen, St. Gallen Parzelle C4306, EGID 2363438). Geometrien, Bilder, Glossar und Rechtsvorschriften bis auf eine entfernt.",
+ "$schema": "https://raw.githubusercontent.com/openoereb/schemas/ea4fe8e696b84b923cb9aa9fb27c3ba4e2d8eb5b/extract.json",
+ "GetExtractByIdResponse": {
+  "extract": {
+   "CreationDate": "2026-10-16T08:26:06",
+   "ExtractIdentifier": "0ce026fa-614a-4739-8ae0-8d204d2093c6",
+   "UpdateDateCS": "2026-10-16T08:26:06",
+   "PLRCadastreAuthority": {
+    "Name": [
+     {
+      "Language": "de",
+      "Text": "Amt für Raumentwicklung und Geoinformation"
+     }
+    ],
+    "OfficeAtWeb": [
+     {
+      "Language": "de",
+      "Text": "https://www.sg.ch/bauen/raumentwicklung.html"
+     }
+    ],
+    "Street": "Lämmlisbrunnenstrasse",
+    "Number": "54",
+    "PostalCode": "9001",
+    "City": "St.Gallen"
+   },
+   "RealEstate": {
+    "Type": {
+     "Code": "RealEstate",
+     "Text": [
+      {
+       "Language": "de",
+       "Text": "Liegenschaft"
+      }
+     ]
+    },
+    "Canton": "SG",
+    "MunicipalityName": "St. Gallen",
+    "MunicipalityCode": 3203,
+    "LandRegistryArea": 17673,
+    "Number": "C4306",
+    "IdentDN": "SG0200320300",
+    "EGRID": "CH352187785981",
+    "SubunitOfLandRegister": "St. Gallen",
+    "RestrictionOnLandownership": [
+     {
+      "LegendText": [
+       {
+        "Language": "de",
+        "Text": "BauG Bestimmte Nutzungsart Art 28oct"
+       }
+      ],
+      "Theme": {
+       "Code": "ch.Nutzungsplanung",
+       "Text": [
+        {
+         "Language": "de",
+         "Text": "Nutzungsplanung Zonenplan"
+        }
+       ]
+      },
+      "Lawstatus": {
+       "Code": "inForce",
+       "Text": [
+        {
+         "Language": "de",
+         "Text": "Rechtskräftig"
+        }
+       ]
+      },
+      "ResponsibleOffice": {
+       "Name": [
+        {
+         "Language": "de",
+         "Text": "Stadt St.Gallen"
+        }
+       ],
+       "OfficeAtWeb": [
+        {
+         "Language": "de",
+         "Text": "https://www.stadt.sg.ch"
+        }
+       ],
+       "Street": "Rathaus",
+       "Number": "nan",
+       "PostalCode": "9001",
+       "City": "St.Gallen"
+      },
+      "AreaShare": 116,
+      "TypeCode": "5903001",
+      "PartInPercent": 0.7,
+      "LegalProvisions": [
+       {
+        "Type": {
+         "Code": "LegalProvision",
+         "Text": [
+          {
+           "Language": "de",
+           "Text": "Rechtsvorschrift"
+          }
+         ]
+        },
+        "Index": 0,
+        "Title": [
+         {
+          "Language": "de",
+          "Text": "Bauordnung"
+         }
+        ],
+        "Lawstatus": {
+         "Code": "inForce",
+         "Text": [
+          {
+           "Language": "de",
+           "Text": "Rechtskräftig"
+          }
+         ]
+        },
+        "TextAtWeb": [
+         {
+          "Language": "de",
+          "Text": "https://oereblex.sg.ch/api/attachments/16476"
+         }
+        ],
+        "ResponsibleOffice": {
+         "Name": [
+          {
+           "Language": "de",
+           "Text": "Gemeindeverwaltung"
+          }
+         ],
+         "OfficeAtWeb": [
+          {
+           "Language": "de",
+           "Text": "https://www.stadt.sg.ch"
+          }
+         ]
+        },
+        "OfficialNumber": [
+         {
+          "Language": "de",
+          "Text": "2002-0101"
+         }
+        ]
+       }
+      ]
+     },
+     {
+      "LegendText": [
+       {
+        "Language": "de",
+        "Text": "BauG Zone für öffentliche Bauten und Anlagen"
+       }
+      ],
+      "Theme": {
+       "Code": "ch.Nutzungsplanung",
+       "Text": [
+        {
+         "Language": "de",
+         "Text": "Nutzungsplanung Zonenplan"
+        }
+       ]
+      },
+      "Lawstatus": {
+       "Code": "inForce",
+       "Text": [
+        {
+         "Language": "de",
+         "Text": "Rechtskräftig"
+        }
+       ]
+      },
+      "ResponsibleOffice": {
+       "Name": [
+        {
+         "Language": "de",
+         "Text": "Stadt St.Gallen"
+        }
+       ],
+       "OfficeAtWeb": [
+        {
+         "Language": "de",
+         "Text": "https://www.stadt.sg.ch"
+        }
+       ],
+       "Street": "Rathaus",
+       "Number": "nan",
+       "PostalCode": "9001",
+       "City": "St.Gallen"
+      },
+      "AreaShare": 17673,
+      "TypeCode": "1504001",
+      "PartInPercent": 100,
+      "LegalProvisions": [
+       {
+        "Type": {
+         "Code": "LegalProvision",
+         "Text": [
+          {
+           "Language": "de",
+           "Text": "Rechtsvorschrift"
+          }
+         ]
+        },
+        "Index": 0,
+        "Title": [
+         {
+          "Language": "de",
+          "Text": "Bauordnung"
+         }
+        ],
+        "Lawstatus": {
+         "Code": "inForce",
+         "Text": [
+          {
+           "Language": "de",
+           "Text": "Rechtskräftig"
+          }
+         ]
+        },
+        "TextAtWeb": [
+         {
+          "Language": "de",
+          "Text": "https://oereblex.sg.ch/api/attachments/16476"
+         }
+        ],
+        "ResponsibleOffice": {
+         "Name": [
+          {
+           "Language": "de",
+           "Text": "Gemeindeverwaltung"
+          }
+         ],
+         "OfficeAtWeb": [
+          {
+           "Language": "de",
+           "Text": "https://www.stadt.sg.ch"
+          }
+         ]
+        },
+        "OfficialNumber": [
+         {
+          "Language": "de",
+          "Text": "2002-0101"
+         }
+        ]
+       }
+      ]
+     },
+     {
+      "LegendText": [
+       {
+        "Language": "de",
+        "Text": "Sondernutzungsplan vor BauG"
+       }
+      ],
+      "Theme": {
+       "Code": "ch.SG.KomSondernutzungsplaene",
+       "Text": [
+        {
+         "Language": "de",
+         "Text": "Kommunale Sondernutzungspläne inkl. Baulinien nach PBG"
+        }
+       ],
+       "SubCode": "KOMMUNAL_PBG"
+      },
+      "Lawstatus": {
+       "Code": "inForce",
+       "Text": [
+        {
+         "Language": "de",
+         "Text": "Rechtskräftig"
+        }
+       ]
+      },
+      "ResponsibleOffice": {
+       "Name": [
+        {
+         "Language": "de",
+         "Text": "Stadt St.Gallen"
+        }
+       ],
+       "OfficeAtWeb": [
+        {
+         "Language": "de",
+         "Text": "https://www.stadt.sg.ch"
+        }
+       ],
+       "Street": "Rathaus",
+       "Number": "nan",
+       "PostalCode": "9001",
+       "City": "St.Gallen"
+      },
+      "AreaShare": 10,
+      "TypeCode": "61030",
+      "PartInPercent": 0.1,
+      "LegalProvisions": [
+       {
+        "Type": {
+         "Code": "LegalProvision",
+         "Text": [
+          {
+           "Language": "de",
+           "Text": "Rechtsvorschrift"
+          }
+         ]
+        },
+        "Index": 0,
+        "Title": [
+         {
+          "Language": "de",
+          "Text": "Bauordnung"
+         }
+        ],
+        "Lawstatus": {
+         "Code": "inForce",
+         "Text": [
+          {
+           "Language": "de",
+           "Text": "Rechtskräftig"
+          }
+         ]
+        },
+        "TextAtWeb": [
+         {
+          "Language": "de",
+          "Text": "https://oereblex.sg.ch/api/attachments/16476"
+         }
+        ],
+        "ResponsibleOffice": {
+         "Name": [
+          {
+           "Language": "de",
+           "Text": "Gemeindeverwaltung"
+          }
+         ],
+         "OfficeAtWeb": [
+          {
+           "Language": "de",
+           "Text": "https://www.stadt.sg.ch"
+          }
+         ]
+        },
+        "OfficialNumber": [
+         {
+          "Language": "de",
+          "Text": "2002-0101"
+         }
+        ]
+       }
+      ]
+     },
+     {
+      "LegendText": [
+       {
+        "Language": "de",
+        "Text": "Baumschutzgebiet BaS"
+       }
+      ],
+      "Theme": {
+       "Code": "ch.SG.SchutzverordnungNaturschutz",
+       "Text": [
+        {
+         "Language": "de",
+         "Text": "Nutzungsplanung Schutzverordnung Naturobjekte"
+        }
+       ]
+      },
+      "Lawstatus": {
+       "Code": "inForce",
+       "Text": [
+        {
+         "Language": "de",
+         "Text": "Rechtskräftig"
+        }
+       ]
+      },
+      "ResponsibleOffice": {
+       "Name": [
+        {
+         "Language": "de",
+         "Text": "Stadt St.Gallen"
+        }
+       ],
+       "OfficeAtWeb": [
+        {
+         "Language": "de",
+         "Text": "https://www.stadt.sg.ch"
+        }
+       ],
+       "Street": "Rathaus",
+       "Number": "nan",
+       "PostalCode": "9001",
+       "City": "St.Gallen"
+      },
+      "AreaShare": 17673,
+      "TypeCode": "91091",
+      "PartInPercent": 100,
+      "LegalProvisions": [
+       {
+        "Type": {
+         "Code": "LegalProvision",
+         "Text": [
+          {
+           "Language": "de",
+           "Text": "Rechtsvorschrift"
+          }
+         ]
+        },
+        "Index": 0,
+        "Title": [
+         {
+          "Language": "de",
+          "Text": "Bauordnung"
+         }
+        ],
+        "Lawstatus": {
+         "Code": "inForce",
+         "Text": [
+          {
+           "Language": "de",
+           "Text": "Rechtskräftig"
+          }
+         ]
+        },
+        "TextAtWeb": [
+         {
+          "Language": "de",
+          "Text": "https://oereblex.sg.ch/api/attachments/16476"
+         }
+        ],
+        "ResponsibleOffice": {
+         "Name": [
+          {
+           "Language": "de",
+           "Text": "Gemeindeverwaltung"
+          }
+         ],
+         "OfficeAtWeb": [
+          {
+           "Language": "de",
+           "Text": "https://www.stadt.sg.ch"
+          }
+         ]
+        },
+        "OfficialNumber": [
+         {
+          "Language": "de",
+          "Text": "2002-0101"
+         }
+        ]
+       }
+      ]
+     },
+     {
+      "LegendText": [
+       {
+        "Language": "de",
+        "Text": "Ortsbildschutzgebiet A (Bedeutung lokal/unbestimmt)"
+       }
+      ],
+      "Theme": {
+       "Code": "ch.SG.SchutzverordnungKulturgueter",
+       "Text": [
+        {
+         "Language": "de",
+         "Text": "Nutzungsplanung Schutzverordnung Kulturobjekte"
+        }
+       ]
+      },
+      "Lawstatus": {
+       "Code": "inForce",
+       "Text": [
+        {
+         "Language": "de",
+         "Text": "Rechtskräftig"
+        }
+       ]
+      },
+      "ResponsibleOffice": {
+       "Name": [
+        {
+         "Language": "de",
+         "Text": "Stadt St.Gallen"
+        }
+       ],
+       "OfficeAtWeb": [
+        {
+         "Language": "de",
+         "Text": "https://www.stadt.sg.ch"
+        }
+       ],
+       "Street": "Rathaus",
+       "Number": "nan",
+       "PostalCode": "9001",
+       "City": "St.Gallen"
+      },
+      "AreaShare": 17673,
+      "TypeCode": "16091010216910102569101012091010",
+      "PartInPercent": 100,
+      "LegalProvisions": [
+       {
+        "Type": {
+         "Code": "LegalProvision",
+         "Text": [
+          {
+           "Language": "de",
+           "Text": "Rechtsvorschrift"
+          }
+         ]
+        },
+        "Index": 0,
+        "Title": [
+         {
+          "Language": "de",
+          "Text": "Bauordnung"
+         }
+        ],
+        "Lawstatus": {
+         "Code": "inForce",
+         "Text": [
+          {
+           "Language": "de",
+           "Text": "Rechtskräftig"
+          }
+         ]
+        },
+        "TextAtWeb": [
+         {
+          "Language": "de",
+          "Text": "https://oereblex.sg.ch/api/attachments/16476"
+         }
+        ],
+        "ResponsibleOffice": {
+         "Name": [
+          {
+           "Language": "de",
+           "Text": "Gemeindeverwaltung"
+          }
+         ],
+         "OfficeAtWeb": [
+          {
+           "Language": "de",
+           "Text": "https://www.stadt.sg.ch"
+          }
+         ]
+        },
+        "OfficialNumber": [
+         {
+          "Language": "de",
+          "Text": "2002-0101"
+         }
+        ]
+       }
+      ]
+     },
+     {
+      "LegendText": [
+       {
+        "Language": "de",
+        "Text": "Empfindlichkeitsstufe II"
+       }
+      ],
+      "Theme": {
+       "Code": "ch.Laermempfindlichkeitsstufen",
+       "Text": [
+        {
+         "Language": "de",
+         "Text": "Lärmempfindlichkeitsstufen (in Nutzungszonen)"
+        }
+       ]
+      },
+      "Lawstatus": {
+       "Code": "inForce",
+       "Text": [
+        {
+         "Language": "de",
+         "Text": "Rechtskräftig"
+        }
+       ]
+      },
+      "ResponsibleOffice": {
+       "Name": [
+        {
+         "Language": "de",
+         "Text": "Stadt St.Gallen"
+        }
+       ],
+       "OfficeAtWeb": [
+        {
+         "Language": "de",
+         "Text": "https://www.stadt.sg.ch"
+        }
+       ],
+       "Street": "Rathaus",
+       "Number": "nan",
+       "PostalCode": "9001",
+       "City": "St.Gallen"
+      },
+      "AreaShare": 17673,
+      "TypeCode": "II",
+      "PartInPercent": 100,
+      "LegalProvisions": [
+       {
+        "Type": {
+         "Code": "LegalProvision",
+         "Text": [
+          {
+           "Language": "de",
+           "Text": "Rechtsvorschrift"
+          }
+         ]
+        },
+        "Index": 0,
+        "Title": [
+         {
+          "Language": "de",
+          "Text": "Bauordnung"
+         }
+        ],
+        "Lawstatus": {
+         "Code": "inForce",
+         "Text": [
+          {
+           "Language": "de",
+           "Text": "Rechtskräftig"
+          }
+         ]
+        },
+        "TextAtWeb": [
+         {
+          "Language": "de",
+          "Text": "https://oereblex.sg.ch/api/attachments/16476"
+         }
+        ],
+        "ResponsibleOffice": {
+         "Name": [
+          {
+           "Language": "de",
+           "Text": "Gemeindeverwaltung"
+          }
+         ],
+         "OfficeAtWeb": [
+          {
+           "Language": "de",
+           "Text": "https://www.stadt.sg.ch"
+          }
+         ]
+        },
+        "OfficialNumber": [
+         {
+          "Language": "de",
+          "Text": "2002-0101"
+         }
+        ]
+       }
+      ]
+     }
+    ]
+   },
+   "ConcernedTheme": [
+    {
+     "Code": "ch.Nutzungsplanung",
+     "Text": [
+      {
+       "Language": "de",
+       "Text": "Nutzungsplanung Zonenplan"
+      }
+     ]
+    },
+    {
+     "Code": "ch.SG.KomSondernutzungsplaene",
+     "Text": [
+      {
+       "Language": "de",
+       "Text": "Nutzungsplanung Sondernutzungspläne"
+      }
+     ]
+    },
+    {
+     "Code": "ch.SG.SchutzverordnungNaturschutz",
+     "Text": [
+      {
+       "Language": "de",
+       "Text": "Nutzungsplanung Schutzverordnung Naturobjekte"
+      }
+     ]
+    },
+    {
+     "Code": "ch.SG.SchutzverordnungKulturgueter",
+     "Text": [
+      {
+       "Language": "de",
+       "Text": "Nutzungsplanung Schutzverordnung Kulturobjekte"
+      }
+     ]
+    },
+    {
+     "Code": "ch.Laermempfindlichkeitsstufen",
+     "Text": [
+      {
+       "Language": "de",
+       "Text": "Lärmempfindlichkeitsstufen (in Nutzungszonen)"
+      }
+     ]
+    }
+   ],
+   "NotConcernedTheme": [
+    {
+     "Code": "ch.SG.KantonalePlanungszonen",
+     "Text": [
+      {
+       "Language": "de",
+       "Text": "Kantonale Planungszonen"
+      }
+     ]
+    },
+    {
+     "Code": "ch.SG.KommunalePlanungszonen",
+     "Text": [
+      {
+       "Language": "de",
+       "Text": "Kommunale Planungszonen"
+      }
+     ]
+    },
+    {
+     "Code": "ch.SG.KantonaleSondernutzungsplaene",
+     "Text": [
+      {
+       "Language": "de",
+       "Text": "Nutzungsplanung Sondernutzungspläne: Kantonale Sondernutzungspläne inkl. Baulinien nach PBG"
+      }
+     ],
+     "SubCode": "KANTONAL_PBG"
+    },
+    {
+     "Code": "ch.SG.KantonaleSondernutzungsplaene",
+     "Text": [
+      {
+       "Language": "de",
+       "Text": "Nutzungsplanung Sondernutzungspläne: Kantonale Sondernutzungspläne inkl. Baulinien nach WBG"
+      }
+     ],
+     "SubCode": "KANTONAL_WBG"
+    },
+    {
+     "Code": "ch.SG.KomSondernutzungsplaene",
+     "Text": [
+      {
+       "Language": "de",
+       "Text": "Nutzungsplanung Sondernutzungspläne: Kommunale Sondernutzungspläne inkl. Baulinien nach WBG"
+      }
+     ],
+     "SubCode": "KOMMUNAL_WBG"
+    },
+    {
+     "Code": "ch.SG.SpezielleSchutzverordnung",
+     "Text": [
+      {
+       "Language": "de",
+       "Text": "Nutzungsplanung Spezielle Schutzverordnung"
+      }
+     ]
+    },
+    {
+     "Code": "ch.ProjektierungszonenNationalstrassen",
+     "Text": [
+      {
+       "Language": "de",
+       "Text": "Projektierungszonen Nationalstrassen"
+      }
+     ]
+    },
+    {
+     "Code": "ch.BaulinienNationalstrassen",
+     "Text": [
+      {
+       "Language": "de",
+       "Text": "Baulinien Nationalstrassen"
+      }
+     ]
+    },
+    {
+     "Code": "ch.ProjektierungszonenEisenbahnanlagen",
+     "Text": [
+      {
+       "Language": "de",
+       "Text": "Projektierungszonen Eisenbahnanlagen"
+      }
+     ]
+    },
+    {
+     "Code": "ch.BaulinienEisenbahnanlagen",
+     "Text": [
+      {
+       "Language": "de",
+       "Text": "Baulinien Eisenbahnanlagen"
+      }
+     ]
+    },
+    {
+     "Code": "ch.ProjektierungszonenFlughafenanlagen",
+     "Text": [
+      {
+       "Language": "de",
+       "Text": "Projektierungszonen Flughafenanlagen"
+      }
+     ]
+    },
+    {
+     "Code": "ch.BaulinienFlughafenanlagen",
+     "Text": [
+      {
+       "Language": "de",
+       "Text": "Baulinien Flughafenanlagen"
+      }
+     ]
+    },
+    {
+     "Code": "ch.Sicherheitszonenplan",
+     "Text": [
+      {
+       "Language": "de",
+       "Text": "Sicherheitszonenplan"
+      }
+     ]
+    },
+    {
+     "Code": "ch.BelasteteStandorte",
+     "Text": [
+      {
+       "Language": "de",
+       "Text": "Kataster der belasteten Standorte"
+      }
+     ]
+    },
+    {
+     "Code": "ch.BelasteteStandorteMilitaer",
+     "Text": [
+      {
+       "Language": "de",
+       "Text": "Kataster der belasteten Standorte im Bereich des Militärs"
+      }
+     ]
+    },
+    {
+     "Code": "ch.BelasteteStandorteZivileFlugplaetze",
+     "Text": [
+      {
+       "Language": "de",
+       "Text": "Kataster der belasteten Standorte im Bereich der zivilen Flugplätze"
+      }
+     ]
+    },
+    {
+     "Code": "ch.BelasteteStandorteOeffentlicherVerkehr",
+     "Text": [
+      {
+       "Language": "de",
+       "Text": "Kataster der belasteten Standorte im Bereich des öffentlichen Verkehrs"
+      }
+     ]
+    },
+    {
+     "Code": "ch.Grundwasserschutzzonen",
+     "Text": [
+      {
+       "Language": "de",
+       "Text": "Grundwasserschutzzonen"
+      }
+     ]
+    },
+    {
+     "Code": "ch.Grundwasserschutzareale",
+     "Text": [
+      {
+       "Language": "de",
+       "Text": "Grundwasserschutzareale"
+      }
+     ]
+    },
+    {
+     "Code": "ch.Gewaesserraum",
+     "Text": [
+      {
+       "Language": "de",
+       "Text": "Gewässerraum: Kantonaler Gewässerraum nach WBG"
+      }
+     ],
+     "SubCode": "Wasser_Kan_WBG"
+    },
+    {
+     "Code": "ch.Gewaesserraum",
+     "Text": [
+      {
+       "Language": "de",
+       "Text": "Gewässerraum: Kommunaler Gewässerraum nach PBG"
+      }
+     ],
+     "SubCode": "Wasser_Kom_PBG"
+    },
+    {
+     "Code": "ch.Gewaesserraum",
+     "Text": [
+      {
+       "Language": "de",
+       "Text": "Gewässerraum: Kommunaler Gewässerraum nach WBG"
+      }
+     ],
+     "SubCode": "Wasser_Kom_WBG"
+    },
+    {
+     "Code": "ch.Gewaesserraum",
+     "Text": [
+      {
+       "Language": "de",
+       "Text": "Gewässerraum: Zusatzinformation Gewässerraum (Zusatzinformation nach Art. 8b Abs. 1 Bst. b ÖREBKV)"
+      }
+     ],
+     "SubCode": "Wasser_Zusatz"
+    },
+    {
+     "Code": "ch.StatischeWaldgrenzen",
+     "Text": [
+      {
+       "Language": "de",
+       "Text": "Statische Waldgrenzen"
+      }
+     ]
+    },
+    {
+     "Code": "ch.Waldabstandslinien",
+     "Text": [
+      {
+       "Language": "de",
+       "Text": "Waldabstandslinien"
+      }
+     ]
+    },
+    {
+     "Code": "ch.Waldreservate",
+     "Text": [
+      {
+       "Language": "de",
+       "Text": "Waldreservate"
+      }
+     ]
+    },
+    {
+     "Code": "ch.SG.Stockgrenzen",
+     "Text": [
+      {
+       "Language": "de",
+       "Text": "Stockgrenzen"
+      }
+     ]
+    },
+    {
+     "Code": "ch.ProjektierungszonenStarkstromanlagen",
+     "Text": [
+      {
+       "Language": "de",
+       "Text": "Projektierungszonen Leitungen mit einer Nennspannung von 220 kV oder höher"
+      }
+     ]
+    },
+    {
+     "Code": "ch.BaulinienStarkstromanlagen",
+     "Text": [
+      {
+       "Language": "de",
+       "Text": "Baulinien Starkstromanlagen"
+      }
+     ]
+    }
+   ],
+   "ThemeWithoutData": [
+    {
+     "Code": "ch.SG.BaulinienStrassengesetz",
+     "Text": [
+      {
+       "Language": "de",
+       "Text": "Baulinien nach Strassengesetz"
+      }
+     ]
+    },
+    {
+     "Code": "ch.SG.Gemeindestrassenplan",
+     "Text": [
+      {
+       "Language": "de",
+       "Text": "Gemeindestrassenplan"
+      }
+     ]
+    },
+    {
+     "Code": "ch.SG.GSPFussWanderRadwege",
+     "Text": [
+      {
+       "Language": "de",
+       "Text": "GSP, Teilplan Fuss-, Wander- und Radwege"
+      }
+     ]
+    }
+   ]
+  }
+ }
+}

@@ -1,0 +1,586 @@
+{
+ "_hinweis": "Echte Antwort vom 16.10.2026, verkleinert mit scripts/oereb-fixture.ts: https://maps.fr.ch/RDPPF_ws/RdppfSVC.svc/extract/json?EGRID=CH591091539487&GEOMETRY=false&WITHIMAGES=false&LANG=de (Place de l'Hôtel-de-Ville 3, 1700 Fribourg, Fribourg Parzelle 17100, EGID 1525900). Geometrien, Bilder, Glossar und Rechtsvorschriften bis auf eine entfernt.",
+ "Item": {
+  "CreationDate": "/Date(1792131942114)/",
+  "ConcernedTheme": [
+   {
+    "Code": "ch.Nutzungsplanung",
+    "SubCode": "ch.FR.Affectationsprimaires",
+    "Text": [
+     {
+      "Language": 0,
+      "Text": "Nutzungsplanung (kantonal/kommunal)"
+     }
+    ]
+   },
+   {
+    "Code": "ch.Laermempfindlichkeitsstufen",
+    "SubCode": null,
+    "Text": [
+     {
+      "Language": 0,
+      "Text": "Lärmempfindlichkeitsstufen (in Nutzungszonen)"
+     }
+    ]
+   }
+  ],
+  "NotConcernedTheme": [
+   {
+    "Code": "ch.Planungszonen",
+    "SubCode": null,
+    "Text": [
+     {
+      "Language": 0,
+      "Text": "Planungszonen"
+     }
+    ]
+   },
+   {
+    "Code": "ch.ProjektierungszonenNationalstrassen",
+    "SubCode": null,
+    "Text": [
+     {
+      "Language": 0,
+      "Text": "Projektierungszonen Nationalstrassen"
+     }
+    ]
+   },
+   {
+    "Code": "ch.BaulinienNationalstrassen",
+    "SubCode": null,
+    "Text": [
+     {
+      "Language": 0,
+      "Text": "Baulinien Nationalstrassen"
+     }
+    ]
+   },
+   {
+    "Code": "ch.FR.BelegteZonenKantonsstrassen",
+    "SubCode": null,
+    "Text": [
+     {
+      "Language": 0,
+      "Text": "Planungszonen für kantonale Mobilitätsinfrastrukturen"
+     }
+    ]
+   },
+   {
+    "Code": "ch.ProjektierungszonenEisenbahnanlagen",
+    "SubCode": null,
+    "Text": [
+     {
+      "Language": 0,
+      "Text": "Projektierungszonen Eisenbahnanlagen"
+     }
+    ]
+   },
+   {
+    "Code": "ch.BaulinienEisenbahnanlagen",
+    "SubCode": null,
+    "Text": [
+     {
+      "Language": 0,
+      "Text": "Baulinien Eisenbahnanlagen"
+     }
+    ]
+   },
+   {
+    "Code": "ch.ProjektierungszonenFlughafenanlagen",
+    "SubCode": null,
+    "Text": [
+     {
+      "Language": 0,
+      "Text": "Projektierungszonen Flughafenanlagen"
+     }
+    ]
+   },
+   {
+    "Code": "ch.BaulinienFlughafenanlagen",
+    "SubCode": null,
+    "Text": [
+     {
+      "Language": 0,
+      "Text": "Baulinien Flughafenanlagen"
+     }
+    ]
+   },
+   {
+    "Code": "ch.Sicherheitszonenplan",
+    "SubCode": null,
+    "Text": [
+     {
+      "Language": 0,
+      "Text": "Sicherheitszonenplan"
+     }
+    ]
+   },
+   {
+    "Code": "ch.BelasteteStandorte",
+    "SubCode": null,
+    "Text": [
+     {
+      "Language": 0,
+      "Text": "Kataster der belasteten Standorte"
+     }
+    ]
+   },
+   {
+    "Code": "ch.BelasteteStandorteMilitaer",
+    "SubCode": null,
+    "Text": [
+     {
+      "Language": 0,
+      "Text": "Kataster der belasteten Standorte im Bereich des Militärs"
+     }
+    ]
+   },
+   {
+    "Code": "ch.BelasteteStandorteZivileFlugplaetze",
+    "SubCode": null,
+    "Text": [
+     {
+      "Language": 0,
+      "Text": "Kataster der belasteten Standorte im Bereich der zivilen Flugplätze"
+     }
+    ]
+   },
+   {
+    "Code": "ch.BelasteteStandorteOeffentlicherVerkehr",
+    "SubCode": null,
+    "Text": [
+     {
+      "Language": 0,
+      "Text": "Kataster der belasteten Standorte im Bereich des öffentlichen Verkehrs"
+     }
+    ]
+   },
+   {
+    "Code": "ch.Grundwasserschutzareale",
+    "SubCode": null,
+    "Text": [
+     {
+      "Language": 0,
+      "Text": "Grundwasserschutzareale"
+     }
+    ]
+   },
+   {
+    "Code": "ch.Grundwasserschutzzonen",
+    "SubCode": null,
+    "Text": [
+     {
+      "Language": 0,
+      "Text": "Grundwasserschutzzonen"
+     }
+    ]
+   },
+   {
+    "Code": "ch.Gewaesserraum",
+    "SubCode": null,
+    "Text": [
+     {
+      "Language": 0,
+      "Text": "Gewässerraum"
+     }
+    ]
+   },
+   {
+    "Code": "ch.StatischeWaldgrenzen",
+    "SubCode": null,
+    "Text": [
+     {
+      "Language": 0,
+      "Text": "Statische Waldgrenzen"
+     }
+    ]
+   },
+   {
+    "Code": "ch.Waldreservate",
+    "SubCode": null,
+    "Text": [
+     {
+      "Language": 0,
+      "Text": "Waldreservate"
+     }
+    ]
+   },
+   {
+    "Code": "ch.ProjektierungszonenStarkstromanlagen",
+    "SubCode": null,
+    "Text": [
+     {
+      "Language": 0,
+      "Text": "Projektierungszonen Leitungen mit einer Nennspannung von 220 kV oder höher"
+     }
+    ]
+   },
+   {
+    "Code": "ch.BaulinienStarkstromanlagen",
+    "SubCode": null,
+    "Text": [
+     {
+      "Language": 0,
+      "Text": "Baulinien Starkstromanlagen"
+     }
+    ]
+   }
+  ],
+  "ThemeWithoutData": [
+   {
+    "Code": "ch.Planungszonen",
+    "SubCode": null,
+    "Text": [
+     {
+      "Language": 0,
+      "Text": "Planungszonen (Änderung ohne Vorwirkung)"
+     }
+    ]
+   },
+   {
+    "Code": "ch.Nutzungsplanung",
+    "SubCode": null,
+    "Text": [
+     {
+      "Language": 0,
+      "Text": "Nutzungsplanung (kantonal/kommunal) (Änderung mit Vorwirkung)"
+     }
+    ]
+   },
+   {
+    "Code": "ch.Gewaesserraum",
+    "SubCode": null,
+    "Text": [
+     {
+      "Language": 0,
+      "Text": "Gewässerraum (Änderung ohne Vorwirkung)"
+     }
+    ]
+   },
+   {
+    "Code": "ch.Laermempfindlichkeitsstufen",
+    "SubCode": null,
+    "Text": [
+     {
+      "Language": 0,
+      "Text": "Lärmempfindlichkeitsstufen (in Nutzungszonen) (Änderung ohne Vorwirkung)"
+     }
+    ]
+   },
+   {
+    "Code": "ch.Waldabstandslinien",
+    "SubCode": null,
+    "Text": [
+     {
+      "Language": 0,
+      "Text": "Waldabstandslinien (Rechtskräftig)"
+     }
+    ]
+   },
+   {
+    "Code": "ch.Waldabstandslinien",
+    "SubCode": null,
+    "Text": [
+     {
+      "Language": 0,
+      "Text": "Waldabstandslinien (Änderung ohne Vorwirkung)"
+     }
+    ]
+   }
+  ],
+  "ExtractIdentifier": "D2E4-ADC8-2E19-45F-2196-17100",
+  "RealEstate": {
+   "Number": "17100",
+   "IdentDN": "FR219611",
+   "EGRID": "CH591091539487",
+   "Type": {
+    "Code": 0,
+    "Text": [
+     {
+      "Language": 0,
+      "Text": "Liegenschaft"
+     }
+    ]
+   },
+   "Canton": 9,
+   "MunicipalityName": "Fribourg",
+   "MunicipalityCode": "2196",
+   "SubunitOfLandRegister": "",
+   "SubunitOfLandRegisterDesignation": null,
+   "LandRegistryArea": "237",
+   "RestrictionOnLandownership": [
+    {
+     "LegendText": [
+      {
+       "Language": 0,
+       "Text": "Zone de constructions d'intérêt général 1 (ZIG)"
+      }
+     ],
+     "Theme": {
+      "Code": "ch.Nutzungsplanung",
+      "SubCode": "ch.FR.Affectationsprimaires",
+      "Text": [
+       {
+        "Language": 0,
+        "Text": "Nutzungsplanung (kantonal/kommunal)"
+       }
+      ]
+     },
+     "TypeCode": "54:f2ca80275b6218735725cccf975b23d6",
+     "Lawstatus": {
+      "Code": 0,
+      "Text": [
+       {
+        "Language": 0,
+        "Text": "Rechtskräftig"
+       }
+      ]
+     },
+     "AreaShare": "237",
+     "PartInPercent": 100,
+     "LengthShare": "0",
+     "NrOfPoints": "0",
+     "LegalProvisions": [
+      {
+       "Type": {
+        "Code": 0,
+        "Text": [
+         {
+          "Language": 0,
+          "Text": "Rechtsvorschrift"
+         }
+        ]
+       },
+       "Title": [
+        {
+         "Language": 0,
+         "Text": "Plan d'affectation des zones"
+        }
+       ],
+       "Abbreviation": [
+        {
+         "Language": 0,
+         "Text": ""
+        }
+       ],
+       "OfficialNumber": [
+        {
+         "Language": 0,
+         "Text": ""
+        }
+       ],
+       "TextAtWeb": [
+        {
+         "Language": 0,
+         "Text": "https://oereblex.fr.ch/api/attachments/1223"
+        }
+       ],
+       "ArticleNumber": [
+        ""
+       ],
+       "Lawstatus": {
+        "Code": 0,
+        "Text": [
+         {
+          "Language": 0,
+          "Text": "Rechtskräftig"
+         }
+        ]
+       },
+       "Index": "-1",
+       "ResponsibleOffice": {
+        "Name": [
+         {
+          "Language": 0,
+          "Text": "Gemeindeverwaltung"
+         }
+        ],
+        "OfficeAtWeb": [
+         {
+          "Language": 0,
+          "Text": "https://www.ville-fribourg.ch"
+         }
+        ],
+        "UID": null,
+        "Line1": null,
+        "Line2": null,
+        "Street": null,
+        "Number": null,
+        "PostalCode": null,
+        "City": null
+       }
+      }
+     ],
+     "ResponsibleOffice": {
+      "Name": [
+       {
+        "Language": 0,
+        "Text": "Bau- und Raumplanungsamt"
+       }
+      ],
+      "OfficeAtWeb": [
+       {
+        "Language": 0,
+        "Text": "https://www.fr.ch/brpa"
+       }
+      ],
+      "UID": "BRPA",
+      "Line1": null,
+      "Line2": null,
+      "Street": "Rue des Chanoines",
+      "Number": "17",
+      "PostalCode": "1700",
+      "City": "Fribourg"
+     }
+    },
+    {
+     "LegendText": [
+      {
+       "Language": 0,
+       "Text": "Empfindlichkeitsstufe III, aufgestuft"
+      }
+     ],
+     "Theme": {
+      "Code": "ch.Laermempfindlichkeitsstufen",
+      "SubCode": null,
+      "Text": [
+       {
+        "Language": 0,
+        "Text": "Lärmempfindlichkeitsstufen (in Nutzungszonen)"
+       }
+      ]
+     },
+     "TypeCode": "51:8dc127f008ae1e23dee087987b84ed6f",
+     "Lawstatus": {
+      "Code": 0,
+      "Text": [
+       {
+        "Language": 0,
+        "Text": "Rechtskräftig"
+       }
+      ]
+     },
+     "AreaShare": "237",
+     "PartInPercent": 100,
+     "LengthShare": "0",
+     "NrOfPoints": "0",
+     "LegalProvisions": [
+      {
+       "Type": {
+        "Code": 0,
+        "Text": [
+         {
+          "Language": 0,
+          "Text": "Rechtsvorschrift"
+         }
+        ]
+       },
+       "Title": [
+        {
+         "Language": 0,
+         "Text": "Plan d'affectation des zones"
+        }
+       ],
+       "Abbreviation": [
+        {
+         "Language": 0,
+         "Text": ""
+        }
+       ],
+       "OfficialNumber": [
+        {
+         "Language": 0,
+         "Text": ""
+        }
+       ],
+       "TextAtWeb": [
+        {
+         "Language": 0,
+         "Text": "https://oereblex.fr.ch/api/attachments/1223"
+        }
+       ],
+       "ArticleNumber": [
+        ""
+       ],
+       "Lawstatus": {
+        "Code": 0,
+        "Text": [
+         {
+          "Language": 0,
+          "Text": "Rechtskräftig"
+         }
+        ]
+       },
+       "Index": "-1",
+       "ResponsibleOffice": {
+        "Name": [
+         {
+          "Language": 0,
+          "Text": "Gemeindeverwaltung"
+         }
+        ],
+        "OfficeAtWeb": [
+         {
+          "Language": 0,
+          "Text": "https://www.ville-fribourg.ch"
+         }
+        ],
+        "UID": null,
+        "Line1": null,
+        "Line2": null,
+        "Street": null,
+        "Number": null,
+        "PostalCode": null,
+        "City": null
+       }
+      }
+     ],
+     "ResponsibleOffice": {
+      "Name": [
+       {
+        "Language": 0,
+        "Text": "Bau- und Raumplanungsamt"
+       }
+      ],
+      "OfficeAtWeb": [
+       {
+        "Language": 0,
+        "Text": "https://www.fr.ch/brpa"
+       }
+      ],
+      "UID": "BRPA",
+      "Line1": null,
+      "Line2": null,
+      "Street": "Rue des Chanoines",
+      "Number": "17",
+      "PostalCode": "1700",
+      "City": "Fribourg"
+     }
+    }
+   ]
+  },
+  "PLRCadastreAuthority": {
+   "Name": [
+    {
+     "Language": 0,
+     "Text": "Amt für Geoinformation"
+    }
+   ],
+   "OfficeAtWeb": [
+    {
+     "Language": 0,
+     "Text": "https://www.fr.ch/geoa"
+    }
+   ],
+   "UID": "GeoA",
+   "Line1": null,
+   "Line2": null,
+   "Street": "Rue Joseph-Piller",
+   "Number": "13",
+   "PostalCode": "1700",
+   "City": "Fribourg"
+  },
+  "UpdateDateCS": "/Date(1792131942114)/",
+  "id": null
+ }
+}

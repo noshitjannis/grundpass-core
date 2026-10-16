@@ -1,0 +1,1125 @@
+{
+ "_hinweis": "Echte Antwort vom 16.10.2026, verkleinert mit scripts/oereb-fixture.ts: https://www.oereb2.apps.be.ch/extract/json?EGRID=CH927645463506&GEOMETRY=false&WITHIMAGES=false&LANG=de (Rathausplatz 2, 3011 Bern, Bern Parzelle 3, EGID 2245180). Geometrien, Bilder, Glossar und Rechtsvorschriften bis auf eine entfernt.",
+ "$schema": "https://raw.githubusercontent.com/openoereb/schemas/ea4fe8e696b84b923cb9aa9fb27c3ba4e2d8eb5b/extract.json",
+ "GetExtractByIdResponse": {
+  "extract": {
+   "CreationDate": "2026-10-16T08:24:24",
+   "ExtractIdentifier": "f2e703c8-31ce-4b31-aeb0-3bd1ea878787",
+   "UpdateDateCS": "2026-10-06T00:00:00",
+   "PLRCadastreAuthority": {
+    "Name": [
+     {
+      "Language": "de",
+      "Text": "Amt für Geoinformation"
+     }
+    ],
+    "OfficeAtWeb": [
+     {
+      "Language": "de",
+      "Text": "https://www.be.ch/oerebk"
+     }
+    ],
+    "Street": "Reiterstrasse",
+    "Number": "11",
+    "PostalCode": "3013",
+    "City": "Bern"
+   },
+   "RealEstate": {
+    "Type": {
+     "Code": "RealEstate",
+     "Text": [
+      {
+       "Language": "de",
+       "Text": "Liegenschaft"
+      }
+     ]
+    },
+    "Canton": "BE",
+    "MunicipalityName": "Bern",
+    "MunicipalityCode": 351,
+    "LandRegistryArea": 1886,
+    "Number": "3",
+    "IdentDN": "BE0200000042",
+    "EGRID": "CH927645463506",
+    "SubunitOfLandRegister": "1 - Altstadt",
+    "RestrictionOnLandownership": [
+     {
+      "LegendText": [
+       {
+        "Language": "de",
+        "Text": "Altstadtperimeter BO.06"
+       }
+      ],
+      "Theme": {
+       "Code": "ch.Nutzungsplanung",
+       "Text": [
+        {
+         "Language": "de",
+         "Text": "Zonenflächen Grundnutzung (Nutzungszonen)"
+        }
+       ],
+       "SubCode": "ch.NutzungsplanungGrundnutzungNutzungszonen"
+      },
+      "Lawstatus": {
+       "Code": "inForce",
+       "Text": [
+        {
+         "Language": "de",
+         "Text": "Rechtskräftig"
+        }
+       ]
+      },
+      "ResponsibleOffice": {
+       "Name": [
+        {
+         "Language": "de",
+         "Text": "Stadt Bern (für Auskünfte zu Bauvorhaben: Bauinspektorat der Stadt Bern)"
+        }
+       ],
+       "OfficeAtWeb": [
+        {
+         "Language": "de",
+         "Text": "https://www.bern.ch/politik-und-verwaltung/stadtverwaltung/sue/bauinspektorat"
+        }
+       ]
+      },
+      "AreaShare": 1886,
+      "TypeCode": "217_309",
+      "PartInPercent": 100,
+      "LegalProvisions": [
+       {
+        "Type": {
+         "Code": "LegalProvision",
+         "Text": [
+          {
+           "Language": "de",
+           "Text": "Rechtsvorschrift"
+          }
+         ]
+        },
+        "Index": 100,
+        "Title": [
+         {
+          "Language": "de",
+          "Text": "Bauordnung der Stadt Bern (BO) vom 28-12-2006"
+         }
+        ],
+        "Lawstatus": {
+         "Code": "inForce",
+         "Text": [
+          {
+           "Language": "de",
+           "Text": "Rechtskräftig"
+          }
+         ]
+        },
+        "TextAtWeb": [
+         {
+          "Language": "de",
+          "Text": "https://oerebfiles.apps.be.ch/35101/6809/Bern_SSSB_721_1_Bauordnung_der_Stadt_Bern.pdf"
+         }
+        ],
+        "ResponsibleOffice": {
+         "Name": [
+          {
+           "Language": "de",
+           "Text": "Stadt Bern (für Auskünfte zu Bauvorhaben: Bauinspektorat der Stadt Bern)"
+          }
+         ],
+         "OfficeAtWeb": [
+          {
+           "Language": "de",
+           "Text": "https://www.bern.ch/politik-und-verwaltung/stadtverwaltung/sue/bauinspektorat"
+          }
+         ]
+        }
+       }
+      ]
+     },
+     {
+      "LegendText": [
+       {
+        "Language": "de",
+        "Text": "Untere Altstadt und Wohngebiet Matte"
+       }
+      ],
+      "Theme": {
+       "Code": "ch.Nutzungsplanung",
+       "Text": [
+        {
+         "Language": "de",
+         "Text": "Zonenflächen Grundnutzung (Nutzungszonen)"
+        }
+       ],
+       "SubCode": "ch.NutzungsplanungGrundnutzungNutzungszonen"
+      },
+      "Lawstatus": {
+       "Code": "inForce",
+       "Text": [
+        {
+         "Language": "de",
+         "Text": "Rechtskräftig"
+        }
+       ]
+      },
+      "ResponsibleOffice": {
+       "Name": [
+        {
+         "Language": "de",
+         "Text": "Stadt Bern (für Auskünfte zu Bauvorhaben: Bauinspektorat der Stadt Bern)"
+        }
+       ],
+       "OfficeAtWeb": [
+        {
+         "Language": "de",
+         "Text": "https://www.bern.ch/politik-und-verwaltung/stadtverwaltung/sue/bauinspektorat"
+        }
+       ]
+      },
+      "AreaShare": 1886,
+      "TypeCode": "118_23",
+      "PartInPercent": 100,
+      "LegalProvisions": [
+       {
+        "Type": {
+         "Code": "LegalProvision",
+         "Text": [
+          {
+           "Language": "de",
+           "Text": "Rechtsvorschrift"
+          }
+         ]
+        },
+        "Index": 100,
+        "Title": [
+         {
+          "Language": "de",
+          "Text": "Bauordnung der Stadt Bern (BO) vom 28-12-2006"
+         }
+        ],
+        "Lawstatus": {
+         "Code": "inForce",
+         "Text": [
+          {
+           "Language": "de",
+           "Text": "Rechtskräftig"
+          }
+         ]
+        },
+        "TextAtWeb": [
+         {
+          "Language": "de",
+          "Text": "https://oerebfiles.apps.be.ch/35101/6809/Bern_SSSB_721_1_Bauordnung_der_Stadt_Bern.pdf"
+         }
+        ],
+        "ResponsibleOffice": {
+         "Name": [
+          {
+           "Language": "de",
+           "Text": "Stadt Bern (für Auskünfte zu Bauvorhaben: Bauinspektorat der Stadt Bern)"
+          }
+         ],
+         "OfficeAtWeb": [
+          {
+           "Language": "de",
+           "Text": "https://www.bern.ch/politik-und-verwaltung/stadtverwaltung/sue/bauinspektorat"
+          }
+         ]
+        }
+       }
+      ]
+     },
+     {
+      "LegendText": [
+       {
+        "Language": "de",
+        "Text": "Untere Altstadt und Wohngebiet Matte"
+       }
+      ],
+      "Theme": {
+       "Code": "ch.Nutzungsplanung",
+       "Text": [
+        {
+         "Language": "de",
+         "Text": "Zonenflächen Grundnutzung (Bauklassen)"
+        }
+       ],
+       "SubCode": "ch.NutzungsplanungGrundnutzungBauklassen"
+      },
+      "Lawstatus": {
+       "Code": "inForce",
+       "Text": [
+        {
+         "Language": "de",
+         "Text": "Rechtskräftig"
+        }
+       ]
+      },
+      "ResponsibleOffice": {
+       "Name": [
+        {
+         "Language": "de",
+         "Text": "Stadt Bern (für Auskünfte zu Bauvorhaben: Bauinspektorat der Stadt Bern)"
+        }
+       ],
+       "OfficeAtWeb": [
+        {
+         "Language": "de",
+         "Text": "https://www.bern.ch/politik-und-verwaltung/stadtverwaltung/sue/bauinspektorat"
+        }
+       ]
+      },
+      "AreaShare": 1886,
+      "TypeCode": "141_198",
+      "PartInPercent": 100,
+      "LegalProvisions": [
+       {
+        "Type": {
+         "Code": "LegalProvision",
+         "Text": [
+          {
+           "Language": "de",
+           "Text": "Rechtsvorschrift"
+          }
+         ]
+        },
+        "Index": 100,
+        "Title": [
+         {
+          "Language": "de",
+          "Text": "Bauordnung der Stadt Bern (BO) vom 28-12-2006"
+         }
+        ],
+        "Lawstatus": {
+         "Code": "inForce",
+         "Text": [
+          {
+           "Language": "de",
+           "Text": "Rechtskräftig"
+          }
+         ]
+        },
+        "TextAtWeb": [
+         {
+          "Language": "de",
+          "Text": "https://oerebfiles.apps.be.ch/35101/6809/Bern_SSSB_721_1_Bauordnung_der_Stadt_Bern.pdf"
+         }
+        ],
+        "ResponsibleOffice": {
+         "Name": [
+          {
+           "Language": "de",
+           "Text": "Stadt Bern (für Auskünfte zu Bauvorhaben: Bauinspektorat der Stadt Bern)"
+          }
+         ],
+         "OfficeAtWeb": [
+          {
+           "Language": "de",
+           "Text": "https://www.bern.ch/politik-und-verwaltung/stadtverwaltung/sue/bauinspektorat"
+          }
+         ]
+        }
+       }
+      ]
+     },
+     {
+      "LegendText": [
+       {
+        "Language": "de",
+        "Text": "übriger Bereich üB"
+       }
+      ],
+      "Theme": {
+       "Code": "ch.BE.Gewaesserschutzbereiche",
+       "Text": [
+        {
+         "Language": "de",
+         "Text": "Gewässerschutzbereiche (Zusatzinformation nach Art. 8b Abs. 1 Bst. b ÖREBKV)"
+        }
+       ]
+      },
+      "Lawstatus": {
+       "Code": "inForce",
+       "Text": [
+        {
+         "Language": "de",
+         "Text": "Rechtskräftig"
+        }
+       ]
+      },
+      "ResponsibleOffice": {
+       "Name": [
+        {
+         "Language": "de",
+         "Text": "Amt für Wasser und Abfall des Kantons Bern"
+        }
+       ],
+       "OfficeAtWeb": [
+        {
+         "Language": "de",
+         "Text": "https://www.bvd.be.ch/de/start/themen/wasser/gewaesserschutz/grundwasserschutz.html"
+        }
+       ]
+      },
+      "AreaShare": 1886,
+      "TypeCode": "ef5bf357-837e-4f0c-b95d-e5b618a8e5b1",
+      "PartInPercent": 100,
+      "LegalProvisions": [
+       {
+        "Type": {
+         "Code": "Law",
+         "Text": [
+          {
+           "Language": "de",
+           "Text": "Gesetzliche Grundlage"
+          }
+         ]
+        },
+        "Index": 940,
+        "Title": [
+         {
+          "Language": "de",
+          "Text": "Wasserversorgungsgesetz"
+         }
+        ],
+        "Lawstatus": {
+         "Code": "inForce",
+         "Text": [
+          {
+           "Language": "de",
+           "Text": "Rechtskräftig"
+          }
+         ]
+        },
+        "TextAtWeb": [
+         {
+          "Language": "de",
+          "Text": "https://www.belex.sites.be.ch/data/752.32/de"
+         }
+        ],
+        "ResponsibleOffice": {
+         "Name": [
+          {
+           "Language": "de",
+           "Text": "Staatskanzlei des Kantons Bern"
+          }
+         ],
+         "OfficeAtWeb": [
+          {
+           "Language": "de",
+           "Text": "https://www.sta.be.ch"
+          }
+         ],
+         "UID": "CHE105620392"
+        },
+        "Abbreviation": [
+         {
+          "Language": "de",
+          "Text": "WVG"
+         }
+        ],
+        "OfficialNumber": [
+         {
+          "Language": "de",
+          "Text": "BSG 752.32"
+         }
+        ]
+       }
+      ]
+     },
+     {
+      "LegendText": [
+       {
+        "Language": "de",
+        "Text": "Lärmempfindlichkeitsstufe II"
+       }
+      ],
+      "Theme": {
+       "Code": "ch.Laermempfindlichkeitsstufen",
+       "Text": [
+        {
+         "Language": "de",
+         "Text": "Lärmempfindlichkeitsstufen (in kommunalen Nutzungszonen)"
+        }
+       ]
+      },
+      "Lawstatus": {
+       "Code": "inForce",
+       "Text": [
+        {
+         "Language": "de",
+         "Text": "Rechtskräftig"
+        }
+       ]
+      },
+      "ResponsibleOffice": {
+       "Name": [
+        {
+         "Language": "de",
+         "Text": "Stadt Bern (für Auskünfte zu Bauvorhaben: Bauinspektorat der Stadt Bern)"
+        }
+       ],
+       "OfficeAtWeb": [
+        {
+         "Language": "de",
+         "Text": "https://www.bern.ch/politik-und-verwaltung/stadtverwaltung/sue/bauinspektorat"
+        }
+       ]
+      },
+      "AreaShare": 1259,
+      "TypeCode": "207_299",
+      "PartInPercent": 66.8,
+      "LegalProvisions": [
+       {
+        "Type": {
+         "Code": "LegalProvision",
+         "Text": [
+          {
+           "Language": "de",
+           "Text": "Rechtsvorschrift"
+          }
+         ]
+        },
+        "Index": 100,
+        "Title": [
+         {
+          "Language": "de",
+          "Text": "Bauordnung der Stadt Bern (BO) vom 28-12-2006"
+         }
+        ],
+        "Lawstatus": {
+         "Code": "inForce",
+         "Text": [
+          {
+           "Language": "de",
+           "Text": "Rechtskräftig"
+          }
+         ]
+        },
+        "TextAtWeb": [
+         {
+          "Language": "de",
+          "Text": "https://oerebfiles.apps.be.ch/35101/6809/Bern_SSSB_721_1_Bauordnung_der_Stadt_Bern.pdf"
+         }
+        ],
+        "ResponsibleOffice": {
+         "Name": [
+          {
+           "Language": "de",
+           "Text": "Stadt Bern (für Auskünfte zu Bauvorhaben: Bauinspektorat der Stadt Bern)"
+          }
+         ],
+         "OfficeAtWeb": [
+          {
+           "Language": "de",
+           "Text": "https://www.bern.ch/politik-und-verwaltung/stadtverwaltung/sue/bauinspektorat"
+          }
+         ]
+        }
+       }
+      ]
+     },
+     {
+      "LegendText": [
+       {
+        "Language": "de",
+        "Text": "Lärmempfindlichkeitsstufe III"
+       }
+      ],
+      "Theme": {
+       "Code": "ch.Laermempfindlichkeitsstufen",
+       "Text": [
+        {
+         "Language": "de",
+         "Text": "Lärmempfindlichkeitsstufen (in kommunalen Nutzungszonen)"
+        }
+       ]
+      },
+      "Lawstatus": {
+       "Code": "inForce",
+       "Text": [
+        {
+         "Language": "de",
+         "Text": "Rechtskräftig"
+        }
+       ]
+      },
+      "ResponsibleOffice": {
+       "Name": [
+        {
+         "Language": "de",
+         "Text": "Stadt Bern (für Auskünfte zu Bauvorhaben: Bauinspektorat der Stadt Bern)"
+        }
+       ],
+       "OfficeAtWeb": [
+        {
+         "Language": "de",
+         "Text": "https://www.bern.ch/politik-und-verwaltung/stadtverwaltung/sue/bauinspektorat"
+        }
+       ]
+      },
+      "AreaShare": 626,
+      "TypeCode": "209_301",
+      "PartInPercent": 33.2,
+      "LegalProvisions": [
+       {
+        "Type": {
+         "Code": "LegalProvision",
+         "Text": [
+          {
+           "Language": "de",
+           "Text": "Rechtsvorschrift"
+          }
+         ]
+        },
+        "Index": 100,
+        "Title": [
+         {
+          "Language": "de",
+          "Text": "Bauordnung der Stadt Bern (BO) vom 28-12-2006"
+         }
+        ],
+        "Lawstatus": {
+         "Code": "inForce",
+         "Text": [
+          {
+           "Language": "de",
+           "Text": "Rechtskräftig"
+          }
+         ]
+        },
+        "TextAtWeb": [
+         {
+          "Language": "de",
+          "Text": "https://oerebfiles.apps.be.ch/35101/6809/Bern_SSSB_721_1_Bauordnung_der_Stadt_Bern.pdf"
+         }
+        ],
+        "ResponsibleOffice": {
+         "Name": [
+          {
+           "Language": "de",
+           "Text": "Stadt Bern (für Auskünfte zu Bauvorhaben: Bauinspektorat der Stadt Bern)"
+          }
+         ],
+         "OfficeAtWeb": [
+          {
+           "Language": "de",
+           "Text": "https://www.bern.ch/politik-und-verwaltung/stadtverwaltung/sue/bauinspektorat"
+          }
+         ]
+        }
+       }
+      ]
+     },
+     {
+      "LegendText": [
+       {
+        "Language": "de",
+        "Text": "Archäologisches Schutzgebiet Nr. 1246"
+       }
+      ],
+      "Theme": {
+       "Code": "ch.BE.ArchaeologischesInventar",
+       "Text": [
+        {
+         "Language": "de",
+         "Text": "Archäologisches Inventar (Zusatzinformation nach Art. 8b Abs. 1 Bst. b ÖREBKV)"
+        }
+       ]
+      },
+      "Lawstatus": {
+       "Code": "inForce",
+       "Text": [
+        {
+         "Language": "de",
+         "Text": "Rechtskräftig"
+        }
+       ]
+      },
+      "ResponsibleOffice": {
+       "Name": [
+        {
+         "Language": "de",
+         "Text": "Amt für Kultur des Kantons Bern"
+        }
+       ],
+       "OfficeAtWeb": [
+        {
+         "Language": "de",
+         "Text": "https://www.kultur.bkd.be.ch/de/start/themen/archaeologie/archaeologie-im-kanton-bern/archaeologische-fundstellen.html"
+        }
+       ]
+      },
+      "AreaShare": 1886,
+      "TypeCode": "58da1c0e-0e86-45dc-a39f-f18462babdbf",
+      "PartInPercent": 100,
+      "LegalProvisions": [
+       {
+        "Type": {
+         "Code": "Law",
+         "Text": [
+          {
+           "Language": "de",
+           "Text": "Gesetzliche Grundlage"
+          }
+         ]
+        },
+        "Index": 910,
+        "Title": [
+         {
+          "Language": "de",
+          "Text": "Baugesetz"
+         }
+        ],
+        "Lawstatus": {
+         "Code": "inForce",
+         "Text": [
+          {
+           "Language": "de",
+           "Text": "Rechtskräftig"
+          }
+         ]
+        },
+        "TextAtWeb": [
+         {
+          "Language": "de",
+          "Text": "https://www.belex.sites.be.ch/data/721.0/de"
+         }
+        ],
+        "ResponsibleOffice": {
+         "Name": [
+          {
+           "Language": "de",
+           "Text": "Staatskanzlei des Kantons Bern"
+          }
+         ],
+         "OfficeAtWeb": [
+          {
+           "Language": "de",
+           "Text": "https://www.sta.be.ch"
+          }
+         ],
+         "UID": "CHE105620392"
+        },
+        "Abbreviation": [
+         {
+          "Language": "de",
+          "Text": "BauG"
+         }
+        ],
+        "OfficialNumber": [
+         {
+          "Language": "de",
+          "Text": "BSG 721.0"
+         }
+        ]
+       }
+      ]
+     }
+    ]
+   },
+   "ConcernedTheme": [
+    {
+     "Code": "ch.Nutzungsplanung",
+     "Text": [
+      {
+       "Language": "de",
+       "Text": "Kommunale Nutzungsplanung"
+      }
+     ]
+    },
+    {
+     "Code": "ch.BE.Gewaesserschutzbereiche",
+     "Text": [
+      {
+       "Language": "de",
+       "Text": "Gewässerschutzbereiche (Zusatzinformation nach Art. 8b Abs. 1 Bst. b ÖREBKV)"
+      }
+     ]
+    },
+    {
+     "Code": "ch.Laermempfindlichkeitsstufen",
+     "Text": [
+      {
+       "Language": "de",
+       "Text": "Lärmempfindlichkeitsstufen (in kommunalen Nutzungszonen)"
+      }
+     ]
+    },
+    {
+     "Code": "ch.BE.ArchaeologischesInventar",
+     "Text": [
+      {
+       "Language": "de",
+       "Text": "Archäologisches Inventar (Zusatzinformation nach Art. 8b Abs. 1 Bst. b ÖREBKV)"
+      }
+     ]
+    }
+   ],
+   "NotConcernedTheme": [
+    {
+     "Code": "ch.Planungszonen",
+     "Text": [
+      {
+       "Language": "de",
+       "Text": "Kommunale Planungszonen"
+      }
+     ]
+    },
+    {
+     "Code": "ch.BE.RegionalePlanungszonen",
+     "Text": [
+      {
+       "Language": "de",
+       "Text": "Regionale Planungszonen"
+      }
+     ]
+    },
+    {
+     "Code": "ch.BE.KantonalePlanungszonen",
+     "Text": [
+      {
+       "Language": "de",
+       "Text": "Kantonale Planungszonen"
+      }
+     ]
+    },
+    {
+     "Code": "ch.BE.RegionaleNutzungsplanung",
+     "Text": [
+      {
+       "Language": "de",
+       "Text": "Regionale Nutzungsplanung"
+      }
+     ]
+    },
+    {
+     "Code": "ch.BE.KantonaleNutzungsplanung",
+     "Text": [
+      {
+       "Language": "de",
+       "Text": "Kantonale Nutzungsplanung"
+      }
+     ]
+    },
+    {
+     "Code": "ch.ProjektierungszonenNationalstrassen",
+     "Text": [
+      {
+       "Language": "de",
+       "Text": "Projektierungszonen Nationalstrassen"
+      }
+     ]
+    },
+    {
+     "Code": "ch.BaulinienNationalstrassen",
+     "Text": [
+      {
+       "Language": "de",
+       "Text": "Baulinien Nationalstrassen"
+      }
+     ]
+    },
+    {
+     "Code": "ch.BE.BaulinienKantonsstrassen",
+     "Text": [
+      {
+       "Language": "de",
+       "Text": "Baulinien Kantonsstrassen"
+      }
+     ]
+    },
+    {
+     "Code": "ch.ProjektierungszonenEisenbahnanlagen",
+     "Text": [
+      {
+       "Language": "de",
+       "Text": "Projektierungszonen Eisenbahnanlagen"
+      }
+     ]
+    },
+    {
+     "Code": "ch.BaulinienEisenbahnanlagen",
+     "Text": [
+      {
+       "Language": "de",
+       "Text": "Baulinien Eisenbahnanlagen"
+      }
+     ]
+    },
+    {
+     "Code": "ch.ProjektierungszonenFlughafenanlagen",
+     "Text": [
+      {
+       "Language": "de",
+       "Text": "Projektierungszonen Flughafenanlagen"
+      }
+     ]
+    },
+    {
+     "Code": "ch.BaulinienFlughafenanlagen",
+     "Text": [
+      {
+       "Language": "de",
+       "Text": "Baulinien Flughafenanlagen"
+      }
+     ]
+    },
+    {
+     "Code": "ch.Sicherheitszonenplan",
+     "Text": [
+      {
+       "Language": "de",
+       "Text": "Sicherheitszonenplan"
+      }
+     ]
+    },
+    {
+     "Code": "ch.BelasteteStandorte",
+     "Text": [
+      {
+       "Language": "de",
+       "Text": "Kataster der belasteten Standorte"
+      }
+     ]
+    },
+    {
+     "Code": "ch.BelasteteStandorteMilitaer",
+     "Text": [
+      {
+       "Language": "de",
+       "Text": "Kataster der belasteten Standorte im Bereich des Militärs"
+      }
+     ]
+    },
+    {
+     "Code": "ch.BelasteteStandorteZivileFlugplaetze",
+     "Text": [
+      {
+       "Language": "de",
+       "Text": "Kataster der belasteten Standorte im Bereich der zivilen Flugplätze"
+      }
+     ]
+    },
+    {
+     "Code": "ch.BelasteteStandorteOeffentlicherVerkehr",
+     "Text": [
+      {
+       "Language": "de",
+       "Text": "Kataster der belasteten Standorte im Bereich des öffentlichen Verkehrs"
+      }
+     ]
+    },
+    {
+     "Code": "ch.Grundwasserschutzzonen",
+     "Text": [
+      {
+       "Language": "de",
+       "Text": "Grundwasserschutzzonen"
+      }
+     ]
+    },
+    {
+     "Code": "ch.Grundwasserschutzareale",
+     "Text": [
+      {
+       "Language": "de",
+       "Text": "Grundwasserschutzareale"
+      }
+     ]
+    },
+    {
+     "Code": "ch.Gewaesserraum",
+     "Text": [
+      {
+       "Language": "de",
+       "Text": "Gewässerraum (in kommunalen Nutzungszonen)"
+      }
+     ]
+    },
+    {
+     "Code": "ch.BE.RegionalerGewaesserraum",
+     "Text": [
+      {
+       "Language": "de",
+       "Text": "Gewässerraum (in regionalen Nutzungszonen)"
+      }
+     ]
+    },
+    {
+     "Code": "ch.BE.KantonalerGewaesserraum",
+     "Text": [
+      {
+       "Language": "de",
+       "Text": "Gewässerraum (in kantonalen Nutzungszonen)"
+      }
+     ]
+    },
+    {
+     "Code": "ch.BE.Ueberflutungsgebiet",
+     "Text": [
+      {
+       "Language": "de",
+       "Text": "Wasserbauplan, Überflutungsgebiet"
+      }
+     ]
+    },
+    {
+     "Code": "ch.BE.RegionaleLaermempfindlichkeitsstufen",
+     "Text": [
+      {
+       "Language": "de",
+       "Text": "Lärmempfindlichkeitsstufen (in regionalen Nutzungszonen)"
+      }
+     ]
+    },
+    {
+     "Code": "ch.BE.KantonaleLaermempfindlichkeitsstufen",
+     "Text": [
+      {
+       "Language": "de",
+       "Text": "Lärmempfindlichkeitsstufen (in kantonalen Nutzungszonen)"
+      }
+     ]
+    },
+    {
+     "Code": "ch.StatischeWaldgrenzen",
+     "Text": [
+      {
+       "Language": "de",
+       "Text": "Statische Waldgrenzen"
+      }
+     ]
+    },
+    {
+     "Code": "ch.Waldabstandslinien",
+     "Text": [
+      {
+       "Language": "de",
+       "Text": "Kommunale Wald-Baulinien"
+      }
+     ]
+    },
+    {
+     "Code": "ch.BE.RegionaleWaldabstandslinien",
+     "Text": [
+      {
+       "Language": "de",
+       "Text": "Regionale Wald-Baulinien"
+      }
+     ]
+    },
+    {
+     "Code": "ch.BE.KantonaleWaldabstandslinien",
+     "Text": [
+      {
+       "Language": "de",
+       "Text": "Kantonale Wald-Baulinien"
+      }
+     ]
+    },
+    {
+     "Code": "ch.Waldreservate",
+     "Text": [
+      {
+       "Language": "de",
+       "Text": "Waldreservate"
+      }
+     ]
+    },
+    {
+     "Code": "ch.ProjektierungszonenStarkstromanlagen",
+     "Text": [
+      {
+       "Language": "de",
+       "Text": "Projektierungszonen Leitungen mit einer Nennspannung von 220 kV oder höher"
+      }
+     ]
+    },
+    {
+     "Code": "ch.BaulinienStarkstromanlagen",
+     "Text": [
+      {
+       "Language": "de",
+       "Text": "Baulinien Starkstromanlagen"
+      }
+     ]
+    },
+    {
+     "Code": "ch.BE.GeschuetzteGeologischeObjekte",
+     "Text": [
+      {
+       "Language": "de",
+       "Text": "Geschützte geologische Objekte regionaler Bedeutung"
+      }
+     ]
+    },
+    {
+     "Code": "ch.BE.GeschuetzteBotanischeObjekte",
+     "Text": [
+      {
+       "Language": "de",
+       "Text": "Geschützte botanische Objekte regionaler Bedeutung"
+      }
+     ]
+    },
+    {
+     "Code": "ch.BE.KantonaleNaturschutzgebiete",
+     "Text": [
+      {
+       "Language": "de",
+       "Text": "Kantonale Naturschutzgebiete"
+      }
+     ]
+    },
+    {
+     "Code": "ch.BE.SachplanBiodiversitaet",
+     "Text": [
+      {
+       "Language": "de",
+       "Text": "Sachplan Biodiversität (Zusatzinformation nach Art. 8b Abs. 1 Bst. b ÖREBKV)"
+      }
+     ]
+    },
+    {
+     "Code": "ch.BE.Naturgefahren",
+     "Text": [
+      {
+       "Language": "de",
+       "Text": "Naturgefahrenkarte (Zusatzinformation nach Art. 8b Abs. 1 Bst. b ÖREBKV)"
+      }
+     ]
+    }
+   ],
+   "ThemeWithoutData": [
+    {
+     "Code": "ch.BE.Bauinventar",
+     "Text": [
+      {
+       "Language": "de",
+       "Text": "Bauinventar (Zusatzinformation nach Art. 8b Abs. 1 Bst. b ÖREBKV)"
+      }
+     ]
+    },
+    {
+     "Code": "ch.BE.Denkmalschutzobjekte",
+     "Text": [
+      {
+       "Language": "de",
+       "Text": "Kantonale Denkmalschutzobjekte"
+      }
+     ]
+    },
+    {
+     "Code": "ch.BE.LeitungenWasser",
+     "Text": [
+      {
+       "Language": "de",
+       "Text": "Gesicherte öffentliche Leitungen"
+      }
+     ]
+    }
+   ]
+  }
+ }
+}

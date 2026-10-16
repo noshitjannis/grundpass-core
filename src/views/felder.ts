@@ -75,6 +75,7 @@ export const FELDER: Record<string, FeldDef> = {
   'parzelle.geoportal_url': { label: 'Kantonales Geoportal', abschnitt: 'parzelle' },
 
   'zone.bezeichnung': { label: 'Zone', abschnitt: 'zone', erwartet: true, erklaerung: 'Grundnutzung laut ÖREB-Kataster, so wie Gemeinde oder Kanton sie bezeichnen. Was eine Zone konkret erlaubt (Geschosse, Ausnützung, Nutzung), steht im Baureglement der Gemeinde, nicht im Kataster. Liegt die Parzelle in mehreren Zonen, ist das die mit dem grössten Anteil.' },
+  'zone.hinweis': { label: 'Hinweis zur Zone', abschnitt: 'zone', erklaerung: 'Der Kataster dieses Kantons kennzeichnet nicht, welcher Eintrag der Nutzungsplanung die Grundnutzung ist. Gezeigt wird der Eintrag mit dem grössten Flächenanteil; die übrigen Einträge stehen unter «Nutzungsplanung: weitere Einträge».' },
   'zone.code': { label: 'Zonencode', abschnitt: 'zone', format: 'id', erklaerung: 'Kennung der Zone im kantonalen Datenmodell. Nur ein Code, keine Aussage für Laien.' },
   'zone.anteil_prozent': { label: 'Anteil an der Parzelle', abschnitt: 'zone', format: 'int', erklaerung: 'Wie viel der Parzellenfläche in dieser Zone liegt. Unter 100 % heisst: Die Parzelle hat mehrere Zonen, siehe weitere Zonen.' },
   'zone.anzahl': { label: 'Zonen auf der Parzelle', abschnitt: 'zone', format: 'int' },

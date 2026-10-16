@@ -1,0 +1,1245 @@
+{
+ "_hinweis": "Echte Antwort vom 16.10.2026, verkleinert mit scripts/oereb-fixture.ts: https://api.oereb.bs.ch/extract/json?EGRID=CH907067448984&GEOMETRY=false&WITHIMAGES=false&LANG=de (Marktplatz 9, 4001 Basel, Basel Parzelle 0121, EGID 440080). Geometrien, Bilder, Glossar und Rechtsvorschriften bis auf eine entfernt.",
+ "$schema": "https://raw.githubusercontent.com/openoereb/schemas/ea4fe8e696b84b923cb9aa9fb27c3ba4e2d8eb5b/extract.json",
+ "GetExtractByIdResponse": {
+  "extract": {
+   "CreationDate": "2026-10-16T08:25:47",
+   "ExtractIdentifier": "45687210-b773-44b8-87ee-e83f53373a05",
+   "UpdateDateCS": "2026-10-14T00:00:00",
+   "PLRCadastreAuthority": {
+    "Name": [
+     {
+      "Language": "de",
+      "Text": "Grundbuch- und Vermessungsamt Basel-Stadt"
+     }
+    ],
+    "OfficeAtWeb": [
+     {
+      "Language": "de",
+      "Text": "https://www.bs.ch/gva"
+     }
+    ],
+    "Street": "Dufourstrasse",
+    "Number": "40/50",
+    "PostalCode": "4001",
+    "City": "Basel"
+   },
+   "RealEstate": {
+    "Type": {
+     "Code": "RealEstate",
+     "Text": [
+      {
+       "Language": "de",
+       "Text": "Liegenschaft"
+      }
+     ]
+    },
+    "Canton": "BS",
+    "MunicipalityName": "Basel",
+    "MunicipalityCode": 2701,
+    "LandRegistryArea": 3523,
+    "Number": "0121",
+    "IdentDN": "BSS600000000",
+    "EGRID": "CH907067448984",
+    "SubunitOfLandRegister": "6",
+    "RestrictionOnLandownership": [
+     {
+      "LegendText": [
+       {
+        "Language": "de",
+        "Text": "Stadt- und Dorfbild-Schutzzone"
+       }
+      ],
+      "Theme": {
+       "Code": "ch.Nutzungsplanung",
+       "Text": [
+        {
+         "Language": "de",
+         "Text": "Zonenplan"
+        }
+       ],
+       "SubCode": "ch.BS.Zonenplan"
+      },
+      "Lawstatus": {
+       "Code": "inForce",
+       "Text": [
+        {
+         "Language": "de",
+         "Text": "Rechtskräftig"
+        }
+       ]
+      },
+      "ResponsibleOffice": {
+       "Name": [
+        {
+         "Language": "de",
+         "Text": "Planungsamt"
+        }
+       ],
+       "OfficeAtWeb": [
+        {
+         "Language": "de",
+         "Text": "https://www.bs.ch/staedtebau-architektur"
+        }
+       ],
+       "UID": "CHE481797232"
+      },
+      "AreaShare": 3523,
+      "TypeCode": "SU",
+      "PartInPercent": 100,
+      "LegalProvisions": [
+       {
+        "Type": {
+         "Code": "Law",
+         "Text": [
+          {
+           "Language": "de",
+           "Text": "Gesetzliche Grundlage"
+          }
+         ]
+        },
+        "Index": 10,
+        "Title": [
+         {
+          "Language": "de",
+          "Text": "Bundesgesetz über die Raumplanung"
+         }
+        ],
+        "Lawstatus": {
+         "Code": "inForce",
+         "Text": [
+          {
+           "Language": "de",
+           "Text": "Rechtskräftig"
+          }
+         ]
+        },
+        "TextAtWeb": [
+         {
+          "Language": "de",
+          "Text": "https://www.fedlex.admin.ch/eli/cc/1979/1573_1573_1573/de"
+         }
+        ],
+        "ResponsibleOffice": {
+         "Name": [
+          {
+           "Language": "de",
+           "Text": "Bundeskanzlei"
+          }
+         ],
+         "OfficeAtWeb": [
+          {
+           "Language": "de",
+           "Text": "https://www.bk.admin.ch"
+          }
+         ],
+         "UID": "CHE263297189"
+        },
+        "Abbreviation": [
+         {
+          "Language": "de",
+          "Text": "RPG"
+         }
+        ],
+        "OfficialNumber": [
+         {
+          "Language": "de",
+          "Text": "SR 700"
+         }
+        ]
+       }
+      ]
+     },
+     {
+      "LegendText": [
+       {
+        "Language": "de",
+        "Text": "Wohnanteil Innerstadt bestehendes Mischverhältnis erhalten"
+       }
+      ],
+      "Theme": {
+       "Code": "ch.Nutzungsplanung",
+       "Text": [
+        {
+         "Language": "de",
+         "Text": "Wohnanteilplan"
+        }
+       ],
+       "SubCode": "ch.2701.Wohnanteilplan"
+      },
+      "Lawstatus": {
+       "Code": "inForce",
+       "Text": [
+        {
+         "Language": "de",
+         "Text": "Rechtskräftig"
+        }
+       ]
+      },
+      "ResponsibleOffice": {
+       "Name": [
+        {
+         "Language": "de",
+         "Text": "Planungsamt"
+        }
+       ],
+       "OfficeAtWeb": [
+        {
+         "Language": "de",
+         "Text": "https://www.bs.ch/staedtebau-architektur"
+        }
+       ],
+       "UID": "CHE481797232"
+      },
+      "AreaShare": 3523,
+      "TypeCode": "Innenstadt",
+      "PartInPercent": 100,
+      "LegalProvisions": [
+       {
+        "Type": {
+         "Code": "Law",
+         "Text": [
+          {
+           "Language": "de",
+           "Text": "Gesetzliche Grundlage"
+          }
+         ]
+        },
+        "Index": 10,
+        "Title": [
+         {
+          "Language": "de",
+          "Text": "Bundesgesetz über die Raumplanung"
+         }
+        ],
+        "Lawstatus": {
+         "Code": "inForce",
+         "Text": [
+          {
+           "Language": "de",
+           "Text": "Rechtskräftig"
+          }
+         ]
+        },
+        "TextAtWeb": [
+         {
+          "Language": "de",
+          "Text": "https://www.fedlex.admin.ch/eli/cc/1979/1573_1573_1573/de"
+         }
+        ],
+        "ResponsibleOffice": {
+         "Name": [
+          {
+           "Language": "de",
+           "Text": "Bundeskanzlei"
+          }
+         ],
+         "OfficeAtWeb": [
+          {
+           "Language": "de",
+           "Text": "https://www.bk.admin.ch"
+          }
+         ],
+         "UID": "CHE263297189"
+        },
+        "Abbreviation": [
+         {
+          "Language": "de",
+          "Text": "RPG"
+         }
+        ],
+        "OfficialNumber": [
+         {
+          "Language": "de",
+          "Text": "SR 700"
+         }
+        ]
+       }
+      ]
+     },
+     {
+      "LegendText": [
+       {
+        "Language": "de",
+        "Text": "Objekt"
+       }
+      ],
+      "Theme": {
+       "Code": "ch.BS.Denkmalverzeichnis",
+       "Text": [
+        {
+         "Language": "de",
+         "Text": "Denkmalverzeichnis"
+        }
+       ]
+      },
+      "Lawstatus": {
+       "Code": "inForce",
+       "Text": [
+        {
+         "Language": "de",
+         "Text": "Rechtskräftig"
+        }
+       ]
+      },
+      "ResponsibleOffice": {
+       "Name": [
+        {
+         "Language": "de",
+         "Text": "Kantonale Denkmalpflege"
+        }
+       ],
+       "OfficeAtWeb": [
+        {
+         "Language": "de",
+         "Text": "https://www.bs.ch/denkmalpflege"
+        }
+       ],
+       "UID": "CHE481925487"
+      },
+      "AreaShare": 1618,
+      "TypeCode": "Objekt",
+      "PartInPercent": 45.9,
+      "LegalProvisions": [
+       {
+        "Type": {
+         "Code": "Law",
+         "Text": [
+          {
+           "Language": "de",
+           "Text": "Gesetzliche Grundlage"
+          }
+         ]
+        },
+        "Index": 910,
+        "Title": [
+         {
+          "Language": "de",
+          "Text": "Gesetz über den Denkmalschutz"
+         }
+        ],
+        "Lawstatus": {
+         "Code": "inForce",
+         "Text": [
+          {
+           "Language": "de",
+           "Text": "Rechtskräftig"
+          }
+         ]
+        },
+        "TextAtWeb": [
+         {
+          "Language": "de",
+          "Text": "https://www.gesetzessammlung.bs.ch/api/de/versions/4916/pdf_file_with_annexes"
+         }
+        ],
+        "ResponsibleOffice": {
+         "Name": [
+          {
+           "Language": "de",
+           "Text": "Kantonale Denkmalpflege"
+          }
+         ],
+         "OfficeAtWeb": [
+          {
+           "Language": "de",
+           "Text": "https://www.bs.ch/denkmalpflege"
+          }
+         ],
+         "UID": "CHE481925487"
+        },
+        "Abbreviation": [
+         {
+          "Language": "de",
+          "Text": ""
+         }
+        ],
+        "OfficialNumber": [
+         {
+          "Language": "de",
+          "Text": "497.100"
+         }
+        ]
+       }
+      ]
+     },
+     {
+      "LegendText": [
+       {
+        "Language": "de",
+        "Text": "Baulinie"
+       }
+      ],
+      "Theme": {
+       "Code": "ch.BauStrassenWeglinien",
+       "Text": [
+        {
+         "Language": "de",
+         "Text": "Bau-, Strassen- & Weglinien (kantonal)"
+        }
+       ],
+       "SubCode": "ch.BauStrassenWeglinienKantonal"
+      },
+      "Lawstatus": {
+       "Code": "inForce",
+       "Text": [
+        {
+         "Language": "de",
+         "Text": "Rechtskräftig"
+        }
+       ]
+      },
+      "ResponsibleOffice": {
+       "Name": [
+        {
+         "Language": "de",
+         "Text": "Tiefbauamt"
+        }
+       ],
+       "OfficeAtWeb": [
+        {
+         "Language": "de",
+         "Text": "https://www.bs.ch/tiefbauamt"
+        }
+       ],
+       "UID": "CHE115987813"
+      },
+      "LengthShare": 133,
+      "TypeCode": "BL",
+      "LegalProvisions": [
+       {
+        "Type": {
+         "Code": "Law",
+         "Text": [
+          {
+           "Language": "de",
+           "Text": "Gesetzliche Grundlage"
+          }
+         ]
+        },
+        "Index": 12,
+        "Title": [
+         {
+          "Language": "de",
+          "Text": "Bau- und Planungsverordnung"
+         }
+        ],
+        "Lawstatus": {
+         "Code": "inForce",
+         "Text": [
+          {
+           "Language": "de",
+           "Text": "Rechtskräftig"
+          }
+         ]
+        },
+        "TextAtWeb": [
+         {
+          "Language": "de",
+          "Text": "https://www.gesetzessammlung.bs.ch/api/de/versions/6759/pdf_file_with_annexes"
+         }
+        ],
+        "ResponsibleOffice": {
+         "Name": [
+          {
+           "Language": "de",
+           "Text": "Tiefbauamt"
+          }
+         ],
+         "OfficeAtWeb": [
+          {
+           "Language": "de",
+           "Text": "https://www.bs.ch/tiefbauamt"
+          }
+         ],
+         "UID": "CHE115987813"
+        },
+        "Abbreviation": [
+         {
+          "Language": "de",
+          "Text": "BPV"
+         }
+        ],
+        "OfficialNumber": [
+         {
+          "Language": "de",
+          "Text": "730.110"
+         }
+        ]
+       }
+      ]
+     },
+     {
+      "LegendText": [
+       {
+        "Language": "de",
+        "Text": "Strassenlinie, vollzogen durch Parzellengrenze"
+       }
+      ],
+      "Theme": {
+       "Code": "ch.BauStrassenWeglinien",
+       "Text": [
+        {
+         "Language": "de",
+         "Text": "Bau-, Strassen- & Weglinien (kantonal)"
+        }
+       ],
+       "SubCode": "ch.BauStrassenWeglinienKantonal"
+      },
+      "Lawstatus": {
+       "Code": "inForce",
+       "Text": [
+        {
+         "Language": "de",
+         "Text": "Rechtskräftig"
+        }
+       ]
+      },
+      "ResponsibleOffice": {
+       "Name": [
+        {
+         "Language": "de",
+         "Text": "Tiefbauamt"
+        }
+       ],
+       "OfficeAtWeb": [
+        {
+         "Language": "de",
+         "Text": "https://www.bs.ch/tiefbauamt"
+        }
+       ],
+       "UID": "CHE115987813"
+      },
+      "LengthShare": 42,
+      "TypeCode": "STRL_V",
+      "LegalProvisions": [
+       {
+        "Type": {
+         "Code": "Law",
+         "Text": [
+          {
+           "Language": "de",
+           "Text": "Gesetzliche Grundlage"
+          }
+         ]
+        },
+        "Index": 12,
+        "Title": [
+         {
+          "Language": "de",
+          "Text": "Bau- und Planungsverordnung"
+         }
+        ],
+        "Lawstatus": {
+         "Code": "inForce",
+         "Text": [
+          {
+           "Language": "de",
+           "Text": "Rechtskräftig"
+          }
+         ]
+        },
+        "TextAtWeb": [
+         {
+          "Language": "de",
+          "Text": "https://www.gesetzessammlung.bs.ch/api/de/versions/6759/pdf_file_with_annexes"
+         }
+        ],
+        "ResponsibleOffice": {
+         "Name": [
+          {
+           "Language": "de",
+           "Text": "Tiefbauamt"
+          }
+         ],
+         "OfficeAtWeb": [
+          {
+           "Language": "de",
+           "Text": "https://www.bs.ch/tiefbauamt"
+          }
+         ],
+         "UID": "CHE115987813"
+        },
+        "Abbreviation": [
+         {
+          "Language": "de",
+          "Text": "BPV"
+         }
+        ],
+        "OfficialNumber": [
+         {
+          "Language": "de",
+          "Text": "730.110"
+         }
+        ]
+       }
+      ]
+     },
+     {
+      "LegendText": [
+       {
+        "Language": "de",
+        "Text": "Weglinie, vollzogen durch Parzellengrenze"
+       }
+      ],
+      "Theme": {
+       "Code": "ch.BauStrassenWeglinien",
+       "Text": [
+        {
+         "Language": "de",
+         "Text": "Bau-, Strassen- & Weglinien (kantonal)"
+        }
+       ],
+       "SubCode": "ch.BauStrassenWeglinienKantonal"
+      },
+      "Lawstatus": {
+       "Code": "inForce",
+       "Text": [
+        {
+         "Language": "de",
+         "Text": "Rechtskräftig"
+        }
+       ]
+      },
+      "ResponsibleOffice": {
+       "Name": [
+        {
+         "Language": "de",
+         "Text": "Tiefbauamt"
+        }
+       ],
+       "OfficeAtWeb": [
+        {
+         "Language": "de",
+         "Text": "https://www.bs.ch/tiefbauamt"
+        }
+       ],
+       "UID": "CHE115987813"
+      },
+      "LengthShare": 27,
+      "TypeCode": "WGL_V",
+      "LegalProvisions": [
+       {
+        "Type": {
+         "Code": "LegalProvision",
+         "Text": [
+          {
+           "Language": "de",
+           "Text": "Rechtsvorschrift"
+          }
+         ]
+        },
+        "Index": 40502,
+        "Title": [
+         {
+          "Language": "de",
+          "Text": "5248H (Beschluss)"
+         }
+        ],
+        "Lawstatus": {
+         "Code": "inForce",
+         "Text": [
+          {
+           "Language": "de",
+           "Text": "Rechtskräftig"
+          }
+         ]
+        },
+        "TextAtWeb": [
+         {
+          "Language": "de",
+          "Text": "https://oereblex.bs.ch/api/attachments/9389"
+         }
+        ],
+        "ResponsibleOffice": {
+         "Name": [
+          {
+           "Language": "de",
+           "Text": "Tiefbauamt"
+          }
+         ],
+         "OfficeAtWeb": [
+          {
+           "Language": "de",
+           "Text": "https://www.bs.ch/tiefbauamt"
+          }
+         ],
+         "UID": "CHE115987813"
+        },
+        "Abbreviation": [
+         {
+          "Language": "de",
+          "Text": ""
+         }
+        ],
+        "OfficialNumber": [
+         {
+          "Language": "de",
+          "Text": ""
+         }
+        ]
+       }
+      ]
+     },
+     {
+      "LegendText": [
+       {
+        "Language": "de",
+        "Text": "Strassenlinie, vollzogen durch Parzellengrenze"
+       }
+      ],
+      "Theme": {
+       "Code": "ch.BauStrassenWeglinien",
+       "Text": [
+        {
+         "Language": "de",
+         "Text": "Bau-, Strassen- & Weglinien (kantonal)"
+        }
+       ],
+       "SubCode": "ch.BauStrassenWeglinienKantonal"
+      },
+      "Lawstatus": {
+       "Code": "inForce",
+       "Text": [
+        {
+         "Language": "de",
+         "Text": "Rechtskräftig"
+        }
+       ]
+      },
+      "ResponsibleOffice": {
+       "Name": [
+        {
+         "Language": "de",
+         "Text": "Tiefbauamt"
+        }
+       ],
+       "OfficeAtWeb": [
+        {
+         "Language": "de",
+         "Text": "https://www.bs.ch/tiefbauamt"
+        }
+       ],
+       "UID": "CHE115987813"
+      },
+      "LengthShare": 64,
+      "TypeCode": "STRL_V",
+      "LegalProvisions": [
+       {
+        "Type": {
+         "Code": "Law",
+         "Text": [
+          {
+           "Language": "de",
+           "Text": "Gesetzliche Grundlage"
+          }
+         ]
+        },
+        "Index": 12,
+        "Title": [
+         {
+          "Language": "de",
+          "Text": "Bau- und Planungsverordnung"
+         }
+        ],
+        "Lawstatus": {
+         "Code": "inForce",
+         "Text": [
+          {
+           "Language": "de",
+           "Text": "Rechtskräftig"
+          }
+         ]
+        },
+        "TextAtWeb": [
+         {
+          "Language": "de",
+          "Text": "https://www.gesetzessammlung.bs.ch/api/de/versions/6759/pdf_file_with_annexes"
+         }
+        ],
+        "ResponsibleOffice": {
+         "Name": [
+          {
+           "Language": "de",
+           "Text": "Tiefbauamt"
+          }
+         ],
+         "OfficeAtWeb": [
+          {
+           "Language": "de",
+           "Text": "https://www.bs.ch/tiefbauamt"
+          }
+         ],
+         "UID": "CHE115987813"
+        },
+        "Abbreviation": [
+         {
+          "Language": "de",
+          "Text": "BPV"
+         }
+        ],
+        "OfficialNumber": [
+         {
+          "Language": "de",
+          "Text": "730.110"
+         }
+        ]
+       }
+      ]
+     },
+     {
+      "LegendText": [
+       {
+        "Language": "de",
+        "Text": "Genehmigter Sicherheitszonenperimeter"
+       }
+      ],
+      "Theme": {
+       "Code": "ch.Sicherheitszonenplan",
+       "Text": [
+        {
+         "Language": "de",
+         "Text": "Sicherheitszonenplan"
+        }
+       ]
+      },
+      "Lawstatus": {
+       "Code": "inForce",
+       "Text": [
+        {
+         "Language": "de",
+         "Text": "Rechtskräftig"
+        }
+       ]
+      },
+      "ResponsibleOffice": {
+       "Name": [
+        {
+         "Language": "de",
+         "Text": "Bundesamt für Zivilluftfahrt BAZL"
+        }
+       ],
+       "OfficeAtWeb": [
+        {
+         "Language": "de",
+         "Text": "https://www.bazl.admin.ch/de"
+        }
+       ],
+       "UID": "CHE188858471"
+      },
+      "AreaShare": 3523,
+      "TypeCode": "108-T-01",
+      "PartInPercent": 100,
+      "LegalProvisions": [
+       {
+        "Type": {
+         "Code": "Law",
+         "Text": [
+          {
+           "Language": "de",
+           "Text": "Gesetzliche Grundlage"
+          }
+         ]
+        },
+        "Index": 310,
+        "Title": [
+         {
+          "Language": "de",
+          "Text": "Bundesgesetz über die Luftfahrt"
+         }
+        ],
+        "Lawstatus": {
+         "Code": "inForce",
+         "Text": [
+          {
+           "Language": "de",
+           "Text": "Rechtskräftig"
+          }
+         ]
+        },
+        "TextAtWeb": [
+         {
+          "Language": "de",
+          "Text": "https://www.fedlex.admin.ch/eli/cc/1950/471_491_479/de"
+         }
+        ],
+        "ResponsibleOffice": {
+         "Name": [
+          {
+           "Language": "de",
+           "Text": "Bundeskanzlei"
+          }
+         ],
+         "OfficeAtWeb": [
+          {
+           "Language": "de",
+           "Text": "https://www.bk.admin.ch"
+          }
+         ],
+         "UID": "CHE263297189"
+        },
+        "Abbreviation": [
+         {
+          "Language": "de",
+          "Text": "LFG"
+         }
+        ],
+        "OfficialNumber": [
+         {
+          "Language": "de",
+          "Text": "SR 748.0"
+         }
+        ]
+       }
+      ]
+     },
+     {
+      "LegendText": [
+       {
+        "Language": "de",
+        "Text": "Empfindlichkeitsstufe III"
+       }
+      ],
+      "Theme": {
+       "Code": "ch.Laermempfindlichkeitsstufen",
+       "Text": [
+        {
+         "Language": "de",
+         "Text": "Lärmempfindlichkeitsstufen (in Nutzungszonen)"
+        }
+       ]
+      },
+      "Lawstatus": {
+       "Code": "inForce",
+       "Text": [
+        {
+         "Language": "de",
+         "Text": "Rechtskräftig"
+        }
+       ]
+      },
+      "ResponsibleOffice": {
+       "Name": [
+        {
+         "Language": "de",
+         "Text": "Planungsamt"
+        }
+       ],
+       "OfficeAtWeb": [
+        {
+         "Language": "de",
+         "Text": "https://www.bs.ch/staedtebau-architektur"
+        }
+       ],
+       "UID": "CHE481797232"
+      },
+      "AreaShare": 3523,
+      "TypeCode": "ES_III",
+      "PartInPercent": 100,
+      "LegalProvisions": [
+       {
+        "Type": {
+         "Code": "Law",
+         "Text": [
+          {
+           "Language": "de",
+           "Text": "Gesetzliche Grundlage"
+          }
+         ]
+        },
+        "Index": 620,
+        "Title": [
+         {
+          "Language": "de",
+          "Text": "Lärmschutz-Verordnung"
+         }
+        ],
+        "Lawstatus": {
+         "Code": "inForce",
+         "Text": [
+          {
+           "Language": "de",
+           "Text": "Rechtskräftig"
+          }
+         ]
+        },
+        "TextAtWeb": [
+         {
+          "Language": "de",
+          "Text": "https://www.fedlex.admin.ch/eli/cc/1987/338_338_338/de"
+         }
+        ],
+        "ResponsibleOffice": {
+         "Name": [
+          {
+           "Language": "de",
+           "Text": "Bundeskanzlei"
+          }
+         ],
+         "OfficeAtWeb": [
+          {
+           "Language": "de",
+           "Text": "https://www.bk.admin.ch"
+          }
+         ],
+         "UID": "CHE263297189"
+        },
+        "Abbreviation": [
+         {
+          "Language": "de",
+          "Text": "LSV"
+         }
+        ],
+        "OfficialNumber": [
+         {
+          "Language": "de",
+          "Text": "SR 814.41"
+         }
+        ]
+       }
+      ]
+     }
+    ]
+   },
+   "ConcernedTheme": [
+    {
+     "Code": "ch.Nutzungsplanung",
+     "Text": [
+      {
+       "Language": "de",
+       "Text": "Nutzungsplanung"
+      }
+     ]
+    },
+    {
+     "Code": "ch.BS.Denkmalverzeichnis",
+     "Text": [
+      {
+       "Language": "de",
+       "Text": "Denkmalverzeichnis"
+      }
+     ]
+    },
+    {
+     "Code": "ch.BauStrassenWeglinien",
+     "Text": [
+      {
+       "Language": "de",
+       "Text": "Bau-, Strassen- & Weglinien"
+      }
+     ]
+    },
+    {
+     "Code": "ch.Sicherheitszonenplan",
+     "Text": [
+      {
+       "Language": "de",
+       "Text": "Sicherheitszonenplan"
+      }
+     ]
+    },
+    {
+     "Code": "ch.Laermempfindlichkeitsstufen",
+     "Text": [
+      {
+       "Language": "de",
+       "Text": "Lärmempfindlichkeitsstufen (in Nutzungszonen)"
+      }
+     ]
+    }
+   ],
+   "NotConcernedTheme": [
+    {
+     "Code": "ch.Planungszonen",
+     "Text": [
+      {
+       "Language": "de",
+       "Text": "Planungszonen"
+      }
+     ]
+    },
+    {
+     "Code": "ch.BS.Naturobjekt",
+     "Text": [
+      {
+       "Language": "de",
+       "Text": "Inventar der geschützen Naturobjekte"
+      }
+     ]
+    },
+    {
+     "Code": "ch.BS.Naturersatzflaechen",
+     "Text": [
+      {
+       "Language": "de",
+       "Text": "Naturersatzflächen"
+      }
+     ]
+    },
+    {
+     "Code": "ch.ProjektierungszonenNationalstrassen",
+     "Text": [
+      {
+       "Language": "de",
+       "Text": "Projektierungszonen Nationalstrassen"
+      }
+     ]
+    },
+    {
+     "Code": "ch.BaulinienNationalstrassen",
+     "Text": [
+      {
+       "Language": "de",
+       "Text": "Baulinien Nationalstrassen"
+      }
+     ]
+    },
+    {
+     "Code": "ch.ProjektierungszonenEisenbahnanlagen",
+     "Text": [
+      {
+       "Language": "de",
+       "Text": "Projektierungszonen Eisenbahnanlagen"
+      }
+     ]
+    },
+    {
+     "Code": "ch.BaulinienEisenbahnanlagen",
+     "Text": [
+      {
+       "Language": "de",
+       "Text": "Baulinien Eisenbahnanlagen"
+      }
+     ]
+    },
+    {
+     "Code": "ch.ProjektierungszonenFlughafenanlagen",
+     "Text": [
+      {
+       "Language": "de",
+       "Text": "Projektierungszonen Flughafenanlagen"
+      }
+     ]
+    },
+    {
+     "Code": "ch.BaulinienFlughafenanlagen",
+     "Text": [
+      {
+       "Language": "de",
+       "Text": "Baulinien Flughafenanlagen"
+      }
+     ]
+    },
+    {
+     "Code": "ch.BelasteteStandorte",
+     "Text": [
+      {
+       "Language": "de",
+       "Text": "Kataster der belasteten Standorte"
+      }
+     ]
+    },
+    {
+     "Code": "ch.BelasteteStandorteMilitaer",
+     "Text": [
+      {
+       "Language": "de",
+       "Text": "Kataster der belasteten Standorte im Bereich des Militärs"
+      }
+     ]
+    },
+    {
+     "Code": "ch.BelasteteStandorteZivileFlugplaetze",
+     "Text": [
+      {
+       "Language": "de",
+       "Text": "Kataster der belasteten Standorte im Bereich der zivilen Flugplätze"
+      }
+     ]
+    },
+    {
+     "Code": "ch.BelasteteStandorteOeffentlicherVerkehr",
+     "Text": [
+      {
+       "Language": "de",
+       "Text": "Kataster der belasteten Standorte im Bereich des öffentlichen Verkehrs"
+      }
+     ]
+    },
+    {
+     "Code": "ch.Grundwasserschutzzonen",
+     "Text": [
+      {
+       "Language": "de",
+       "Text": "Grundwasserschutzzonen"
+      }
+     ]
+    },
+    {
+     "Code": "ch.Grundwasserschutzareale",
+     "Text": [
+      {
+       "Language": "de",
+       "Text": "Grundwasserschutzareale"
+      }
+     ]
+    },
+    {
+     "Code": "ch.Gewaesserraum",
+     "Text": [
+      {
+       "Language": "de",
+       "Text": "Gewässerraum"
+      }
+     ]
+    },
+    {
+     "Code": "ch.StatischeWaldgrenzen",
+     "Text": [
+      {
+       "Language": "de",
+       "Text": "Statische Waldgrenzen"
+      }
+     ]
+    },
+    {
+     "Code": "ch.Waldabstandslinien",
+     "Text": [
+      {
+       "Language": "de",
+       "Text": "Waldabstandslinien"
+      }
+     ]
+    },
+    {
+     "Code": "ch.Waldreservate",
+     "Text": [
+      {
+       "Language": "de",
+       "Text": "Waldreservate"
+      }
+     ]
+    },
+    {
+     "Code": "ch.ProjektierungszonenStarkstromanlagen",
+     "Text": [
+      {
+       "Language": "de",
+       "Text": "Projektierungszonen Leitungen mit einer Nennspannung von 220 kV oder höher"
+      }
+     ]
+    },
+    {
+     "Code": "ch.BaulinienStarkstromanlagen",
+     "Text": [
+      {
+       "Language": "de",
+       "Text": "Baulinien Starkstromanlagen"
+      }
+     ]
+    }
+   ],
+   "ThemeWithoutData": []
+  }
+ }
+}

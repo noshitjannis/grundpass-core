@@ -1,0 +1,3129 @@
+{
+ "_hinweis": "Echte Antwort vom 16.10.2026, verkleinert mit scripts/oereb-fixture.ts: https://prozessor-oereb.ur.ch/oereb/extract/json?EGRID=CH344607776411&GEOMETRY=false&WITHIMAGES=false&LANG=de (Rathausplatz 1, 6460 Altdorf, Altdorf (UR) Parzelle 615, EGID 236456). Geometrien, Bilder, Glossar und Rechtsvorschriften bis auf eine entfernt.",
+ "?xml": {
+  "@version": "1.0",
+  "@encoding": "utf-8"
+ },
+ "Extract": {
+  "@xmlns:gml": "http://www.opengis.net/gml/3.2",
+  "@xmlns:xlink": "http://www.w3.org/1999/xlink",
+  "@xmlns:xsd": "http://www.w3.org/2001/XMLSchema",
+  "@xmlns:extract": "http://schemas.geo.admin.ch/V_D/OeREB/2.0/Extract",
+  "@xmlns:xsi": "http://www.w3.org/2001/XMLSchema-instance",
+  "@xmlns:geo": "http://www.interlis.ch/geometry/1.0",
+  "@xmlns": "http://schemas.geo.admin.ch/V_D/OeREB/2.0/ExtractData",
+  "CreationDate": "2026-10-16T08:27:15.8716418+02:00",
+  "ConcernedTheme": [
+   {
+    "Code": "ch.Nutzungsplanung",
+    "Text": {
+     "LocalisedText": {
+      "Language": "de",
+      "Text": "Gemeindliche Nutzungsplanung"
+     }
+    }
+   },
+   {
+    "Code": "ch.Grundwasserschutzbereiche",
+    "Text": {
+     "LocalisedText": {
+      "Language": "de",
+      "Text": "Gewässerschutzbereiche"
+     }
+    }
+   },
+   {
+    "Code": "ch.Laermempfindlichkeitsstufen",
+    "Text": {
+     "LocalisedText": {
+      "Language": "de",
+      "Text": "Lärmempfindlichkeitsstufen (in Nutzungszonen)"
+     }
+    }
+   },
+   {
+    "Code": "ch.SchutzmassnahmenNaturLandschaftNationalRegional",
+    "Text": {
+     "LocalisedText": {
+      "Language": "de",
+      "Text": "Schutzmassnahmen für Natur- und Landschaftsschutzobjekte nationaler und regionaler Bedeutung"
+     }
+    }
+   },
+   {
+    "Code": "ch.UR.SchutzmassnahmenNaturLandschaftlokal",
+    "Text": {
+     "LocalisedText": {
+      "Language": "de",
+      "Text": "Schutzmassnahmen für Natur- und Landschaftsschutzobjekte lokaler Bedeutung"
+     }
+    }
+   },
+   {
+    "Code": "ch.UR.SchutzmassnahmenKulturDenkmalLokal",
+    "Text": {
+     "LocalisedText": {
+      "Language": "de",
+      "Text": "Schutzmassnahmen für Kultur- und Denkmalschutzobjekte lokaler Bedeutung"
+     }
+    }
+   }
+  ],
+  "NotConcernedTheme": [
+   {
+    "Code": "ch.UR.KantonalePlanungszonen",
+    "Text": {
+     "LocalisedText": {
+      "Language": "de",
+      "Text": "Kantonale Planungszonen"
+     }
+    }
+   },
+   {
+    "Code": "ch.UR.KantonalePlanungszonenAenderungMitVorwirkung",
+    "Text": {
+     "LocalisedText": {
+      "Language": "de",
+      "Text": "Kantonale Planungszonen (Änderung mit Vorwirkung)"
+     }
+    }
+   },
+   {
+    "Code": "ch.Planungszonen",
+    "Text": {
+     "LocalisedText": {
+      "Language": "de",
+      "Text": "Gemeindliche Planungszonen"
+     }
+    }
+   },
+   {
+    "Code": "ch.PlanungszonenAenderungMitVorwirkung",
+    "Text": {
+     "LocalisedText": {
+      "Language": "de",
+      "Text": "Gemeindliche Planungszonen (Änderung mit Vorwirkung)"
+     }
+    }
+   },
+   {
+    "Code": "ch.UR.KantonaleNutzungsplanung",
+    "Text": {
+     "LocalisedText": {
+      "Language": "de",
+      "Text": "Kantonale Nutzungsplanung"
+     }
+    }
+   },
+   {
+    "Code": "ch.UR.KantonaleNutzungsplanungAenderungOhneVorwirkung",
+    "Text": {
+     "LocalisedText": {
+      "Language": "de",
+      "Text": "Kantonale Nutzungsplanung (Änderung ohne Vorwirkung)"
+     }
+    }
+   },
+   {
+    "Code": "ch.NutzungsplanungAenderungOhneVorwirkung",
+    "Text": {
+     "LocalisedText": {
+      "Language": "de",
+      "Text": "Gemeindliche Nutzungsplanung (Änderung ohne Vorwirkung)"
+     }
+    }
+   },
+   {
+    "Code": "ch.UR.Quartierplaene",
+    "Text": {
+     "LocalisedText": {
+      "Language": "de",
+      "Text": "Quartierpläne"
+     }
+    }
+   },
+   {
+    "Code": "ch.UR.QuartierplaeneAenderungOhneVorwirkung",
+    "Text": {
+     "LocalisedText": {
+      "Language": "de",
+      "Text": "Quartierpläne (Änderung ohne Vorwirkung)"
+     }
+    }
+   },
+   {
+    "Code": "ch.UR.Quartiergestaltungsplaene",
+    "Text": {
+     "LocalisedText": {
+      "Language": "de",
+      "Text": "Quartiergestaltungspläne"
+     }
+    }
+   },
+   {
+    "Code": "ch.UR.QuartiergestaltungsplaeneAenderungOhneVorwirkung",
+    "Text": {
+     "LocalisedText": {
+      "Language": "de",
+      "Text": "Quartiergestaltungspläne (Änderung ohne Vorwirkung)"
+     }
+    }
+   },
+   {
+    "Code": "ch.UR.KantonaleBaulinien",
+    "Text": {
+     "LocalisedText": {
+      "Language": "de",
+      "Text": "Kantonale Baulinien"
+     }
+    }
+   },
+   {
+    "Code": "ch.UR.KantonaleBaulinienAenderungOhneVorwirkung",
+    "Text": {
+     "LocalisedText": {
+      "Language": "de",
+      "Text": "Kantonale Baulinien (Änderung ohne Vorwirkung)"
+     }
+    }
+   },
+   {
+    "Code": "ch.UR.GemeindlicheBaulinien",
+    "Text": {
+     "LocalisedText": {
+      "Language": "de",
+      "Text": "Gemeindliche Baulinien"
+     }
+    }
+   },
+   {
+    "Code": "ch.UR.GemeindlicheBaulinienAenderungOhneVorwirkung",
+    "Text": {
+     "LocalisedText": {
+      "Language": "de",
+      "Text": "Gemeindliche Baulinien (Änderung ohne Vorwirkung)"
+     }
+    }
+   },
+   {
+    "Code": "ch.UR.Bausperren",
+    "Text": {
+     "LocalisedText": {
+      "Language": "de",
+      "Text": "Gebiete mit Bausperren"
+     }
+    }
+   },
+   {
+    "Code": "ch.UR.BausperrenAenderungMitVorwirkung",
+    "Text": {
+     "LocalisedText": {
+      "Language": "de",
+      "Text": "Gebiete mit Bausperren (Änderung mit Vorwirkung)"
+     }
+    }
+   },
+   {
+    "Code": "ch.ProjektierungszonenNationalstrassen",
+    "Text": {
+     "LocalisedText": {
+      "Language": "de",
+      "Text": "Projektierungszonen Nationalstrassen"
+     }
+    }
+   },
+   {
+    "Code": "ch.BaulinienNationalstrassen",
+    "Text": {
+     "LocalisedText": {
+      "Language": "de",
+      "Text": "Baulinien Nationalstrassen"
+     }
+    }
+   },
+   {
+    "Code": "ch.BaulinienNationalstrassenAenderungOhneVorwirkung",
+    "Text": {
+     "LocalisedText": {
+      "Language": "de",
+      "Text": "Baulinien Nationalstrassen (Änderung ohne Vorwirkung)"
+     }
+    }
+   },
+   {
+    "Code": "ch.ProjektierungszonenEisenbahnanlagen",
+    "Text": {
+     "LocalisedText": {
+      "Language": "de",
+      "Text": "Projektierungszonen Eisenbahnanlagen"
+     }
+    }
+   },
+   {
+    "Code": "ch.BaulinienEisenbahnanlagen",
+    "Text": {
+     "LocalisedText": {
+      "Language": "de",
+      "Text": "Baulinien Eisenbahnanlagen"
+     }
+    }
+   },
+   {
+    "Code": "ch.ProjektierungszonenFlughafenanlagen",
+    "Text": {
+     "LocalisedText": {
+      "Language": "de",
+      "Text": "Projektierungszonen Flughafenanlagen"
+     }
+    }
+   },
+   {
+    "Code": "ch.BaulinienFlughafenanlagen",
+    "Text": {
+     "LocalisedText": {
+      "Language": "de",
+      "Text": "Baulinien Flughafenanlagen"
+     }
+    }
+   },
+   {
+    "Code": "ch.Sicherheitszonenplan",
+    "Text": {
+     "LocalisedText": {
+      "Language": "de",
+      "Text": "Sicherheitszonenplan"
+     }
+    }
+   },
+   {
+    "Code": "ch.SicherheitszonenplanAenderungMitVorwirkung",
+    "Text": {
+     "LocalisedText": {
+      "Language": "de",
+      "Text": "Sicherheitszonenplan (Änderung mit Vorwirkung)"
+     }
+    }
+   },
+   {
+    "Code": "ch.BelasteteStandorte",
+    "Text": {
+     "LocalisedText": {
+      "Language": "de",
+      "Text": "Kataster der belasteten Standorte"
+     }
+    }
+   },
+   {
+    "Code": "ch.BelasteteStandorteMilitaer",
+    "Text": {
+     "LocalisedText": {
+      "Language": "de",
+      "Text": "Kataster der belasteten Standorte im Bereich des Militärs"
+     }
+    }
+   },
+   {
+    "Code": "ch.BelasteteStandorteZivileFlugplaetze",
+    "Text": {
+     "LocalisedText": {
+      "Language": "de",
+      "Text": "Kataster der belasteten Standorte im Bereich der zivilen Flugplätze"
+     }
+    }
+   },
+   {
+    "Code": "ch.BelasteteStandorteOeffentlicherVerkehr",
+    "Text": {
+     "LocalisedText": {
+      "Language": "de",
+      "Text": "Kataster der belasteten Standorte im Bereich des öffentlichen Verkehrs"
+     }
+    }
+   },
+   {
+    "Code": "ch.Grundwasserschutzzonen",
+    "Text": {
+     "LocalisedText": {
+      "Language": "de",
+      "Text": "Grundwasserschutzzonen"
+     }
+    }
+   },
+   {
+    "Code": "ch.GrundwasserschutzzonenAenderungOhneVorwirkung",
+    "Text": {
+     "LocalisedText": {
+      "Language": "de",
+      "Text": "Grundwasserschutzzonen (Änderung ohne Vorwirkung)"
+     }
+    }
+   },
+   {
+    "Code": "ch.Grundwasserschutzareale",
+    "Text": {
+     "LocalisedText": {
+      "Language": "de",
+      "Text": "Grundwasserschutzareale"
+     }
+    }
+   },
+   {
+    "Code": "ch.GrundwasserschutzarealeAenderungOhneVorwirkung",
+    "Text": {
+     "LocalisedText": {
+      "Language": "de",
+      "Text": "Grundwasserschutzareale (Änderung ohne Vorwirkung)"
+     }
+    }
+   },
+   {
+    "Code": "ch.Gewaesserraum",
+    "Text": {
+     "LocalisedText": {
+      "Language": "de",
+      "Text": "Gewässerraum"
+     }
+    }
+   },
+   {
+    "Code": "ch.GewaesserraumAenderungOhneVorwirkung",
+    "Text": {
+     "LocalisedText": {
+      "Language": "de",
+      "Text": "Gewässerraum (Änderung ohne Vorwirkung)"
+     }
+    }
+   },
+   {
+    "Code": "ch.GrundwasserschutzbereicheAenderungOhneVorwirkung",
+    "Text": {
+     "LocalisedText": {
+      "Language": "de",
+      "Text": "Gewässerschutzbereiche (Änderung ohne Vorwirkung)"
+     }
+    }
+   },
+   {
+    "Code": "ch.LaermempfindlichkeitsstufenAenderungOhneVorwirkung",
+    "Text": {
+     "LocalisedText": {
+      "Language": "de",
+      "Text": "Lärmempfindlichkeitsstufen (in Nutzungszonen) (Änderung ohne Vorwirkung)"
+     }
+    }
+   },
+   {
+    "Code": "ch.StatischeWaldgrenzen",
+    "Text": {
+     "LocalisedText": {
+      "Language": "de",
+      "Text": "Statische Waldgrenzen"
+     }
+    }
+   },
+   {
+    "Code": "ch.StatischeWaldgrenzenAenderungOhneVorwirkung",
+    "Text": {
+     "LocalisedText": {
+      "Language": "de",
+      "Text": "Statische Waldgrenzen (Änderung ohne Vorwirkung)"
+     }
+    }
+   },
+   {
+    "Code": "ch.Waldabstandslinien",
+    "Text": {
+     "LocalisedText": {
+      "Language": "de",
+      "Text": "Waldabstandslinien"
+     }
+    }
+   },
+   {
+    "Code": "ch.WaldabstandslinienAenderungOhneVorwirkung",
+    "Text": {
+     "LocalisedText": {
+      "Language": "de",
+      "Text": "Waldabstandslinien (Änderung ohne Vorwirkung)"
+     }
+    }
+   },
+   {
+    "Code": "ch.Waldreservate",
+    "Text": {
+     "LocalisedText": {
+      "Language": "de",
+      "Text": "Waldreservate"
+     }
+    }
+   },
+   {
+    "Code": "ch.ProjektierungszonenStarkstromanlagen",
+    "Text": {
+     "LocalisedText": {
+      "Language": "de",
+      "Text": "Projektierungszonen Leitungen mit einer Nennspannung von 220 kV oder höher"
+     }
+    }
+   },
+   {
+    "Code": "ch.ProjektierungszonenStarkstromanlagenAenderungOhneVorwirkung",
+    "Text": {
+     "LocalisedText": {
+      "Language": "de",
+      "Text": "Projektierungszonen Leitungen mit einer Nennspannung von 220 kV oder höher (Änderung ohne Vorwirkung)"
+     }
+    }
+   },
+   {
+    "Code": "ch.BaulinienStarkstromanlagen",
+    "Text": {
+     "LocalisedText": {
+      "Language": "de",
+      "Text": "Baulinien Starkstromanlagen"
+     }
+    }
+   },
+   {
+    "Code": "ch.BaulinienStarkstromanlagenAenderungOhneVorwirkung",
+    "Text": {
+     "LocalisedText": {
+      "Language": "de",
+      "Text": "Baulinien Starkstromanlagen (Änderung ohne Vorwirkung)"
+     }
+    }
+   },
+   {
+    "Code": "ch.SchutzmassnahmenNaturLandschaftNationalRegionalOhneVorwirkung",
+    "Text": {
+     "LocalisedText": {
+      "Language": "de",
+      "Text": "Schutzmassnahmen für Natur- und Landschaftsschutzobjekte nationaler und regionaler Bedeutung (Änderung ohne Vorwirkung)"
+     }
+    }
+   },
+   {
+    "Code": "ch.SchutzmassnahmenNaturLandschaftlokalOhneVorwirkung",
+    "Text": {
+     "LocalisedText": {
+      "Language": "de",
+      "Text": "Schutzmassnahmen für Natur- und Landschaftsschutzobjekte lokaler Bedeutung (Änderung ohne Vorwirkung)"
+     }
+    }
+   },
+   {
+    "Code": "ch.UR.SchutzmassnahmenKulturDenkmalNationalRegional",
+    "Text": {
+     "LocalisedText": {
+      "Language": "de",
+      "Text": "Schutzmassnahmen für Kultur- und Denkmalschutzobjekte nationaler und regionaler Bedeutung"
+     }
+    }
+   },
+   {
+    "Code": "ch.UR.SchutzmassnahmenKulturDenkmalNationalRegionalOhneVorwirkung",
+    "Text": {
+     "LocalisedText": {
+      "Language": "de",
+      "Text": "Schutzmassnahmen für Kultur- und Denkmalschutzobjekte nationaler und regionaler Bedeutung (Änderung ohne Vorwirkung)"
+     }
+    }
+   },
+   {
+    "Code": "ch.UR.SchutzmassnahmenKulturDenkmalLokalOhneVorwirkung",
+    "Text": {
+     "LocalisedText": {
+      "Language": "de",
+      "Text": "Schutzmassnahmen für Kultur- und Denkmalschutzobjekte lokaler Bedeutung (Änderung ohne Vorwirkung)"
+     }
+    }
+   }
+  ],
+  "ExtractIdentifier": "de19079f-3e83-4c7c-b7f4-cfd6c833d0cd",
+  "RealEstate": {
+   "Number": "615",
+   "IdentDN": "UR0200001201",
+   "EGRID": "CH344607776411",
+   "Type": {
+    "Code": "RealEstate",
+    "Text": {
+     "LocalisedText": {
+      "Language": "de",
+      "Text": "Liegenschaft"
+     }
+    }
+   },
+   "Canton": "UR",
+   "MunicipalityName": "Altdorf",
+   "MunicipalityCode": "1201",
+   "SubunitOfLandRegister": null,
+   "SubunitOfLandRegisterDesignation": null,
+   "LandRegistryArea": "1793",
+   "RestrictionOnLandownership": [
+    {
+     "LegendText": {
+      "LocalisedText": {
+       "Language": "de",
+       "Text": "73B (rkr) Gemeindliche Nutzungsplanung Grundnutzung Altdorf"
+      }
+     },
+     "Theme": {
+      "Code": "ch.Nutzungsplanung",
+      "Text": {
+       "LocalisedText": {
+        "Language": "de",
+        "Text": "Gemeindliche Nutzungsplanung"
+       }
+      }
+     },
+     "TypeCode": "7c9a73eb:L:2623",
+     "Lawstatus": {
+      "Code": "inForce",
+      "Text": {
+       "LocalisedText": {
+        "Language": "de",
+        "Text": "Rechtskräftig"
+       }
+      }
+     },
+     "AreaShare": "347",
+     "PartInPercent": "19",
+     "Map": {
+      "OtherLegend": [
+       {
+        "LegendText": {
+         "LocalisedText": {
+          "Language": "de",
+          "Text": "Verkehrsfläche innerhalb Bauzonen"
+         }
+        },
+        "TypeCode": "7c9a73eb:L:5776",
+        "Theme": {
+         "Code": "ch.Nutzungsplanung",
+         "Text": {
+          "LocalisedText": {
+           "Language": "de",
+           "Text": "Gemeindliche Nutzungsplanung"
+          }
+         }
+        }
+       },
+       {
+        "LegendText": {
+         "LocalisedText": {
+          "Language": "de",
+          "Text": "Kernzone 1"
+         }
+        },
+        "TypeCode": "7c9a73eb:L:2623",
+        "Theme": {
+         "Code": "ch.Nutzungsplanung",
+         "Text": {
+          "LocalisedText": {
+           "Language": "de",
+           "Text": "Gemeindliche Nutzungsplanung"
+          }
+         }
+        }
+       },
+       {
+        "LegendText": {
+         "LocalisedText": {
+          "Language": "de",
+          "Text": "Zone für öffentliche Bauten und Anlagen"
+         }
+        },
+        "TypeCode": "7c9a73eb:L:6523",
+        "Theme": {
+         "Code": "ch.Nutzungsplanung",
+         "Text": {
+          "LocalisedText": {
+           "Language": "de",
+           "Text": "Gemeindliche Nutzungsplanung"
+          }
+         }
+        }
+       },
+       {
+        "LegendText": {
+         "LocalisedText": {
+          "Language": "de",
+          "Text": "Kernzone 3"
+         }
+        },
+        "TypeCode": "7c9a73eb:L:7358",
+        "Theme": {
+         "Code": "ch.Nutzungsplanung",
+         "Text": {
+          "LocalisedText": {
+           "Language": "de",
+           "Text": "Gemeindliche Nutzungsplanung"
+          }
+         }
+        }
+       }
+      ]
+     },
+     "LegalProvisions": [
+      {
+       "Type": {
+        "Code": "LegalProvision",
+        "Text": {
+         "LocalisedText": {
+          "Language": "de",
+          "Text": "Rechtsvorschrift"
+         }
+        }
+       },
+       "Title": {
+        "LocalisedText": {
+         "Language": "de",
+         "Text": "Bauordnung Altdorf"
+        }
+       },
+       "Abbreviation": {
+        "LocalisedText": {
+         "Language": "de",
+         "Text": null
+        }
+       },
+       "TextAtWeb": {
+        "LocalisedText": {
+         "Language": "de",
+         "Text": "https://webgis.lisag.ch/PDF/Nutzungsplanung/1201_BZO_Altdorf.pdf"
+        }
+       },
+       "Lawstatus": {
+        "Code": "inForce",
+        "Text": {
+         "LocalisedText": {
+          "Language": "de",
+          "Text": "Rechtskräftig"
+         }
+        }
+       },
+       "Index": "20",
+       "ResponsibleOffice": {
+        "Name": {
+         "LocalisedText": {
+          "Language": "de",
+          "Text": null
+         }
+        },
+        "OfficeAtWeb": {
+         "LocalisedText": {
+          "Language": "de",
+          "Text": null
+         }
+        }
+       }
+      }
+     ],
+     "ResponsibleOffice": {
+      "Name": {
+       "LocalisedText": {
+        "Language": "de",
+        "Text": "Gemeinde Altdorf"
+       }
+      },
+      "OfficeAtWeb": {
+       "LocalisedText": {
+        "Language": "de",
+        "Text": "https://www.altdorf.ch"
+       }
+      }
+     }
+    },
+    {
+     "LegendText": {
+      "LocalisedText": {
+       "Language": "de",
+       "Text": "73B (rkr) Gemeindliche Nutzungsplanung Grundnutzung Altdorf"
+      }
+     },
+     "Theme": {
+      "Code": "ch.Nutzungsplanung",
+      "Text": {
+       "LocalisedText": {
+        "Language": "de",
+        "Text": "Gemeindliche Nutzungsplanung"
+       }
+      }
+     },
+     "TypeCode": "7c9a73eb:L:2623",
+     "Lawstatus": {
+      "Code": "inForce",
+      "Text": {
+       "LocalisedText": {
+        "Language": "de",
+        "Text": "Rechtskräftig"
+       }
+      }
+     },
+     "AreaShare": "49",
+     "PartInPercent": "3",
+     "Map": {
+      "OtherLegend": [
+       {
+        "LegendText": {
+         "LocalisedText": {
+          "Language": "de",
+          "Text": "Verkehrsfläche innerhalb Bauzonen"
+         }
+        },
+        "TypeCode": "7c9a73eb:L:5776",
+        "Theme": {
+         "Code": "ch.Nutzungsplanung",
+         "Text": {
+          "LocalisedText": {
+           "Language": "de",
+           "Text": "Gemeindliche Nutzungsplanung"
+          }
+         }
+        }
+       },
+       {
+        "LegendText": {
+         "LocalisedText": {
+          "Language": "de",
+          "Text": "Kernzone 1"
+         }
+        },
+        "TypeCode": "7c9a73eb:L:2623",
+        "Theme": {
+         "Code": "ch.Nutzungsplanung",
+         "Text": {
+          "LocalisedText": {
+           "Language": "de",
+           "Text": "Gemeindliche Nutzungsplanung"
+          }
+         }
+        }
+       },
+       {
+        "LegendText": {
+         "LocalisedText": {
+          "Language": "de",
+          "Text": "Zone für öffentliche Bauten und Anlagen"
+         }
+        },
+        "TypeCode": "7c9a73eb:L:6523",
+        "Theme": {
+         "Code": "ch.Nutzungsplanung",
+         "Text": {
+          "LocalisedText": {
+           "Language": "de",
+           "Text": "Gemeindliche Nutzungsplanung"
+          }
+         }
+        }
+       },
+       {
+        "LegendText": {
+         "LocalisedText": {
+          "Language": "de",
+          "Text": "Kernzone 3"
+         }
+        },
+        "TypeCode": "7c9a73eb:L:7358",
+        "Theme": {
+         "Code": "ch.Nutzungsplanung",
+         "Text": {
+          "LocalisedText": {
+           "Language": "de",
+           "Text": "Gemeindliche Nutzungsplanung"
+          }
+         }
+        }
+       }
+      ]
+     },
+     "LegalProvisions": [
+      {
+       "Type": {
+        "Code": "LegalProvision",
+        "Text": {
+         "LocalisedText": {
+          "Language": "de",
+          "Text": "Rechtsvorschrift"
+         }
+        }
+       },
+       "Title": {
+        "LocalisedText": {
+         "Language": "de",
+         "Text": "Bauordnung Altdorf"
+        }
+       },
+       "Abbreviation": {
+        "LocalisedText": {
+         "Language": "de",
+         "Text": null
+        }
+       },
+       "TextAtWeb": {
+        "LocalisedText": {
+         "Language": "de",
+         "Text": "https://webgis.lisag.ch/PDF/Nutzungsplanung/1201_BZO_Altdorf.pdf"
+        }
+       },
+       "Lawstatus": {
+        "Code": "inForce",
+        "Text": {
+         "LocalisedText": {
+          "Language": "de",
+          "Text": "Rechtskräftig"
+         }
+        }
+       },
+       "Index": "20",
+       "ResponsibleOffice": {
+        "Name": {
+         "LocalisedText": {
+          "Language": "de",
+          "Text": null
+         }
+        },
+        "OfficeAtWeb": {
+         "LocalisedText": {
+          "Language": "de",
+          "Text": null
+         }
+        }
+       }
+      }
+     ],
+     "ResponsibleOffice": {
+      "Name": {
+       "LocalisedText": {
+        "Language": "de",
+        "Text": "Gemeinde Altdorf"
+       }
+      },
+      "OfficeAtWeb": {
+       "LocalisedText": {
+        "Language": "de",
+        "Text": "https://www.altdorf.ch"
+       }
+      }
+     }
+    },
+    {
+     "LegendText": {
+      "LocalisedText": {
+       "Language": "de",
+       "Text": "73B (rkr) Gemeindliche Nutzungsplanung Grundnutzung Altdorf"
+      }
+     },
+     "Theme": {
+      "Code": "ch.Nutzungsplanung",
+      "Text": {
+       "LocalisedText": {
+        "Language": "de",
+        "Text": "Gemeindliche Nutzungsplanung"
+       }
+      }
+     },
+     "TypeCode": "7c9a73eb:L:5776",
+     "Lawstatus": {
+      "Code": "inForce",
+      "Text": {
+       "LocalisedText": {
+        "Language": "de",
+        "Text": "Rechtskräftig"
+       }
+      }
+     },
+     "AreaShare": "1313",
+     "PartInPercent": "73",
+     "Map": {
+      "OtherLegend": [
+       {
+        "LegendText": {
+         "LocalisedText": {
+          "Language": "de",
+          "Text": "Verkehrsfläche innerhalb Bauzonen"
+         }
+        },
+        "TypeCode": "7c9a73eb:L:5776",
+        "Theme": {
+         "Code": "ch.Nutzungsplanung",
+         "Text": {
+          "LocalisedText": {
+           "Language": "de",
+           "Text": "Gemeindliche Nutzungsplanung"
+          }
+         }
+        }
+       },
+       {
+        "LegendText": {
+         "LocalisedText": {
+          "Language": "de",
+          "Text": "Kernzone 1"
+         }
+        },
+        "TypeCode": "7c9a73eb:L:2623",
+        "Theme": {
+         "Code": "ch.Nutzungsplanung",
+         "Text": {
+          "LocalisedText": {
+           "Language": "de",
+           "Text": "Gemeindliche Nutzungsplanung"
+          }
+         }
+        }
+       },
+       {
+        "LegendText": {
+         "LocalisedText": {
+          "Language": "de",
+          "Text": "Zone für öffentliche Bauten und Anlagen"
+         }
+        },
+        "TypeCode": "7c9a73eb:L:6523",
+        "Theme": {
+         "Code": "ch.Nutzungsplanung",
+         "Text": {
+          "LocalisedText": {
+           "Language": "de",
+           "Text": "Gemeindliche Nutzungsplanung"
+          }
+         }
+        }
+       },
+       {
+        "LegendText": {
+         "LocalisedText": {
+          "Language": "de",
+          "Text": "Kernzone 3"
+         }
+        },
+        "TypeCode": "7c9a73eb:L:7358",
+        "Theme": {
+         "Code": "ch.Nutzungsplanung",
+         "Text": {
+          "LocalisedText": {
+           "Language": "de",
+           "Text": "Gemeindliche Nutzungsplanung"
+          }
+         }
+        }
+       }
+      ]
+     },
+     "LegalProvisions": [
+      {
+       "Type": {
+        "Code": "LegalProvision",
+        "Text": {
+         "LocalisedText": {
+          "Language": "de",
+          "Text": "Rechtsvorschrift"
+         }
+        }
+       },
+       "Title": {
+        "LocalisedText": {
+         "Language": "de",
+         "Text": "Bauordnung Altdorf"
+        }
+       },
+       "Abbreviation": {
+        "LocalisedText": {
+         "Language": "de",
+         "Text": null
+        }
+       },
+       "TextAtWeb": {
+        "LocalisedText": {
+         "Language": "de",
+         "Text": "https://webgis.lisag.ch/PDF/Nutzungsplanung/1201_BZO_Altdorf.pdf"
+        }
+       },
+       "Lawstatus": {
+        "Code": "inForce",
+        "Text": {
+         "LocalisedText": {
+          "Language": "de",
+          "Text": "Rechtskräftig"
+         }
+        }
+       },
+       "Index": "20",
+       "ResponsibleOffice": {
+        "Name": {
+         "LocalisedText": {
+          "Language": "de",
+          "Text": null
+         }
+        },
+        "OfficeAtWeb": {
+         "LocalisedText": {
+          "Language": "de",
+          "Text": null
+         }
+        }
+       }
+      }
+     ],
+     "ResponsibleOffice": {
+      "Name": {
+       "LocalisedText": {
+        "Language": "de",
+        "Text": "Gemeinde Altdorf"
+       }
+      },
+      "OfficeAtWeb": {
+       "LocalisedText": {
+        "Language": "de",
+        "Text": "https://www.altdorf.ch"
+       }
+      }
+     }
+    },
+    {
+     "LegendText": {
+      "LocalisedText": {
+       "Language": "de",
+       "Text": "73B (rkr) Gemeindliche Nutzungsplanung Grundnutzung Altdorf"
+      }
+     },
+     "Theme": {
+      "Code": "ch.Nutzungsplanung",
+      "Text": {
+       "LocalisedText": {
+        "Language": "de",
+        "Text": "Gemeindliche Nutzungsplanung"
+       }
+      }
+     },
+     "TypeCode": "7c9a73eb:L:2623",
+     "Lawstatus": {
+      "Code": "inForce",
+      "Text": {
+       "LocalisedText": {
+        "Language": "de",
+        "Text": "Rechtskräftig"
+       }
+      }
+     },
+     "AreaShare": "84",
+     "PartInPercent": "5",
+     "Map": {
+      "OtherLegend": [
+       {
+        "LegendText": {
+         "LocalisedText": {
+          "Language": "de",
+          "Text": "Verkehrsfläche innerhalb Bauzonen"
+         }
+        },
+        "TypeCode": "7c9a73eb:L:5776",
+        "Theme": {
+         "Code": "ch.Nutzungsplanung",
+         "Text": {
+          "LocalisedText": {
+           "Language": "de",
+           "Text": "Gemeindliche Nutzungsplanung"
+          }
+         }
+        }
+       },
+       {
+        "LegendText": {
+         "LocalisedText": {
+          "Language": "de",
+          "Text": "Kernzone 1"
+         }
+        },
+        "TypeCode": "7c9a73eb:L:2623",
+        "Theme": {
+         "Code": "ch.Nutzungsplanung",
+         "Text": {
+          "LocalisedText": {
+           "Language": "de",
+           "Text": "Gemeindliche Nutzungsplanung"
+          }
+         }
+        }
+       },
+       {
+        "LegendText": {
+         "LocalisedText": {
+          "Language": "de",
+          "Text": "Zone für öffentliche Bauten und Anlagen"
+         }
+        },
+        "TypeCode": "7c9a73eb:L:6523",
+        "Theme": {
+         "Code": "ch.Nutzungsplanung",
+         "Text": {
+          "LocalisedText": {
+           "Language": "de",
+           "Text": "Gemeindliche Nutzungsplanung"
+          }
+         }
+        }
+       },
+       {
+        "LegendText": {
+         "LocalisedText": {
+          "Language": "de",
+          "Text": "Kernzone 3"
+         }
+        },
+        "TypeCode": "7c9a73eb:L:7358",
+        "Theme": {
+         "Code": "ch.Nutzungsplanung",
+         "Text": {
+          "LocalisedText": {
+           "Language": "de",
+           "Text": "Gemeindliche Nutzungsplanung"
+          }
+         }
+        }
+       }
+      ]
+     },
+     "LegalProvisions": [
+      {
+       "Type": {
+        "Code": "LegalProvision",
+        "Text": {
+         "LocalisedText": {
+          "Language": "de",
+          "Text": "Rechtsvorschrift"
+         }
+        }
+       },
+       "Title": {
+        "LocalisedText": {
+         "Language": "de",
+         "Text": "Bauordnung Altdorf"
+        }
+       },
+       "Abbreviation": {
+        "LocalisedText": {
+         "Language": "de",
+         "Text": null
+        }
+       },
+       "TextAtWeb": {
+        "LocalisedText": {
+         "Language": "de",
+         "Text": "https://webgis.lisag.ch/PDF/Nutzungsplanung/1201_BZO_Altdorf.pdf"
+        }
+       },
+       "Lawstatus": {
+        "Code": "inForce",
+        "Text": {
+         "LocalisedText": {
+          "Language": "de",
+          "Text": "Rechtskräftig"
+         }
+        }
+       },
+       "Index": "20",
+       "ResponsibleOffice": {
+        "Name": {
+         "LocalisedText": {
+          "Language": "de",
+          "Text": null
+         }
+        },
+        "OfficeAtWeb": {
+         "LocalisedText": {
+          "Language": "de",
+          "Text": null
+         }
+        }
+       }
+      }
+     ],
+     "ResponsibleOffice": {
+      "Name": {
+       "LocalisedText": {
+        "Language": "de",
+        "Text": "Gemeinde Altdorf"
+       }
+      },
+      "OfficeAtWeb": {
+       "LocalisedText": {
+        "Language": "de",
+        "Text": "https://www.altdorf.ch"
+       }
+      }
+     }
+    },
+    {
+     "LegendText": {
+      "LocalisedText": {
+       "Language": "de",
+       "Text": "73B (rkr) Gemeindliche Nutzungsplanung ueberlagernde Festlegung Altdorf"
+      }
+     },
+     "Theme": {
+      "Code": "ch.Nutzungsplanung",
+      "Text": {
+       "LocalisedText": {
+        "Language": "de",
+        "Text": "Gemeindliche Nutzungsplanung"
+       }
+      }
+     },
+     "TypeCode": "bc6d4ce2:L:5589",
+     "Lawstatus": {
+      "Code": "inForce",
+      "Text": {
+       "LocalisedText": {
+        "Language": "de",
+        "Text": "Rechtskräftig"
+       }
+      }
+     },
+     "AreaShare": "37",
+     "PartInPercent": "2",
+     "Map": {
+      "OtherLegend": [
+       {
+        "LegendText": {
+         "LocalisedText": {
+          "Language": "de",
+          "Text": "Weitere Bauten (Bautyp C)"
+         }
+        },
+        "TypeCode": "bc6d4ce2:L:6693",
+        "Theme": {
+         "Code": "ch.Nutzungsplanung",
+         "Text": {
+          "LocalisedText": {
+           "Language": "de",
+           "Text": "Gemeindliche Nutzungsplanung"
+          }
+         }
+        }
+       },
+       {
+        "LegendText": {
+         "LocalisedText": {
+          "Language": "de",
+          "Text": "Wichtige Bauten (Bautyp B)"
+         }
+        },
+        "TypeCode": "bc6d4ce2:L:5589",
+        "Theme": {
+         "Code": "ch.Nutzungsplanung",
+         "Text": {
+          "LocalisedText": {
+           "Language": "de",
+           "Text": "Gemeindliche Nutzungsplanung"
+          }
+         }
+        }
+       },
+       {
+        "LegendText": {
+         "LocalisedText": {
+          "Language": "de",
+          "Text": "Zone mit Quartierrichtplanpflicht"
+         }
+        },
+        "TypeCode": "bc6d4ce2:L:3084",
+        "Theme": {
+         "Code": "ch.Nutzungsplanung",
+         "Text": {
+          "LocalisedText": {
+           "Language": "de",
+           "Text": "Gemeindliche Nutzungsplanung"
+          }
+         }
+        }
+       }
+      ]
+     },
+     "LegalProvisions": [
+      {
+       "Type": {
+        "Code": "LegalProvision",
+        "Text": {
+         "LocalisedText": {
+          "Language": "de",
+          "Text": "Rechtsvorschrift"
+         }
+        }
+       },
+       "Title": {
+        "LocalisedText": {
+         "Language": "de",
+         "Text": "Bauordnung Altdorf"
+        }
+       },
+       "Abbreviation": {
+        "LocalisedText": {
+         "Language": "de",
+         "Text": null
+        }
+       },
+       "TextAtWeb": {
+        "LocalisedText": {
+         "Language": "de",
+         "Text": "https://webgis.lisag.ch/PDF/Nutzungsplanung/1201_BZO_Altdorf.pdf"
+        }
+       },
+       "Lawstatus": {
+        "Code": "inForce",
+        "Text": {
+         "LocalisedText": {
+          "Language": "de",
+          "Text": "Rechtskräftig"
+         }
+        }
+       },
+       "Index": "20",
+       "ResponsibleOffice": {
+        "Name": {
+         "LocalisedText": {
+          "Language": "de",
+          "Text": null
+         }
+        },
+        "OfficeAtWeb": {
+         "LocalisedText": {
+          "Language": "de",
+          "Text": null
+         }
+        }
+       }
+      }
+     ],
+     "ResponsibleOffice": {
+      "Name": {
+       "LocalisedText": {
+        "Language": "de",
+        "Text": "Gemeinde Altdorf"
+       }
+      },
+      "OfficeAtWeb": {
+       "LocalisedText": {
+        "Language": "de",
+        "Text": "https://www.altdorf.ch"
+       }
+      }
+     }
+    },
+    {
+     "LegendText": {
+      "LocalisedText": {
+       "Language": "de",
+       "Text": "73B (rkr) Gemeindliche Nutzungsplanung Gefahren Altdorf"
+      }
+     },
+     "Theme": {
+      "Code": "ch.Nutzungsplanung",
+      "Text": {
+       "LocalisedText": {
+        "Language": "de",
+        "Text": "Gemeindliche Nutzungsplanung"
+       }
+      }
+     },
+     "TypeCode": "619ac159:L:1633",
+     "Lawstatus": {
+      "Code": "inForce",
+      "Text": {
+       "LocalisedText": {
+        "Language": "de",
+        "Text": "Rechtskräftig"
+       }
+      }
+     },
+     "AreaShare": "102",
+     "PartInPercent": "6",
+     "Map": {
+      "OtherLegend": {
+       "LegendText": {
+        "LocalisedText": {
+         "Language": "de",
+         "Text": "Gefahrenzone gelb"
+        }
+       },
+       "TypeCode": "619ac159:L:1633",
+       "Theme": {
+        "Code": "ch.Nutzungsplanung",
+        "Text": {
+         "LocalisedText": {
+          "Language": "de",
+          "Text": "Gemeindliche Nutzungsplanung"
+         }
+        }
+       }
+      }
+     },
+     "LegalProvisions": [
+      {
+       "Type": {
+        "Code": "LegalProvision",
+        "Text": {
+         "LocalisedText": {
+          "Language": "de",
+          "Text": "Rechtsvorschrift"
+         }
+        }
+       },
+       "Title": {
+        "LocalisedText": {
+         "Language": "de",
+         "Text": "Bauordnung Altdorf"
+        }
+       },
+       "Abbreviation": {
+        "LocalisedText": {
+         "Language": "de",
+         "Text": null
+        }
+       },
+       "TextAtWeb": {
+        "LocalisedText": {
+         "Language": "de",
+         "Text": "https://webgis.lisag.ch/PDF/Nutzungsplanung/1201_BZO_Altdorf.pdf"
+        }
+       },
+       "Lawstatus": {
+        "Code": "inForce",
+        "Text": {
+         "LocalisedText": {
+          "Language": "de",
+          "Text": "Rechtskräftig"
+         }
+        }
+       },
+       "Index": "20",
+       "ResponsibleOffice": {
+        "Name": {
+         "LocalisedText": {
+          "Language": "de",
+          "Text": null
+         }
+        },
+        "OfficeAtWeb": {
+         "LocalisedText": {
+          "Language": "de",
+          "Text": null
+         }
+        }
+       }
+      }
+     ],
+     "ResponsibleOffice": {
+      "Name": {
+       "LocalisedText": {
+        "Language": "de",
+        "Text": "Gemeinde Altdorf"
+       }
+      },
+      "OfficeAtWeb": {
+       "LocalisedText": {
+        "Language": "de",
+        "Text": "https://www.altdorf.ch"
+       }
+      }
+     }
+    },
+    {
+     "LegendText": {
+      "LocalisedText": {
+       "Language": "de",
+       "Text": "130 (rkr) Gewässerschutzbereiche Kt. Uri"
+      }
+     },
+     "Theme": {
+      "Code": "ch.Grundwasserschutzbereiche",
+      "Text": {
+       "LocalisedText": {
+        "Language": "de",
+        "Text": "Gewässerschutzbereiche"
+       }
+      }
+     },
+     "TypeCode": "6950fbe9:L:7765",
+     "Lawstatus": {
+      "Code": "inForce",
+      "Text": {
+       "LocalisedText": {
+        "Language": "de",
+        "Text": "Rechtskräftig"
+       }
+      }
+     },
+     "AreaShare": "1319",
+     "PartInPercent": "74",
+     "Map": {
+      "OtherLegend": [
+       {
+        "LegendText": {
+         "LocalisedText": {
+          "Language": "de",
+          "Text": "Gewässerschutzbereich Au"
+         }
+        },
+        "TypeCode": "6950fbe9:L:7765",
+        "Theme": {
+         "Code": "ch.Grundwasserschutzbereiche",
+         "Text": {
+          "LocalisedText": {
+           "Language": "de",
+           "Text": "Gewässerschutzbereiche"
+          }
+         }
+        }
+       },
+       {
+        "LegendText": {
+         "LocalisedText": {
+          "Language": "de",
+          "Text": "Gewässerschutzbereich Ao"
+         }
+        },
+        "TypeCode": "6950fbe9:L:3014",
+        "Theme": {
+         "Code": "ch.Grundwasserschutzbereiche",
+         "Text": {
+          "LocalisedText": {
+           "Language": "de",
+           "Text": "Gewässerschutzbereiche"
+          }
+         }
+        }
+       }
+      ]
+     },
+     "LegalProvisions": [
+      {
+       "Type": {
+        "Code": "LegalProvision",
+        "Text": {
+         "LocalisedText": {
+          "Language": "de",
+          "Text": "Rechtsvorschrift"
+         }
+        }
+       },
+       "Title": {
+        "LocalisedText": {
+         "Language": "de",
+         "Text": "Aussscheidung der akt. Gewässerschutzbereiche RRB 2014-470 vom 19.08.2014"
+        }
+       },
+       "Abbreviation": {
+        "LocalisedText": {
+         "Language": "de",
+         "Text": null
+        }
+       },
+       "TextAtWeb": {
+        "LocalisedText": {
+         "Language": "de",
+         "Text": "https://webgis.lisag.ch/pdf/Grundwasserschutz/1200_RRB_Gewässerschutzbereiche_Genehmigung_20140819.pdf"
+        }
+       },
+       "Lawstatus": {
+        "Code": "inForce",
+        "Text": {
+         "LocalisedText": {
+          "Language": "de",
+          "Text": "Rechtskräftig"
+         }
+        }
+       },
+       "Index": "20",
+       "ResponsibleOffice": {
+        "Name": {
+         "LocalisedText": {
+          "Language": "de",
+          "Text": null
+         }
+        },
+        "OfficeAtWeb": {
+         "LocalisedText": {
+          "Language": "de",
+          "Text": null
+         }
+        }
+       }
+      }
+     ],
+     "ResponsibleOffice": {
+      "Name": {
+       "LocalisedText": {
+        "Language": "de",
+        "Text": "Amt für Umwelt"
+       }
+      },
+      "OfficeAtWeb": {
+       "LocalisedText": {
+        "Language": "de",
+        "Text": "https://www.ur.ch/aemter/843"
+       }
+      }
+     }
+    },
+    {
+     "LegendText": {
+      "LocalisedText": {
+       "Language": "de",
+       "Text": "130 (rkr) Gewässerschutzbereiche Kt. Uri"
+      }
+     },
+     "Theme": {
+      "Code": "ch.Grundwasserschutzbereiche",
+      "Text": {
+       "LocalisedText": {
+        "Language": "de",
+        "Text": "Gewässerschutzbereiche"
+       }
+      }
+     },
+     "TypeCode": "6950fbe9:L:7765",
+     "Lawstatus": {
+      "Code": "inForce",
+      "Text": {
+       "LocalisedText": {
+        "Language": "de",
+        "Text": "Rechtskräftig"
+       }
+      }
+     },
+     "AreaShare": "474",
+     "PartInPercent": "26",
+     "Map": {
+      "OtherLegend": [
+       {
+        "LegendText": {
+         "LocalisedText": {
+          "Language": "de",
+          "Text": "Gewässerschutzbereich Au"
+         }
+        },
+        "TypeCode": "6950fbe9:L:7765",
+        "Theme": {
+         "Code": "ch.Grundwasserschutzbereiche",
+         "Text": {
+          "LocalisedText": {
+           "Language": "de",
+           "Text": "Gewässerschutzbereiche"
+          }
+         }
+        }
+       },
+       {
+        "LegendText": {
+         "LocalisedText": {
+          "Language": "de",
+          "Text": "Gewässerschutzbereich Ao"
+         }
+        },
+        "TypeCode": "6950fbe9:L:3014",
+        "Theme": {
+         "Code": "ch.Grundwasserschutzbereiche",
+         "Text": {
+          "LocalisedText": {
+           "Language": "de",
+           "Text": "Gewässerschutzbereiche"
+          }
+         }
+        }
+       }
+      ]
+     },
+     "LegalProvisions": [
+      {
+       "Type": {
+        "Code": "LegalProvision",
+        "Text": {
+         "LocalisedText": {
+          "Language": "de",
+          "Text": "Rechtsvorschrift"
+         }
+        }
+       },
+       "Title": {
+        "LocalisedText": {
+         "Language": "de",
+         "Text": "Aussscheidung der akt. Gewässerschutzbereiche RRB 2014-470 vom 19.08.2014"
+        }
+       },
+       "Abbreviation": {
+        "LocalisedText": {
+         "Language": "de",
+         "Text": null
+        }
+       },
+       "TextAtWeb": {
+        "LocalisedText": {
+         "Language": "de",
+         "Text": "https://webgis.lisag.ch/pdf/Grundwasserschutz/1200_RRB_Gewässerschutzbereiche_Genehmigung_20140819.pdf"
+        }
+       },
+       "Lawstatus": {
+        "Code": "inForce",
+        "Text": {
+         "LocalisedText": {
+          "Language": "de",
+          "Text": "Rechtskräftig"
+         }
+        }
+       },
+       "Index": "20",
+       "ResponsibleOffice": {
+        "Name": {
+         "LocalisedText": {
+          "Language": "de",
+          "Text": null
+         }
+        },
+        "OfficeAtWeb": {
+         "LocalisedText": {
+          "Language": "de",
+          "Text": null
+         }
+        }
+       }
+      }
+     ],
+     "ResponsibleOffice": {
+      "Name": {
+       "LocalisedText": {
+        "Language": "de",
+        "Text": "Amt für Umwelt"
+       }
+      },
+      "OfficeAtWeb": {
+       "LocalisedText": {
+        "Language": "de",
+        "Text": "https://www.ur.ch/aemter/843"
+       }
+      }
+     }
+    },
+    {
+     "LegendText": {
+      "LocalisedText": {
+       "Language": "de",
+       "Text": "130 (rkr) Gewässerschutzbereiche Kt. Uri"
+      }
+     },
+     "Theme": {
+      "Code": "ch.Grundwasserschutzbereiche",
+      "Text": {
+       "LocalisedText": {
+        "Language": "de",
+        "Text": "Gewässerschutzbereiche"
+       }
+      }
+     },
+     "TypeCode": "6950fbe9:L:3014",
+     "Lawstatus": {
+      "Code": "inForce",
+      "Text": {
+       "LocalisedText": {
+        "Language": "de",
+        "Text": "Rechtskräftig"
+       }
+      }
+     },
+     "AreaShare": "474",
+     "PartInPercent": "26",
+     "Map": {
+      "OtherLegend": [
+       {
+        "LegendText": {
+         "LocalisedText": {
+          "Language": "de",
+          "Text": "Gewässerschutzbereich Au"
+         }
+        },
+        "TypeCode": "6950fbe9:L:7765",
+        "Theme": {
+         "Code": "ch.Grundwasserschutzbereiche",
+         "Text": {
+          "LocalisedText": {
+           "Language": "de",
+           "Text": "Gewässerschutzbereiche"
+          }
+         }
+        }
+       },
+       {
+        "LegendText": {
+         "LocalisedText": {
+          "Language": "de",
+          "Text": "Gewässerschutzbereich Ao"
+         }
+        },
+        "TypeCode": "6950fbe9:L:3014",
+        "Theme": {
+         "Code": "ch.Grundwasserschutzbereiche",
+         "Text": {
+          "LocalisedText": {
+           "Language": "de",
+           "Text": "Gewässerschutzbereiche"
+          }
+         }
+        }
+       }
+      ]
+     },
+     "LegalProvisions": [
+      {
+       "Type": {
+        "Code": "LegalProvision",
+        "Text": {
+         "LocalisedText": {
+          "Language": "de",
+          "Text": "Rechtsvorschrift"
+         }
+        }
+       },
+       "Title": {
+        "LocalisedText": {
+         "Language": "de",
+         "Text": "Aussscheidung der akt. Gewässerschutzbereiche RRB 2014-470 vom 19.08.2014"
+        }
+       },
+       "Abbreviation": {
+        "LocalisedText": {
+         "Language": "de",
+         "Text": null
+        }
+       },
+       "TextAtWeb": {
+        "LocalisedText": {
+         "Language": "de",
+         "Text": "https://webgis.lisag.ch/pdf/Grundwasserschutz/1200_RRB_Gewässerschutzbereiche_Genehmigung_20140819.pdf"
+        }
+       },
+       "Lawstatus": {
+        "Code": "inForce",
+        "Text": {
+         "LocalisedText": {
+          "Language": "de",
+          "Text": "Rechtskräftig"
+         }
+        }
+       },
+       "Index": "20",
+       "ResponsibleOffice": {
+        "Name": {
+         "LocalisedText": {
+          "Language": "de",
+          "Text": null
+         }
+        },
+        "OfficeAtWeb": {
+         "LocalisedText": {
+          "Language": "de",
+          "Text": null
+         }
+        }
+       }
+      }
+     ],
+     "ResponsibleOffice": {
+      "Name": {
+       "LocalisedText": {
+        "Language": "de",
+        "Text": "Amt für Umwelt"
+       }
+      },
+      "OfficeAtWeb": {
+       "LocalisedText": {
+        "Language": "de",
+        "Text": "https://www.ur.ch/aemter/843"
+       }
+      }
+     }
+    },
+    {
+     "LegendText": {
+      "LocalisedText": {
+       "Language": "de",
+       "Text": "145 (rkr) Lärmempfindlichkeitsstufen Altdorf"
+      }
+     },
+     "Theme": {
+      "Code": "ch.Laermempfindlichkeitsstufen",
+      "Text": {
+       "LocalisedText": {
+        "Language": "de",
+        "Text": "Lärmempfindlichkeitsstufen (in Nutzungszonen)"
+       }
+      }
+     },
+     "TypeCode": "60c8bcdd:L:5565",
+     "Lawstatus": {
+      "Code": "inForce",
+      "Text": {
+       "LocalisedText": {
+        "Language": "de",
+        "Text": "Rechtskräftig"
+       }
+      }
+     },
+     "AreaShare": "49",
+     "PartInPercent": "3",
+     "Map": {
+      "OtherLegend": [
+       {
+        "LegendText": {
+         "LocalisedText": {
+          "Language": "de",
+          "Text": "Empfindlichkeitsstufe III"
+         }
+        },
+        "TypeCode": "60c8bcdd:L:5565",
+        "Theme": {
+         "Code": "ch.Laermempfindlichkeitsstufen",
+         "Text": {
+          "LocalisedText": {
+           "Language": "de",
+           "Text": "Lärmempfindlichkeitsstufen (in Nutzungszonen)"
+          }
+         }
+        }
+       },
+       {
+        "LegendText": {
+         "LocalisedText": {
+          "Language": "de",
+          "Text": "Empfindlichkeitsstufe II"
+         }
+        },
+        "TypeCode": "60c8bcdd:L:2749",
+        "Theme": {
+         "Code": "ch.Laermempfindlichkeitsstufen",
+         "Text": {
+          "LocalisedText": {
+           "Language": "de",
+           "Text": "Lärmempfindlichkeitsstufen (in Nutzungszonen)"
+          }
+         }
+        }
+       },
+       {
+        "LegendText": {
+         "LocalisedText": {
+          "Language": "de",
+          "Text": "Empfindlichkeitsstufe IV"
+         }
+        },
+        "TypeCode": "60c8bcdd:L:3984",
+        "Theme": {
+         "Code": "ch.Laermempfindlichkeitsstufen",
+         "Text": {
+          "LocalisedText": {
+           "Language": "de",
+           "Text": "Lärmempfindlichkeitsstufen (in Nutzungszonen)"
+          }
+         }
+        }
+       }
+      ]
+     },
+     "LegalProvisions": [
+      {
+       "Type": {
+        "Code": "LegalProvision",
+        "Text": {
+         "LocalisedText": {
+          "Language": "de",
+          "Text": "Rechtsvorschrift"
+         }
+        }
+       },
+       "Title": {
+        "LocalisedText": {
+         "Language": "de",
+         "Text": "Bauordnung Altdorf"
+        }
+       },
+       "Abbreviation": {
+        "LocalisedText": {
+         "Language": "de",
+         "Text": null
+        }
+       },
+       "TextAtWeb": {
+        "LocalisedText": {
+         "Language": "de",
+         "Text": "https://webgis.lisag.ch/PDF/Nutzungsplanung/1201_BZO_Altdorf.pdf"
+        }
+       },
+       "Lawstatus": {
+        "Code": "inForce",
+        "Text": {
+         "LocalisedText": {
+          "Language": "de",
+          "Text": "Rechtskräftig"
+         }
+        }
+       },
+       "Index": "20",
+       "ResponsibleOffice": {
+        "Name": {
+         "LocalisedText": {
+          "Language": "de",
+          "Text": null
+         }
+        },
+        "OfficeAtWeb": {
+         "LocalisedText": {
+          "Language": "de",
+          "Text": null
+         }
+        }
+       }
+      }
+     ],
+     "ResponsibleOffice": {
+      "Name": {
+       "LocalisedText": {
+        "Language": "de",
+        "Text": "Gemeinde Altdorf"
+       }
+      },
+      "OfficeAtWeb": {
+       "LocalisedText": {
+        "Language": "de",
+        "Text": "https://www.altdorf.ch"
+       }
+      }
+     }
+    },
+    {
+     "LegendText": {
+      "LocalisedText": {
+       "Language": "de",
+       "Text": "145 (rkr) Lärmempfindlichkeitsstufen Altdorf"
+      }
+     },
+     "Theme": {
+      "Code": "ch.Laermempfindlichkeitsstufen",
+      "Text": {
+       "LocalisedText": {
+        "Language": "de",
+        "Text": "Lärmempfindlichkeitsstufen (in Nutzungszonen)"
+       }
+      }
+     },
+     "TypeCode": "60c8bcdd:L:5565",
+     "Lawstatus": {
+      "Code": "inForce",
+      "Text": {
+       "LocalisedText": {
+        "Language": "de",
+        "Text": "Rechtskräftig"
+       }
+      }
+     },
+     "AreaShare": "347",
+     "PartInPercent": "19",
+     "Map": {
+      "OtherLegend": [
+       {
+        "LegendText": {
+         "LocalisedText": {
+          "Language": "de",
+          "Text": "Empfindlichkeitsstufe III"
+         }
+        },
+        "TypeCode": "60c8bcdd:L:5565",
+        "Theme": {
+         "Code": "ch.Laermempfindlichkeitsstufen",
+         "Text": {
+          "LocalisedText": {
+           "Language": "de",
+           "Text": "Lärmempfindlichkeitsstufen (in Nutzungszonen)"
+          }
+         }
+        }
+       },
+       {
+        "LegendText": {
+         "LocalisedText": {
+          "Language": "de",
+          "Text": "Empfindlichkeitsstufe II"
+         }
+        },
+        "TypeCode": "60c8bcdd:L:2749",
+        "Theme": {
+         "Code": "ch.Laermempfindlichkeitsstufen",
+         "Text": {
+          "LocalisedText": {
+           "Language": "de",
+           "Text": "Lärmempfindlichkeitsstufen (in Nutzungszonen)"
+          }
+         }
+        }
+       },
+       {
+        "LegendText": {
+         "LocalisedText": {
+          "Language": "de",
+          "Text": "Empfindlichkeitsstufe IV"
+         }
+        },
+        "TypeCode": "60c8bcdd:L:3984",
+        "Theme": {
+         "Code": "ch.Laermempfindlichkeitsstufen",
+         "Text": {
+          "LocalisedText": {
+           "Language": "de",
+           "Text": "Lärmempfindlichkeitsstufen (in Nutzungszonen)"
+          }
+         }
+        }
+       }
+      ]
+     },
+     "LegalProvisions": [
+      {
+       "Type": {
+        "Code": "LegalProvision",
+        "Text": {
+         "LocalisedText": {
+          "Language": "de",
+          "Text": "Rechtsvorschrift"
+         }
+        }
+       },
+       "Title": {
+        "LocalisedText": {
+         "Language": "de",
+         "Text": "Bauordnung Altdorf"
+        }
+       },
+       "Abbreviation": {
+        "LocalisedText": {
+         "Language": "de",
+         "Text": null
+        }
+       },
+       "TextAtWeb": {
+        "LocalisedText": {
+         "Language": "de",
+         "Text": "https://webgis.lisag.ch/PDF/Nutzungsplanung/1201_BZO_Altdorf.pdf"
+        }
+       },
+       "Lawstatus": {
+        "Code": "inForce",
+        "Text": {
+         "LocalisedText": {
+          "Language": "de",
+          "Text": "Rechtskräftig"
+         }
+        }
+       },
+       "Index": "20",
+       "ResponsibleOffice": {
+        "Name": {
+         "LocalisedText": {
+          "Language": "de",
+          "Text": null
+         }
+        },
+        "OfficeAtWeb": {
+         "LocalisedText": {
+          "Language": "de",
+          "Text": null
+         }
+        }
+       }
+      }
+     ],
+     "ResponsibleOffice": {
+      "Name": {
+       "LocalisedText": {
+        "Language": "de",
+        "Text": "Gemeinde Altdorf"
+       }
+      },
+      "OfficeAtWeb": {
+       "LocalisedText": {
+        "Language": "de",
+        "Text": "https://www.altdorf.ch"
+       }
+      }
+     }
+    },
+    {
+     "LegendText": {
+      "LocalisedText": {
+       "Language": "de",
+       "Text": "145 (rkr) Lärmempfindlichkeitsstufen Altdorf"
+      }
+     },
+     "Theme": {
+      "Code": "ch.Laermempfindlichkeitsstufen",
+      "Text": {
+       "LocalisedText": {
+        "Language": "de",
+        "Text": "Lärmempfindlichkeitsstufen (in Nutzungszonen)"
+       }
+      }
+     },
+     "TypeCode": "60c8bcdd:L:5565",
+     "Lawstatus": {
+      "Code": "inForce",
+      "Text": {
+       "LocalisedText": {
+        "Language": "de",
+        "Text": "Rechtskräftig"
+       }
+      }
+     },
+     "AreaShare": "84",
+     "PartInPercent": "5",
+     "Map": {
+      "OtherLegend": [
+       {
+        "LegendText": {
+         "LocalisedText": {
+          "Language": "de",
+          "Text": "Empfindlichkeitsstufe III"
+         }
+        },
+        "TypeCode": "60c8bcdd:L:5565",
+        "Theme": {
+         "Code": "ch.Laermempfindlichkeitsstufen",
+         "Text": {
+          "LocalisedText": {
+           "Language": "de",
+           "Text": "Lärmempfindlichkeitsstufen (in Nutzungszonen)"
+          }
+         }
+        }
+       },
+       {
+        "LegendText": {
+         "LocalisedText": {
+          "Language": "de",
+          "Text": "Empfindlichkeitsstufe II"
+         }
+        },
+        "TypeCode": "60c8bcdd:L:2749",
+        "Theme": {
+         "Code": "ch.Laermempfindlichkeitsstufen",
+         "Text": {
+          "LocalisedText": {
+           "Language": "de",
+           "Text": "Lärmempfindlichkeitsstufen (in Nutzungszonen)"
+          }
+         }
+        }
+       },
+       {
+        "LegendText": {
+         "LocalisedText": {
+          "Language": "de",
+          "Text": "Empfindlichkeitsstufe IV"
+         }
+        },
+        "TypeCode": "60c8bcdd:L:3984",
+        "Theme": {
+         "Code": "ch.Laermempfindlichkeitsstufen",
+         "Text": {
+          "LocalisedText": {
+           "Language": "de",
+           "Text": "Lärmempfindlichkeitsstufen (in Nutzungszonen)"
+          }
+         }
+        }
+       }
+      ]
+     },
+     "LegalProvisions": [
+      {
+       "Type": {
+        "Code": "LegalProvision",
+        "Text": {
+         "LocalisedText": {
+          "Language": "de",
+          "Text": "Rechtsvorschrift"
+         }
+        }
+       },
+       "Title": {
+        "LocalisedText": {
+         "Language": "de",
+         "Text": "Bauordnung Altdorf"
+        }
+       },
+       "Abbreviation": {
+        "LocalisedText": {
+         "Language": "de",
+         "Text": null
+        }
+       },
+       "TextAtWeb": {
+        "LocalisedText": {
+         "Language": "de",
+         "Text": "https://webgis.lisag.ch/PDF/Nutzungsplanung/1201_BZO_Altdorf.pdf"
+        }
+       },
+       "Lawstatus": {
+        "Code": "inForce",
+        "Text": {
+         "LocalisedText": {
+          "Language": "de",
+          "Text": "Rechtskräftig"
+         }
+        }
+       },
+       "Index": "20",
+       "ResponsibleOffice": {
+        "Name": {
+         "LocalisedText": {
+          "Language": "de",
+          "Text": null
+         }
+        },
+        "OfficeAtWeb": {
+         "LocalisedText": {
+          "Language": "de",
+          "Text": null
+         }
+        }
+       }
+      }
+     ],
+     "ResponsibleOffice": {
+      "Name": {
+       "LocalisedText": {
+        "Language": "de",
+        "Text": "Gemeinde Altdorf"
+       }
+      },
+      "OfficeAtWeb": {
+       "LocalisedText": {
+        "Language": "de",
+        "Text": "https://www.altdorf.ch"
+       }
+      }
+     }
+    },
+    {
+     "LegendText": {
+      "LocalisedText": {
+       "Language": "de",
+       "Text": "145 (rkr) Lärmempfindlichkeitsstufen Altdorf"
+      }
+     },
+     "Theme": {
+      "Code": "ch.Laermempfindlichkeitsstufen",
+      "Text": {
+       "LocalisedText": {
+        "Language": "de",
+        "Text": "Lärmempfindlichkeitsstufen (in Nutzungszonen)"
+       }
+      }
+     },
+     "TypeCode": "60c8bcdd:L:3984",
+     "Lawstatus": {
+      "Code": "inForce",
+      "Text": {
+       "LocalisedText": {
+        "Language": "de",
+        "Text": "Rechtskräftig"
+       }
+      }
+     },
+     "AreaShare": "1313",
+     "PartInPercent": "73",
+     "Map": {
+      "OtherLegend": [
+       {
+        "LegendText": {
+         "LocalisedText": {
+          "Language": "de",
+          "Text": "Empfindlichkeitsstufe III"
+         }
+        },
+        "TypeCode": "60c8bcdd:L:5565",
+        "Theme": {
+         "Code": "ch.Laermempfindlichkeitsstufen",
+         "Text": {
+          "LocalisedText": {
+           "Language": "de",
+           "Text": "Lärmempfindlichkeitsstufen (in Nutzungszonen)"
+          }
+         }
+        }
+       },
+       {
+        "LegendText": {
+         "LocalisedText": {
+          "Language": "de",
+          "Text": "Empfindlichkeitsstufe II"
+         }
+        },
+        "TypeCode": "60c8bcdd:L:2749",
+        "Theme": {
+         "Code": "ch.Laermempfindlichkeitsstufen",
+         "Text": {
+          "LocalisedText": {
+           "Language": "de",
+           "Text": "Lärmempfindlichkeitsstufen (in Nutzungszonen)"
+          }
+         }
+        }
+       },
+       {
+        "LegendText": {
+         "LocalisedText": {
+          "Language": "de",
+          "Text": "Empfindlichkeitsstufe IV"
+         }
+        },
+        "TypeCode": "60c8bcdd:L:3984",
+        "Theme": {
+         "Code": "ch.Laermempfindlichkeitsstufen",
+         "Text": {
+          "LocalisedText": {
+           "Language": "de",
+           "Text": "Lärmempfindlichkeitsstufen (in Nutzungszonen)"
+          }
+         }
+        }
+       }
+      ]
+     },
+     "LegalProvisions": [
+      {
+       "Type": {
+        "Code": "LegalProvision",
+        "Text": {
+         "LocalisedText": {
+          "Language": "de",
+          "Text": "Rechtsvorschrift"
+         }
+        }
+       },
+       "Title": {
+        "LocalisedText": {
+         "Language": "de",
+         "Text": "Bauordnung Altdorf"
+        }
+       },
+       "Abbreviation": {
+        "LocalisedText": {
+         "Language": "de",
+         "Text": null
+        }
+       },
+       "TextAtWeb": {
+        "LocalisedText": {
+         "Language": "de",
+         "Text": "https://webgis.lisag.ch/PDF/Nutzungsplanung/1201_BZO_Altdorf.pdf"
+        }
+       },
+       "Lawstatus": {
+        "Code": "inForce",
+        "Text": {
+         "LocalisedText": {
+          "Language": "de",
+          "Text": "Rechtskräftig"
+         }
+        }
+       },
+       "Index": "20",
+       "ResponsibleOffice": {
+        "Name": {
+         "LocalisedText": {
+          "Language": "de",
+          "Text": null
+         }
+        },
+        "OfficeAtWeb": {
+         "LocalisedText": {
+          "Language": "de",
+          "Text": null
+         }
+        }
+       }
+      }
+     ],
+     "ResponsibleOffice": {
+      "Name": {
+       "LocalisedText": {
+        "Language": "de",
+        "Text": "Gemeinde Altdorf"
+       }
+      },
+      "OfficeAtWeb": {
+       "LocalisedText": {
+        "Language": "de",
+        "Text": "https://www.altdorf.ch"
+       }
+      }
+     }
+    },
+    {
+     "LegendText": {
+      "LocalisedText": {
+       "Language": "de",
+       "Text": "65-UR (rkr) Schutzmassnahmen Natur- & Landschaft national & regional Linie Kt. Uri"
+      }
+     },
+     "Theme": {
+      "Code": "ch.SchutzmassnahmenNaturLandschaftNationalRegional",
+      "Text": {
+       "LocalisedText": {
+        "Language": "de",
+        "Text": "Schutzmassnahmen für Natur- und Landschaftsschutzobjekte nationaler und regionaler Bedeutung"
+       }
+      }
+     },
+     "TypeCode": "d12025e9:L:3652",
+     "Lawstatus": {
+      "Code": "inForce",
+      "Text": {
+       "LocalisedText": {
+        "Language": "de",
+        "Text": "Rechtskräftig"
+       }
+      }
+     },
+     "AreaShare": "0",
+     "PartInPercent": "0",
+     "LengthShare": "54",
+     "Map": {
+      "OtherLegend": {
+       "LegendText": {
+        "LocalisedText": {
+         "Language": "de",
+         "Text": "Ausschlussgewässer Wasserkraftnutzung"
+        }
+       },
+       "TypeCode": "d12025e9:L:3652",
+       "Theme": {
+        "Code": "ch.SchutzmassnahmenNaturLandschaftNationalRegional",
+        "Text": {
+         "LocalisedText": {
+          "Language": "de",
+          "Text": "Schutzmassnahmen für Natur- und Landschaftsschutzobjekte nationaler und regionaler Bedeutung"
+         }
+        }
+       }
+      }
+     },
+     "LegalProvisions": [
+      {
+       "Type": {
+        "Code": "LegalProvision",
+        "Text": {
+         "LocalisedText": {
+          "Language": "de",
+          "Text": "Rechtsvorschrift"
+         }
+        }
+       },
+       "Title": {
+        "LocalisedText": {
+         "Language": "de",
+         "Text": "REGLEMENT über den Schutz der Gewässer im Gebiet Uri Nord zwischen dem Urnersee und Erstfeld"
+        }
+       },
+       "Abbreviation": {
+        "LocalisedText": {
+         "Language": "de",
+         "Text": null
+        }
+       },
+       "TextAtWeb": {
+        "LocalisedText": {
+         "Language": "de",
+         "Text": "https://rechtsbuch.ur.ch/app/de/texts_of_law/10.5122"
+        }
+       },
+       "Lawstatus": {
+        "Code": "inForce",
+        "Text": {
+         "LocalisedText": {
+          "Language": "de",
+          "Text": "Rechtskräftig"
+         }
+        }
+       },
+       "Index": "20",
+       "ResponsibleOffice": {
+        "Name": {
+         "LocalisedText": {
+          "Language": "de",
+          "Text": null
+         }
+        },
+        "OfficeAtWeb": {
+         "LocalisedText": {
+          "Language": "de",
+          "Text": null
+         }
+        }
+       }
+      }
+     ],
+     "ResponsibleOffice": {
+      "Name": {
+       "LocalisedText": {
+        "Language": "de",
+        "Text": "Amt für Raumentwicklung"
+       }
+      },
+      "OfficeAtWeb": {
+       "LocalisedText": {
+        "Language": "de",
+        "Text": "https://www.ur.ch/aemter/847"
+       }
+      }
+     }
+    },
+    {
+     "LegendText": {
+      "LocalisedText": {
+       "Language": "de",
+       "Text": "66-UR (rkr) Schutzmassnahmen Natur- & Landschaft lokal Fläche Altdorf"
+      }
+     },
+     "Theme": {
+      "Code": "ch.UR.SchutzmassnahmenNaturLandschaftlokal",
+      "Text": {
+       "LocalisedText": {
+        "Language": "de",
+        "Text": "Schutzmassnahmen für Natur- und Landschaftsschutzobjekte lokaler Bedeutung"
+       }
+      }
+     },
+     "TypeCode": "0b8e7eff:L:6348",
+     "Lawstatus": {
+      "Code": "inForce",
+      "Text": {
+       "LocalisedText": {
+        "Language": "de",
+        "Text": "Rechtskräftig"
+       }
+      }
+     },
+     "AreaShare": "1793",
+     "PartInPercent": "100",
+     "Map": {
+      "OtherLegend": [
+       {
+        "LegendText": {
+         "LocalisedText": {
+          "Language": "de",
+          "Text": "Naturobjekte, linear"
+         }
+        },
+        "TypeCode": "0b8e7eff:L:6348",
+        "Theme": {
+         "Code": "ch.UR.SchutzmassnahmenNaturLandschaftlokal",
+         "Text": {
+          "LocalisedText": {
+           "Language": "de",
+           "Text": "Schutzmassnahmen für Natur- und Landschaftsschutzobjekte lokaler Bedeutung"
+          }
+         }
+        }
+       },
+       {
+        "LegendText": {
+         "LocalisedText": {
+          "Language": "de",
+          "Text": "Geschützte Mauer"
+         }
+        },
+        "TypeCode": "814e3d65:L:3044",
+        "Theme": {
+         "Code": "ch.UR.SchutzmassnahmenNaturLandschaftlokal",
+         "Text": {
+          "LocalisedText": {
+           "Language": "de",
+           "Text": "Schutzmassnahmen für Natur- und Landschaftsschutzobjekte lokaler Bedeutung"
+          }
+         }
+        }
+       }
+      ]
+     },
+     "LegalProvisions": [
+      {
+       "Type": {
+        "Code": "LegalProvision",
+        "Text": {
+         "LocalisedText": {
+          "Language": "de",
+          "Text": "Rechtsvorschrift"
+         }
+        }
+       },
+       "Title": {
+        "LocalisedText": {
+         "Language": "de",
+         "Text": "Bauordnung Altdorf"
+        }
+       },
+       "Abbreviation": {
+        "LocalisedText": {
+         "Language": "de",
+         "Text": null
+        }
+       },
+       "TextAtWeb": {
+        "LocalisedText": {
+         "Language": "de",
+         "Text": "https://webgis.lisag.ch/PDF/Nutzungsplanung/1201_BZO_Altdorf.pdf"
+        }
+       },
+       "Lawstatus": {
+        "Code": "inForce",
+        "Text": {
+         "LocalisedText": {
+          "Language": "de",
+          "Text": "Rechtskräftig"
+         }
+        }
+       },
+       "Index": "20",
+       "ResponsibleOffice": {
+        "Name": {
+         "LocalisedText": {
+          "Language": "de",
+          "Text": null
+         }
+        },
+        "OfficeAtWeb": {
+         "LocalisedText": {
+          "Language": "de",
+          "Text": null
+         }
+        }
+       }
+      }
+     ],
+     "ResponsibleOffice": {
+      "Name": {
+       "LocalisedText": {
+        "Language": "de",
+        "Text": "Gemeinde Altdorf"
+       }
+      },
+      "OfficeAtWeb": {
+       "LocalisedText": {
+        "Language": "de",
+        "Text": "https://www.altdorf.ch"
+       }
+      }
+     }
+    },
+    {
+     "LegendText": {
+      "LocalisedText": {
+       "Language": "de",
+       "Text": "68-UR (rkr) Schutzmassnahmen Kultur- und Denkmalschutz lokal Fläche Altdorf"
+      }
+     },
+     "Theme": {
+      "Code": "ch.UR.SchutzmassnahmenKulturDenkmalLokal",
+      "Text": {
+       "LocalisedText": {
+        "Language": "de",
+        "Text": "Schutzmassnahmen für Kultur- und Denkmalschutzobjekte lokaler Bedeutung"
+       }
+      }
+     },
+     "TypeCode": "dbbff49e:L:6603",
+     "Lawstatus": {
+      "Code": "inForce",
+      "Text": {
+       "LocalisedText": {
+        "Language": "de",
+        "Text": "Rechtskräftig"
+       }
+      }
+     },
+     "AreaShare": "347",
+     "PartInPercent": "19",
+     "Map": {
+      "OtherLegend": [
+       {
+        "LegendText": {
+         "LocalisedText": {
+          "Language": "de",
+          "Text": "wichtige Gasse"
+         }
+        },
+        "TypeCode": "dbbff49e:L:6747",
+        "Theme": {
+         "Code": "ch.UR.SchutzmassnahmenKulturDenkmalLokal",
+         "Text": {
+          "LocalisedText": {
+           "Language": "de",
+           "Text": "Schutzmassnahmen für Kultur- und Denkmalschutzobjekte lokaler Bedeutung"
+          }
+         }
+        }
+       },
+       {
+        "LegendText": {
+         "LocalisedText": {
+          "Language": "de",
+          "Text": "Erhaltenswerte Bauten (Bautyp A)"
+         }
+        },
+        "TypeCode": "dbbff49e:L:6603",
+        "Theme": {
+         "Code": "ch.UR.SchutzmassnahmenKulturDenkmalLokal",
+         "Text": {
+          "LocalisedText": {
+           "Language": "de",
+           "Text": "Schutzmassnahmen für Kultur- und Denkmalschutzobjekte lokaler Bedeutung"
+          }
+         }
+        }
+       }
+      ]
+     },
+     "LegalProvisions": [
+      {
+       "Type": {
+        "Code": "LegalProvision",
+        "Text": {
+         "LocalisedText": {
+          "Language": "de",
+          "Text": "Rechtsvorschrift"
+         }
+        }
+       },
+       "Title": {
+        "LocalisedText": {
+         "Language": "de",
+         "Text": "Bauordnung Altdorf"
+        }
+       },
+       "Abbreviation": {
+        "LocalisedText": {
+         "Language": "de",
+         "Text": null
+        }
+       },
+       "TextAtWeb": {
+        "LocalisedText": {
+         "Language": "de",
+         "Text": "https://webgis.lisag.ch/PDF/Nutzungsplanung/1201_BZO_Altdorf.pdf"
+        }
+       },
+       "Lawstatus": {
+        "Code": "inForce",
+        "Text": {
+         "LocalisedText": {
+          "Language": "de",
+          "Text": "Rechtskräftig"
+         }
+        }
+       },
+       "Index": "20",
+       "ResponsibleOffice": {
+        "Name": {
+         "LocalisedText": {
+          "Language": "de",
+          "Text": null
+         }
+        },
+        "OfficeAtWeb": {
+         "LocalisedText": {
+          "Language": "de",
+          "Text": null
+         }
+        }
+       }
+      }
+     ],
+     "ResponsibleOffice": {
+      "Name": {
+       "LocalisedText": {
+        "Language": "de",
+        "Text": "Gemeinde Altdorf"
+       }
+      },
+      "OfficeAtWeb": {
+       "LocalisedText": {
+        "Language": "de",
+        "Text": "https://www.altdorf.ch"
+       }
+      }
+     }
+    },
+    {
+     "LegendText": {
+      "LocalisedText": {
+       "Language": "de",
+       "Text": "68-UR (rkr) Schutzmassnahmen Kultur- und Denkmalschutz lokal Fläche Altdorf"
+      }
+     },
+     "Theme": {
+      "Code": "ch.UR.SchutzmassnahmenKulturDenkmalLokal",
+      "Text": {
+       "LocalisedText": {
+        "Language": "de",
+        "Text": "Schutzmassnahmen für Kultur- und Denkmalschutzobjekte lokaler Bedeutung"
+       }
+      }
+     },
+     "TypeCode": "dbbff49e:L:6603",
+     "Lawstatus": {
+      "Code": "inForce",
+      "Text": {
+       "LocalisedText": {
+        "Language": "de",
+        "Text": "Rechtskräftig"
+       }
+      }
+     },
+     "AreaShare": "36",
+     "PartInPercent": "2",
+     "Map": {
+      "OtherLegend": [
+       {
+        "LegendText": {
+         "LocalisedText": {
+          "Language": "de",
+          "Text": "wichtige Gasse"
+         }
+        },
+        "TypeCode": "dbbff49e:L:6747",
+        "Theme": {
+         "Code": "ch.UR.SchutzmassnahmenKulturDenkmalLokal",
+         "Text": {
+          "LocalisedText": {
+           "Language": "de",
+           "Text": "Schutzmassnahmen für Kultur- und Denkmalschutzobjekte lokaler Bedeutung"
+          }
+         }
+        }
+       },
+       {
+        "LegendText": {
+         "LocalisedText": {
+          "Language": "de",
+          "Text": "Erhaltenswerte Bauten (Bautyp A)"
+         }
+        },
+        "TypeCode": "dbbff49e:L:6603",
+        "Theme": {
+         "Code": "ch.UR.SchutzmassnahmenKulturDenkmalLokal",
+         "Text": {
+          "LocalisedText": {
+           "Language": "de",
+           "Text": "Schutzmassnahmen für Kultur- und Denkmalschutzobjekte lokaler Bedeutung"
+          }
+         }
+        }
+       }
+      ]
+     },
+     "LegalProvisions": [
+      {
+       "Type": {
+        "Code": "LegalProvision",
+        "Text": {
+         "LocalisedText": {
+          "Language": "de",
+          "Text": "Rechtsvorschrift"
+         }
+        }
+       },
+       "Title": {
+        "LocalisedText": {
+         "Language": "de",
+         "Text": "Bauordnung Altdorf"
+        }
+       },
+       "Abbreviation": {
+        "LocalisedText": {
+         "Language": "de",
+         "Text": null
+        }
+       },
+       "TextAtWeb": {
+        "LocalisedText": {
+         "Language": "de",
+         "Text": "https://webgis.lisag.ch/PDF/Nutzungsplanung/1201_BZO_Altdorf.pdf"
+        }
+       },
+       "Lawstatus": {
+        "Code": "inForce",
+        "Text": {
+         "LocalisedText": {
+          "Language": "de",
+          "Text": "Rechtskräftig"
+         }
+        }
+       },
+       "Index": "20",
+       "ResponsibleOffice": {
+        "Name": {
+         "LocalisedText": {
+          "Language": "de",
+          "Text": null
+         }
+        },
+        "OfficeAtWeb": {
+         "LocalisedText": {
+          "Language": "de",
+          "Text": null
+         }
+        }
+       }
+      }
+     ],
+     "ResponsibleOffice": {
+      "Name": {
+       "LocalisedText": {
+        "Language": "de",
+        "Text": "Gemeinde Altdorf"
+       }
+      },
+      "OfficeAtWeb": {
+       "LocalisedText": {
+        "Language": "de",
+        "Text": "https://www.altdorf.ch"
+       }
+      }
+     }
+    }
+   ]
+  },
+  "PLRCadastreAuthority": {
+   "Name": {
+    "LocalisedText": {
+     "Language": "de",
+     "Text": "Lisag AG"
+    }
+   },
+   "OfficeAtWeb": {
+    "LocalisedText": {
+     "Language": "de",
+     "Text": "http://www.lisag.ch/"
+    }
+   },
+   "UID": "-",
+   "Line1": null,
+   "Line2": null,
+   "Street": "Reussacherstrasse",
+   "Number": "30",
+   "PostalCode": "6460",
+   "City": "Altdorf"
+  },
+  "UpdateDateCS": "2026-10-15T08:27:15.8716418+02:00"
+ }
+}

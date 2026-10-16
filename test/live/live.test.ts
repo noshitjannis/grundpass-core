@@ -1,15 +1,17 @@
 import { mkdirSync, writeFileSync } from 'node:fs';
 import { describe, expect, it } from 'vitest';
 import { z } from 'zod';
-import { adapters, gwr, kulturgueter, oereb } from '../../src/adapters/index.ts';
+import { adapters, geocode, gwr, kulturgueter, oereb } from '../../src/adapters/index.ts';
 import { DATENSTAND, legendeUrl } from '../../src/adapters/naturgefahren.ts';
-import { GOLDENE_ADRESSEN } from '../../src/canary/adressen.ts';
-import { OEREB_KANTONE, oerebExtractUrl } from '../../src/adapters/oereb/kantone.ts';
+import { GOLDENE_ADRESSEN, KANTONS_ADRESSEN } from '../../src/canary/adressen.ts';
+import { OEREB_KANTONE, OEREB_KANTONE_ANGEBUNDEN, oerebExtractUrl } from '../../src/adapters/oereb/kantone.ts';
+import { HttpError, TimeoutError } from '../../src/errors.ts';
 import { Core } from '../../src/core.ts';
 import { createHttpClient } from '../../src/http/client.ts';
 import { wmsFeatureInfoUrl } from '../../src/http/geoadmin.ts';
 import { silentLogger } from '../../src/log.ts';
 import { CircuitBreaker } from '../../src/resolver/breaker.ts';
+import { httpFor } from '../helpers/fixtures.ts';
 
 /**
  * Live-Tests gegen die echten APIs. Laufen nur mit LIVE=1 (pnpm test:live), brauchen Netz.
@@ -181,7 +183,8 @@ describe.skipIf(!live)('live: geo.admin', () => {
   }, 30_000);
 });
 
-describe.skipIf(!live)('live: oereb (AG, ZH, BE)', () => {
+describe.skipIf(!live)('live: oereb, alle 26 Kantone', () => {
+  // Die drei goldenen Parzellen der ersten Anbindung (15.10.2026): Form, Zone, Grundbuchfläche
   const faelle = [
     { kanton: 'BE', egrid: 'CH586746359755', zone: /Wohnzone/, name: 'wabern' },
     { kanton: 'AG', egrid: 'CH959983779505', zone: /Kernzone/, name: 'baden' },
@@ -203,15 +206,74 @@ describe.skipIf(!live)('live: oereb (AG, ZH, BE)', () => {
     }, 60_000);
   }
 
-  it('versions/json nennt für alle drei Kantone extract-2.0 und die eingetragene Basis', async () => {
+  // Eine Referenzadresse pro Kanton (KANTONS_ADRESSEN): Adresse → EGID → EGRID über den Core (nur geocode und gwr), dann genau ein
+  // Extract-Aufruf, aufgezeichnet und durch den Adapter gegeben. Ein zweiter Aufruf pro Kanton lief bei GIS Daten AG (OW, NW) in ein 429.
+  // Angebundene Kantone müssen Zone, Grundbuchfläche und Themenzahl liefern; kein_dienst-Kantone bleiben ausser_kanton.
+  for (const g of KANTONS_ADRESSEN) {
+    const k = OEREB_KANTONE[g.kanton]!;
+    it(`${g.kanton} ${g.name} (${k.status}): ${k.status === 'kein_dienst' ? 'Adapter läuft nicht (ausser_kanton)' : 'Extract liefert Zone, Grundbuchfläche und Themen, Rohantwort aufgezeichnet'}`, async () => {
+      const core = await Core.create({ store: 'memory', adapters: [geocode, gwr, oereb], log: silentLogger, breaker: new CircuitBreaker({ threshold: 99 }) });
+      try {
+        core.registry.disable('oereb');
+        const run = await core.resolve({ adresse: g.adresse }, { useCache: false });
+        expect(run.keys.kanton, 'Kanton laut GWR').toBe(g.kanton);
+        expect(run.keys.egrid, 'EGRID laut GWR').toMatch(/^CH\d{12}$/);
+        if (k.status === 'kein_dienst') {
+          core.registry.enable('oereb');
+          const voll = await core.resolve({ adresse: g.adresse }, { useCache: false });
+          expect(voll.adapters.find((a) => a.adapter === 'oereb')?.status).toBe('ausser_kanton');
+          return;
+        }
+        const http = createHttpClient({ retries: 0 });
+        const roh = await http.text(oerebExtractUrl(k, run.keys.egrid!), { timeoutMs: 60_000 });
+        mkdirSync('test/live/aufzeichnungen', { recursive: true });
+        writeFileSync(`test/live/aufzeichnungen/oereb-${g.kanton.toLowerCase()}.json`, roh.data);
+        const aufgezeichnet = httpFor([{ match: () => true, body: roh.data, status: roh.status }]);
+        const out = await oereb.resolve({ keys: { egrid: run.keys.egrid!, kanton: g.kanton }, http: aufgezeichnet, now: () => new Date(), log: silentLogger });
+        const v = (key: string) => out.facts.find((x) => x.key === key)?.value;
+        expect(typeof v('zone.bezeichnung'), 'zone.bezeichnung').toBe('string');
+        expect(['subcode', 'typecode', 'flaechenanteil']).toContain(v('zone.erkennung'));
+        expect(typeof v('parzelle.flaeche_grundbuch_m2'), 'parzelle.flaeche_grundbuch_m2').toBe('number');
+        expect(typeof v('oereb.belastungen_anzahl'), 'oereb.belastungen_anzahl').toBe('number');
+        console.log(`${g.kanton}: ${String(v('zone.bezeichnung'))} (${String(v('zone.erkennung'))}) · ${String(v('parzelle.flaeche_grundbuch_m2'))} m² · ES ${String(v('laerm.empfindlichkeitsstufe'))} · ${String(v('oereb.belastungen_anzahl'))} Themen · ${roh.ms} ms`);
+      } finally {
+        await core.close();
+      }
+    }, 180_000);
+  }
+
+  it('versions/json: jeder angebundene Kanton nennt extract-2.0 (VD und GE schreiben «2.0»), mit oder ohne Hülle GetVersionsResponse, Liste oder einzelnes Objekt', async () => {
     const http = createHttpClient({ retries: 0 });
-    const schema = z.object({ GetVersionsResponse: z.object({ supportedVersion: z.array(z.object({ version: z.string(), serviceEndpointBase: z.string() })) }) });
-    for (const k of Object.values(OEREB_KANTONE)) {
-      const { data } = await http.json(`${k.base}/versions/json`, schema, { timeoutMs: 20_000 });
-      expect(data.GetVersionsResponse.supportedVersion.map((s) => s.version), k.kanton).toContain('extract-2.0');
-      expect(data.GetVersionsResponse.supportedVersion[0]?.serviceEndpointBase.replace(/\/$/, ''), k.kanton).toBe(k.base);
+    const eintrag = z.object({ version: z.string(), serviceEndpointBase: z.string() });
+    const liste = z.union([z.array(eintrag), eintrag]);
+    const schema = z.union([z.object({ GetVersionsResponse: z.object({ supportedVersion: liste }) }), z.object({ supportedVersion: liste })]);
+    for (const kt of OEREB_KANTONE_ANGEBUNDEN) {
+      const k = OEREB_KANTONE[kt]!;
+      const { data } = await http.json(`${k.base}/versions/json`, schema, { timeoutMs: 30_000 });
+      const sv = 'GetVersionsResponse' in data ? data.GetVersionsResponse.supportedVersion : data.supportedVersion;
+      const versionen = (Array.isArray(sv) ? sv : [sv]).map((s) => s.version);
+      expect(versionen, kt).toContainEqual(expect.stringMatching(/^(extract-)?2\.0$/));
     }
-  }, 60_000);
+  }, 180_000);
+
+  it('Kantone ohne Dienst scheitern noch auf die bekannte Art (sonst wäre es Zeit, sie anzubinden): SO 415, SH 500, NE 403, VS Timeout', async () => {
+    const http = createHttpClient({ retries: 0 });
+    const egrid: Record<string, string> = { SO: 'CH693279640610', SH: 'CH581708547860', NE: 'CH467949877161', VS: 'CH235206308395' };
+    const befund: Record<string, string> = {};
+    for (const [kt, e] of Object.entries(egrid)) {
+      try {
+        const r = await http.text(oerebExtractUrl(OEREB_KANTONE[kt]!, e), { timeoutMs: kt === 'VS' ? 15_000 : 30_000 });
+        befund[kt] = `HTTP ${r.status}`;
+      } catch (err) {
+        befund[kt] = err instanceof HttpError ? `HTTP ${err.status}` : err instanceof TimeoutError ? 'timeout' : String(err).slice(0, 80);
+      }
+    }
+    console.log(`kein_dienst: ${JSON.stringify(befund)}`);
+    expect(befund.SO).toBe('HTTP 415');
+    expect(befund.SH).toBe('HTTP 500');
+    expect(befund.NE).toBe('HTTP 403');
+    expect(befund.VS).toMatch(/timeout|fetch failed/);
+  }, 180_000);
 
   it('fremde EGRID gibt in ZH 204 ohne Inhalt, der Adapter macht daraus eine Lücke', async () => {
     const http = createHttpClient({ retries: 0 });

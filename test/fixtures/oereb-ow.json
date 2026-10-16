@@ -1,0 +1,1800 @@
+{
+ "_hinweis": "Echte Antwort vom 16.10.2026, verkleinert mit scripts/oereb-fixture.ts: https://www.gis-daten.ch/oereb/extract/json?EGRID=CH407736590493&GEOMETRY=false&WITHIMAGES=false&LANG=de (St. Antonistrasse 4, 6060 Sarnen, Rathaus/Kantonsverwaltung, EGID 276019). GeoShop-Form: Zonenbezeichnung in Map.OtherLegend. Geometrien, Bilder, Glossar und Rechtsvorschriften bis auf eine entfernt.",
+ "?xml": {
+  "@version": "1.0",
+  "@encoding": "utf-8"
+ },
+ "Extract": {
+  "@xmlns:gml": "http://www.opengis.net/gml/3.2",
+  "@xmlns:xlink": "http://www.w3.org/1999/xlink",
+  "@xmlns:xsd": "http://www.w3.org/2001/XMLSchema",
+  "@xmlns:extract": "http://schemas.geo.admin.ch/V_D/OeREB/2.0/Extract",
+  "@xmlns:xsi": "http://www.w3.org/2001/XMLSchema-instance",
+  "@xmlns:geo": "http://www.interlis.ch/geometry/1.0",
+  "@xmlns": "http://schemas.geo.admin.ch/V_D/OeREB/2.0/ExtractData",
+  "CreationDate": "2026-10-16T08:50:37.6015162+02:00",
+  "ConcernedTheme": [
+   {
+    "Code": "ch.Nutzungsplanung",
+    "Text": {
+     "LocalisedText": {
+      "Language": "de",
+      "Text": "Nutzungsplanung (kantonal/kommunal)"
+     }
+    }
+   },
+   {
+    "Code": "ch.NutzungsplanungAenderungOhneVorwirkung",
+    "Text": {
+     "LocalisedText": {
+      "Language": "de",
+      "Text": "Nutzungsplanung kommunal (Änderung ohne Vorwirkung)"
+     }
+    }
+   },
+   {
+    "Code": "ch.Laermempfindlichkeitsstufen",
+    "Text": {
+     "LocalisedText": {
+      "Language": "de",
+      "Text": "Lärmempfindlichkeitsstufen (in Nutzungszonen)"
+     }
+    }
+   },
+   {
+    "Code": "ch.LaermempfindlichkeitsstufenAenderungOhneVorwirkung",
+    "Text": {
+     "LocalisedText": {
+      "Language": "de",
+      "Text": "Lärmempfindlichkeitsstufen (in Nutzungszonen) (Änderung ohne Vorwirkung)"
+     }
+    }
+   }
+  ],
+  "NotConcernedTheme": [
+   {
+    "Code": "ch.OW.KantonalePlanungszonen",
+    "Text": {
+     "LocalisedText": {
+      "Language": "de",
+      "Text": "Planungszonen kantonal"
+     }
+    }
+   },
+   {
+    "Code": "ch.Planungszonen",
+    "Text": {
+     "LocalisedText": {
+      "Language": "de",
+      "Text": "Planungszonen"
+     }
+    }
+   },
+   {
+    "Code": "ch.OW.KantonaleNutzungsplanung",
+    "Text": {
+     "LocalisedText": {
+      "Language": "de",
+      "Text": "Nutzungsplanung kantonal"
+     }
+    }
+   },
+   {
+    "Code": "ch.OW.KantonaleNutzungsplanungAenderungOhneVorwirkung",
+    "Text": {
+     "LocalisedText": {
+      "Language": "de",
+      "Text": "Nutzungsplanung kantonal (Änderung ohne Vorwirkung)"
+     }
+    }
+   },
+   {
+    "Code": "ch.NutzungsplanungAenderungMitVorwirkung",
+    "Text": {
+     "LocalisedText": {
+      "Language": "de",
+      "Text": "Nutzungsplanung kommunal (Änderung mit Vorwirkung)"
+     }
+    }
+   },
+   {
+    "Code": "ch.OW.Quartierplaene",
+    "Text": {
+     "LocalisedText": {
+      "Language": "de",
+      "Text": "Quartierplan (Sondernutzungsplan)"
+     }
+    }
+   },
+   {
+    "Code": "ch.OW.SondernutzungsplanFussWanderwege",
+    "Text": {
+     "LocalisedText": {
+      "Language": "de",
+      "Text": "Sondernutzungsplan Fuss- und Wanderwege"
+     }
+    }
+   },
+   {
+    "Code": "ch.OW.QuartierplaeneAenderungOhneVorwirkung",
+    "Text": {
+     "LocalisedText": {
+      "Language": "de",
+      "Text": "Quartierplan (Sondernutzungsplan) (Änderung ohne Vorwirkung)"
+     }
+    }
+   },
+   {
+    "Code": "ch.ProjektierungszonenNationalstrassen",
+    "Text": {
+     "LocalisedText": {
+      "Language": "de",
+      "Text": "Projektierungszonen Nationalstrassen"
+     }
+    }
+   },
+   {
+    "Code": "ch.BaulinienNationalstrassen",
+    "Text": {
+     "LocalisedText": {
+      "Language": "de",
+      "Text": "Baulinien Nationalstrassen"
+     }
+    }
+   },
+   {
+    "Code": "ch.BaulinienNationalstrassenAenderungOhneVorwirkung",
+    "Text": {
+     "LocalisedText": {
+      "Language": "de",
+      "Text": "Baulinien Nationalstrassen (Änderung ohne Vorwirkung)"
+     }
+    }
+   },
+   {
+    "Code": "ch.ProjektierungszonenEisenbahnanlagen",
+    "Text": {
+     "LocalisedText": {
+      "Language": "de",
+      "Text": "Projektierungszonen Eisenbahnanlagen"
+     }
+    }
+   },
+   {
+    "Code": "ch.BaulinienEisenbahnanlagen",
+    "Text": {
+     "LocalisedText": {
+      "Language": "de",
+      "Text": "Baulinien Eisenbahnanlagen"
+     }
+    }
+   },
+   {
+    "Code": "ch.ProjektierungszonenFlughafenanlagen",
+    "Text": {
+     "LocalisedText": {
+      "Language": "de",
+      "Text": "Projektierungszonen Flughafenanlagen"
+     }
+    }
+   },
+   {
+    "Code": "ch.BaulinienFlughafenanlagen",
+    "Text": {
+     "LocalisedText": {
+      "Language": "de",
+      "Text": "Baulinien Flughafenanlagen"
+     }
+    }
+   },
+   {
+    "Code": "ch.Sicherheitszonenplan",
+    "Text": {
+     "LocalisedText": {
+      "Language": "de",
+      "Text": "Sicherheitszonenplan"
+     }
+    }
+   },
+   {
+    "Code": "ch.SicherheitszonenplanAenderungMitVorwirkung",
+    "Text": {
+     "LocalisedText": {
+      "Language": "de",
+      "Text": "Sicherheitszonenplan (Änderung mit Vorwirkung)"
+     }
+    }
+   },
+   {
+    "Code": "ch.BelasteteStandorte",
+    "Text": {
+     "LocalisedText": {
+      "Language": "de",
+      "Text": "Kataster der belasteten Standorte"
+     }
+    }
+   },
+   {
+    "Code": "ch.BelasteteStandorteMilitaer",
+    "Text": {
+     "LocalisedText": {
+      "Language": "de",
+      "Text": "Kataster der belasteten Standorte im Bereich des Militärs"
+     }
+    }
+   },
+   {
+    "Code": "ch.BelasteteStandorteZivileFlugplaetze",
+    "Text": {
+     "LocalisedText": {
+      "Language": "de",
+      "Text": "Kataster der belasteten Standorte im Bereich der zivilen Flugplätze"
+     }
+    }
+   },
+   {
+    "Code": "ch.BelasteteStandorteOeffentlicherVerkehr",
+    "Text": {
+     "LocalisedText": {
+      "Language": "de",
+      "Text": "Kataster der belasteten Standorte im Bereich des öffentlichen Verkehrs"
+     }
+    }
+   },
+   {
+    "Code": "ch.Grundwasserschutzzonen",
+    "Text": {
+     "LocalisedText": {
+      "Language": "de",
+      "Text": "Grundwasserschutzzonen"
+     }
+    }
+   },
+   {
+    "Code": "ch.GrundwasserschutzzonenAenderungOhneVorwirkung",
+    "Text": {
+     "LocalisedText": {
+      "Language": "de",
+      "Text": "Grundwasserschutzzonen (Änderung ohne Vorwirkung)"
+     }
+    }
+   },
+   {
+    "Code": "ch.Grundwasserschutzareale",
+    "Text": {
+     "LocalisedText": {
+      "Language": "de",
+      "Text": "Grundwasserschutzareale"
+     }
+    }
+   },
+   {
+    "Code": "ch.GrundwasserschutzarealeAenderungOhneVorwirkung",
+    "Text": {
+     "LocalisedText": {
+      "Language": "de",
+      "Text": "Grundwasserschutzareale (Änderung ohne Vorwirkung)"
+     }
+    }
+   },
+   {
+    "Code": "ch.Gewaesserraum",
+    "Text": {
+     "LocalisedText": {
+      "Language": "de",
+      "Text": "Gewässerraum"
+     }
+    }
+   },
+   {
+    "Code": "ch.GewaesserraumAenderungOhneVorwirkung",
+    "Text": {
+     "LocalisedText": {
+      "Language": "de",
+      "Text": "Gewässerraum (Änderung ohne Vorwirkung)"
+     }
+    }
+   },
+   {
+    "Code": "ch.StatischeWaldgrenzen",
+    "Text": {
+     "LocalisedText": {
+      "Language": "de",
+      "Text": "Statische Waldgrenzen"
+     }
+    }
+   },
+   {
+    "Code": "ch.StatischeWaldgrenzenAenderungOhneVorwirkung",
+    "Text": {
+     "LocalisedText": {
+      "Language": "de",
+      "Text": "Statische Waldgrenzen (Änderung ohne Vorwirkung)"
+     }
+    }
+   },
+   {
+    "Code": "ch.Waldabstandslinien",
+    "Text": {
+     "LocalisedText": {
+      "Language": "de",
+      "Text": "Waldabstandslinien"
+     }
+    }
+   },
+   {
+    "Code": "ch.WaldabstandslinienAenderungOhneVorwirkung",
+    "Text": {
+     "LocalisedText": {
+      "Language": "de",
+      "Text": "Waldabstandslinien (Änderung ohne Vorwirkung)"
+     }
+    }
+   },
+   {
+    "Code": "ch.Waldreservate",
+    "Text": {
+     "LocalisedText": {
+      "Language": "de",
+      "Text": "Waldreservate"
+     }
+    }
+   },
+   {
+    "Code": "ch.ProjektierungszonenStarkstromanlagen",
+    "Text": {
+     "LocalisedText": {
+      "Language": "de",
+      "Text": "Projektierungszonen Leitungen mit einer Nennspannung von 220 kV oder höher"
+     }
+    }
+   },
+   {
+    "Code": "ch.ProjektierungszonenStarkstromanlagenAenderungOhneVorwirkung",
+    "Text": {
+     "LocalisedText": {
+      "Language": "de",
+      "Text": "Projektierungszonen Leitungen mit einer Nennspannung von 220 kV oder höher (Änderung ohne Vorwirkung)"
+     }
+    }
+   },
+   {
+    "Code": "ch.BaulinienStarkstromanlagen",
+    "Text": {
+     "LocalisedText": {
+      "Language": "de",
+      "Text": "Baulinien Starkstromanlagen"
+     }
+    }
+   },
+   {
+    "Code": "ch.BaulinienStarkstromanlagenAenderungOhneVorwirkung",
+    "Text": {
+     "LocalisedText": {
+      "Language": "de",
+      "Text": "Baulinien Starkstromanlagen (Änderung ohne Vorwirkung)"
+     }
+    }
+   },
+   {
+    "Code": "ch.NW.Kulturobjekte",
+    "Text": {
+     "LocalisedText": {
+      "Language": "de",
+      "Text": "Kulturobjekte"
+     }
+    }
+   },
+   {
+    "Code": "ch.NW.Bebauungsplan",
+    "Text": {
+     "LocalisedText": {
+      "Language": "de",
+      "Text": "Bebauungsplan (Sondernutzungsplan)"
+     }
+    }
+   },
+   {
+    "Code": "ch.NW.BebauungsplanAenderungMitVorwirkung",
+    "Text": {
+     "LocalisedText": {
+      "Language": "de",
+      "Text": "Bebauungsplan (Sondernutzungsplan) (Änderung mit Vorwirkung)"
+     }
+    }
+   },
+   {
+    "Code": "ch.NW.Gestaltungsplaene",
+    "Text": {
+     "LocalisedText": {
+      "Language": "de",
+      "Text": "Gestaltungsplan (Sondernutzungsplan)"
+     }
+    }
+   },
+   {
+    "Code": "ch.NW.GestaltungsplaeneAenderungOhneVorwirkung",
+    "Text": {
+     "LocalisedText": {
+      "Language": "de",
+      "Text": "Gestaltungsplan (Sondernutzungsplan) (Änderung ohne Vorwirkung)"
+     }
+    }
+   },
+   {
+    "Code": "ch.GewaesserraumAenderungMitVorwirkung",
+    "Text": {
+     "LocalisedText": {
+      "Language": "de",
+      "Text": "Gewässerraum (Änderung mit Vorwirkung)"
+     }
+    }
+   },
+   {
+    "Code": "ch.LaermempfindlichkeitsstufenAenderungMitVorwirkung",
+    "Text": {
+     "LocalisedText": {
+      "Language": "de",
+      "Text": "Lärmempfindlichkeitsstufen (in Nutzungszonen) (Änderung mit Vorwirkung)"
+     }
+    }
+   },
+   {
+    "Code": "ch.WaldabstandslinienAenderungMitVorwirkung",
+    "Text": {
+     "LocalisedText": {
+      "Language": "de",
+      "Text": "Waldabstandslinien (Änderung mit Vorwirkung)"
+     }
+    }
+   }
+  ],
+  "ThemeWithoutData": {
+   "Code": "ch.NW.KantonalePlanungszonen",
+   "Text": {
+    "LocalisedText": {
+     "Language": "de",
+     "Text": "Planungszonen kantonal"
+    }
+   }
+  },
+  "ExtractIdentifier": "b212acba-7b34-4f19-8cab-342496bb39f2",
+  "RealEstate": {
+   "Number": "2762",
+   "IdentDN": "OW0200001407",
+   "EGRID": "CH407736590493",
+   "Type": {
+    "Code": "RealEstate",
+    "Text": {
+     "LocalisedText": {
+      "Language": "de",
+      "Text": "Liegenschaft"
+     }
+    }
+   },
+   "Canton": "OW",
+   "MunicipalityName": "Sarnen",
+   "MunicipalityCode": "1407",
+   "SubunitOfLandRegister": null,
+   "SubunitOfLandRegisterDesignation": null,
+   "LandRegistryArea": "3929",
+   "RestrictionOnLandownership": [
+    {
+     "LegendText": {
+      "LocalisedText": {
+       "Language": "de",
+       "Text": "Gefahrenzone (Sarnen)"
+      }
+     },
+     "Theme": {
+      "Code": "ch.Nutzungsplanung",
+      "Text": {
+       "LocalisedText": {
+        "Language": "de",
+        "Text": "Nutzungsplanung (kantonal/kommunal)"
+       }
+      }
+     },
+     "TypeCode": "5f76c487:L:8009",
+     "Lawstatus": {
+      "Code": "inForce",
+      "Text": {
+       "LocalisedText": {
+        "Language": "de",
+        "Text": "Rechtskräftig"
+       }
+      }
+     },
+     "AreaShare": "3814",
+     "PartInPercent": "97",
+     "Map": {
+      "OtherLegend": [
+       {
+        "LegendText": {
+         "LocalisedText": {
+          "Language": "de",
+          "Text": "keine Gefahrenzone ausgewiesen"
+         }
+        },
+        "TypeCode": "5f76c487:L:8009",
+        "Theme": {
+         "Code": "ch.Nutzungsplanung",
+         "Text": {
+          "LocalisedText": {
+           "Language": "de",
+           "Text": "Nutzungsplanung (kantonal/kommunal)"
+          }
+         }
+        }
+       },
+       {
+        "LegendText": {
+         "LocalisedText": {
+          "Language": "de",
+          "Text": "Gefahrenzone geringe Gefährdung"
+         }
+        },
+        "TypeCode": "5f76c487:L:2868",
+        "Theme": {
+         "Code": "ch.Nutzungsplanung",
+         "Text": {
+          "LocalisedText": {
+           "Language": "de",
+           "Text": "Nutzungsplanung (kantonal/kommunal)"
+          }
+         }
+        }
+       },
+       {
+        "LegendText": {
+         "LocalisedText": {
+          "Language": "de",
+          "Text": "Quartierplanpflicht"
+         }
+        },
+        "TypeCode": "4d30bbf1:L:8902",
+        "Theme": {
+         "Code": "ch.Nutzungsplanung",
+         "Text": {
+          "LocalisedText": {
+           "Language": "de",
+           "Text": "Nutzungsplanung (kantonal/kommunal)"
+          }
+         }
+        }
+       },
+       {
+        "LegendText": {
+         "LocalisedText": {
+          "Language": "de",
+          "Text": "Ortsbildzone"
+         }
+        },
+        "TypeCode": "4d30bbf1:L:1717",
+        "Theme": {
+         "Code": "ch.Nutzungsplanung",
+         "Text": {
+          "LocalisedText": {
+           "Language": "de",
+           "Text": "Nutzungsplanung (kantonal/kommunal)"
+          }
+         }
+        }
+       },
+       {
+        "LegendText": {
+         "LocalisedText": {
+          "Language": "de",
+          "Text": "Quartierplan, Hostatt-Sonnenhof"
+         }
+        },
+        "TypeCode": "8340d47a:L:2533",
+        "Theme": {
+         "Code": "ch.Nutzungsplanung",
+         "Text": {
+          "LocalisedText": {
+           "Language": "de",
+           "Text": "Nutzungsplanung (kantonal/kommunal)"
+          }
+         }
+        }
+       },
+       {
+        "LegendText": {
+         "LocalisedText": {
+          "Language": "de",
+          "Text": "Quartierplan, Hostett Revosa"
+         }
+        },
+        "TypeCode": "8340d47a:L:8660",
+        "Theme": {
+         "Code": "ch.Nutzungsplanung",
+         "Text": {
+          "LocalisedText": {
+           "Language": "de",
+           "Text": "Nutzungsplanung (kantonal/kommunal)"
+          }
+         }
+        }
+       }
+      ]
+     },
+     "LegalProvisions": [
+      {
+       "Type": {
+        "Code": "LegalProvision",
+        "Text": {
+         "LocalisedText": {
+          "Language": "de",
+          "Text": "Rechtsvorschrift"
+         }
+        }
+       },
+       "Title": {
+        "LocalisedText": {
+         "Language": "de",
+         "Text": "Bau- und Zonenreglement der Gemeinde Sarnen"
+        }
+       },
+       "Abbreviation": {
+        "LocalisedText": {
+         "Language": "de",
+         "Text": "BZR"
+        }
+       },
+       "OfficialNumber": {
+        "LocalisedText": {
+         "Language": "de",
+         "Text": null
+        }
+       },
+       "TextAtWeb": {
+        "LocalisedText": {
+         "Language": "de",
+         "Text": "https://www.gis-daten.ch/rd/BZR/SA_Bau-_und_Zonenreglement.pdf"
+        }
+       },
+       "Lawstatus": {
+        "Code": "inForce",
+        "Text": {
+         "LocalisedText": {
+          "Language": "de",
+          "Text": "Rechtskräftig"
+         }
+        }
+       },
+       "Index": "2",
+       "ResponsibleOffice": {
+        "Name": {
+         "LocalisedText": {
+          "Language": "de",
+          "Text": "Bauamt Sarnen"
+         }
+        },
+        "OfficeAtWeb": {
+         "LocalisedText": {
+          "Language": "de",
+          "Text": "https://www.sarnen.ch/aemter/3868"
+         }
+        }
+       }
+      }
+     ],
+     "ResponsibleOffice": {
+      "Name": {
+       "LocalisedText": {
+        "Language": "de",
+        "Text": "Bauamt Sarnen"
+       }
+      },
+      "OfficeAtWeb": {
+       "LocalisedText": {
+        "Language": "de",
+        "Text": "https://www.sarnen.ch/aemter/3868"
+       }
+      }
+     }
+    },
+    {
+     "LegendText": {
+      "LocalisedText": {
+       "Language": "de",
+       "Text": "Gefahrenzone (Sarnen)"
+      }
+     },
+     "Theme": {
+      "Code": "ch.Nutzungsplanung",
+      "Text": {
+       "LocalisedText": {
+        "Language": "de",
+        "Text": "Nutzungsplanung (kantonal/kommunal)"
+       }
+      }
+     },
+     "TypeCode": "5f76c487:L:2868",
+     "Lawstatus": {
+      "Code": "inForce",
+      "Text": {
+       "LocalisedText": {
+        "Language": "de",
+        "Text": "Rechtskräftig"
+       }
+      }
+     },
+     "AreaShare": "115",
+     "PartInPercent": "3",
+     "Map": {
+      "OtherLegend": [
+       {
+        "LegendText": {
+         "LocalisedText": {
+          "Language": "de",
+          "Text": "keine Gefahrenzone ausgewiesen"
+         }
+        },
+        "TypeCode": "5f76c487:L:8009",
+        "Theme": {
+         "Code": "ch.Nutzungsplanung",
+         "Text": {
+          "LocalisedText": {
+           "Language": "de",
+           "Text": "Nutzungsplanung (kantonal/kommunal)"
+          }
+         }
+        }
+       },
+       {
+        "LegendText": {
+         "LocalisedText": {
+          "Language": "de",
+          "Text": "Gefahrenzone geringe Gefährdung"
+         }
+        },
+        "TypeCode": "5f76c487:L:2868",
+        "Theme": {
+         "Code": "ch.Nutzungsplanung",
+         "Text": {
+          "LocalisedText": {
+           "Language": "de",
+           "Text": "Nutzungsplanung (kantonal/kommunal)"
+          }
+         }
+        }
+       },
+       {
+        "LegendText": {
+         "LocalisedText": {
+          "Language": "de",
+          "Text": "Quartierplanpflicht"
+         }
+        },
+        "TypeCode": "4d30bbf1:L:8902",
+        "Theme": {
+         "Code": "ch.Nutzungsplanung",
+         "Text": {
+          "LocalisedText": {
+           "Language": "de",
+           "Text": "Nutzungsplanung (kantonal/kommunal)"
+          }
+         }
+        }
+       },
+       {
+        "LegendText": {
+         "LocalisedText": {
+          "Language": "de",
+          "Text": "Ortsbildzone"
+         }
+        },
+        "TypeCode": "4d30bbf1:L:1717",
+        "Theme": {
+         "Code": "ch.Nutzungsplanung",
+         "Text": {
+          "LocalisedText": {
+           "Language": "de",
+           "Text": "Nutzungsplanung (kantonal/kommunal)"
+          }
+         }
+        }
+       },
+       {
+        "LegendText": {
+         "LocalisedText": {
+          "Language": "de",
+          "Text": "Quartierplan, Hostatt-Sonnenhof"
+         }
+        },
+        "TypeCode": "8340d47a:L:2533",
+        "Theme": {
+         "Code": "ch.Nutzungsplanung",
+         "Text": {
+          "LocalisedText": {
+           "Language": "de",
+           "Text": "Nutzungsplanung (kantonal/kommunal)"
+          }
+         }
+        }
+       },
+       {
+        "LegendText": {
+         "LocalisedText": {
+          "Language": "de",
+          "Text": "Quartierplan, Hostett Revosa"
+         }
+        },
+        "TypeCode": "8340d47a:L:8660",
+        "Theme": {
+         "Code": "ch.Nutzungsplanung",
+         "Text": {
+          "LocalisedText": {
+           "Language": "de",
+           "Text": "Nutzungsplanung (kantonal/kommunal)"
+          }
+         }
+        }
+       }
+      ]
+     },
+     "LegalProvisions": [
+      {
+       "Type": {
+        "Code": "LegalProvision",
+        "Text": {
+         "LocalisedText": {
+          "Language": "de",
+          "Text": "Rechtsvorschrift"
+         }
+        }
+       },
+       "Title": {
+        "LocalisedText": {
+         "Language": "de",
+         "Text": "Bau- und Zonenreglement der Gemeinde Sarnen"
+        }
+       },
+       "Abbreviation": {
+        "LocalisedText": {
+         "Language": "de",
+         "Text": "BZR"
+        }
+       },
+       "OfficialNumber": {
+        "LocalisedText": {
+         "Language": "de",
+         "Text": null
+        }
+       },
+       "TextAtWeb": {
+        "LocalisedText": {
+         "Language": "de",
+         "Text": "https://www.gis-daten.ch/rd/BZR/SA_Bau-_und_Zonenreglement.pdf"
+        }
+       },
+       "Lawstatus": {
+        "Code": "inForce",
+        "Text": {
+         "LocalisedText": {
+          "Language": "de",
+          "Text": "Rechtskräftig"
+         }
+        }
+       },
+       "Index": "2",
+       "ResponsibleOffice": {
+        "Name": {
+         "LocalisedText": {
+          "Language": "de",
+          "Text": "Bauamt Sarnen"
+         }
+        },
+        "OfficeAtWeb": {
+         "LocalisedText": {
+          "Language": "de",
+          "Text": "https://www.sarnen.ch/aemter/3868"
+         }
+        }
+       }
+      }
+     ],
+     "ResponsibleOffice": {
+      "Name": {
+       "LocalisedText": {
+        "Language": "de",
+        "Text": "Bauamt Sarnen"
+       }
+      },
+      "OfficeAtWeb": {
+       "LocalisedText": {
+        "Language": "de",
+        "Text": "https://www.sarnen.ch/aemter/3868"
+       }
+      }
+     }
+    },
+    {
+     "LegendText": {
+      "LocalisedText": {
+       "Language": "de",
+       "Text": "Grundnutzung (Sarnen)"
+      }
+     },
+     "Theme": {
+      "Code": "ch.Nutzungsplanung",
+      "Text": {
+       "LocalisedText": {
+        "Language": "de",
+        "Text": "Nutzungsplanung (kantonal/kommunal)"
+       }
+      }
+     },
+     "TypeCode": "49c61911:L:3240",
+     "Lawstatus": {
+      "Code": "inForce",
+      "Text": {
+       "LocalisedText": {
+        "Language": "de",
+        "Text": "Rechtskräftig"
+       }
+      }
+     },
+     "AreaShare": "3929",
+     "PartInPercent": "100",
+     "Map": {
+      "OtherLegend": [
+       {
+        "LegendText": {
+         "LocalisedText": {
+          "Language": "de",
+          "Text": "Übriges Gebiet, ÜG"
+         }
+        },
+        "TypeCode": "49c61911:L:4492",
+        "Theme": {
+         "Code": "ch.Nutzungsplanung",
+         "Text": {
+          "LocalisedText": {
+           "Language": "de",
+           "Text": "Nutzungsplanung (kantonal/kommunal)"
+          }
+         }
+        }
+       },
+       {
+        "LegendText": {
+         "LocalisedText": {
+          "Language": "de",
+          "Text": "Zone für öffentliche Bauten und Anlagen, ÖZ"
+         }
+        },
+        "TypeCode": "49c61911:L:3240",
+        "Theme": {
+         "Code": "ch.Nutzungsplanung",
+         "Text": {
+          "LocalisedText": {
+           "Language": "de",
+           "Text": "Nutzungsplanung (kantonal/kommunal)"
+          }
+         }
+        }
+       },
+       {
+        "LegendText": {
+         "LocalisedText": {
+          "Language": "de",
+          "Text": "Dreigeschossige Wohnzone A, W3A"
+         }
+        },
+        "TypeCode": "49c61911:L:6177",
+        "Theme": {
+         "Code": "ch.Nutzungsplanung",
+         "Text": {
+          "LocalisedText": {
+           "Language": "de",
+           "Text": "Nutzungsplanung (kantonal/kommunal)"
+          }
+         }
+        }
+       },
+       {
+        "LegendText": {
+         "LocalisedText": {
+          "Language": "de",
+          "Text": "Kernzone Dorf Sarnen, KD"
+         }
+        },
+        "TypeCode": "49c61911:L:8157",
+        "Theme": {
+         "Code": "ch.Nutzungsplanung",
+         "Text": {
+          "LocalisedText": {
+           "Language": "de",
+           "Text": "Nutzungsplanung (kantonal/kommunal)"
+          }
+         }
+        }
+       },
+       {
+        "LegendText": {
+         "LocalisedText": {
+          "Language": "de",
+          "Text": "Quartierplanpflicht"
+         }
+        },
+        "TypeCode": "4d30bbf1:L:8902",
+        "Theme": {
+         "Code": "ch.Nutzungsplanung",
+         "Text": {
+          "LocalisedText": {
+           "Language": "de",
+           "Text": "Nutzungsplanung (kantonal/kommunal)"
+          }
+         }
+        }
+       },
+       {
+        "LegendText": {
+         "LocalisedText": {
+          "Language": "de",
+          "Text": "Ortsbildzone"
+         }
+        },
+        "TypeCode": "4d30bbf1:L:1717",
+        "Theme": {
+         "Code": "ch.Nutzungsplanung",
+         "Text": {
+          "LocalisedText": {
+           "Language": "de",
+           "Text": "Nutzungsplanung (kantonal/kommunal)"
+          }
+         }
+        }
+       },
+       {
+        "LegendText": {
+         "LocalisedText": {
+          "Language": "de",
+          "Text": "Quartierplan, Hostatt-Sonnenhof"
+         }
+        },
+        "TypeCode": "8340d47a:L:2533",
+        "Theme": {
+         "Code": "ch.Nutzungsplanung",
+         "Text": {
+          "LocalisedText": {
+           "Language": "de",
+           "Text": "Nutzungsplanung (kantonal/kommunal)"
+          }
+         }
+        }
+       },
+       {
+        "LegendText": {
+         "LocalisedText": {
+          "Language": "de",
+          "Text": "Quartierplan, Hostett Revosa"
+         }
+        },
+        "TypeCode": "8340d47a:L:8660",
+        "Theme": {
+         "Code": "ch.Nutzungsplanung",
+         "Text": {
+          "LocalisedText": {
+           "Language": "de",
+           "Text": "Nutzungsplanung (kantonal/kommunal)"
+          }
+         }
+        }
+       }
+      ]
+     },
+     "LegalProvisions": [
+      {
+       "Type": {
+        "Code": "LegalProvision",
+        "Text": {
+         "LocalisedText": {
+          "Language": "de",
+          "Text": "Rechtsvorschrift"
+         }
+        }
+       },
+       "Title": {
+        "LocalisedText": {
+         "Language": "de",
+         "Text": "Bau- und Zonenreglement der Gemeinde Sarnen"
+        }
+       },
+       "Abbreviation": {
+        "LocalisedText": {
+         "Language": "de",
+         "Text": "BZR"
+        }
+       },
+       "OfficialNumber": {
+        "LocalisedText": {
+         "Language": "de",
+         "Text": null
+        }
+       },
+       "TextAtWeb": {
+        "LocalisedText": {
+         "Language": "de",
+         "Text": "https://www.gis-daten.ch/rd/BZR/SA_Bau-_und_Zonenreglement.pdf"
+        }
+       },
+       "Lawstatus": {
+        "Code": "inForce",
+        "Text": {
+         "LocalisedText": {
+          "Language": "de",
+          "Text": "Rechtskräftig"
+         }
+        }
+       },
+       "Index": "2",
+       "ResponsibleOffice": {
+        "Name": {
+         "LocalisedText": {
+          "Language": "de",
+          "Text": "Bauamt Sarnen"
+         }
+        },
+        "OfficeAtWeb": {
+         "LocalisedText": {
+          "Language": "de",
+          "Text": "https://www.sarnen.ch/aemter/3868"
+         }
+        }
+       }
+      }
+     ],
+     "ResponsibleOffice": {
+      "Name": {
+       "LocalisedText": {
+        "Language": "de",
+        "Text": "Bauamt Sarnen"
+       }
+      },
+      "OfficeAtWeb": {
+       "LocalisedText": {
+        "Language": "de",
+        "Text": "https://www.sarnen.ch/aemter/3868"
+       }
+      }
+     }
+    },
+    {
+     "LegendText": {
+      "LocalisedText": {
+       "Language": "de",
+       "Text": "Baulinien (Linienbezogene Festlegung, Sarnen)"
+      }
+     },
+     "Theme": {
+      "Code": "ch.Nutzungsplanung",
+      "Text": {
+       "LocalisedText": {
+        "Language": "de",
+        "Text": "Nutzungsplanung (kantonal/kommunal)"
+       }
+      }
+     },
+     "TypeCode": "e7135281:L:1551",
+     "Lawstatus": {
+      "Code": "inForce",
+      "Text": {
+       "LocalisedText": {
+        "Language": "de",
+        "Text": "Rechtskräftig"
+       }
+      }
+     },
+     "AreaShare": "0",
+     "PartInPercent": "0",
+     "LengthShare": "114",
+     "Map": {
+      "OtherLegend": [
+       {
+        "LegendText": {
+         "LocalisedText": {
+          "Language": "de",
+          "Text": "Baulinie generell"
+         }
+        },
+        "TypeCode": "e7135281:L:1551",
+        "Theme": {
+         "Code": "ch.Nutzungsplanung",
+         "Text": {
+          "LocalisedText": {
+           "Language": "de",
+           "Text": "Nutzungsplanung (kantonal/kommunal)"
+          }
+         }
+        }
+       },
+       {
+        "LegendText": {
+         "LocalisedText": {
+          "Language": "de",
+          "Text": "Quartierplanpflicht"
+         }
+        },
+        "TypeCode": "4d30bbf1:L:8902",
+        "Theme": {
+         "Code": "ch.Nutzungsplanung",
+         "Text": {
+          "LocalisedText": {
+           "Language": "de",
+           "Text": "Nutzungsplanung (kantonal/kommunal)"
+          }
+         }
+        }
+       },
+       {
+        "LegendText": {
+         "LocalisedText": {
+          "Language": "de",
+          "Text": "Ortsbildzone"
+         }
+        },
+        "TypeCode": "4d30bbf1:L:1717",
+        "Theme": {
+         "Code": "ch.Nutzungsplanung",
+         "Text": {
+          "LocalisedText": {
+           "Language": "de",
+           "Text": "Nutzungsplanung (kantonal/kommunal)"
+          }
+         }
+        }
+       },
+       {
+        "LegendText": {
+         "LocalisedText": {
+          "Language": "de",
+          "Text": "Quartierplan, Hostatt-Sonnenhof"
+         }
+        },
+        "TypeCode": "8340d47a:L:2533",
+        "Theme": {
+         "Code": "ch.Nutzungsplanung",
+         "Text": {
+          "LocalisedText": {
+           "Language": "de",
+           "Text": "Nutzungsplanung (kantonal/kommunal)"
+          }
+         }
+        }
+       },
+       {
+        "LegendText": {
+         "LocalisedText": {
+          "Language": "de",
+          "Text": "Quartierplan, Hostett Revosa"
+         }
+        },
+        "TypeCode": "8340d47a:L:8660",
+        "Theme": {
+         "Code": "ch.Nutzungsplanung",
+         "Text": {
+          "LocalisedText": {
+           "Language": "de",
+           "Text": "Nutzungsplanung (kantonal/kommunal)"
+          }
+         }
+        }
+       }
+      ]
+     },
+     "LegalProvisions": [
+      {
+       "Type": {
+        "Code": "LegalProvision",
+        "Text": {
+         "LocalisedText": {
+          "Language": "de",
+          "Text": "Rechtsvorschrift"
+         }
+        }
+       },
+       "Title": {
+        "LocalisedText": {
+         "Language": "de",
+         "Text": "Bau- und Zonenreglement der Gemeinde Sarnen"
+        }
+       },
+       "Abbreviation": {
+        "LocalisedText": {
+         "Language": "de",
+         "Text": "BZR"
+        }
+       },
+       "OfficialNumber": {
+        "LocalisedText": {
+         "Language": "de",
+         "Text": null
+        }
+       },
+       "TextAtWeb": {
+        "LocalisedText": {
+         "Language": "de",
+         "Text": "https://www.gis-daten.ch/rd/BZR/SA_Bau-_und_Zonenreglement.pdf"
+        }
+       },
+       "Lawstatus": {
+        "Code": "inForce",
+        "Text": {
+         "LocalisedText": {
+          "Language": "de",
+          "Text": "Rechtskräftig"
+         }
+        }
+       },
+       "Index": "2",
+       "ResponsibleOffice": {
+        "Name": {
+         "LocalisedText": {
+          "Language": "de",
+          "Text": "Bauamt Sarnen"
+         }
+        },
+        "OfficeAtWeb": {
+         "LocalisedText": {
+          "Language": "de",
+          "Text": "https://www.sarnen.ch/aemter/3868"
+         }
+        }
+       }
+      }
+     ],
+     "ResponsibleOffice": {
+      "Name": {
+       "LocalisedText": {
+        "Language": "de",
+        "Text": "Bauamt Sarnen"
+       }
+      },
+      "OfficeAtWeb": {
+       "LocalisedText": {
+        "Language": "de",
+        "Text": "https://www.sarnen.ch/aemter/3868"
+       }
+      }
+     }
+    },
+    {
+     "LegendText": {
+      "LocalisedText": {
+       "Language": "de",
+       "Text": "Laufende Änderung Teilrevision, GIS.SA.1015"
+      }
+     },
+     "Theme": {
+      "Code": "ch.NutzungsplanungAenderungOhneVorwirkung",
+      "Text": {
+       "LocalisedText": {
+        "Language": "de",
+        "Text": "Nutzungsplanung kommunal"
+       }
+      }
+     },
+     "TypeCode": "fdcfa212:L:1096",
+     "Lawstatus": {
+      "Code": "changeWithoutPreEffect",
+      "Text": {
+       "LocalisedText": {
+        "Language": "de",
+        "Text": "Änderung ohne Vorwirkung"
+       }
+      }
+     },
+     "AreaShare": "3929",
+     "PartInPercent": "100",
+     "Map": {
+      "OtherLegend": {
+       "LegendText": {
+        "LocalisedText": {
+         "Language": "de",
+         "Text": "Planungsperimeter  Teilrevision Nutzungsplanung"
+        }
+       },
+       "TypeCode": "fdcfa212:L:1096",
+       "Theme": {
+        "Code": "ch.NutzungsplanungAenderungOhneVorwirkung",
+        "Text": {
+         "LocalisedText": {
+          "Language": "de",
+          "Text": "Nutzungsplanung kommunal"
+         }
+        }
+       }
+      }
+     },
+     "LegalProvisions": [
+      {
+       "Type": {
+        "Code": "LegalProvision",
+        "Text": {
+         "LocalisedText": {
+          "Language": "de",
+          "Text": "Rechtsvorschrift"
+         }
+        }
+       },
+       "Title": {
+        "LocalisedText": {
+         "Language": "de",
+         "Text": "Bau- und Zonenreglement der Gemeinde Sarnen"
+        }
+       },
+       "Abbreviation": {
+        "LocalisedText": {
+         "Language": "de",
+         "Text": "BZR"
+        }
+       },
+       "OfficialNumber": {
+        "LocalisedText": {
+         "Language": "de",
+         "Text": null
+        }
+       },
+       "TextAtWeb": {
+        "LocalisedText": {
+         "Language": "de",
+         "Text": "https://www.gis-daten.ch/rd/BZR/SA_Bau-_und_Zonenreglement.pdf"
+        }
+       },
+       "Lawstatus": {
+        "Code": "inForce",
+        "Text": {
+         "LocalisedText": {
+          "Language": "de",
+          "Text": "Rechtskräftig"
+         }
+        }
+       },
+       "Index": "2",
+       "ResponsibleOffice": {
+        "Name": {
+         "LocalisedText": {
+          "Language": "de",
+          "Text": "Bauamt Sarnen"
+         }
+        },
+        "OfficeAtWeb": {
+         "LocalisedText": {
+          "Language": "de",
+          "Text": "https://www.sarnen.ch/aemter/3868"
+         }
+        }
+       }
+      }
+     ],
+     "ResponsibleOffice": {
+      "Name": {
+       "LocalisedText": {
+        "Language": "de",
+        "Text": "Bauamt Sarnen"
+       }
+      },
+      "OfficeAtWeb": {
+       "LocalisedText": {
+        "Language": "de",
+        "Text": "https://www.sarnen.ch/aemter/3868"
+       }
+      }
+     }
+    },
+    {
+     "LegendText": {
+      "LocalisedText": {
+       "Language": "de",
+       "Text": "Lärmempfindlichkeitsstufen (Sarnen)"
+      }
+     },
+     "Theme": {
+      "Code": "ch.Laermempfindlichkeitsstufen",
+      "Text": {
+       "LocalisedText": {
+        "Language": "de",
+        "Text": "Lärmempfindlichkeitsstufen (in Nutzungszonen)"
+       }
+      }
+     },
+     "TypeCode": "381435d7:L:2749",
+     "Lawstatus": {
+      "Code": "inForce",
+      "Text": {
+       "LocalisedText": {
+        "Language": "de",
+        "Text": "Rechtskräftig"
+       }
+      }
+     },
+     "AreaShare": "3929",
+     "PartInPercent": "100",
+     "Map": {
+      "OtherLegend": [
+       {
+        "LegendText": {
+         "LocalisedText": {
+          "Language": "de",
+          "Text": "Empfindlichkeitsstufe III"
+         }
+        },
+        "TypeCode": "381435d7:L:5565",
+        "Theme": {
+         "Code": "ch.Laermempfindlichkeitsstufen",
+         "Text": {
+          "LocalisedText": {
+           "Language": "de",
+           "Text": "Lärmempfindlichkeitsstufen (in Nutzungszonen)"
+          }
+         }
+        }
+       },
+       {
+        "LegendText": {
+         "LocalisedText": {
+          "Language": "de",
+          "Text": "Empfindlichkeitsstufe II"
+         }
+        },
+        "TypeCode": "381435d7:L:2749",
+        "Theme": {
+         "Code": "ch.Laermempfindlichkeitsstufen",
+         "Text": {
+          "LocalisedText": {
+           "Language": "de",
+           "Text": "Lärmempfindlichkeitsstufen (in Nutzungszonen)"
+          }
+         }
+        }
+       },
+       {
+        "LegendText": {
+         "LocalisedText": {
+          "Language": "de",
+          "Text": "Keine Empfindlichkeitsstufe"
+         }
+        },
+        "TypeCode": "381435d7:L:6706",
+        "Theme": {
+         "Code": "ch.Laermempfindlichkeitsstufen",
+         "Text": {
+          "LocalisedText": {
+           "Language": "de",
+           "Text": "Lärmempfindlichkeitsstufen (in Nutzungszonen)"
+          }
+         }
+        }
+       }
+      ]
+     },
+     "LegalProvisions": [
+      {
+       "Type": {
+        "Code": "LegalProvision",
+        "Text": {
+         "LocalisedText": {
+          "Language": "de",
+          "Text": "Rechtsvorschrift"
+         }
+        }
+       },
+       "Title": {
+        "LocalisedText": {
+         "Language": "de",
+         "Text": "Bau- und Zonenreglement der Gemeinde Sarnen (BZR)"
+        }
+       },
+       "Abbreviation": {
+        "LocalisedText": {
+         "Language": "de",
+         "Text": "ohne übergeordnete RV"
+        }
+       },
+       "OfficialNumber": {
+        "LocalisedText": {
+         "Language": "de",
+         "Text": null
+        }
+       },
+       "TextAtWeb": {
+        "LocalisedText": {
+         "Language": "de",
+         "Text": "https://www.gis-daten.ch/rd/BZR/SA_Bau-_und_Zonenreglement.pdf"
+        }
+       },
+       "Lawstatus": {
+        "Code": "inForce",
+        "Text": {
+         "LocalisedText": {
+          "Language": "de",
+          "Text": "Rechtskräftig"
+         }
+        }
+       },
+       "Index": "2",
+       "ResponsibleOffice": {
+        "Name": {
+         "LocalisedText": {
+          "Language": "de",
+          "Text": "Bauamt Sarnen"
+         }
+        },
+        "OfficeAtWeb": {
+         "LocalisedText": {
+          "Language": "de",
+          "Text": "https://www.sarnen.ch/aemter/3868"
+         }
+        }
+       }
+      }
+     ],
+     "ResponsibleOffice": {
+      "Name": {
+       "LocalisedText": {
+        "Language": "de",
+        "Text": "Bauamt Sarnen"
+       }
+      },
+      "OfficeAtWeb": {
+       "LocalisedText": {
+        "Language": "de",
+        "Text": "https://www.sarnen.ch/aemter/3868"
+       }
+      }
+     }
+    },
+    {
+     "LegendText": {
+      "LocalisedText": {
+       "Language": "de",
+       "Text": "Laufende Änderung Teilrevision, GIS.SA.1015 (LEPF)"
+      }
+     },
+     "Theme": {
+      "Code": "ch.LaermempfindlichkeitsstufenAenderungOhneVorwirkung",
+      "Text": {
+       "LocalisedText": {
+        "Language": "de",
+        "Text": "Lärmempfindlichkeitsstufen (in Nutzungszonen)"
+       }
+      }
+     },
+     "TypeCode": "c1342b8a:L:1096",
+     "Lawstatus": {
+      "Code": "changeWithoutPreEffect",
+      "Text": {
+       "LocalisedText": {
+        "Language": "de",
+        "Text": "Änderung ohne Vorwirkung"
+       }
+      }
+     },
+     "AreaShare": "3929",
+     "PartInPercent": "100",
+     "Map": {
+      "OtherLegend": {
+       "LegendText": {
+        "LocalisedText": {
+         "Language": "de",
+         "Text": "Planungsperimeter  Teilrevision Nutzungsplanung"
+        }
+       },
+       "TypeCode": "c1342b8a:L:1096",
+       "Theme": {
+        "Code": "ch.LaermempfindlichkeitsstufenAenderungOhneVorwirkung",
+        "Text": {
+         "LocalisedText": {
+          "Language": "de",
+          "Text": "Lärmempfindlichkeitsstufen (in Nutzungszonen)"
+         }
+        }
+       }
+      }
+     },
+     "LegalProvisions": [
+      {
+       "Type": {
+        "Code": "LegalProvision",
+        "Text": {
+         "LocalisedText": {
+          "Language": "de",
+          "Text": "Rechtsvorschrift"
+         }
+        }
+       },
+       "Title": {
+        "LocalisedText": {
+         "Language": "de",
+         "Text": "Bau- und Zonenreglement der Gemeinde Sarnen"
+        }
+       },
+       "Abbreviation": {
+        "LocalisedText": {
+         "Language": "de",
+         "Text": "BZR"
+        }
+       },
+       "OfficialNumber": {
+        "LocalisedText": {
+         "Language": "de",
+         "Text": null
+        }
+       },
+       "TextAtWeb": {
+        "LocalisedText": {
+         "Language": "de",
+         "Text": "https://www.gis-daten.ch/rd/BZR/SA_Bau-_und_Zonenreglement.pdf"
+        }
+       },
+       "Lawstatus": {
+        "Code": "inForce",
+        "Text": {
+         "LocalisedText": {
+          "Language": "de",
+          "Text": "Rechtskräftig"
+         }
+        }
+       },
+       "Index": "2",
+       "ResponsibleOffice": {
+        "Name": {
+         "LocalisedText": {
+          "Language": "de",
+          "Text": "Bauamt Sarnen"
+         }
+        },
+        "OfficeAtWeb": {
+         "LocalisedText": {
+          "Language": "de",
+          "Text": "https://www.sarnen.ch/aemter/3868"
+         }
+        }
+       }
+      }
+     ],
+     "ResponsibleOffice": {
+      "Name": {
+       "LocalisedText": {
+        "Language": "de",
+        "Text": "Bauamt Sarnen"
+       }
+      },
+      "OfficeAtWeb": {
+       "LocalisedText": {
+        "Language": "de",
+        "Text": "https://www.sarnen.ch/aemter/3868"
+       }
+      }
+     }
+    }
+   ]
+  },
+  "PLRCadastreAuthority": {
+   "Name": {
+    "LocalisedText": {
+     "Language": "de",
+     "Text": "GIS Daten AG"
+    }
+   },
+   "OfficeAtWeb": {
+    "LocalisedText": {
+     "Language": "de",
+     "Text": "https://www.gis-daten.ch/"
+    }
+   },
+   "UID": "-",
+   "Line1": null,
+   "Line2": null,
+   "Street": "Grundacher",
+   "Number": "1",
+   "PostalCode": "6060",
+   "City": "Sarnen"
+  },
+  "UpdateDateCS": "2026-10-15T08:50:37.6015162+02:00"
+ }
+}

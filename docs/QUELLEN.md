@@ -272,72 +272,88 @@ Oberflächenabfluss und Aquaprotect liefern bei einem Treffer nur `Feature 8688:
 
 ---
 
-## oereb · ÖREB-Kataster (AG, ZH, BE)
+## oereb · ÖREB-Kataster (26 Kantone, 22 angebunden)
 
 | | |
 |---|---|
-| Datenhalter | Kantone, katasterführende Stellen: AG Abteilung Geoinformation (AGIS), ZH Amt für Raumentwicklung (GIS-ZH), BE Amt für Geoinformation |
-| Endpoint | `GET <base>/extract/json?EGRID=<EGRID>`. Basis pro Kanton in `src/adapters/oereb/kantone.ts`: AG `https://api.geo.ag.ch/v2/oereb`, ZH `https://maps.zh.ch/oereb/v2`, BE `https://www.oereb2.apps.be.ch`. Daneben `<base>/versions/json` (nennt die Basis selbst) und `<base>/capabilities/json` (Themenliste). Norm: ÖREB-Webservice «Aufruf eines Auszugs», Version extract-2.0 (OeREBKRMtrsfr_V2_0), JSON nach openoereb-Schema. |
-| braucht | `egrid`, `kanton`. Manifest `cantons: AG, ZH, BE`; andere Kantone bekommen `ausser_kanton` und im Steckbrief die Lücke `quelle_ausser_kanton`. |
-| Fakten | `zone.bezeichnung`, `.code`, `.anteil_prozent`, `.anzahl`, `zone.weitere.<n>.{bezeichnung, code, anteil_prozent}`, `zone.baureglement_url`, `.baureglement_titel`, `parzelle.flaeche_grundbuch_m2` (Confidence 1), `laerm.empfindlichkeitsstufe` (I, II, III, IV), `.empfindlichkeitsstufe_text`, `.empfindlichkeitsstufe_anteil_prozent`, `oereb.<thema>.{betroffen, thema, text, anteil_prozent, laenge_m, zustaendig, zustaendig_url}`, `oereb.belastungen`, `.belastungen_anzahl`, `.aenderungen_hangig_anzahl`, `.auszug_pdf_url`, `.kataster_url`, `.kataster_stelle`, `.kataster_adresse`, `zone.zustaendig`, `.zustaendig_url`, `laerm.zustaendig`, `.zustaendig_url` |
-| Version | 2 (16.10.2026: zuständige Stellen aus ResponsibleOffice und PLRCadastreAuthority) |
-| source_date | `UpdateDateCS` (Stand des Katasters, nicht des Abrufs) |
+| Datenhalter | Kantone, katasterführende Stellen (Tabelle unten; Name laut swisstopo-Layer «Verfügbarkeit des ÖREB-Katasters» und `PLRCadastreAuthority` im Extract) |
+| Endpoint | `GET <base>/extract/json?EGRID=<EGRID>&GEOMETRY=false&WITHIMAGES=false&LANG=<sprache>` (Geometrie und Bilder weglassen erlaubt die Weisung). Basis pro Kanton in `src/adapters/oereb/kantone.ts`, abgeleitet aus dem swisstopo-Layer `ch.swisstopo-vd.stand-oerebkataster` (identify am Gebäudepunkt; Attribute `oereb_extract_url`, alles vor `/extract/`, dazu `firmenname`, `oereb_status_de`, `url_oereb`) und bestätigt über `<base>/versions/json`. Norm: Weisung «ÖREB-Webservice (Aufruf eines Auszugs)», Version extract-2.0 (OeREBKRMtrsfr_V2_0). |
+| braucht | `egrid`, `kanton`. Manifest `cantons` = alle Kantone mit Status verifiziert oder experimentell (`OEREB_KANTONE_ANGEBUNDEN`, 22). Kantone mit `kein_dienst` (SO, SH, VS, NE) bekommen `ausser_kanton` und im Steckbrief die Lücke `quelle_ausser_kanton`; die App zeigt dazu die Notiz aus `kantone.ts`. |
+| Fakten | `zone.bezeichnung`, `.erkennung` (subcode, typecode, flaechenanteil), `.hinweis` (nur bei flaechenanteil), `.code`, `.anteil_prozent`, `.anzahl` (nicht bei flaechenanteil), `zone.weitere.<n>.{bezeichnung, code, anteil_prozent}`, `zone.baureglement_url`, `.baureglement_titel`, `zone.zustaendig`, `.zustaendig_url`, `parzelle.flaeche_grundbuch_m2` (Confidence 1), `laerm.empfindlichkeitsstufe` (I, II, III, IV), `.empfindlichkeitsstufe_text`, `.empfindlichkeitsstufe_anteil_prozent`, `laerm.zustaendig`, `.zustaendig_url`, `oereb.<thema>.{betroffen, thema, text, anteil_prozent, laenge_m, zustaendig, zustaendig_url}` (dazu `oereb.nutzungsplanung_ueberlagernd.*`, nach Regel 3 stattdessen `oereb.nutzungsplanung_weitere.*`), `oereb.belastungen`, `.belastungen_anzahl`, `.aenderungen_hangig_anzahl`, `.auszug_pdf_url`, `.kataster_url`, `.kataster_stelle`, `.kataster_adresse` |
+| Confidence | zone.*: 1 (Regel 1), 0.95 (Regel 2), 0.8 (Regel 3); Grundbuchfläche und Lärmstufe 1 |
+| Version | 3 (16.10.2026: 22 Kantone, drei JSON-Dialekte, Regelkette mit `zone.erkennung` und `zone.hinweis`, Teilflächen summiert, Sprachen) |
+| source_date | `UpdateDateCS` (Stand des Katasters; auch als .NET-Datum `/Date(ms)/`) |
 | TTL | 14 Tage |
-| Timeout | 20 s (Extracts brauchen 1 bis 2 s, PDFs bis 11 s, die holen wir aber nicht) |
-| Status | verifiziert 15.10.2026 an fünf Parzellen in drei Kantonen · Fixtures `oereb-be-wabern.json`, `oereb-ag-baden.json`, `oereb-zh-zuerich.json`, `oereb-zh-winterthur.json` (echte Antworten, mit `_hinweis`) |
+| Timeout | 30 s, kein Retry bei 204. Beobachtet 16.10.2026: 1 bis 6 s, LU rund 10 s, UR rund 12 s, GL beim ersten Aufruf nach Ruhe 58 s (Kaltstart), danach 4 s. |
+| Status | verifiziert 16.10.2026 an 22 Referenzadressen (eine pro Kanton, `KANTONS_ADRESSEN`), Fixtures `test/fixtures/oereb-<kanton>.json` (echte Antworten, verkleinert mit `scripts/oereb-fixture.ts`), dazu die vier Fixtures vom 15.10.2026 (Wabern, Baden, Zürich, Winterthur) |
 
-**Antwortform** (gekürzt, BE Wabern):
+**Alle 26 Kantone (Inventar 16.10.2026).** Referenzadresse: Rathaus, Regierungs- oder Gemeindehaus des Hauptorts (`src/canary/adressen.ts`, `KANTONS_ADRESSEN`). Erkennungsregel: 1 = Kennzeichnung durch den Kanton (SubCode oder Subthema-Text), 2 = TypeCode-Muster, 3 = grösster Flächenanteil (Confidence 0.8, `zone.hinweis`). Form: openoereb = `GetExtractByIdResponse.extract`; GeoShop = XML nach JSON (`?xml`, `LocalisedText`-Hüllen); .NET = Serialisierung ohne Hülle bzw. `{Item: …}`.
 
-```json
-{ "GetExtractByIdResponse": { "extract": {
-    "UpdateDateCS": "2026-10-06T00:00:00",
-    "RealEstate": { "EGRID": "CH586746359755", "Number": "5711", "IdentDN": "BE0200000051", "Canton": "BE",
-      "MunicipalityName": "Köniz", "MunicipalityCode": 355, "LandRegistryArea": 761,
-      "RestrictionOnLandownership": [ {
-        "Theme": { "Code": "ch.Nutzungsplanung", "SubCode": "ch.NutzungsplanungGrundnutzung", "Text": [ { "Language": "de", "Text": "Zonenflächen der Grundnutzung" } ] },
-        "LegendText": [ { "Language": "de", "Text": "Wohnzone (Art. 29 BauR), Bauklasse IIa (Art. 53 BauR)" } ],
-        "TypeCode": "102_2", "Lawstatus": { "Code": "inForce" }, "AreaShare": 761, "PartInPercent": 100,
-        "LegalProvisions": [ { "Title": [ { "Language": "de", "Text": "Baureglement Gemeinde Koeniz …" } ], "TextAtWeb": [ { "Language": "de", "Text": "https://oerebfiles.apps.be.ch/…/721.0_Baureglement.pdf" } ] } ] } ] },
-    "ConcernedTheme": [ … ], "NotConcernedTheme": [ … ], "ThemeWithoutData": [ … ],
-    "PLRCadastreAuthority": { "OfficeAtWeb": [ { "Language": "de", "Text": "https://www.be.ch/oerebk" } ] } } } }
-```
+| Kanton | Basis | Sprache | Form | Regel | Status | geprüft | Referenz: Zone (ES) |
+|---|---|---|---|---|---|---|---|
+| ZH | `https://maps.zh.ch/oereb/v2` | de | openoereb (`Extract`, `code`) | 1 Theme.Text «…: Grundnutzungen», sonst 2 `^C[1-4]\d{3,}` | verifiziert | 2026-10-16 | Stadthaus: siehe gültige BZO der Stadt Zürich (K), C130701 (III) |
+| BE | `https://www.oereb2.apps.be.ch` | de | openoereb | 1 SubCode `ch.NutzungsplanungGrundnutzung…` | verifiziert | 2026-10-16 | Rathaus: Altstadtperimeter BO.06, zwei weitere Grundnutzungs-Einträge (II 66.8 %) |
+| LU | `https://svc.geo.lu.ch/oereb` | de | .NET (`{schemaLocation, Extract}`) | 3 (TypeCodes 3900, 7010 ohne Systematik) | verifiziert | 2026-10-16 | Rathaus: Weitere Mischzone (III), Ortsbildschutzzone als «weitere Einträge» |
+| UR | `https://prozessor-oereb.ur.ch/oereb` | de | GeoShop | 1 Layer-Titel «… Grundnutzung Altdorf» | verifiziert | 2026-10-16 | Rathaus: Verkehrsfläche innerhalb Bauzonen 73 %, Kernzone 1 27 % aus drei Teilflächen (IV) |
+| SZ | `https://map.geo.sz.ch/oereb` | de | openoereb | 3 (TypeCode 14.1.1, ein Eintrag) | verifiziert | 2026-10-16 | Rathaus: Kernzone A (III) |
+| OW | `https://www.gis-daten.ch/oereb` | de | GeoShop | 1 Layer-Titel «Grundnutzung (Sarnen)» | verifiziert | 2026-10-16 | Rathaus: Zone für öffentliche Bauten und Anlagen, ÖZ (II), zwei laufende Änderungen ohne Vorwirkung |
+| NW | `https://www.gis-daten.ch/oereb` | de | GeoShop | 1 Layer-Titel «Grundnutzung Stans» | verifiziert | 2026-10-16 | Rathaus: Kernzone 14a, K14a (III) |
+| GL | `https://map.geo.gl.ch/oereb` | de | openoereb | 1 Theme.Text «…: Grundnutzung» | verifiziert | 2026-10-16 | Gemeindehaus: Zone für öffentliche Bauten und Anlagen, 1632.15-01-01 (III) |
+| ZG | `https://oereb.zg.ch/oereb` | de | openoereb | 2 `^[1-4]\d{3,}` (ARE) | verifiziert | 2026-10-16 | Regierungsgebäude: Zone des öffentlichen Interesses für Bauten Anlagen, 150101 (II) |
+| FR | `https://maps.fr.ch/RDPPF_ws/RdppfSVC.svc` | de, Fallback fr | .NET (`{Item}`) | 1 SubCode `ch.FR.Affectationsprimaires` | verifiziert | 2026-10-16 | Hôtel de Ville: Zone de constructions d'intérêt général 1 (ZIG) (III) |
+| SO | `https://geo.so.ch/api/oereb` | de | nur XML | – | kein_dienst | 2026-10-16 | extract/json 415, versions/json 500; XML 126 KB vorhanden |
+| BS | `https://api.oereb.bs.ch` | de | openoereb | 1 eigenes Muster `^ch\.BS\.Zonenplan$` | verifiziert | 2026-10-16 | Rathaus: Stadt- und Dorfbild-Schutzzone, SU (III), Wohnanteilplan überlagernd |
+| BL | `https://oereb.geo.bl.ch` | de | openoereb | 3 (104000 Kernzone, 257003 Schutzkategorie, keine Systematik) | verifiziert | 2026-10-16 | Regierungsgebäude: Kernzone (III) |
+| SH | `https://oereb.geo.sh.ch` | de | nur XML | – | kein_dienst | 2026-10-16 | extract/json und versions/json 500; XML 128 KB vorhanden |
+| AR | `https://oereb.ar.ch/ktar/wsgi/oereb` | de | openoereb (TypeCode als JSON-String) | 3 | verifiziert | 2026-10-16 | Regierungsgebäude (19 761 m²): übriges Gemeindegebiet ÜG 88.2 % aus sechs Teilflächen (III 95.5 %) |
+| AI | `https://oereb.ai.ch/ktai/wsgi/oereb` | de | openoereb | 3 (alle SubCode `ch.NutzungsplanungKommunal`, Kürzel Oe, OS-I, ArZ) | verifiziert | 2026-10-16 | Rathaus: Zone für öffentliche Bauten und Anlagen, Oe (II) |
+| SG | `https://oereb.geo.sg.ch/ktsg/wsgi/oereb` | de | openoereb | 2 `^[1-4]\d{3,}` (ARE, siebenstellig) | verifiziert | 2026-10-16 | Regierungsgebäude: BauG Zone für öffentliche Bauten und Anlagen, 1504001 (II) |
+| GR | `https://oereb.geo.gr.ch/oereb` | de | openoereb (kantonales Thema `ch.GR.NutzungsplanungZpGgp`) | 2 `^\d{4}[A-Z]-f[14]\d{4}-` | verifiziert | 2026-10-16 | Rathaus: Zone für öffentliche Bauten und Anlagen, 3901F-f13411-134F16 (III) |
+| AG | `https://api.geo.ag.ch/v2/oereb` | de | openoereb | 2 `^[1-4]\d{3,}` (ARE) | verifiziert | 2026-10-16 | Rathaus: Zone Altstadt A [ASA] 86.1 %, ASB 13.9 % (III 86.1 %) |
+| TG | `https://map.geo.tg.ch/services/oereb` | de | openoereb | 1 SubCode `ch.TG.NutzungsplanungGrundnutzung` | verifiziert | 2026-10-16 | Rathaus: Kernzone Altstadt (KA), dazu Ortsbild-/Umgebungsschutzzone (Os) als zweite Grundnutzung (III) |
+| TI | `https://crdpp.geo.ti.ch/oereb2` | it | openoereb (ein SubCode pro Plan) | 1 eigenes Muster «Piano zone» auf Theme.Text | verifiziert | 2026-10-16 | Palazzo Civico: Comparto soggetto a Piano Particolareggiato (keine Lärmstufe im Kataster) |
+| VD | `https://www.rdppf.vd.ch/ws/RdppfSVC.svc` | fr | .NET (`{Item}`) | 1 SubCode `ch.VD.Affectationsprimaires` | verifiziert | 2026-10-16 | Hôtel de Ville: Zone centrale 15 LAT 99.9 % (III) |
+| VS | `https://rdppf.apps.vs.ch` | de, Fallback fr | – | – | kein_dienst | 2026-10-16 | Timeout nach 60 s auf versions/json und /, HTTP/2 INTERNAL_ERROR nach 79 s |
+| NE | `https://sitn.ne.ch/crdppf` | fr | – | – | kein_dienst | 2026-10-16 | extract/json und extract/xml 403 «Extract permissions», nur für registrierte Nutzer (sitn@ne.ch) |
+| GE | `https://ge.ch/terecadastrews/RdppfSVC.svc` | fr | .NET (`{Item}`) | 1 SubCode `ch.GE.Zonedaffectationprimaire` | verifiziert | 2026-10-16 | Hôtel de Ville: Zone 1 (II), Synthese und Plan d'utilisation du sol überlagernd |
+| JU | `https://geo.jura.ch/crdppf_server` | fr | openoereb | 2 `^r73_affectations_primaires_` | verifiziert | 2026-10-16 | Hôtel du Parlement: Zone centre - CA (III) |
 
-Kantonale Eigenheiten, alle im Schema abgefangen: ZH nennt die Hülle `Extract` (gross) und schreibt `Theme.code` klein; AG und BE
-`extract` und `Code`. Texte sind Listen `{Language, Text}`, wir nehmen `de`, sonst den ersten. Linienthemen (Baulinien) haben
-`LengthShare` statt `PartInPercent`. Mit `Lawstatus.Code` ≠ `inForce` (z.B. `changeWithPreEffect`) ist ein Eintrag hängig und
-zählt nur in `oereb.aenderungen_hangig_anzahl`. Antwort 204 ohne Inhalt heisst «EGRID in diesem Kataster unbekannt»
-(ZH, geprüft mit der Berner EGRID) und ist `EmptyResultError`, kein Ausfall.
+Nicht in der Tabelle, weil nicht Teil der Basis: ZG nennt im swisstopo-Layer `/ors`, in `versions/json` `/oereb` (beide liefern dasselbe, eingetragen ist `/oereb`); AR, AI und SG nennen in `versions/json` interne Hosts (`pyramid-oereb-xx.live.geoportal.ch`), eingetragen ist der öffentliche; GL nennt `http`, der Dienst läuft über `https`; TG schreibt die Basis mit Schrägstrich am Ende; VD und GE schreiben die Version als «2.0» statt «extract-2.0»; LU, FR, VD und GE geben `versions/json` ohne die Hülle `GetVersionsResponse`; UR, OW und NW geben sie als XML-nach-JSON (`?xml`, `@xmlns`).
 
-**Grundnutzung erkennen.** Unter `ch.Nutzungsplanung` stehen Grundnutzung (Wohnzone, Kernzone …) und überlagernde Festlegungen
-(Gestaltungsplan, Kernzonenplan, Baumschutz) nebeneinander. BE kennzeichnet die Grundnutzung mit `Theme.SubCode`
-`ch.NutzungsplanungGrundnutzung` (Regel gilt überall, wo ein SubCode steht). ZH und AG setzen am Eintrag keinen SubCode; dort
-entscheidet der `TypeCode` nach der Code-Systematik des minimalen Geodatenmodells Nutzungsplanung (ARE, Katalog Hauptnutzung_CH):
-1x Bauzonen (11 Wohn-, 12 Arbeits-, 13 Misch-, 14 Zentrums-, 15 Zonen für öffentliche Nutzungen …), 2x Landwirtschafts-,
-3x Schutz-, 4x weitere Zonen; 5x und 6x sind kantonale Codes für überlagernde Festlegungen und Sondernutzungspläne
-(61 Gestaltungsplan). ZH stellt ein «C» voran. Belege: AG 145101 Kernzone, 121101 Arbeitszone, 611201_2897 Gestaltungsplan,
-691101 Hochhausperimeter; ZH C130701 Kernzone, C150101 Zone für öffentliche Bauten, C310206 und C320101 Freihalte- und Gewässer-
-zonen, C610102 Gestaltungsplan, C690401 Kernzonenplan, C691041 Baumschutz. Weil das eine Einordnung ist, tragen zone.*-Fakten in
-AG und ZH Confidence 0.95, in BE 1. Hauptzone ist die Grundnutzung mit dem grössten `PartInPercent`, die übrigen stehen als
-`zone.weitere.<n>.*`. Der Legendentext wird unverändert gezeigt (Zürich: «siehe gültige Bau- und Zonenordnung der Stadt Zürich (K)»),
-es wird nichts hineininterpretiert.
+**Drei JSON-Formen, eine Normalisierung** (`erkenneForm`, `normalisiereBaum` in `src/adapters/oereb.ts`, bevor das Zod-Schema greift):
 
-**Lärm-Empfindlichkeitsstufe.** Thema `ch.Laermempfindlichkeitsstufen` (BE zusätzlich `ch.BE.Regionale…`, `ch.BE.Kantonale…`).
-Stufe aus der Legende («Empfindlichkeitsstufe III») oder dem TypeCode (AG `ES_III`, ZH `laermempfindlichkeitsstufen_3_0`), Eintrag mit
-dem grössten Anteil zuerst. «Empfindlichkeitsstufe keine» (ZH, Gewässer) ergibt keine Stufe. Köniz führt das Thema im Kataster, die
-Parzelle Wabern ist aber bei allen drei Lärm-Themen in `NotConcernedTheme`: keine Stufe, kein Grenzwert, keine Annahme.
+- *openoereb* (pyramid_oereb und Verwandte; ZH, BE, SZ, GL, ZG, BS, BL, AR, AI, SG, GR, AG, TG, TI, JU): `GetExtractByIdResponse.extract` (ZH: `Extract` und `Theme.code` klein), Texte als Listen `{Language, Text}`, Zahlen als Zahlen. AR schreibt den TypeCode als String mit JSON-Objekt (`{"de": "Wohnzone W2"}`), der Adapter nimmt den Text.
+- *GeoShop* (Infogrips; UR mit Lisag AG, OW und NW mit GIS Daten AG): die XML-Antwort mechanisch nach JSON gewandelt. Hülle `{"?xml": …, "Extract": {"@xmlns…"}}`, jeder Text in einer Hülle `{"LocalisedText": {Language, Text}}`, Zahlen als Strings («1793»), einzelne Elemente statt Arrays. Die Legende am Eintrag ist der Layer-Titel («Grundnutzung (Sarnen)», «73B (rkr) Gemeindliche Nutzungsplanung Grundnutzung Altdorf»); die Zonenbezeichnung steht in `Map.OtherLegend` unter demselben TypeCode (`49c61911:L:8157` → «Kernzone Dorf Sarnen, KD»). Der Adapter liest sie dort, ohne Treffer bleibt der Layer-Titel sichtbar.
+- *.NET-Serialisierung* (LU: `{schemaLocation, Extract}`; FR, VD, GE «RdppfSVC.svc»: `{Item: …}`): Die Feldnamen von Textlisten gehen verloren, es steht `LocalisedText` statt `LegendText` (Beschränkung), `TextAtWeb` (Rechtsvorschrift) und `OfficeAtWeb` (Stelle); Bild-URLs heissen `Item`, `Item1` …; Sprache (0 de, 1 fr, 2 it, 3 rm) und Lawstatus (0 inForce, 1 changeWithPreEffect, 2 changeWithoutPreEffect) sind Indizes der Schema-Enumerationen; `UpdateDateCS` ist `/Date(1792131942114)/`; Flächen sind Strings.
+- *nur XML* (SO und SH, gleiche Software): `extract/json` antwortet 415 bzw. 500, `extract/xml` liefert den Auszug (126 bzw. 128 KB, Namensräume `ns3:`). Ein XML-Pfad ist nicht gebaut; die beiden Kantone sind `kein_dienst`.
 
-**Weitere Themen** (`oereb.<thema>.*`): alle rechtskräftigen Einträge ausser Grundnutzung und Lärmstufen, gruppiert nach Thema.
-Slug aus dem Themencode ohne `ch.` und Kantonspräfix (`ch.BE.Gewaesserschutzbereiche` → `gewaesserschutzbereiche`,
-`ch.BelasteteStandorte` → `belastete_standorte`, `ch.ZH.Baulinien` → `baulinien`). Überlagernde Nutzungsplanung heisst einheitlich
-`nutzungsplanung_ueberlagernd`. Pro Thema: `betroffen` true, `thema` (Name laut Kataster), `text` (Legenden, mit «; » verbunden),
-`anteil_prozent` (grösster Flächenanteil) oder `laenge_m` (Summe der Linienlängen).
+Unbekannte Hülle ist `SchemaDriftError` («keine bekannte Hülle»), ebenso jede Form, die das Schema nach der Normalisierung nicht annimmt. Antwort 204 ohne Inhalt heisst «EGRID in diesem Kataster unbekannt» (ZH, geprüft mit der Berner EGRID) und ist `EmptyResultError`, kein Ausfall.
 
-**Zuständige Stellen (Version 2, 16.10.2026).** Jede Beschränkung trägt `ResponsibleOffice {Name[], OfficeAtWeb[]}` (ZH zusätzlich `UID`, `Line1`, `Line2`, `Street`, `Number`, `PostalCode`, `City`), der Extract als Ganzes `PLRCadastreAuthority {Name[], OfficeAtWeb[], Street, Number, PostalCode, City}` (ZH mit `Line1`/`Line2`). Daraus: `zone.zustaendig`/`.zustaendig_url` (Stelle der Grundnutzung), `laerm.zustaendig`/`.zustaendig_url` (Stelle der Empfindlichkeitsstufe), `oereb.<thema>.zustaendig`/`.zustaendig_url` (erste Stelle der Gruppe), `oereb.kataster_stelle` und `oereb.kataster_adresse` (Street Number, PostalCode City; `Line1`/`Line2` bleiben weg; `Number` kann null sein). Alles optional im Schema, nichts bricht, wenn es fehlt. Belege: Wabern Grundnutzung → Gemeinde Köniz / koeniz.ch, Sicherheitszonenplan → Bundesamt für Zivilluftfahrt BAZL, Gewässerschutzbereiche → Amt für Wasser und Abfall des Kantons Bern; Baden → Baden / baden.ch (Zone und Lärm); Zürich → Stadt Zürich (Zone, Lärm, Baulinien); Winterthur → Stadt Winterthur, belastete Standorte und Gewässerraum → Amt für Abfall, Wasser, Energie und Luft (die Quelle hat ein Leerzeichen am Ende der URL, wird getrimmt). Katasterstellen: BE Amt für Geoinformation, Reiterstrasse 11, 3013 Bern; AG Vermessungsamt, Bahnhofplatz 3c, 5001 Aarau; ZH Amt für Raumentwicklung, Stampfenbachstrasse 12, 8090 Zürich.
+**Grundnutzung erkennen: Regelkette.** Unter `ch.Nutzungsplanung` stehen Grundnutzung (Wohnzone, Kernzone …) und überlagernde Festlegungen (Gestaltungsplan, Ortsbildschutz, Gefahrenzone) nebeneinander. Pro Kanton stehen in `kantone.ts` nur die Muster, die Reihenfolge ist immer dieselbe:
 
-**Was nicht im Kataster steht und wir darum nicht liefern:** Ausnützungsziffer, Geschosszahl, Grenzabstände, Gebäudehöhen. Das
-regelt das kommunale Baureglement (BE), die Bau- und Nutzungsordnung (AG) bzw. die Bau- und Zonenordnung (ZH). Wenn der Extract
-sie unter `LegalProvisions` der Hauptzone nennt, geben wir den Link als `zone.baureglement_url` weiter. In der App bleibt
-«Ausnützung» eine Lücke «nicht im Kataster».
+1. *Kennzeichnung durch den Kanton* (`zone.erkennung` = `subcode`, Confidence 1): `Theme.SubCode` oder der Subthema-Text (`Theme.Text`; bei GeoShop der Layer-Titel) passt auf `grundnutzungRegel.kennzeichnung`, Standard `/Grundnutzung|affectations?\s*primaires?/i`. Belegt: BE `ch.NutzungsplanungGrundnutzung` (Köniz), `…GrundnutzungNutzungszonen` und `…GrundnutzungBauklassen` (Bern), TG `ch.TG.NutzungsplanungGrundnutzung`, FR und VD `ch.XX.Affectationsprimaires`, GE `ch.GE.Zonedaffectationprimaire`, ZH und GL im Theme.Text («…: Grundnutzungen», «…: Grundnutzung»), UR, OW und NW im Layer-Titel. Eigene Muster: BS `^ch\.BS\.Zonenplan$` (der Wohnanteilplan `ch.2701.Wohnanteilplan` ist überlagernd), TI «Piano zone» (jeder Plan hat einen eigenen SubCode `ch.TI.ch08d8qu…`, die Plansorte steht im Theme.Text «PR Bellinzona-Bellinzona / Piano zone», «… / Piano traffico», «… / Piano paesaggio»). Italienisch «azzonamento primario» ist nicht beobachtet und darum nicht im Muster.
+2. *TypeCode-Muster* (`typecode`, 0.95): Code-Systematik des minimalen Geodatenmodells Nutzungsplanung (ARE, Katalog Hauptnutzung_CH): 1x Bauzonen (11 Wohn-, 12 Arbeits-, 13 Misch-, 14 Zentrums-, 15 Zonen für öffentliche Nutzungen …), 2x Landwirtschafts-, 3x Schutz-, 4x weitere Zonen; 5x und 6x überlagernde Festlegungen und Sondernutzungspläne. Muster `^[1-4]\d{3,}` für AG (145101 Kernzone, 141201 Altstadt A, 611101 Erschliessungsplan, 8291 Denkmalschutz-Punkt), ZG (150101, 512001 Ortsbildschutz, 532201 Gefahrenzone, 691001 Fundstätte) und SG (1504001, 5903001); ZH mit «C» davor; JU kennzeichnet im TypeCode (`r73_affectations_primaires_Centre_CA` gegen `r73_zones_superpose_…`, `r73_contenus_ponctuels_…`). GR führt den Zonenplan nicht unter dem Bundesthema, sondern als `ch.GR.NutzungsplanungZpGgp` (`grundnutzungRegel.thema`; Erschliessungsplan `ch.GR.NutzungsplanungGep` und Folgeplanungen `ch.GR.NutzungsplanungFp` sind eigene Themen) mit TypeCodes `<BFS>F-f<Code>-…`: Grundnutzung `f1xxxx` (11110 Zentrumszone City, 11140 Zentrumszone Bahnhof, 11330 Wohnzone 3, 13411 Zone für öffentliche Bauten) und `f4xxxx` (49110 übriges Gemeindegebiet), überlagernd `f2xxxx` (21110 Schutzbereich Altstadt, 22120 Bauten schützenswert), `f5xxxx` (51310 Quartierplan), `f8xxxx` (87210 Archäologiezone, 87630 keine Gefahrenzone), belegt an sechs Parzellen in Chur, St. Moritz und Thusis; `f3xxxx` nicht beobachtet, dort griffe Regel 3.
+3. *Grösster Flächenanteil* (`flaechenanteil`, 0.8): greift keine der beiden Regeln, wird unter `ch.Nutzungsplanung` der rechtskräftige Eintrag mit dem grössten `PartInPercent` (sonst `AreaShare`) zur Zone, mit `zone.hinweis` = «Grundnutzung aus dem grössten Flächenanteil abgeleitet, nicht aus einer Kennzeichnung des Kantons». Die übrigen Nutzungsplanungs-Einträge heissen dann `oereb.nutzungsplanung_weitere.*` (Thema «Nutzungsplanung: weitere Einträge (Grundnutzung oder überlagernd, vom Kataster nicht gekennzeichnet)»), nicht «überlagernd», und `zone.anzahl` fehlt, weil die Zahl der Grundnutzungen nicht bekannt ist. Gilt für LU (3900 Weitere Mischzone, 7010 Ortsbildschutzzone, beide 100 %), SZ (14.1.1, ein Eintrag), BL (104000 Kernzone, 257003 Bauten der Schutzkategorie A), AR, AI (alle Einträge SubCode `ch.NutzungsplanungKommunal`, Kürzel Oe, OS-I, ArZ).
+
+Keine Beschränkung `ch.Nutzungsplanung` → keine Zone, Lücke «nicht im Kataster», nichts geraten. Der Legendentext wird unverändert gezeigt (Zürich: «siehe gültige Bau- und Zonenordnung der Stadt Zürich (K)», Bellinzona: «Comparto soggetto a Piano Particolareggiato»), in der Sprache des Dienstes.
+
+**Teilflächen.** Dieselbe Festlegung kommt oft mehrfach, pro Teilfläche (UR: Kernzone 1 zu 19, 3 und 5 %; AR: 21 Nutzungsplanungs- und 16 Lärm-Einträge für sechs Zonen und drei Stufen; ZH: Lärmstufe III zu 97 und 3 %). Gleiches Thema, gleicher SubCode, gleicher TypeCode und gleiche Legende werden ein Eintrag, Anteile, Flächen und Längen summiert, Anteil auf eine Dezimale gerundet (VD: 99.948… → 99.9).
+
+**Sprachen.** `LANG` der Anfrage ist die Kantonssprache (TI it; VD, NE, GE, JU fr; alle anderen de, auch FR und VS). Beim Lesen mehrsprachiger Texte gilt die Reihenfolge Kantonssprache, de, fr, it, rm, sonst der erste Eintrag (`textIn`). FR liefert mit `LANG=de` deutsche Themen- und Lärmtexte («Empfindlichkeitsstufe III, aufgestuft»), die Zonenbezeichnung bleibt französisch (nur so geführt). Nichts wird übersetzt.
+
+**Lärm-Empfindlichkeitsstufe.** Thema `ch.Laermempfindlichkeitsstufen` (BE zusätzlich `ch.BE.Regionale…`, `ch.BE.Kantonale…`). Stufe aus der Legende oder dem TypeCode, Eintrag mit dem grössten Anteil zuerst: de «Empfindlichkeitsstufe III», «Lärmempfindlichkeitsstufe II» (BE), «Abweichende Empfindlichkeitsstufe II» (AI), «Empfindlichkeitsstufe III, aufgestuft» (FR, ZH); fr «Degré de sensibilité III» (VD, GE), «Degré de sensibilité au bruit III» (JU); it «Grado di sensibilità III»; Kürzel ES, DS, GS mit Stufe; TypeCodes `ES_III` (AG, SZ, GL, BS, BL), `laermempfindlichkeitsstufen_3_0` (ZH), `III` (AR, SG, AI), `3` (LU), `r145_sens_bruit_DS_III` (JU), `110202` (ZG, nur Legende). «Empfindlichkeitsstufe keine» (ZH, Gewässer) ergibt keine Stufe. Köniz führt das Thema, die Parzelle Wabern liegt in keinem Eintrag; TI führt an der Referenzparzelle kein Lärmthema: keine Stufe, kein Grenzwert, keine Annahme.
+
+**Weitere Themen** (`oereb.<thema>.*`): alle rechtskräftigen Einträge ausser Grundnutzung und Lärmstufen, gruppiert nach Thema. Slug aus dem Themencode ohne `ch.` und Kantonspräfix (`ch.BE.Gewaesserschutzbereiche` → `gewaesserschutzbereiche`, `ch.BelasteteStandorte` → `belastete_standorte`, `ch.ZH.Baulinien` → `baulinien`, `ch.GL.NutzungsplanungUeberlagerungen` → `nutzungsplanung_ueberlagerungen`, `ch.LU.NaturalHazardMaps` → `natural_hazard_maps`). Überlagernde Nutzungsplanung heisst einheitlich `nutzungsplanung_ueberlagernd` (nach Regel 3: `nutzungsplanung_weitere`). Pro Thema: `betroffen` true, `thema` (Name laut Kataster), `text` (Legenden, mit «; » verbunden), `anteil_prozent` (grösster Flächenanteil), `laenge_m` (Summe der Linienlängen). Einträge mit `Lawstatus` ≠ `inForce` (`changeWithPreEffect` in ZH, `changeWithoutPreEffect` in OW als eigene Themen `ch.NutzungsplanungAenderungOhneVorwirkung`) sind hängig und zählen nur in `oereb.aenderungen_hangig_anzahl`.
+
+**Zuständige Stellen (seit Version 2).** Jede Beschränkung trägt `ResponsibleOffice {Name, OfficeAtWeb, …}`, der Extract `PLRCadastreAuthority {Name, OfficeAtWeb, Street, Number, PostalCode, City}` (ZH mit `Line1`/`Line2`, GE mit `Line1` «Case postale 224»). Daraus `zone.zustaendig`/`.zustaendig_url` (Stelle der Grundnutzung), `laerm.zustaendig`/`.zustaendig_url`, `oereb.<thema>.zustaendig`/`.zustaendig_url` (erste Stelle der Gruppe), `oereb.kataster_stelle` und `oereb.kataster_adresse` (Street Number, PostalCode City; `Number` kann null sein). Katasterstellen der Referenzen: BE Amt für Geoinformation, Reiterstrasse 11, 3013 Bern; AG Vermessungsamt, Bahnhofplatz 3c, 5001 Aarau; ZH Amt für Raumentwicklung, Stampfenbachstrasse 12, 8090 Zürich; UR Lisag AG, Reussacherstrasse 30, 6460 Altdorf; OW und NW GIS Daten AG; FR Amt für Geoinformation, Rue Joseph-Piller 13, 1700 Fribourg; GE Office de l'urbanisme, Rue David-Dufour 5, 1211 Genève 8.
+
+**Nicht angebundene Kantone (kein_dienst, Stand 16.10.2026), was genau fehlt:**
+
+- SO und SH liefern nur XML (gleiche Software: `ns2:GetVersionsResponse` mit den Namensräumen `http://schemas.geo.admin.ch/V_D/OeREB/2.0/…`). SO: `extract/json` 415 Unsupported Media Type (nginx), `versions/json` 500 «Unbekannter Server Fehler»; SH: beides 500 «Server Error». `extract/xml` und `versions/xml` funktionieren bei beiden. Anbinden hiesse: XML parsen und in die GeoShop-ähnliche Form bringen (dieselbe Normalisierung), neue Abhängigkeit oder eigener Parser.
+- VS: `rdppf.apps.vs.ch` (DNS: `csvslb-oinfra.vs.ch`, 193.247.117.21) antwortet auf `versions/json` und `/` nicht (Timeout 60 s, mit IPv4, HTTP/1.1 und Browser-User-Agent gleich; HTTP/2 bricht nach 79 s mit INTERNAL_ERROR ab). Später erneut prüfen.
+- NE: `extract/json` und `extract/xml` antworten 403 mit einer Seite «Extract permissions»: «L'accès aux extraits JSON nécessite une identification préalable, restreint aux utilisateurs annoncés», Kontakt sitn@ne.ch. `versions/json` ist offen (extract-2.0, `https://sitn.ne.ch/crdppf`). Anbinden hiesse: Zugang beantragen und einen Schlüssel oder Login im Client mitgeben.
+
+**Was nicht im Kataster steht und wir darum nicht liefern:** Ausnützungsziffer, Geschosszahl, Grenzabstände, Gebäudehöhen. Das regelt das kommunale Baureglement (BE), die Bau- und Nutzungsordnung (AG) bzw. die Bau- und Zonenordnung (ZH), «Règlement communal sur les constructions» (JU), «Regolamento edilizio» (TI). Wenn der Extract sie unter `LegalProvisions` der Hauptzone nennt, geben wir den Link als `zone.baureglement_url` weiter (Titelmuster in `BAUREGLEMENT`; FR, BS, BL, AR, VD, GE nennen an der Referenzparzelle keinen passenden Titel). In der App bleibt «Ausnützung» eine Lücke «nicht im Kataster».
 
 **Belege 15.10.2026**
 
@@ -351,9 +367,13 @@ sie unter `LegalProvisions` der Hauptzone nennt, geben wir den Link als `zone.ba
 
 **Probiert 15.10.2026:** `www.oereb.apps.be.ch` antwortet identisch zu `www.oereb2.apps.be.ch` (beide nennen sich selbst als Basis;
 die AGI-Dokumentation nennt oereb2). AG liefert auch `extract/xml` (76 KB), nicht gebraucht. `extract/pdf?EGRID=` liefert bei
-allen drei Kantonen den amtlichen Auszug (BE 0.6 MB in 4.6 s, AG 0.7 MB in 5.8 s, ZH 1.1 MB in 10.7 s), das ist `oereb.auszug_pdf_url`.
+allen Kantonen den amtlichen Auszug (BE 0.6 MB in 4.6 s, AG 0.7 MB in 5.8 s, ZH 1.1 MB in 10.7 s), das ist `oereb.auszug_pdf_url`.
 Falsche Pfade (`api.geo.ag.ch/oereb/…`, `www.ag.ch/app/oereb/…`, `www.oereb.apps.be.ch/oereb/v2/…`) geben 404.
-Datenstand: AG und ZH setzen `UpdateDateCS` auf den Abruftag, BE auf den letzten Datenimport (06.10.2026).
+Datenstand: AG, ZH, GL, AR, AI, SG, FR, GE, JU setzen `UpdateDateCS` auf den Abruftag, BE, SZ, ZG, BS, BL, TG, TI, VD, LU, UR, OW, NW auf den letzten Datenimport.
+
+**GR am 16.10.2026:** Vormittags lieferte `oereb.geo.gr.ch` ein Zertifikat für `gr.ch` und `*.gr.ch` (Amt für Informatik Graubünden), das den Host mit zwei Ebenen nicht abdeckt (curl 60, Node «fetch failed»; `map.geo.gr.ch` und `www.geo.gr.ch` gleich). Mittags kam ein Zertifikat für `geo.gr.ch` und `*.geo.gr.ch`, seither antworten `versions/json` und `extract/json` normal. Der Live-Fall für die bekannten Fehlerarten prüft darum nur noch SO, SH, NE und VS.
+
+**Probiert 16.10.2026:** Für AG geocodierte «Rathausplatz 1, 5000 Aarau» zum Kantonsspital (SearchServer-Treffer «Kantonsspital Aarau 1»), für OW «Rathausplatz 1, 6060 Sarnen» zur Terrassenstrasse 1: Der SearchServer ersetzt unbekannte Strassen still durch ähnliche, darum vergleicht das Inventar Strasse und PLZ des Treffers mit der Eingabe. «Dorfplatz 1, 6060 Sarnen» ist ein Mehrfamilienhaus (GWR 1030), «Rathausplatz 1, 8750 Glarus» ein Geschäftshaus mit vier Wohnungen; beide ersetzt durch St. Antonistrasse 4 (Rathaus Sarnen, 1040 Bürogebäude) und Gemeindehausplatz 5 (1060). Alle 26 Referenzgebäude sind laut GWR Büro- oder Verwaltungsgebäude, zum Teil mit einer Hauswartwohnung (1040).
 
 ---
 

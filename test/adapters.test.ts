@@ -1,6 +1,7 @@
 import { describe, expect, it } from 'vitest';
 import { adapters, avParzelle, geocode, gwr, kulturgueter, laermBahn, laermStrasse, naturgefahren, oereb, oevGueteklasse, radon, sonnendach, zustaendigeStellen } from '../src/adapters/index.ts';
-import { amtAdresse, parseStufe, themaSlug } from '../src/adapters/oereb.ts';
+import { amtAdresse, erkenneForm, erkenneGrundnutzung, isoDatum, normalisiereBaum, parseStufe, textIn, themaSlug, type Erkennung } from '../src/adapters/oereb.ts';
+import { GRUNDNUTZUNG_HINWEIS, OEREB_KANTONE, OEREB_KANTONE_ALLE, OEREB_KANTONE_ANGEBUNDEN, oerebExtractUrl, oerebKantoneZaehlung } from '../src/adapters/oereb/kantone.ts';
 import { adresseAusZeilen } from '../src/adapters/zustaendige-stellen.ts';
 import { geojsonAreaM2, pointInGeometry } from '../src/adapters/av-parzelle.ts';
 import { BAHN_HINWEIS } from '../src/adapters/laerm-bahn.ts';
@@ -345,10 +346,16 @@ describe('oereb', () => {
   const ctx = (datei: string, host: string, keys: Keys): AdapterContext => ({ keys, http: httpMit(datei, host), now: () => new Date('2026-10-15T10:00:00Z'), log: silentLogger });
   const feld = (out: Awaited<ReturnType<typeof oereb.resolve>>, key: string) => out.facts.find((f) => f.key === key);
 
-  it('Manifest: braucht egrid und kanton, gilt für AG, ZH, BE, 14 Tage TTL', () => {
+  it('Manifest: braucht egrid und kanton, gilt für alle Kantone mit Dienst (22 von 26, ohne SO, SH, VS, NE), 14 Tage TTL, 30 s Timeout', () => {
     expect(oereb.manifest.needs).toEqual(['egrid', 'kanton']);
-    expect(oereb.manifest.cantons).toEqual(['AG', 'ZH', 'BE']);
+    expect(oereb.manifest.cantons).toEqual(OEREB_KANTONE_ANGEBUNDEN);
+    expect(OEREB_KANTONE_ALLE).toHaveLength(26);
+    expect(OEREB_KANTONE_ANGEBUNDEN).toHaveLength(22);
+    for (const kt of ['SO', 'SH', 'VS', 'NE']) expect(oereb.manifest.cantons, kt).not.toContain(kt);
+    for (const kt of ['AG', 'ZH', 'BE', 'LU', 'UR', 'SZ', 'OW', 'NW', 'GL', 'ZG', 'FR', 'BS', 'BL', 'AR', 'AI', 'SG', 'GR', 'TG', 'TI', 'VD', 'GE', 'JU']) expect(oereb.manifest.cantons, kt).toContain(kt);
     expect(oereb.manifest.ttlDays).toBe(14);
+    expect(oereb.manifest.timeoutMs).toBe(30000);
+    expect(oerebKantoneZaehlung()).toEqual({ total: 26, angebunden: 22, verifiziert: 22, experimentell: 0, kein_dienst: 4 });
   });
 
   it('BE Wabern: Grundnutzung per SubCode, Grundbuchfläche 761 m² mit Confidence 1, weitere Themen, Stand aus UpdateDateCS', async () => {
@@ -374,7 +381,10 @@ describe('oereb', () => {
     expect(fact(out, 'oereb.auszug_pdf_url')).toBe('https://www.oereb2.apps.be.ch/extract/pdf?EGRID=CH586746359755');
     expect(fact(out, 'oereb.kataster_url')).toBe('https://www.be.ch/oerebk');
     expect(out.source_date).toBe('2026-10-06');
-    expect(out.facts.every((f) => f.request_url === 'https://www.oereb2.apps.be.ch/extract/json?EGRID=CH586746359755')).toBe(true);
+    // Abfrage ohne Geometrie und Bilder, in der Kantonssprache (Weisung erlaubt alle drei Parameter)
+    expect(out.facts.every((f) => f.request_url === 'https://www.oereb2.apps.be.ch/extract/json?EGRID=CH586746359755&GEOMETRY=false&WITHIMAGES=false&LANG=de')).toBe(true);
+    expect(fact(out, 'zone.erkennung')).toBe('subcode');
+    expect(fact(out, 'zone.hinweis')).toBeUndefined();
   });
 
   it('AG Baden: ohne SubCode entscheidet die Code-Systematik, Kernzone vor Gestaltungsplan, ES III, Confidence 0.95', async () => {
@@ -382,6 +392,7 @@ describe('oereb', () => {
     expect(fact(out, 'zone.bezeichnung')).toBe('Kernzone 5 [K5]');
     expect(fact(out, 'zone.code')).toBe('145101');
     expect(fact(out, 'zone.anzahl')).toBe(1);
+    expect(fact(out, 'zone.erkennung')).toBe('typecode');
     expect(feld(out, 'zone.bezeichnung')?.confidence).toBe(0.95);
     expect(fact(out, 'parzelle.flaeche_grundbuch_m2')).toBe(394);
     expect(fact(out, 'laerm.empfindlichkeitsstufe')).toBe('III');
@@ -404,7 +415,8 @@ describe('oereb', () => {
     expect(fact(out, 'zone.weitere.1.anteil_prozent')).toBe(3);
     expect(fact(out, 'parzelle.flaeche_grundbuch_m2')).toBe(513);
     expect(fact(out, 'laerm.empfindlichkeitsstufe')).toBe('III');
-    expect(fact(out, 'laerm.empfindlichkeitsstufe_anteil_prozent')).toBe(97);
+    expect(fact(out, 'laerm.empfindlichkeitsstufe_anteil_prozent')).toBe(100); // zwei Teilflächen (97 + 3) derselben Stufe, seit Version 3 summiert
+    expect(fact(out, 'zone.erkennung')).toBe('subcode'); // Theme.Text «…: Grundnutzungen» greift vor dem TypeCode-Muster
     expect(fact(out, 'oereb.nutzungsplanung_ueberlagernd.text')).toBe('Kernzonenplan');
     expect(fact(out, 'oereb.baulinien.betroffen')).toBe(true);
     expect(fact(out, 'oereb.baulinien.laenge_m')).toBe(34);
@@ -427,7 +439,7 @@ describe('oereb', () => {
   });
 
   it('Version 2: zuständige Stellen aus ResponsibleOffice und PLRCadastreAuthority, an allen vier Fixtures', async () => {
-    expect(oereb.manifest.version).toBe(2);
+    expect(oereb.manifest.version).toBe(3);
     const be = await oereb.resolve(ctx('oereb-be-wabern.json', 'www.oereb2.apps.be.ch', { egrid: 'CH586746359755', kanton: 'BE' }));
     expect(fact(be, 'zone.zustaendig')).toBe('Gemeinde Köniz');
     expect(fact(be, 'zone.zustaendig_url')).toBe('https://www.koeniz.ch');
@@ -477,8 +489,9 @@ describe('oereb', () => {
     await expect(oereb.resolve({ keys: { egrid: 'CH1', kanton: 'BE' }, http: fremd, now: () => new Date(), log: silentLogger })).rejects.toBeInstanceOf(SchemaDriftError);
   });
 
-  it('Kanton ohne Eintrag in der Tabelle wirft, statt eine fremde Basis zu raten', async () => {
-    await expect(oereb.resolve(ctx('oereb-be-wabern.json', 'www.oereb2.apps.be.ch', { egrid: 'CH1', kanton: 'SG' }))).rejects.toThrow(/nicht angeschlossen/);
+  it('Kanton ohne Eintrag oder ohne Dienst wirft, statt eine fremde Basis zu raten; bei kein_dienst mit der Notiz', async () => {
+    await expect(oereb.resolve(ctx('oereb-be-wabern.json', 'www.oereb2.apps.be.ch', { egrid: 'CH1', kanton: 'XX' }))).rejects.toThrow(/nicht angeschlossen/);
+    await expect(oereb.resolve(ctx('oereb-be-wabern.json', 'www.oereb2.apps.be.ch', { egrid: 'CH1', kanton: 'NE' }))).rejects.toThrow(/nicht angeschlossen: extract\/json und extract\/xml antworten 403/);
   });
 
   it('parseStufe und themaSlug: nur Erkennbares, nichts geraten', () => {
@@ -492,6 +505,225 @@ describe('oereb', () => {
     expect(themaSlug('ch.BelasteteStandorte')).toBe('belastete_standorte');
     expect(themaSlug('ch.ZH.Baulinien')).toBe('baulinien');
     expect(themaSlug('ch.Grundwasserschutzzonen')).toBe('grundwasserschutzzonen');
+  });
+});
+
+describe('oereb: alle Kantone mit Dienst, Fixtures der Referenzadressen vom 16.10.2026', () => {
+  const ctx = (datei: string, host: string, keys: Keys): AdapterContext => ({ keys, http: httpFor([{ match: (u) => u.hostname === host, body: fixture(datei) }]), now: () => new Date('2026-10-16T10:00:00Z'), log: silentLogger });
+  const feld = (out: Awaited<ReturnType<typeof oereb.resolve>>, key: string) => out.facts.find((f) => f.key === key);
+  const CONFIDENCE: Record<Erkennung, number> = { subcode: 1, typecode: 0.95, flaechenanteil: 0.8 };
+
+  type Fall = { kanton: string; egrid: string; host: string; zone: string; erkennung: Erkennung; anteil?: number; code?: string; es: 'I' | 'II' | 'III' | 'IV' | null; flaeche: number; belastungen: number; weitere?: string[] };
+  const FAELLE: Fall[] = [
+    { kanton: 'ZH', egrid: 'CH327787999175', host: 'maps.zh.ch', zone: 'siehe gültige Bau- und Zonenordnung der Stadt Zürich (K)', erkennung: 'subcode', code: 'C130701', es: 'III', flaeche: 3306, belastungen: 2 },
+    { kanton: 'BE', egrid: 'CH927645463506', host: 'www.oereb2.apps.be.ch', zone: 'Altstadtperimeter BO.06', erkennung: 'subcode', code: '217_309', es: 'II', flaeche: 1886, belastungen: 2, weitere: ['Untere Altstadt und Wohngebiet Matte', 'Untere Altstadt und Wohngebiet Matte'] },
+    { kanton: 'LU', egrid: 'CH373588605080', host: 'svc.geo.lu.ch', zone: 'Weitere Mischzone', erkennung: 'flaechenanteil', code: '3900', es: 'III', flaeche: 609, belastungen: 5 },
+    { kanton: 'UR', egrid: 'CH344607776411', host: 'prozessor-oereb.ur.ch', zone: 'Verkehrsfläche innerhalb Bauzonen', erkennung: 'subcode', anteil: 73, es: 'IV', flaeche: 1793, belastungen: 5, weitere: ['Kernzone 1'] },
+    { kanton: 'SZ', egrid: 'CH544022777358', host: 'map.geo.sz.ch', zone: 'Kernzone A', erkennung: 'flaechenanteil', code: '14.1.1', es: 'III', flaeche: 1893, belastungen: 0 },
+    { kanton: 'OW', egrid: 'CH407736590493', host: 'www.gis-daten.ch', zone: 'Zone für öffentliche Bauten und Anlagen, ÖZ', erkennung: 'subcode', es: 'II', flaeche: 3929, belastungen: 1 },
+    { kanton: 'NW', egrid: 'CH933477050848', host: 'www.gis-daten.ch', zone: 'Kernzone 14a, K14a', erkennung: 'subcode', es: 'III', flaeche: 1303, belastungen: 2, weitere: ['Verkehrszone, V'] },
+    { kanton: 'GL', egrid: 'CH554622796907', host: 'map.geo.gl.ch', zone: 'Zone für öffentliche Bauten und Anlagen', erkennung: 'subcode', code: '1632.15-01-01', es: 'III', flaeche: 417, belastungen: 1 },
+    { kanton: 'ZG', egrid: 'CH246506747623', host: 'oereb.zg.ch', zone: 'Zone des öffentlichen Interesses für Bauten Anlagen', erkennung: 'typecode', code: '150101', es: 'II', flaeche: 2253, belastungen: 1 },
+    { kanton: 'FR', egrid: 'CH591091539487', host: 'maps.fr.ch', zone: "Zone de constructions d'intérêt général 1 (ZIG)", erkennung: 'subcode', es: 'III', flaeche: 237, belastungen: 0 },
+    { kanton: 'BS', egrid: 'CH907067448984', host: 'api.oereb.bs.ch', zone: 'Stadt- und Dorfbild-Schutzzone', erkennung: 'subcode', code: 'SU', es: 'III', flaeche: 3523, belastungen: 4 },
+    { kanton: 'BL', egrid: 'CH127089175910', host: 'oereb.geo.bl.ch', zone: 'Kernzone', erkennung: 'flaechenanteil', code: '104000', es: 'III', flaeche: 1723, belastungen: 2 },
+    { kanton: 'AR', egrid: 'CH967713352088', host: 'oereb.ar.ch', zone: 'übriges Gemeindegebiet ÜG', erkennung: 'flaechenanteil', anteil: 88.2, code: 'übriges Gemeindegebiet ÜG', es: 'III', flaeche: 19761, belastungen: 5 },
+    { kanton: 'AI', egrid: 'CH527730594111', host: 'oereb.ai.ch', zone: 'Zone für öffentliche Bauten und Anlagen', erkennung: 'flaechenanteil', code: 'Oe', es: 'II', flaeche: 1698, belastungen: 2 },
+    { kanton: 'SG', egrid: 'CH352187785981', host: 'oereb.geo.sg.ch', zone: 'BauG Zone für öffentliche Bauten und Anlagen', erkennung: 'typecode', code: '1504001', es: 'II', flaeche: 17673, belastungen: 4 },
+    { kanton: 'GR', egrid: 'CH488486687764', host: 'oereb.geo.gr.ch', zone: 'Zone für öffentliche Bauten und Anlagen', erkennung: 'typecode', code: '3901F-f13411-134F16', es: 'III', flaeche: 882, belastungen: 2 },
+    { kanton: 'AG', egrid: 'CH327790235224', host: 'api.geo.ag.ch', zone: 'Zone Altstadt A [ASA]', erkennung: 'typecode', anteil: 86.1, code: '141201', es: 'III', flaeche: 885, belastungen: 1, weitere: ['Zone Altstadt B [ASB]'] },
+    { kanton: 'TG', egrid: 'CH507729918047', host: 'map.geo.tg.ch', zone: 'Kernzone Altstadt (KA)', erkennung: 'subcode', code: '1405', es: 'III', flaeche: 199, belastungen: 1, weitere: ['Ortsbild-/ Umgebungsschutzzone (Os)'] },
+    { kanton: 'TI', egrid: 'CH990287070740', host: 'crdpp.geo.ti.ch', zone: 'Comparto soggetto a Piano Particolareggiato', erkennung: 'subcode', code: 'S_14_047_0015_4175', es: null, flaeche: 2685, belastungen: 1 },
+    { kanton: 'VD', egrid: 'CH907857723624', host: 'www.rdppf.vd.ch', zone: 'Zone centrale 15 LAT', erkennung: 'subcode', anteil: 99.9, es: 'III', flaeche: 2864, belastungen: 2, weitere: ['Zone de desserte 15 LAT'] },
+    { kanton: 'GE', egrid: 'CH328197656307', host: 'ge.ch', zone: 'Zone 1', erkennung: 'subcode', es: 'II', flaeche: 1851, belastungen: 1 },
+    { kanton: 'JU', egrid: 'CH234478060309', host: 'geo.jura.ch', zone: 'Zone centre - CA', erkennung: 'typecode', code: 'r73_affectations_primaires_Centre_CA', es: 'III', flaeche: 1982, belastungen: 2 },
+  ];
+
+  it('deckt genau die angebundenen Kantone ab, jede Fixture trägt einen Hinweis', () => {
+    expect(FAELLE.map((f) => f.kanton).sort()).toEqual([...OEREB_KANTONE_ANGEBUNDEN].sort());
+    for (const f of FAELLE) expect((fixture(`oereb-${f.kanton.toLowerCase()}.json`) as { _hinweis?: string })._hinweis, f.kanton).toContain('16.10.2026');
+  });
+
+  for (const f of FAELLE) {
+    const k = OEREB_KANTONE[f.kanton]!;
+    it(`${f.kanton} (${k.status}): Zone «${f.zone}» per ${f.erkennung}, Grundbuchfläche ${f.flaeche} m², ES ${f.es ?? 'keine'}, ${f.belastungen} weitere Themen`, async () => {
+      const out = await oereb.resolve(ctx(`oereb-${f.kanton.toLowerCase()}.json`, f.host, { egrid: f.egrid, kanton: f.kanton }));
+      expect(fact(out, 'zone.bezeichnung')).toBe(f.zone);
+      expect(fact(out, 'zone.erkennung')).toBe(f.erkennung);
+      expect(feld(out, 'zone.bezeichnung')?.confidence).toBe(CONFIDENCE[f.erkennung]);
+      if (f.erkennung === 'flaechenanteil') {
+        expect(fact(out, 'zone.hinweis')).toBe(GRUNDNUTZUNG_HINWEIS);
+        expect(fact(out, 'zone.anzahl')).toBeUndefined(); // die Zahl der Grundnutzungen ist dann nicht bekannt
+      } else {
+        expect(fact(out, 'zone.hinweis')).toBeUndefined();
+        expect(fact(out, 'zone.anzahl')).toBe(1 + (f.weitere?.length ?? 0));
+      }
+      if (f.anteil !== undefined) expect(fact(out, 'zone.anteil_prozent')).toBe(f.anteil);
+      if (f.code) expect(fact(out, 'zone.code')).toBe(f.code);
+      for (const [i, w] of (f.weitere ?? []).entries()) expect(fact(out, `zone.weitere.${i + 1}.bezeichnung`), `weitere ${i + 1}`).toBe(w);
+      expect(fact(out, 'parzelle.flaeche_grundbuch_m2')).toBe(f.flaeche);
+      expect(feld(out, 'parzelle.flaeche_grundbuch_m2')?.confidence).toBe(1);
+      expect(fact(out, 'oereb.belastungen_anzahl')).toBe(f.belastungen);
+      if (f.es === null) expect(fact(out, 'laerm.empfindlichkeitsstufe')).toBeUndefined();
+      else expect(fact(out, 'laerm.empfindlichkeitsstufe')).toBe(f.es);
+      expect(out.source_date).toMatch(/^\d{4}-\d{2}-\d{2}$/);
+      expect(typeof fact(out, 'oereb.kataster_stelle')).toBe('string');
+      expect(typeof fact(out, 'zone.zustaendig')).toBe('string');
+      expect(fact(out, 'oereb.auszug_pdf_url')).toBe(`${k.base}/extract/pdf?EGRID=${f.egrid}`);
+      const url = oerebExtractUrl(k, f.egrid);
+      expect(url).toBe(`${k.base}/extract/json?EGRID=${f.egrid}&GEOMETRY=false&WITHIMAGES=false&LANG=${k.sprache}`);
+      expect(out.facts.every((x) => x.request_url === url)).toBe(true);
+    });
+  }
+
+  it('Dialekte: erkenneForm unterscheidet openoereb, GeoShop und .NET an der Hülle, sonst null', () => {
+    expect(erkenneForm({ GetExtractByIdResponse: { extract: { RealEstate: {} } } })?.form).toBe('openoereb');
+    expect(erkenneForm({ GetExtractByIdResponse: { Extract: { RealEstate: {} } } })?.form).toBe('openoereb');
+    expect(erkenneForm({ '?xml': {}, Extract: { '@xmlns': 'x', RealEstate: {} } })?.form).toBe('geoshop');
+    expect(erkenneForm({ Extract: { '@xmlns': 'x', RealEstate: {} } })?.form).toBe('geoshop');
+    expect(erkenneForm({ schemaLocation: 'x', Extract: { RealEstate: {} } })?.form).toBe('dotnet');
+    expect(erkenneForm({ Item: { RealEstate: {} } })?.form).toBe('dotnet');
+    expect(erkenneForm({ Item: 'bild.png' })).toBeNull();
+    expect(erkenneForm({ GetExtractByIdResponse: { Auszug: {} } })).toBeNull();
+    expect(erkenneForm('text')).toBeNull();
+  });
+
+  it('Dialekte: normalisiereBaum packt LocalisedText aus, benennt .NET-Felder nach Kontext um, übersetzt Zahlen-Enums und macht Listen zu Arrays', () => {
+    const geoshop = normalisiereBaum({ '@xmlns': 'x', LegendText: { LocalisedText: { Language: 'de', Text: 'Kernzone' } }, Theme: { Code: 'ch.Nutzungsplanung', Text: { LocalisedText: [{ Language: 'de', Text: 'NP' }] } }, RestrictionOnLandownership: { TypeCode: 'a' } });
+    expect(geoshop).toEqual({ LegendText: { Language: 'de', Text: 'Kernzone' }, Theme: { Code: 'ch.Nutzungsplanung', Text: [{ Language: 'de', Text: 'NP' }] }, RestrictionOnLandownership: [{ TypeCode: 'a' }] });
+    const dotnet = normalisiereBaum({
+      RestrictionOnLandownership: [{ LocalisedText: [{ Language: 0, Text: 'Zone 1' }], Lawstatus: { Code: 0 }, LegalProvisions: [{ Title: [{ Language: 1, Text: 'RCC' }], LocalisedText: [{ Language: 1, Text: 'https://x' }] }], ResponsibleOffice: { Name: [{ Language: 1, Text: 'Office' }], LocalisedText: [{ Language: 1, Text: 'https://o' }] } }],
+      PLRCadastreAuthority: { LocalisedText: [{ Language: 2, Text: 'https://k' }] },
+    }) as Record<string, unknown>;
+    expect(dotnet).toEqual({
+      RestrictionOnLandownership: [{ LegendText: [{ Language: 'de', Text: 'Zone 1' }], Lawstatus: { Code: 'inForce' }, LegalProvisions: [{ Title: [{ Language: 'fr', Text: 'RCC' }], TextAtWeb: [{ Language: 'fr', Text: 'https://x' }] }], ResponsibleOffice: { Name: [{ Language: 'fr', Text: 'Office' }], OfficeAtWeb: [{ Language: 'fr', Text: 'https://o' }] } }],
+      PLRCadastreAuthority: { OfficeAtWeb: [{ Language: 'it', Text: 'https://k' }] },
+    });
+    expect(normalisiereBaum({ Lawstatus: { Code: 2 } })).toEqual({ Lawstatus: { Code: 'changeWithoutPreEffect' } });
+  });
+
+  it('FR (.NET): Sprache 0 ist de, Lawstatus 0 ist inForce, /Date(ms)/ wird ein ISO-Datum, Flächen als Strings werden Zahlen', async () => {
+    const out = await oereb.resolve(ctx('oereb-fr.json', 'maps.fr.ch', { egrid: 'CH591091539487', kanton: 'FR' }));
+    expect(out.source_date).toBe('2026-10-16'); // /Date(1792131942114)/
+    expect(fact(out, 'oereb.aenderungen_hangig_anzahl')).toBeUndefined(); // Lawstatus 0 = inForce, nichts hängig
+    expect(fact(out, 'laerm.empfindlichkeitsstufe_text')).toBe('Empfindlichkeitsstufe III, aufgestuft'); // LANG=de liefert deutsche Legenden
+    expect(fact(out, 'oereb.kataster_adresse')).toBe('Rue Joseph-Piller 13, 1700 Fribourg');
+    expect(isoDatum('/Date(1792131942114)/')).toBe('2026-10-16');
+    expect(isoDatum('/Date(1791756000000+0200)/')).toBe('2026-10-11');
+    expect(isoDatum('2026-10-15T08:27:15.8716418+02:00')).toBe('2026-10-15');
+    expect(isoDatum('heute')).toBeUndefined();
+    expect(isoDatum(null)).toBeUndefined();
+  });
+
+  it('UR (GeoShop): Zonenbezeichnung aus Map.OtherLegend, Teilflächen derselben Zone summiert (Kernzone 1: 19 + 3 + 5 = 27 %), Lärmstufe IV auf 73 %', async () => {
+    const out = await oereb.resolve(ctx('oereb-ur.json', 'prozessor-oereb.ur.ch', { egrid: 'CH344607776411', kanton: 'UR' }));
+    expect(fact(out, 'zone.weitere.1.bezeichnung')).toBe('Kernzone 1');
+    expect(fact(out, 'zone.weitere.1.anteil_prozent')).toBe(27);
+    expect(fact(out, 'zone.weitere.2.bezeichnung')).toBeUndefined();
+    expect(fact(out, 'laerm.empfindlichkeitsstufe_anteil_prozent')).toBe(73);
+    expect(fact(out, 'oereb.nutzungsplanung_ueberlagernd.text')).toBe('Wichtige Bauten (Bautyp B); Gefahrenzone gelb');
+    expect(fact(out, 'oereb.kataster_stelle')).toBe('Lisag AG');
+    expect(fact(out, 'zone.baureglement_titel')).toBe('Bauordnung Altdorf');
+  });
+
+  it('OW (GeoShop): Legende am Eintrag ist der Layer-Titel «Grundnutzung (Sarnen)», gezeigt wird die Zone aus OtherLegend; laufende Änderungen ohne Vorwirkung zählen als hängig', async () => {
+    const out = await oereb.resolve(ctx('oereb-ow.json', 'www.gis-daten.ch', { egrid: 'CH407736590493', kanton: 'OW' }));
+    expect(fact(out, 'zone.bezeichnung')).toBe('Zone für öffentliche Bauten und Anlagen, ÖZ');
+    expect(fact(out, 'oereb.aenderungen_hangig_anzahl')).toBe(2);
+    expect(fact(out, 'oereb.nutzungsplanung_ueberlagernd.betroffen')).toBe(true);
+    expect(fact(out, 'oereb.nutzungsplanung_ueberlagernd.text')).toMatch(/Gefahrenzone/);
+  });
+
+  it('LU (.NET ohne Hülle): Regel 3 nimmt den grössten Anteil, die übrigen Einträge stehen als nutzungsplanung_weitere, nicht als überlagernd', async () => {
+    const out = await oereb.resolve(ctx('oereb-lu.json', 'svc.geo.lu.ch', { egrid: 'CH373588605080', kanton: 'LU' }));
+    expect(fact(out, 'oereb.nutzungsplanung_weitere.betroffen')).toBe(true);
+    expect(fact(out, 'oereb.nutzungsplanung_weitere.text')).toBe('Ortsbildschutzzone');
+    expect(fact(out, 'oereb.nutzungsplanung_weitere.thema')).toContain('vom Kataster nicht gekennzeichnet');
+    expect(fact(out, 'oereb.nutzungsplanung_ueberlagernd.betroffen')).toBeUndefined();
+    expect(fact(out, 'zone.baureglement_titel')).toBe('Bau- und Zonenreglement (Luzern)');
+    expect(fact(out, 'oereb.kataster_url')).toBe('https://rawi.lu.ch'); // .NET: LocalisedText der Katasterstelle ist OfficeAtWeb
+  });
+
+  it('AR: TypeCode ist ein String mit JSON-Objekt, zone.code wird der Text; 21 Teilflächen werden sechs Zonen', async () => {
+    const out = await oereb.resolve(ctx('oereb-ar.json', 'oereb.ar.ch', { egrid: 'CH967713352088', kanton: 'AR' }));
+    expect(fact(out, 'zone.code')).toBe('übriges Gemeindegebiet ÜG');
+    expect(fact(out, 'oereb.nutzungsplanung_weitere.text')).toContain('Gewerbezone GE4');
+    expect(fact(out, 'oereb.nutzungsplanung_weitere.text')).toContain('Landwirtschaftszone L');
+    expect(fact(out, 'laerm.empfindlichkeitsstufe_anteil_prozent')).toBe(95.5);
+  });
+
+  it('GE: die Synthese ohne «primaire» zählt als überlagernd, die Zone selbst kommt aus ch.GE.Zonedaffectationprimaire', async () => {
+    const out = await oereb.resolve(ctx('oereb-ge.json', 'ge.ch', { egrid: 'CH328197656307', kanton: 'GE' }));
+    expect(fact(out, 'zone.code')).toMatch(/^53:/);
+    expect(fact(out, 'oereb.nutzungsplanung_ueberlagernd.text')).toBe("Zone 1; Plan d'utilisation du sol; Zone protégée");
+    expect(fact(out, 'laerm.empfindlichkeitsstufe_text')).toBe('Degré de sensibilité II');
+  });
+
+  it('BS: eigenes Muster ch.BS.Zonenplan für Regel 1, Wohnanteilplan ist überlagernd', async () => {
+    const out = await oereb.resolve(ctx('oereb-bs.json', 'api.oereb.bs.ch', { egrid: 'CH907067448984', kanton: 'BS' }));
+    expect(fact(out, 'oereb.nutzungsplanung_ueberlagernd.text')).toBe('Wohnanteil Innerstadt bestehendes Mischverhältnis erhalten');
+    expect(fact(out, 'oereb.bau_strassen_weglinien.betroffen')).toBe(true);
+  });
+
+  it('GR: Zonenplan als kantonales Thema ch.GR.NutzungsplanungZpGgp, Grundnutzung per TypeCode f1xxxx, Schutz und Gefahren überlagernd, Erschliessungsplan eigenes Thema', async () => {
+    const out = await oereb.resolve(ctx('oereb-gr.json', 'oereb.geo.gr.ch', { egrid: 'CH488486687764', kanton: 'GR' }));
+    expect(fact(out, 'oereb.nutzungsplanung_ueberlagernd.text')).toBe('Schutzbereich Altstadt; Bauten und Anlagen schützenswert; Archäologiezone; Keine Gefahrenzone');
+    expect(fact(out, 'oereb.nutzungsplanung_gep.thema')).toBe('Kommunale Nutzungsplanung - Genereller Erschliessungsplan');
+    expect(fact(out, 'oereb.kataster_stelle')).toBe('Amt für Landwirtschaft und Geoinformation');
+    expect(fact(out, 'oereb.kataster_adresse')).toBe('Ringstrasse 10, 7001 Chur');
+  });
+
+  it('erkenneGrundnutzung: Regel 1 über SubCode oder Subthema, Regel 2 über TypeCode, sonst null; nur das Nutzungsplanungs-Thema des Kantons', () => {
+    const be = { grundnutzungRegel: {} };
+    expect(erkenneGrundnutzung({ code: 'ch.GR.NutzungsplanungZpGgp', typeCode: '3901F-f11140-111F10' }, OEREB_KANTONE.GR!)).toBe('typecode');
+    expect(erkenneGrundnutzung({ code: 'ch.GR.NutzungsplanungZpGgp', typeCode: '3901F-f49110-491F01' }, OEREB_KANTONE.GR!)).toBe('typecode');
+    expect(erkenneGrundnutzung({ code: 'ch.GR.NutzungsplanungZpGgp', typeCode: '3901F-f21110-210F41' }, OEREB_KANTONE.GR!)).toBeNull();
+    expect(erkenneGrundnutzung({ code: 'ch.GR.NutzungsplanungZpGgp', typeCode: '3901F-f87630-876F03' }, OEREB_KANTONE.GR!)).toBeNull();
+    expect(erkenneGrundnutzung({ code: 'ch.GR.NutzungsplanungGep', typeCode: '3901F-fb61144-210F12' }, OEREB_KANTONE.GR!)).toBeNull();
+    expect(erkenneGrundnutzung({ code: 'ch.GR.NutzungsplanungZpGgp', typeCode: '3901F-f11140-111F10' }, be)).toBeNull(); // ohne thema-Muster zählt nur ch.Nutzungsplanung
+    expect(erkenneGrundnutzung({ code: 'ch.Nutzungsplanung', subCode: 'ch.NutzungsplanungGrundnutzung' }, be)).toBe('subcode');
+    expect(erkenneGrundnutzung({ code: 'ch.Nutzungsplanung', subThema: 'Nutzungsplanung (kantonal/kommunal): Grundnutzungen' }, be)).toBe('subcode');
+    expect(erkenneGrundnutzung({ code: 'ch.Nutzungsplanung', subCode: 'ch.VD.Affectationsprimaires' }, be)).toBe('subcode');
+    expect(erkenneGrundnutzung({ code: 'ch.Nutzungsplanung', subCode: 'ch.GE.Zonedaffectationprimaire' }, be)).toBe('subcode');
+    expect(erkenneGrundnutzung({ code: 'ch.Nutzungsplanung', subThema: 'Nutzungsplanung (kantonal/kommunal)', typeCode: '145101' }, be)).toBeNull();
+    expect(erkenneGrundnutzung({ code: 'ch.Nutzungsplanung', subThema: 'Nutzungsplanung (kantonal/kommunal)', typeCode: '145101' }, OEREB_KANTONE.AG!)).toBe('typecode');
+    expect(erkenneGrundnutzung({ code: 'ch.Nutzungsplanung', typeCode: '611201_2897' }, OEREB_KANTONE.AG!)).toBeNull();
+    expect(erkenneGrundnutzung({ code: 'ch.Nutzungsplanung', typeCode: '8291' }, OEREB_KANTONE.AG!)).toBeNull(); // vierstellig, aber kein ARE-Code
+    expect(erkenneGrundnutzung({ code: 'ch.Nutzungsplanung', subCode: 'ch.BS.Zonenplan' }, OEREB_KANTONE.BS!)).toBe('subcode');
+    expect(erkenneGrundnutzung({ code: 'ch.Nutzungsplanung', subCode: 'ch.2701.Wohnanteilplan' }, OEREB_KANTONE.BS!)).toBeNull();
+    expect(erkenneGrundnutzung({ code: 'ch.Nutzungsplanung', subThema: 'PR Bellinzona-Bellinzona / Piano zone' }, OEREB_KANTONE.TI!)).toBe('subcode');
+    expect(erkenneGrundnutzung({ code: 'ch.Nutzungsplanung', subThema: 'PR Bellinzona-Bellinzona / Piano traffico' }, OEREB_KANTONE.TI!)).toBeNull();
+    expect(erkenneGrundnutzung({ code: 'ch.Nutzungsplanung', typeCode: 'r73_affectations_primaires_Centre_CA' }, OEREB_KANTONE.JU!)).toBe('typecode');
+    expect(erkenneGrundnutzung({ code: 'ch.GL.NutzungsplanungUeberlagerungen', subThema: 'Grundnutzung' }, be)).toBeNull();
+  });
+
+  it('textIn: Kantonssprache zuerst, dann de, fr, it, rm, sonst der erste; nichts wird übersetzt', () => {
+    const t = [{ Language: 'fr', Text: 'Zone centre' }, { Language: 'de', Text: 'Zentrumszone' }];
+    expect(textIn(t, 'fr')).toBe('Zone centre');
+    expect(textIn(t, 'de')).toBe('Zentrumszone');
+    expect(textIn(t, 'it')).toBe('Zentrumszone');
+    expect(textIn([{ Language: 'it', Text: 'Zona centro' }], 'de')).toBe('Zona centro');
+    expect(textIn([{ Language: 'rm', Text: 'Zona' }, { Language: 'en', Text: 'Zone' }], 'de')).toBe('Zona');
+    expect(textIn([{ Language: 'de', Text: '' }, { Language: 'fr', Text: 'Zone' }], 'de')).toBe('Zone');
+    expect(textIn({ Language: 'de', Text: ' Kernzone ' }, 'de')).toBe('Kernzone');
+    expect(textIn('nur Text', 'fr')).toBe('nur Text');
+    expect(textIn(undefined, 'de')).toBeUndefined();
+    expect(textIn([{ Language: 'de', Text: null }], 'de')).toBeUndefined();
+  });
+
+  it('parseStufe liest auch fr und it: Degré de sensibilité, DS, Grado di sensibilità, GS', () => {
+    expect(parseStufe('Degré de sensibilité III', '801:1e5e')).toBe('III');
+    expect(parseStufe('Degré de sensibilité au bruit III', 'r145_sens_bruit_DS_III')).toBe('III');
+    expect(parseStufe('DS II', undefined)).toBe('II');
+    expect(parseStufe('Grado di sensibilità II', undefined)).toBe('II');
+    expect(parseStufe('Grado di sensibilità al rumore IV', undefined)).toBe('IV');
+    expect(parseStufe('GS II', undefined)).toBe('II');
+    expect(parseStufe(undefined, 'r145_sens_bruit_DS_III')).toBe('III');
+    expect(parseStufe('Abweichende Empfindlichkeitsstufe II', 'II')).toBe('II');
+    expect(parseStufe('Lärmempfindlichkeitsstufen (Sarnen)', '381435d7:L:2749')).toBeNull(); // GeoShop-Layertitel ohne Stufe
+    expect(parseStufe('Empfindlichkeitsstufe III', '3')).toBe('III');
+    expect(parseStufe(undefined, '3')).toBe('III'); // LU: TypeCode ist nur die Ziffer
+    expect(parseStufe(undefined, '1405')).toBeNull(); // TG: TypeCode ist eine Zonen-Nummer, keine Stufe
   });
 });
 
