@@ -28,6 +28,8 @@ const LAYER_GEOMETER = 'ch.swisstopo-vd.geometa-nfgeom';
 const grundbuchAttrs = z.object({
   ortsteil_grundbuch: nullableString,
   grundbuchfuehrung_d: nullableString,
+  grundbuchfuehrung_f: nullableString,
+  grundbuchfuehrung_i: nullableString,
   grundbuchkreis: nullableString,
   adresse: nullableString,
   telefon: nullableString,
@@ -52,7 +54,7 @@ export function adresseAusZeilen(s: string | null | undefined): string | null {
   return teile.length ? teile.join(', ') : null;
 }
 
-type Amt = { kreis: string; ortsteile: string[]; fuehrung: string | null; adresse: string | null; telefon: string | null; email: string | null };
+type Amt = { kreis: string; ortsteile: string[]; fuehrung: string | null; fuehrungFr: string | null; fuehrungIt: string | null; adresse: string | null; telefon: string | null; email: string | null };
 
 export const zustaendigeStellen: Adapter = {
   manifest: {
@@ -63,14 +65,14 @@ export const zustaendigeStellen: Adapter = {
     yields: [],
     provides: ['grundbuch.', 'vermessung.geometer_'],
     ttlDays: 90,
-    version: 1,
+    version: 2, // 16.10.2026: grundbuch.hinweis_code (mehrere_kreise) neben dem Hinweis, grundbuch.fuehrung_fr und _it aus dem Layer
     timeoutMs: 8000,
     license: 'OGD, Quellenangabe Pflicht',
     attribution: '© swisstopo (Amtliche Vermessung Schweiz)',
     endpoint: 'https://api3.geo.admin.ch/rest/services/api/MapServer/identify?layers=all:ch.swisstopo-vd.geometa-grundbuch,ch.swisstopo-vd.geometa-nfgeom',
     status: 'verifiziert', // Live-Test 16.10.2026 an den fünf goldenen Adressen
     notes:
-      'Grundbuchkreis und Nachführungsgeometer am Gebäudepunkt. Mehrere Grundbuchkreise in der Gemeinde: nur Anzahl und Hinweis, keine Kontaktdaten (der Layer löst die Kreise nicht räumlich auf). Der Name des Geometers (Person) wird nicht gespeichert.',
+      'Grundbuchkreis und Nachführungsgeometer am Gebäudepunkt. Mehrere Grundbuchkreise in der Gemeinde: nur Anzahl und Hinweis (Code mehrere_kreise), keine Kontaktdaten (der Layer löst die Kreise nicht räumlich auf). Grundbuchführung in de, fr und it, wie der Layer sie führt. Der Name des Geometers (Person) wird nicht gespeichert.',
   },
 
   async resolve(ctx): Promise<AdapterOutput> {
@@ -86,7 +88,7 @@ export const zustaendigeStellen: Adapter = {
       if (!a.grundbuchkreis) continue;
       const adresse = adresseAusZeilen(a.adresse);
       const k = [a.grundbuchkreis, adresse, a.telefon, a.email].join('|');
-      const amt = kreise.get(k) ?? { kreis: a.grundbuchkreis, ortsteile: [], fuehrung: a.grundbuchfuehrung_d, adresse, telefon: a.telefon, email: a.email };
+      const amt = kreise.get(k) ?? { kreis: a.grundbuchkreis, ortsteile: [], fuehrung: a.grundbuchfuehrung_d, fuehrungFr: a.grundbuchfuehrung_f, fuehrungIt: a.grundbuchfuehrung_i, adresse, telefon: a.telefon, email: a.email };
       if (a.ortsteil_grundbuch && !amt.ortsteile.includes(a.ortsteil_grundbuch)) amt.ortsteile.push(a.ortsteil_grundbuch);
       kreise.set(k, amt);
     }
@@ -101,6 +103,9 @@ export const zustaendigeStellen: Adapter = {
       // Ortsteil nur, wenn er eindeutig ist (Baden: Ortsteile Baden und Turgi am selben Punkt, welcher gilt, sagt der Layer nicht)
       if (a.ortsteile.length === 1) push('grundbuch.ortsteil', a.ortsteile[0]!);
       if (a.fuehrung) push('grundbuch.fuehrung', a.fuehrung);
+      // Der Layer führt die Grundbuchführung in drei Amtssprachen; die View zeigt die passende (Datenwert, keine Übersetzung durch uns)
+      if (a.fuehrungFr) push('grundbuch.fuehrung_fr', a.fuehrungFr);
+      if (a.fuehrungIt) push('grundbuch.fuehrung_it', a.fuehrungIt);
       if (a.adresse) push('grundbuch.adresse', a.adresse);
       if (a.telefon) push('grundbuch.telefon', a.telefon);
       if (a.email) push('grundbuch.email', a.email);
@@ -110,6 +115,8 @@ export const zustaendigeStellen: Adapter = {
         'grundbuch.hinweis',
         `Die Gemeinde hat ${kreise.size} Grundbuchkreise. Die Amtliche Vermessung löst sie nicht räumlich auf, zuständig ist das Grundbuchamt bzw. Notariat des Quartiers.`,
       );
+      // Code daneben, Parameter ist grundbuch.kreise_anzahl
+      push('grundbuch.hinweis_code', 'mehrere_kreise');
     }
 
     // Nachführungsgeometer: der ordentliche vor dem Stellvertreter. `name` (Person) wird bewusst nicht gelesen.

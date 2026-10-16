@@ -1,0 +1,131 @@
+grundpass · Maygutstrasse 26
+3084 Wabern · Municipality of Köniz · BE
+EGID 1271632 · EGRID CH586746359755 · Parcel 5711
+
+ADDRESS
+  Address       Maygutstrasse 26 3084 Wabern   geocode · retrieved 16.10.2026
+  Municipality  Köniz   gwr · data as of 12.10.2026 · retrieved 16.10.2026
+  FSO number    355   gwr · data as of 12.10.2026 · retrieved 16.10.2026
+  Canton        BE   gwr · data as of 12.10.2026 · retrieved 16.10.2026
+
+BUILDING
+  EGID                    1271632   geocode · retrieved 16.10.2026
+  Building type           Single-family house   gwr · data as of 12.10.2026 · retrieved 16.10.2026
+  Building class          Single-dwelling buildings   gwr · data as of 12.10.2026 · retrieved 16.10.2026
+  Use                     Building for residential use only   gwr · data as of 12.10.2026 · retrieved 16.10.2026
+  Status                  existing   gwr · data as of 12.10.2026 · retrieved 16.10.2026
+  Period of construction  1946 to 1960   gwr · data as of 12.10.2026 · retrieved 16.10.2026
+  Floors                  2   gwr · data as of 12.10.2026 · retrieved 16.10.2026
+  Number of dwellings     1   gwr · data as of 12.10.2026 · retrieved 16.10.2026
+  Building footprint      139 m2   gwr · data as of 12.10.2026 · retrieved 16.10.2026
+
+HEATING AND HOT WATER
+  Heating                  Oil heating   gwr · data as of 12.10.2026 · retrieved 16.10.2026
+  Heat generator           Boiler (generic) for a single building   gwr · data as of 12.10.2026 · retrieved 16.10.2026
+  Energy source            Heating oil   gwr · data as of 12.10.2026 · retrieved 16.10.2026
+  Date of entry            14.03.2023   gwr · data as of 12.10.2026 · retrieved 16.10.2026
+  Hot water                Boiler (generic)   gwr · data as of 12.10.2026 · retrieved 16.10.2026
+  Hot water energy source  Heating oil   gwr · data as of 12.10.2026 · retrieved 16.10.2026
+
+DWELLINGS
+  Total dwelling area  150 m2   derived · retrieved 16.10.2026
+  Rooms in total       6   derived · retrieved 16.10.2026
+
+PARCEL
+  Parcel number                5711   gwr · data as of 12.10.2026 · retrieved 16.10.2026
+  EGRID                        CH586746359755   gwr · data as of 12.10.2026 · retrieved 16.10.2026
+  Parcel area                  761 m2   oereb · data as of 06.10.2026 · retrieved 16.10.2026
+  Parcel area (from geometry)  764 m2   av-parzelle · retrieved 16.10.2026
+  Cantonal geoportal           https://www.topo.apps.be.ch/pub/map/?lang=de&gpk=MOPUBE_GPK   av-parzelle · retrieved 16.10.2026
+
+ZONE AND CADASTRE
+  Zone                                                                          Wohnzone (Art. 29 BauR), Bauklasse IIa (Art. 53 BauR)   oereb · data as of 06.10.2026 · retrieved 16.10.2026
+  Zone code                                                                     102_2   oereb · data as of 06.10.2026 · retrieved 16.10.2026
+  Share of the parcel                                                           100 %   oereb · data as of 06.10.2026 · retrieved 16.10.2026
+  Zones on the parcel                                                           1   oereb · data as of 06.10.2026 · retrieved 16.10.2026
+  Building regulations                                                          https://oerebfiles.apps.be.ch/35501/6862/721.0_Baureglement.pdf   oereb · data as of 06.10.2026 · retrieved 16.10.2026
+  Responsible                                                                   Gemeinde Köniz   oereb · data as of 06.10.2026 · retrieved 16.10.2026
+  Further entries in the cadastre                                               2   oereb · data as of 06.10.2026 · retrieved 16.10.2026
+  Official extract (PDF)                                                        https://www.oereb2.apps.be.ch/extract/pdf?EGRID=CH586746359755   oereb · data as of 06.10.2026 · retrieved 16.10.2026
+  Gewässerschutzbereiche (Zusatzinformation nach Art. 8b Abs. 1 Bst. b ÖREBKV)  übriger Bereich üB   oereb · data as of 06.10.2026 · retrieved 16.10.2026
+  Sicherheitszonenplan                                                          Genehmigter Sicherheitszonenperimeter   oereb · data as of 06.10.2026 · retrieved 16.10.2026
+
+TOWNSCAPE AND MONUMENTS
+  PCP Inventory (protection of cultural property)  not affected   kulturgueter · retrieved 16.10.2026
+
+SUN AND ROOF
+  Solar suitability                 very good   sonnendach · data as of 13.04.2020 · retrieved 16.10.2026
+  Roof area                         240 m2   sonnendach · data as of 13.04.2020 · retrieved 16.10.2026
+  Roof areas                        4   sonnendach · data as of 13.04.2020 · retrieved 16.10.2026
+  Irradiation (best area)           1'380 kWh/m2/a   sonnendach · data as of 13.04.2020 · retrieved 16.10.2026
+  Possible solar electricity        44'550 kWh/a   sonnendach · data as of 13.04.2020 · retrieved 16.10.2026
+  of which in the winter half-year  12'088 kWh/a   sonnendach · data as of 13.04.2020 · retrieved 16.10.2026
+  Estimated return                  CHF 4'455   sonnendach · data as of 13.04.2020 · retrieved 16.10.2026
+  Estimated heating demand          18'154 kWh/a   sonnendach · data as of 13.04.2020 · retrieved 16.10.2026
+  Orientation (best area)           40 °   sonnendach · data as of 13.04.2020 · retrieved 16.10.2026
+  Tilt (best area)                  26 °   sonnendach · data as of 13.04.2020 · retrieved 16.10.2026
+
+PUBLIC TRANSPORT
+  Public transport quality category  D   oev-gueteklasse · retrieved 16.10.2026
+  Meaning                            poor public transport access   oev-gueteklasse · retrieved 16.10.2026
+
+NOISE
+  Road noise, day       33.2 dB   laerm-strasse · retrieved 16.10.2026
+  Road noise, night     24.1 dB   laerm-strasse · retrieved 16.10.2026
+  Railway noise, day    16.4 dB   laerm-bahn · retrieved 16.10.2026
+  Railway noise, night  6.2 dB   laerm-bahn · retrieved 16.10.2026
+
+NATURAL HAZARDS
+  Overland flow during heavy rain  not affected   naturgefahren · data as of 22.05.2018 · retrieved 16.10.2026
+  100-year flood (Aquaprotect)     not affected   naturgefahren · data as of 18.12.2008 · retrieved 16.10.2026
+  Seismic zone (SIA 261)           Z1b   naturgefahren · data as of 13.04.2026 · retrieved 16.10.2026
+
+RADON
+  Radon probability  21 %   radon · retrieved 16.10.2026
+  Rating             elevated   radon · retrieved 16.10.2026
+
+RESPONSIBLE OFFICES
+  Land registry office     Bern-Mittelland   zustaendige-stellen · retrieved 16.10.2026
+  Land registry address    Poststrasse 25, 3071 Ostermundigen   zustaendige-stellen · retrieved 16.10.2026
+  Land registry phone      031 635 93 00   zustaendige-stellen · retrieved 16.10.2026
+  Land registry e-mail     gba.bemi@be.ch   zustaendige-stellen · retrieved 16.10.2026
+  Land register status     eidg. Grundbuch ganz eingeführt   zustaendige-stellen · retrieved 16.10.2026
+  Cadastral surveyor       bbp geomatik ag   zustaendige-stellen · retrieved 16.10.2026
+  Surveyor address         Könizstrasse 161, 3097 Liebefeld   zustaendige-stellen · retrieved 16.10.2026
+  Surveyor phone           031 970 30 50   zustaendige-stellen · retrieved 16.10.2026
+  Surveyor e-mail          bbp@geozen.ch   zustaendige-stellen · retrieved 16.10.2026
+  PLR Cadastre office      Amt für Geoinformation   oereb · data as of 06.10.2026 · retrieved 16.10.2026
+  Cadastre office address  Reiterstrasse 11, 3013 Bern   oereb · data as of 06.10.2026 · retrieved 16.10.2026
+  Cadastre office website  https://www.be.ch/oerebk   oereb · data as of 06.10.2026 · retrieved 16.10.2026
+
+CALCULATED
+  Built-up share  18.3 %   derived · retrieved 16.10.2026
+  Building age    73 Jahre   derived · retrieved 16.10.2026
+
+DWELLING
+  Floor                 Ground floor   gwr · data as of 12.10.2026 · retrieved 16.10.2026
+  Rooms                 6   gwr · data as of 12.10.2026 · retrieved 16.10.2026
+  Area                  150 m2   gwr · data as of 12.10.2026 · retrieved 16.10.2026
+  Year of construction  1999   gwr · data as of 12.10.2026 · retrieved 16.10.2026
+  Kitchen               yes   gwr · data as of 12.10.2026 · retrieved 16.10.2026
+  Status                existing   gwr · data as of 12.10.2026 · retrieved 16.10.2026
+
+GAPS
+  Year of construction: not in the register (gwr) · field empty in the register
+  Noise sensitivity level: not in the register (oereb)
+
+SOURCES
+  geocode          ok <ms> ms  retrieved 16.10.2026
+  gwr              ok <ms> ms  data as of 12.10.2026 · retrieved 16.10.2026
+  av-parzelle      ok <ms> ms  retrieved 16.10.2026
+  kulturgueter     ok <ms> ms  retrieved 16.10.2026
+  laerm-bahn       ok <ms> ms  retrieved 16.10.2026
+  laerm-strasse    ok <ms> ms  retrieved 16.10.2026
+  naturgefahren    ok <ms> ms  retrieved 16.10.2026
+  oereb            ok <ms> ms  data as of 06.10.2026 · retrieved 16.10.2026
+  oev-gueteklasse  ok <ms> ms  retrieved 16.10.2026
+  radon            ok <ms> ms  retrieved 16.10.2026
+  sonnendach       ok <ms> ms  data as of 13.04.2020 · retrieved 16.10.2026
+  zustaendige-stellen ok <ms> ms  retrieved 16.10.2026
+
+Run <run_id> · <ms> ms · © swisstopo, FSO (official building address directory) · © FSO, Federal Register of Buildings and Dwellings (RBD) · © swisstopo, cantons (cadastral survey) · © FOCP (PCP Inventory) · © FOEN (railway noise exposure, 2021 emissions register) · © FOEN (sonBASE, road noise exposure) · © FOEN (overland flow hazard map, Aquaprotect, seismic zones SIA 261) · © PLR Cadastre of the cantons · © ARE (public transport quality categories) · © FOPH (radon map of Switzerland) · © SFOE, swisstopo (sonnendach.ch) · © swisstopo (Cadastral Surveying Switzerland)

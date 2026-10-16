@@ -12,11 +12,19 @@ import type { Adapter, AdapterOutput, LV95 } from '../types.ts';
  */
 const attrs = z.object({ probability_prozent: nullableNumberish, confidence: nullableNumberish });
 
-export function radonEinstufung(p: number | null): string | null {
+/** Code der Lesehilfe: gering (< 10 %), mittel (< 20 %), erhoeht (ab 20 %). Die Texte dazu in jeder Sprache baut die View (views/i18n). */
+export function radonEinstufungCode(p: number | null): 'gering' | 'mittel' | 'erhoeht' | null {
   if (p == null) return null;
   if (p < 10) return 'gering';
   if (p < 20) return 'mittel';
-  return 'erhöht';
+  return 'erhoeht';
+}
+
+const EINSTUFUNG_DE = { gering: 'gering', mittel: 'mittel', erhoeht: 'erhöht' } as const;
+
+export function radonEinstufung(p: number | null): string | null {
+  const code = radonEinstufungCode(p);
+  return code ? EINSTUFUNG_DE[code] : null;
 }
 
 export const radon: Adapter = {
@@ -28,12 +36,13 @@ export const radon: Adapter = {
     yields: [],
     provides: ['radon.'],
     ttlDays: 365,
+    version: 2, // 16.10.2026: radon.einstufung_code neben dem Text, damit die View in jeder Sprache rendert
     timeoutMs: 8000,
     license: 'OGD, Quellenangabe Pflicht',
     attribution: '© BAG (Radonkarte Schweiz)',
     endpoint: 'https://api3.geo.admin.ch/rest/services/api/MapServer/identify?layers=all:ch.bag.radonkarte',
     status: 'verifiziert',
-    notes: 'Einstufung gering/mittel/erhöht ist unsere Lesehilfe (<10 %, <20 %, ab 20 %), nicht vom BAG. Confidence des Fakts darum 0.8.',
+    notes: 'Einstufung gering/mittel/erhöht (Code radon.einstufung_code) ist unsere Lesehilfe (<10 %, <20 %, ab 20 %), nicht vom BAG. Confidence des Fakts darum 0.8.',
   },
 
   async resolve(ctx): Promise<AdapterOutput> {
@@ -47,6 +56,7 @@ export const radon: Adapter = {
       facts: [
         { key: 'radon.wahrscheinlichkeit_prozent', value: a.probability_prozent, unit: '%', request_url: url },
         { key: 'radon.einstufung', value: radonEinstufung(a.probability_prozent), request_url: url, confidence: 0.8 },
+        { key: 'radon.einstufung_code', value: radonEinstufungCode(a.probability_prozent), request_url: url, confidence: 0.8 },
         { key: 'radon.referenzwert_bq_m3', value: 300, unit: 'Bq/m3', request_url: url },
       ],
     };

@@ -49,7 +49,7 @@ export const laermBahn: Adapter = {
     yields: [],
     provides: ['laerm.bahn.'],
     ttlDays: 180,
-    version: 1,
+    version: 2, // 16.10.2026: laerm.bahn.hinweis_code neben dem Hinweistext (nicht_kartiert, nicht_kartiert_tag, nicht_kartiert_nacht)
     timeoutMs: 8000,
     license: 'OGD, Quellenangabe Pflicht',
     attribution: '© BAFU (Lärmbelastung Eisenbahn, Emissionskataster 2021)',
@@ -70,7 +70,11 @@ export const laermBahn: Adapter = {
       // Kein Wert am Punkt ist eine Lücke mit Text, kein Default: Die View hängt den Hinweis an die Lücke laerm.bahn.tag_db.
       const fehlt = [tag.db === null ? 'Tag' : null, nacht.db === null ? 'Nacht' : null].filter((x): x is string => x !== null);
       const text = fehlt.length === 2 ? BAHN_HINWEIS : `${BAHN_HINWEIS} (${fehlt.join(', ')})`;
-      facts.push({ key: 'laerm.bahn.hinweis', value: text, request_url: tag.db === null ? tag.url : nacht.url, confidence: 1 });
+      // Code daneben (nicht_kartiert, nicht_kartiert_tag, nicht_kartiert_nacht), damit die View den Satz in jeder Sprache baut
+      const code = fehlt.length === 2 ? 'nicht_kartiert' : tag.db === null ? 'nicht_kartiert_tag' : 'nicht_kartiert_nacht';
+      const hinweisUrl = tag.db === null ? tag.url : nacht.url;
+      facts.push({ key: 'laerm.bahn.hinweis', value: text, request_url: hinweisUrl, confidence: 1 });
+      facts.push({ key: 'laerm.bahn.hinweis_code', value: code, request_url: hinweisUrl, confidence: 1 });
     }
     return { facts };
   },

@@ -68,13 +68,15 @@ describe('GET /v1/steckbrief', () => {
     expect(text.split('\n').slice(0, 3)).toEqual(['grundpass · Maygutstrasse 26', '3084 Wabern · Gemeinde Köniz · BE', 'EGID 1271632 · EGRID CH586746359755 · Parzelle 5711']);
     expect(text).toContain('GEBÄUDE');
     expect(text).toContain('Einfamilienhaus');
-    expect(text).toMatch(/Gebäudetyp\s+Einfamilienhaus\s+gwr · Daten vom 2026-10-12 · abgefragt \d{4}-\d{2}-\d{2}/);
-    expect(text).toMatch(/Radon-Wahrscheinlichkeit\s+\d+ %\s+radon · abgefragt \d{4}-\d{2}-\d{2}\n/);
-    expect(text).toMatch(/Oberflächenabfluss bei Starkregen\s+nicht betroffen\s+naturgefahren · Daten vom 2018-05-22/);
+    // Daten in der Textausgabe TT.MM.JJJJ (im JSON bleiben sie ISO)
+    expect(text).toMatch(/Gebäudetyp\s+Einfamilienhaus\s+gwr · Daten vom 12\.10\.2026 · abgefragt \d{2}\.\d{2}\.\d{4}/);
+    expect(text).toMatch(/Radon-Wahrscheinlichkeit\s+\d+ %\s+radon · abgefragt \d{2}\.\d{2}\.\d{4}\n/);
+    expect(text).toMatch(/Oberflächenabfluss bei Starkregen\s+nicht betroffen\s+naturgefahren · Daten vom 22\.05\.2018/);
     expect(text).toMatch(/KGS-Inventar \(Kulturgüterschutz\)\s+nicht betroffen/);
     expect(text).not.toMatch(/\bnein\b/);
-    expect(text).toMatch(/naturgefahren\s+ok\s+\d+ ms  abgefragt \d{4}-\d{2}-\d{2}\n/);
-    expect(text).toMatch(/gwr\s+ok\s+\d+ ms  Daten vom 2026-10-12 · abgefragt \d{4}-\d{2}-\d{2}\n/);
+    expect(text).toMatch(/naturgefahren\s+ok\s+\d+ ms  abgefragt \d{2}\.\d{2}\.\d{4}\n/);
+    expect(text).toMatch(/gwr\s+ok\s+\d+ ms  Daten vom 12\.10\.2026 · abgefragt \d{2}\.\d{2}\.\d{4}\n/);
+    expect(s.lang).toBe('de');
     expect(text).toContain('LÜCKEN');
   });
 

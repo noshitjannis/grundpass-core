@@ -40,7 +40,7 @@ LÜCKEN
 - **Resolver**: Adapter mit Manifest (`needs`, `yields`, `ttlDays`). Der Ablauf ergibt sich aus den Manifesten, nicht aus Code. Neue Quelle = neue Datei.
 - **7 Adapter**: geocode, GWR, amtliche Vermessung, Sonnendach, ÖV-Güteklasse, Radon, Strassenlärm. Alle ohne API-Key.
 - **Fakten-Store**: jede Zahl mit Herkunft, TTL-Cache pro Quelle, Snapshots pro Lauf. PGlite lokal, Postgres in Prod.
-- **Steckbrief-View**: Abschnitte, Laien-Erklärungen, Lücken mit Grund, Quellenliste, Attribution.
+- **Steckbrief-View**: Abschnitte, Laien-Erklärungen, Lücken mit Grund, Quellenliste, Attribution. In Deutsch, Französisch, Italienisch und Englisch (`lang`); Fakten bleiben deutsch gespeichert, die View übersetzt über Codes.
 - **Robustheit**: Circuit Breaker pro Quelle, Timeout, Schema-Validierung (Zod), `partial`-Flag statt stiller Defaults.
 - **Canary**: fünf goldene Adressen, stündlich, Alarm über ntfy bei Ausfall, Drift oder Latenz.
 - **API** (Hono) und **CLI**.
@@ -50,6 +50,7 @@ LÜCKEN
 ```bash
 pnpm install
 pnpm gp "Rütistrasse 1, 5400 Baden"      # Steckbrief im Terminal, Cache in ./data
+pnpm gp --egid 1271632 --lang fr          # Lesefassung auf Französisch (de, fr, it, en)
 pnpm dev                                  # API auf http://localhost:3000/v1/steckbrief?adresse=…
 pnpm check                                # Typecheck + 40 Offline-Tests
 pnpm test:live                            # gegen die echten APIs (braucht Netz)
@@ -73,6 +74,7 @@ const { steckbrief, run } = await core.steckbrief({ adresse: 'Maygutstrasse 26, 
 - [docs/ARCHITEKTUR.md](docs/ARCHITEKTUR.md): wie alles zusammenhängt, lebend, mit Changelog
 - [docs/QUELLEN.md](docs/QUELLEN.md): jede Quelle mit Endpoint, Feldern, Codes, TTL, Status
 - [docs/ADAPTER-SCHREIBEN.md](docs/ADAPTER-SCHREIBEN.md): neue Quelle anschliessen
+- [docs/GLOSSAR.md](docs/GLOSSAR.md): alle Begriffe der Lesefassung de / fr / it / en mit Quelle (erzeugt mit `pnpm glossar`)
 
 ## Was nicht hier ist
 

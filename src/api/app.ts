@@ -3,11 +3,12 @@ import { runCanary } from '../canary/run.ts';
 import type { Core } from '../core.ts';
 import { subjectFor } from '../keys.ts';
 import type { CanaryReport } from '../canary/run.ts';
+import { istSprache, SPRACHEN } from '../types.ts';
 
 /**
  * Die HTTP-Schicht. Dünn: Eingabe prüfen, Core aufrufen, JSON zurück.
  *
- *   GET  /v1/steckbrief?adresse=…   oder ?egid=…    (&nocache=1)
+ *   GET  /v1/steckbrief?adresse=…   oder ?egid=…    (&nocache=1) (&lang=de|fr|it|en, Standard de; die Antwort trägt `lang`)
  *   GET  /v1/fakten?egid=…           aktueller Stand aus dem Store, ohne neuen Lauf
  *   GET  /v1/lauf/:run_id            kompletter Lauf (Debug, Diff)
  *   GET  /v1/sources                 Manifeste, Plan, Schalter, Breaker
@@ -22,7 +23,8 @@ export function createApp(core: Core) {
     c.json({
       name: 'grundpass-core',
       version: '0.1.0',
-      endpoints: ['/v1/steckbrief?adresse=', '/v1/steckbrief?egid=', '/v1/fakten?egid=', '/v1/lauf/:run_id', '/v1/sources', '/v1/status'],
+      endpoints: ['/v1/steckbrief?adresse=', '/v1/steckbrief?egid=', '/v1/steckbrief?egid=&lang=fr', '/v1/fakten?egid=', '/v1/lauf/:run_id', '/v1/sources', '/v1/status'],
+      sprachen: SPRACHEN,
       lizenz: 'AGPL-3.0-or-later',
     }),
   );
@@ -31,6 +33,8 @@ export function createApp(core: Core) {
     const adresse = c.req.query('adresse')?.trim();
     const egidRaw = c.req.query('egid')?.trim();
     const nocache = c.req.query('nocache') === '1';
+    const langRaw = c.req.query('lang')?.trim();
+    if (langRaw !== undefined && !istSprache(langRaw)) return c.json({ error: `lang muss ${SPRACHEN.join(', ')} sein` }, 400);
     const input: Parameters<Core['steckbrief']>[0] = {};
     if (egidRaw) {
       const egid = Number(egidRaw);
@@ -42,7 +46,10 @@ export function createApp(core: Core) {
     } else {
       return c.json({ error: 'adresse oder egid angeben' }, 400);
     }
-    const { steckbrief } = await core.steckbrief(input, nocache ? { useCache: false } : {});
+    const opts: Parameters<Core['steckbrief']>[1] = {};
+    if (nocache) opts.useCache = false;
+    if (langRaw !== undefined && istSprache(langRaw)) opts.lang = langRaw;
+    const { steckbrief } = await core.steckbrief(input, opts);
     return c.json(steckbrief, steckbrief.partial ? 206 : 200);
   });
 

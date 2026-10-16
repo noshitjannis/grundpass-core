@@ -1,0 +1,131 @@
+grundpass · Maygutstrasse 26
+3084 Wabern · Comune di Köniz · BE
+EGID 1271632 · EGRID CH586746359755 · Parcella 5711
+
+INDIRIZZO
+  Indirizzo   Maygutstrasse 26 3084 Wabern   geocode · consultato il 16.10.2026
+  Comune      Köniz   gwr · dati del 12.10.2026 · consultato il 16.10.2026
+  Numero UST  355   gwr · dati del 12.10.2026 · consultato il 16.10.2026
+  Cantone     BE   gwr · dati del 12.10.2026 · consultato il 16.10.2026
+
+EDIFICIO
+  EGID                      1271632   geocode · consultato il 16.10.2026
+  Tipo di edificio          Casa unifamiliare   gwr · dati del 12.10.2026 · consultato il 16.10.2026
+  Classe di edificio        Edifici ad una abitazione   gwr · dati del 12.10.2026 · consultato il 16.10.2026
+  Utilizzazione             Edificio ad uso esclusivamente abitativo   gwr · dati del 12.10.2026 · consultato il 16.10.2026
+  Stato                     esistente   gwr · dati del 12.10.2026 · consultato il 16.10.2026
+  Epoca di costruzione      dal 1946 al 1960   gwr · dati del 12.10.2026 · consultato il 16.10.2026
+  Piani                     2   gwr · dati del 12.10.2026 · consultato il 16.10.2026
+  Numero di abitazioni      1   gwr · dati del 12.10.2026 · consultato il 16.10.2026
+  Superficie dell'edificio  139 m2   gwr · dati del 12.10.2026 · consultato il 16.10.2026
+
+RISCALDAMENTO E ACQUA CALDA
+  Riscaldamento                  Riscaldamento a olio   gwr · dati del 12.10.2026 · consultato il 16.10.2026
+  Generatore di calore           Caldaia (generica) per un solo edificio   gwr · dati del 12.10.2026 · consultato il 16.10.2026
+  Fonte di energia               Olio da riscaldamento   gwr · dati del 12.10.2026 · consultato il 16.10.2026
+  Data dell'indicazione          14.03.2023   gwr · dati del 12.10.2026 · consultato il 16.10.2026
+  Acqua calda                    Caldaia (generica)   gwr · dati del 12.10.2026 · consultato il 16.10.2026
+  Acqua calda, fonte di energia  Olio da riscaldamento   gwr · dati del 12.10.2026 · consultato il 16.10.2026
+
+ABITAZIONI
+  Superficie abitativa totale  150 m2   derived · consultato il 16.10.2026
+  Locali in totale             6   derived · consultato il 16.10.2026
+
+PARCELLA
+  Numero di parcella                           5711   gwr · dati del 12.10.2026 · consultato il 16.10.2026
+  EGRID                                        CH586746359755   gwr · dati del 12.10.2026 · consultato il 16.10.2026
+  Superficie della parcella                    761 m2   oereb · dati del 06.10.2026 · consultato il 16.10.2026
+  Superficie della parcella (dalla geometria)  764 m2   av-parzelle · consultato il 16.10.2026
+  Geoportale cantonale                         https://www.topo.apps.be.ch/pub/map/?lang=de&gpk=MOPUBE_GPK   av-parzelle · consultato il 16.10.2026
+
+ZONA E CATASTO
+  Zona                                                                          Wohnzone (Art. 29 BauR), Bauklasse IIa (Art. 53 BauR)   oereb · dati del 06.10.2026 · consultato il 16.10.2026
+  Codice della zona                                                             102_2   oereb · dati del 06.10.2026 · consultato il 16.10.2026
+  Quota della parcella                                                          100 %   oereb · dati del 06.10.2026 · consultato il 16.10.2026
+  Zone sulla parcella                                                           1   oereb · dati del 06.10.2026 · consultato il 16.10.2026
+  Regolamento edilizio                                                          https://oerebfiles.apps.be.ch/35501/6862/721.0_Baureglement.pdf   oereb · dati del 06.10.2026 · consultato il 16.10.2026
+  Competente                                                                    Gemeinde Köniz   oereb · dati del 06.10.2026 · consultato il 16.10.2026
+  Altre iscrizioni nel catasto                                                  2   oereb · dati del 06.10.2026 · consultato il 16.10.2026
+  Estratto ufficiale (PDF)                                                      https://www.oereb2.apps.be.ch/extract/pdf?EGRID=CH586746359755   oereb · dati del 06.10.2026 · consultato il 16.10.2026
+  Gewässerschutzbereiche (Zusatzinformation nach Art. 8b Abs. 1 Bst. b ÖREBKV)  übriger Bereich üB   oereb · dati del 06.10.2026 · consultato il 16.10.2026
+  Sicherheitszonenplan                                                          Genehmigter Sicherheitszonenperimeter   oereb · dati del 06.10.2026 · consultato il 16.10.2026
+
+SITO E MONUMENTI
+  Inventario PBC (protezione dei beni culturali)  non interessato   kulturgueter · consultato il 16.10.2026
+
+SOLE E TETTO
+  Idoneità solare                      molto buona   sonnendach · dati del 13.04.2020 · consultato il 16.10.2026
+  Superficie del tetto                 240 m2   sonnendach · dati del 13.04.2020 · consultato il 16.10.2026
+  Superfici del tetto                  4   sonnendach · dati del 13.04.2020 · consultato il 16.10.2026
+  Irraggiamento (superficie migliore)  1380 kWh/m2/a   sonnendach · dati del 13.04.2020 · consultato il 16.10.2026
+  Elettricità solare possibile         44'550 kWh/a   sonnendach · dati del 13.04.2020 · consultato il 16.10.2026
+  di cui nel semestre invernale        12'088 kWh/a   sonnendach · dati del 13.04.2020 · consultato il 16.10.2026
+  Rendimento stimato                   CHF 4455   sonnendach · dati del 13.04.2020 · consultato il 16.10.2026
+  Fabbisogno di calore stimato         18'154 kWh/a   sonnendach · dati del 13.04.2020 · consultato il 16.10.2026
+  Orientamento (superficie migliore)   40 °   sonnendach · dati del 13.04.2020 · consultato il 16.10.2026
+  Inclinazione (superficie migliore)   26 °   sonnendach · dati del 13.04.2020 · consultato il 16.10.2026
+
+TRASPORTI PUBBLICI
+  Classe di collegamento TP  D   oev-gueteklasse · consultato il 16.10.2026
+  Significato                collegamento scarso   oev-gueteklasse · consultato il 16.10.2026
+
+RUMORE
+  Rumore stradale, giorno     33.2 dB   laerm-strasse · consultato il 16.10.2026
+  Rumore stradale, notte      24.1 dB   laerm-strasse · consultato il 16.10.2026
+  Rumore ferroviario, giorno  16.4 dB   laerm-bahn · consultato il 16.10.2026
+  Rumore ferroviario, notte   6.2 dB   laerm-bahn · consultato il 16.10.2026
+
+PERICOLI NATURALI
+  Ruscellamento superficiale in caso di forti piogge  non interessato   naturgefahren · dati del 22.05.2018 · consultato il 16.10.2026
+  Piena centennale (Aquaprotect)                      non interessato   naturgefahren · dati del 18.12.2008 · consultato il 16.10.2026
+  Zona sismica (SIA 261)                              Z1b   naturgefahren · dati del 13.04.2026 · consultato il 16.10.2026
+
+RADON
+  Probabilità radon  21 %   radon · consultato il 16.10.2026
+  Classificazione    elevata   radon · consultato il 16.10.2026
+
+SERVIZI COMPETENTI
+  Ufficio del registro fondiario      Bern-Mittelland   zustaendige-stellen · consultato il 16.10.2026
+  Indirizzo del registro fondiario    Poststrasse 25, 3071 Ostermundigen   zustaendige-stellen · consultato il 16.10.2026
+  Telefono del registro fondiario     031 635 93 00   zustaendige-stellen · consultato il 16.10.2026
+  E-mail del registro fondiario       gba.bemi@be.ch   zustaendige-stellen · consultato il 16.10.2026
+  Tenuta del registro fondiario       Registro fondiario fed. completo   zustaendige-stellen · consultato il 16.10.2026
+  Geometra revisore                   bbp geomatik ag   zustaendige-stellen · consultato il 16.10.2026
+  Indirizzo del geometra              Könizstrasse 161, 3097 Liebefeld   zustaendige-stellen · consultato il 16.10.2026
+  Telefono del geometra               031 970 30 50   zustaendige-stellen · consultato il 16.10.2026
+  E-mail del geometra                 bbp@geozen.ch   zustaendige-stellen · consultato il 16.10.2026
+  Servizio del Catasto RDPP           Amt für Geoinformation   oereb · dati del 06.10.2026 · consultato il 16.10.2026
+  Indirizzo del servizio del catasto  Reiterstrasse 11, 3013 Bern   oereb · dati del 06.10.2026 · consultato il 16.10.2026
+  Sito web del servizio del catasto   https://www.be.ch/oerebk   oereb · dati del 06.10.2026 · consultato il 16.10.2026
+
+CALCOLATO
+  Quota edificata    18.3 %   derived · consultato il 16.10.2026
+  Età dell'edificio  73 Jahre   derived · consultato il 16.10.2026
+
+ABITAZIONE
+  Piano                Pianterreno   gwr · dati del 12.10.2026 · consultato il 16.10.2026
+  Locali               6   gwr · dati del 12.10.2026 · consultato il 16.10.2026
+  Superficie           150 m2   gwr · dati del 12.10.2026 · consultato il 16.10.2026
+  Anno di costruzione  1999   gwr · dati del 12.10.2026 · consultato il 16.10.2026
+  Cucina               sì   gwr · dati del 12.10.2026 · consultato il 16.10.2026
+  Stato                esistente   gwr · dati del 12.10.2026 · consultato il 16.10.2026
+
+LACUNE
+  Anno di costruzione: manca nel registro (gwr) · campo vuoto nel registro
+  Grado di sensibilità al rumore: manca nel registro (oereb)
+
+FONTI
+  geocode          ok <ms> ms  consultato il 16.10.2026
+  gwr              ok <ms> ms  dati del 12.10.2026 · consultato il 16.10.2026
+  av-parzelle      ok <ms> ms  consultato il 16.10.2026
+  kulturgueter     ok <ms> ms  consultato il 16.10.2026
+  laerm-bahn       ok <ms> ms  consultato il 16.10.2026
+  laerm-strasse    ok <ms> ms  consultato il 16.10.2026
+  naturgefahren    ok <ms> ms  consultato il 16.10.2026
+  oereb            ok <ms> ms  dati del 06.10.2026 · consultato il 16.10.2026
+  oev-gueteklasse  ok <ms> ms  consultato il 16.10.2026
+  radon            ok <ms> ms  consultato il 16.10.2026
+  sonnendach       ok <ms> ms  dati del 13.04.2020 · consultato il 16.10.2026
+  zustaendige-stellen ok <ms> ms  consultato il 16.10.2026
+
+Esecuzione <run_id> · <ms> ms · © swisstopo, UST (elenco ufficiale degli indirizzi degli edifici) · © UST, Registro federale degli edifici e delle abitazioni (REA) · © swisstopo, Cantoni (misurazione ufficiale) · © UFPP (Inventario PBC) · © UFAM (esposizione al rumore ferroviario, catasto delle emissioni 2021) · © UFAM (sonBASE, esposizione al rumore stradale) · © UFAM (carta del ruscellamento superficiale, Aquaprotect, zone sismiche SIA 261) · © Catasto RDPP dei Cantoni · © ARE (classi di collegamento dei TP) · © UFSP (mappa del radon della Svizzera) · © UFE, swisstopo (tettosolare.ch) · © swisstopo (Misurazione ufficiale svizzera)

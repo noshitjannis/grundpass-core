@@ -922,7 +922,7 @@ describe('laerm-bahn', () => {
 
   it('ohne kartierten Bahnlärm (features leer): kein Wert, kein Default, sondern der Hinweis «keine Bahnlärm-Belastung kartiert»', async () => {
     const out = await laermBahn.resolve(ctxMit([{ match: () => true, body: fixture('laerm-wms-leer.json') }]));
-    expect(out.facts.map((f) => f.key)).toEqual(['laerm.bahn.hinweis']);
+    expect(out.facts.map((f) => f.key)).toEqual(['laerm.bahn.hinweis', 'laerm.bahn.hinweis_code']);
     expect(fact(out, 'laerm.bahn.hinweis')).toBe(BAHN_HINWEIS);
     expect(out.facts[0]?.request_url).toContain('LAYERS=ch.bafu.laerm-bahnlaerm_tag');
   });

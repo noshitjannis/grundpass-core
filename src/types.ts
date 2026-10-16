@@ -8,6 +8,20 @@
  */
 
 // ---------------------------------------------------------------------------
+// Sprachen
+// ---------------------------------------------------------------------------
+
+/**
+ * Sprachen der Lesefassung (Steckbrief, CLI, API). Deutsch ist die Quellsprache: Fakten werden deutsch gespeichert, die View
+ * übersetzt Labels, Erklärungen und code-gestützte Werte (src/views/i18n). Schweizer Varianten: de-CH, fr-CH, it-CH, en-CH.
+ */
+export type Sprache = 'de' | 'fr' | 'it' | 'en';
+export const SPRACHEN: readonly Sprache[] = ['de', 'fr', 'it', 'en'];
+export function istSprache(s: unknown): s is Sprache {
+  return typeof s === 'string' && (SPRACHEN as readonly string[]).includes(s);
+}
+
+// ---------------------------------------------------------------------------
 // Keys
 // ---------------------------------------------------------------------------
 

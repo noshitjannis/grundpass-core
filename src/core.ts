@@ -7,7 +7,7 @@ import { CircuitBreaker } from './resolver/breaker.ts';
 import { planFor } from './resolver/plan.ts';
 import { AdapterRegistry } from './resolver/registry.ts';
 import { resolve as runResolve } from './resolver/run.ts';
-import type { Adapter, HttpClient, Keys, Logger, RunResult } from './types.ts';
+import type { Adapter, HttpClient, Keys, Logger, RunResult, Sprache } from './types.ts';
 import { buildSteckbrief, type Steckbrief } from './views/steckbrief.ts';
 
 export type CoreOptions = {
@@ -19,6 +19,8 @@ export type CoreOptions = {
 };
 
 export type ResolveOptions = { useCache?: boolean };
+/** Optionen für den Steckbrief: Cache wie beim Lauf, `lang` für die Sprache der Lesefassung (Standard de). */
+export type SteckbriefOptions = ResolveOptions & { lang?: Sprache };
 
 /**
  * Das zusammengesetzte Hirn: Registry + Store + HTTP + Breaker.
@@ -56,9 +58,10 @@ export class Core {
     return runResolve(input, deps);
   }
 
-  async steckbrief(input: Partial<Keys>, o: ResolveOptions = {}): Promise<{ steckbrief: Steckbrief; run: RunResult }> {
-    const run = await this.resolve(input, o);
-    return { steckbrief: buildSteckbrief(run, this.registry.all()), run };
+  async steckbrief(input: Partial<Keys>, o: SteckbriefOptions = {}): Promise<{ steckbrief: Steckbrief; run: RunResult }> {
+    const { lang, ...resolveOpts } = o;
+    const run = await this.resolve(input, resolveOpts);
+    return { steckbrief: buildSteckbrief(run, this.registry.all(), lang ? { lang } : {}), run };
   }
 
   /** Manifeste, Plan ab Adresse, Schalter und Breaker-Zustand. Für /v1/sources und die Doku. */

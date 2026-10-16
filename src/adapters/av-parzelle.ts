@@ -102,7 +102,7 @@ export const avParzelle: Adapter = {
     yields: ['egrid', 'bfs_nr', 'kanton', 'parzelle_nr'],
     provides: ['parzelle.'],
     ttlDays: 90,
-    version: 3, // 15.10.2026: Hauptweg find per EGRID statt identify am Punkt; Baden zeigte vorher die Nachbarparzelle
+    version: 4, // 16.10.2026: parzelle.hinweis_code mit Parametern neben dem Hinweistext; 3 (15.10.2026): Hauptweg find per EGRID statt identify am Punkt
     timeoutMs: 8000,
     license: 'OGD, Quellenangabe Pflicht',
     attribution: '© swisstopo, Kantone (amtliche Vermessung)',
@@ -165,11 +165,23 @@ export const avParzelle: Adapter = {
     if (feature.geometry && typeof feature.geometry === 'object') push('parzelle.geometrie_geojson', JSON.stringify(feature.geometry), { confidence: 1 });
     if (trefferAmPunkt != null && trefferAmPunkt > 1) push('parzelle.treffer_am_punkt', trefferAmPunkt);
 
+    // Hinweistexte kommen mit Code und Parametern (parzelle.hinweis_code, parzelle.hinweis_*), damit die View den Satz in jeder
+    // Sprache aus dem Code bauen kann. Der deutsche Text bleibt als Fakt (Quellsprache).
+    const hinweisParams = (code: string, punkt: { number: string | null; egris_egrid: string | null } | null, register: { nummer: string; egrid: string }, extra: Partial<AdapterOutput['facts'][number]> = {}) => {
+      push('parzelle.hinweis_code', code, extra);
+      if (punkt) {
+        push('parzelle.hinweis_punkt_nummer', punkt.number ?? null, extra);
+        push('parzelle.hinweis_punkt_egrid', punkt.egris_egrid ?? null, extra);
+      }
+      push('parzelle.hinweis_register_nummer', register.nummer, extra);
+      push('parzelle.hinweis_register_egrid', register.egrid, extra);
+    };
     if (!passt) {
       push(
         'parzelle.hinweis_vermessung',
         `Unter dem Gebäudepunkt liegt laut amtlicher Vermessung Parzelle ${a.number ?? '?'} (${a.egris_egrid ?? '?'}), das Gebäuderegister nennt ${ctx.keys.parzelle_nr ?? '?'} (${wanted}); diese EGRID kennt die amtliche Vermessung nicht. Die Fläche aus der Geometrie gehört zu ${a.number ?? 'dieser Parzelle'}.`,
       );
+      hinweisParams('egrid_unbekannt', { number: a.number, egris_egrid: a.egris_egrid }, { nummer: ctx.keys.parzelle_nr ?? '?', egrid: wanted ?? '?' });
     } else if (wanted && point && pointInGeometry(point, feature.geometry) === false) {
       // Gegenprobe: Die Register-Parzelle ist da, aber der Gebäudepunkt liegt nicht darin. Welche Parzelle liegt unter dem Punkt?
       const punktUrl = identifyUrl([LAYER], point, { geometry: true, geometryFormat: 'geojson' });
@@ -183,6 +195,7 @@ export const avParzelle: Adapter = {
           `Der Gebäudepunkt aus dem Gebäuderegister liegt laut amtlicher Vermessung ${wo}, nicht auf ${a.number ?? '?'} (${wanted}). Gezeigt wird die Parzelle aus dem Gebäuderegister.`,
           { request_url: punktUrl },
         );
+        hinweisParams(unten ? 'punkt_auf_anderer_parzelle' : 'punkt_auf_keiner_parzelle', unten ? { number: unten.number, egris_egrid: unten.egris_egrid } : null, { nummer: a.number ?? '?', egrid: wanted }, { request_url: punktUrl });
       }
     }
 

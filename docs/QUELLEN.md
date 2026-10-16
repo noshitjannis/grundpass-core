@@ -67,13 +67,13 @@ Gelesene Felder: `results[].attrs.{label, detail, origin, featureId, x, y, lat, 
 | gastw | `gebaeude.geschosse` | |
 | ganzwhg | `gebaeude.wohnungen_anzahl` | |
 | gkode, gkodn | `gebaeude.koordinaten.e/n` | Gebäudepunkt LV95 |
-| gwaerzh1, genh1, gwaerdath1 | `gebaeude.heizung.erzeuger`, `.energietraeger`, `.kurz`, `.stand` + Codes | 7430+7530 = Ölheizung |
-| gwaerzh2, genh2 | `gebaeude.heizung2.*` | nur wenn gesetzt |
-| gwaerzw1, genw1 | `gebaeude.warmwasser.erzeuger`, `.energietraeger` | |
+| gwaerzh1, genh1, gwaerdath1 | `gebaeude.heizung.erzeuger`, `.energietraeger`, `.kurz`, `.stand` + Codes (`erzeuger_code`, `energietraeger_code`, `kurz_code`) | 7430+7530 = Ölheizung (`kurz_code` oel) |
+| gwaerzh2, genh2 | `gebaeude.heizung2.erzeuger`, `.energietraeger` + Codes | nur wenn gesetzt |
+| gwaerzw1, genw1 | `gebaeude.warmwasser.erzeuger`, `.energietraeger` + Codes | |
 | egrid, lparz | `parzelle.egrid`, `parzelle.nummer` | |
-| ewid[], wstwk[], wstat[], wbauj[], warea[], wazim[], wkche[], wmehrg[] | `wohnung.<ewid>.{stockwerk, status, baujahr, flaeche_m2, zimmer, kueche, mehrgeschossig}` | parallele Arrays, Index = Wohnung |
+| ewid[], wstwk[], wstat[], wbauj[], warea[], wazim[], wkche[], wmehrg[] | `wohnung.<ewid>.{stockwerk, stockwerk_code, status, status_code, baujahr, flaeche_m2, zimmer, kueche, mehrgeschossig}` | parallele Arrays, Index = Wohnung |
 
-Codetabellen: `src/codes/gwr.ts`. Quelle: Merkmalskatalog GWR 4.2, housing-stat.ch. Nicht gemappt (bewusst): Quellen-Codes `gksce`, `gwaersceh1` etc.
+Codetabellen: `src/codes/gwr.ts`, viersprachig (de nach Merkmalskatalog 4.2, Stand der gespeicherten Fakten; fr, it, en nach Merkmalskatalog 4.3, `housing-stat.ch/catalog/<lang>/4.3/final`, gelesen 16.10.2026). Der Adapter speichert den deutschen Text und den Rohcode; die View übersetzt über den Code (Version 2 seit 16.10.2026: jeder Textfakt hat einen Code-Fakt daneben, auch `heizung.kurz_code`, `heizung2.*_code`, `warmwasser.*_code`, `wohnung.<ewid>.status_code`). Nicht gemappt (bewusst): Quellen-Codes `gksce`, `gwaersceh1` etc.
 
 Treffer-Auswahl: Der Adapter nimmt den Treffer, dessen `egid` exakt der gesuchten entspricht. Gibt es keinen, ist das `EmptyResultError` (Lücke), nie ein anderes Gebäude. Der frühere Fallback auf `results[0]` hätte bei einer nicht existierenden EGID, die als Teilstring in einer anderen vorkommt, ein falsches Gebäude geliefert.
 
@@ -87,9 +87,9 @@ Treffer-Auswahl: Der Adapter nimmt den Treffer, dessen `egid` exakt der gesuchte
 | Endpoint | Hauptweg: `GET …/MapServer/find?layer=ch.swisstopo-vd.amtliche-vermessung&searchField=egris_egrid&searchText=<EGRID>&returnGeometry=true&geometryFormat=geojson&contains=false&sr=2056`. Fallback ohne EGRID (oder EGRID in der AV unbekannt): `GET …/MapServer/identify?geometry=<E>,<N>&geometryType=esriGeometryPoint&layers=all:ch.swisstopo-vd.amtliche-vermessung&tolerance=0&sr=2056&returnGeometry=true&geometryFormat=geojson` am Gebäudepunkt. Dieselbe identify-Abfrage ist im Hauptweg die Gegenprobe, wenn der Gebäudepunkt nicht in der gefundenen Parzelle liegt. |
 | braucht | `egrid` oder `lv95_bau` (Manifest: `egrid|lv95_bau`) |
 | liefert Keys | `egrid`, `bfs_nr`, `kanton`, `parzelle_nr` |
-| Fakten | `parzelle.nummer`, `.egrid`, `.nummerierungsbereich` (identnd), `.bfs_nr`, `.kanton`, `.art`, `.geoportal_url`, `.flaeche_m2` (berechnet, Confidence 0.95), `.geometrie_geojson` (GeoJSON-String in LV95, Confidence 1, nicht im Feldkatalog; für den Lageplan der App), `.treffer_am_punkt` (nur im Fallback, bei mehreren Treffern), `.hinweis_vermessung` (nur bei Widerspruch zum GWR) |
+| Fakten | `parzelle.nummer`, `.egrid`, `.nummerierungsbereich` (identnd), `.bfs_nr`, `.kanton`, `.art`, `.geoportal_url`, `.flaeche_m2` (berechnet, Confidence 0.95), `.geometrie_geojson` (GeoJSON-String in LV95, Confidence 1, nicht im Feldkatalog; für den Lageplan der App), `.treffer_am_punkt` (nur im Fallback, bei mehreren Treffern), `.hinweis_vermessung` (nur bei Widerspruch zum GWR) mit `.hinweis_code` (egrid_unbekannt, punkt_auf_anderer_parzelle, punkt_auf_keiner_parzelle) und den Parametern `.hinweis_punkt_nummer`, `.hinweis_punkt_egrid`, `.hinweis_register_nummer`, `.hinweis_register_egrid` |
 | TTL | 90 Tage |
-| Version | 3 (15.10.2026: Hauptweg per EGRID; 2: Geometrie und Hinweis) |
+| Version | 4 (16.10.2026: Hinweis mit Code und Parametern; 3: Hauptweg per EGRID; 2: Geometrie und Hinweis) |
 | Status | verifiziert 15.10.2026, beide Wege · Fixtures `av-parzelle-find-3258.json` (find per EGRID, Baden), `av-parzelle-find-5711.json` (find per EGRID, Wabern), `av-parzelle-5711.json` (identify am Punkt, Wabern), `av-parzelle-3827-punkt.json` (identify am Gebäudepunkt von Baden), `av-parzelle-5711-esrijson.json` (identify ohne geometryFormat, als Drift-Fall) |
 
 **Antwortform** (find und identify gleich, geometryFormat=geojson): `results[]` sind GeoJSON-Features `{ type: "Feature", featureId, id, layerBodId, layerName: "OpenData-AV", bbox, geometry, properties }`. Gelesene Felder: `properties.{bfsnr, ak, number, identnd, egris_egrid, realestate_type, geoportal_url}`, `geometry` (GeoJSON Polygon/MultiPolygon). Daneben `properties.name` und `properties.label` (beide die Nummer), die wir nicht lesen. Die erste Fassung las `attributes` (Esri-Form) und fiel live mit Schema-Drift aus; die Esri-Form ist jetzt ein Testfall für Drift. Unbekannte EGRID: `{"results": []}` mit HTTP 200, kein Fehler.
@@ -111,7 +111,7 @@ Die API liefert keine Fläche; wir rechnen Shoelace in LV95-Metern, Löcher abge
 | Datenhalter | BFE, swisstopo |
 | Endpoint | `identify` auf `ch.bfe.solarenergie-eignung-daecher`, tolerance=0 (Segment unter dem Punkt), dann tolerance=20 mit `imageDisplay=100,100,96` und `mapExtent` (100 m um den Punkt; alle Segmente des Gebäudes) |
 | braucht | `lv95_bau` |
-| Fakten | `solar.klasse` (1–5), `.klasse_text`, `.segmente`, `.segmente_vollstaendig`, `.dachflaeche_m2`, `.einstrahlung_max_kwh_m2a`, `.stromertrag_kwh_a`, `.stromertrag_winter_kwh_a`, `.finanzertrag_chf_a`, `.waermeertrag_kwh_a`, `.bestes_segment.{ausrichtung_grad, neigung_grad, flaeche_m2}`, `.waermebedarf_heizung_kwh_a`, `.waermebedarf_warmwasser_kwh_a`, `.building_id` |
+| Fakten | `solar.klasse` (1–5), `.klasse_text`, `.segmente`, `.segmente_vollstaendig`, `.dachflaeche_m2`, `.einstrahlung_max_kwh_m2a`, `.stromertrag_kwh_a`, `.stromertrag_winter_kwh_a`, `.finanzertrag_chf_a`, `.waermeertrag_kwh_a`, `.bestes_segment.{ausrichtung_grad (Einheit °, 0 = Süd laut Erklärung), neigung_grad, flaeche_m2}`, `.waermebedarf_heizung_kwh_a`, `.waermebedarf_warmwasser_kwh_a`, `.building_id` |
 | source_date | `datum_aenderung` |
 | TTL | 180 Tage |
 | Status | verifiziert 15.10.2026 (Punkt und Umkreis) · Fixtures `sonnendach-point.json`, `sonnendach-wide.json`, beide echte Antworten |
@@ -146,7 +146,7 @@ Gelesene Felder: `klasse_de` ("D - geringe Erschliessung"), `klasse_fr`. Kein Tr
 | Datenhalter | BAG |
 | Endpoint | `identify` auf `ch.bag.radonkarte`, tolerance=0 |
 | braucht | `lv95_bau` |
-| Fakten | `radon.wahrscheinlichkeit_prozent`, `radon.einstufung` (unsere Lesehilfe, Confidence 0.8), `radon.referenzwert_bq_m3` (300) |
+| Fakten | `radon.wahrscheinlichkeit_prozent`, `radon.einstufung` (unsere Lesehilfe, Confidence 0.8) mit `radon.einstufung_code` (gering, mittel, erhoeht; Version 2 seit 16.10.2026), `radon.referenzwert_bq_m3` (300) |
 | TTL | 365 Tage |
 | Status | verifiziert · Fixture `oev-radon.json` (echte Antworten vom 15.10.2026) |
 
@@ -207,7 +207,7 @@ je Empfindlichkeitsstufe, Tag/Nacht: ES I 55/45, ES II 60/50, ES III 65/55, ES I
 | Datenhalter | BAFU (Emissionskataster 2021, EK2021). Geobasisdatensatz 120.3 |
 | Endpoint | WMS GetFeatureInfo wie laerm-strasse (3×3 px um den Gebäudepunkt, `INFO_FORMAT=application/json`, `FEATURE_COUNT=1`) für `ch.bafu.laerm-bahnlaerm_tag` und `ch.bafu.laerm-bahnlaerm_nacht` |
 | braucht | `lv95_bau` |
-| Fakten | `laerm.bahn.tag_db`, `.nacht_db` (Confidence 1). Ohne kartierten Bahnlärm statt der Pegel `laerm.bahn.hinweis` = «keine Bahnlärm-Belastung kartiert» (fehlt nur einer: «… (Nacht)»). Grenzwerte `laerm.bahn.grenzwert_tag_db`, `.grenzwert_nacht_db` sind derived aus der Empfindlichkeitsstufe (LSV Anhang 4), nur wenn ein Bahnpegel da ist. |
+| Fakten | `laerm.bahn.tag_db`, `.nacht_db` (Confidence 1). Ohne kartierten Bahnlärm statt der Pegel `laerm.bahn.hinweis` = «keine Bahnlärm-Belastung kartiert» (fehlt nur einer: «… (Nacht)») mit `laerm.bahn.hinweis_code` (nicht_kartiert, nicht_kartiert_tag, nicht_kartiert_nacht; Version 2 seit 16.10.2026). Grenzwerte `laerm.bahn.grenzwert_tag_db`, `.grenzwert_nacht_db` sind derived aus der Empfindlichkeitsstufe (LSV Anhang 4), nur wenn ein Bahnpegel da ist. |
 | Datenstand | 31.12.2021 laut Layer-Legende (Emissionsdaten 2021, berechnet durch die SBB für SBB, BLS, SOB, SZU, Zentralbahn, RhB; rund 4165 von 5800 km Trassen). GetFeatureInfo liefert kein Datum, darum kein `source_date`. |
 | TTL | 180 Tage |
 | Status | verifiziert 16.10.2026 (Live-Test an den fünf goldenen Adressen) · Fixtures `laerm-bahn-tag-wabern.json`, `laerm-bahn-nacht-wabern.json`, `laerm-bahn-tag-zuerich.json`, `laerm-bahn-nacht-zuerich.json` (echte Antworten vom 16.10.2026) |
@@ -386,7 +386,7 @@ Datenstand: AG, ZH, GL, AR, AI, SG, FR, GE, JU, SH setzen `UpdateDateCS` auf den
 | Endpoint | `GET …/MapServer/identify?geometry=<E>,<N>&geometryType=esriGeometryPoint&sr=2056&layers=all:ch.swisstopo-vd.geometa-grundbuch,ch.swisstopo-vd.geometa-nfgeom&tolerance=0&returnGeometry=false&lang=de` (ein Request, beide Layer) |
 | braucht | `lv95_bau` |
 | liefert Keys | keine |
-| Fakten | Bei genau einem Grundbuchkreis: `grundbuch.kreis`, `.ortsteil` (nur wenn eindeutig), `.fuehrung`, `.adresse`, `.telefon`, `.email`. Bei mehreren: nur `grundbuch.kreise_anzahl` und `grundbuch.hinweis`. Dazu `vermessung.geometer_firma`, `.geometer_adresse`, `.geometer_telefon`, `.geometer_email`. Alle Confidence 1. |
+| Fakten | Bei genau einem Grundbuchkreis: `grundbuch.kreis`, `.ortsteil` (nur wenn eindeutig), `.fuehrung`, `.adresse`, `.telefon`, `.email`. Dazu `grundbuch.fuehrung_fr` und `.fuehrung_it`, wie der Layer sie führt (`grundbuchfuehrung_f`, `_i`; Version 2 seit 16.10.2026). Bei mehreren: nur `grundbuch.kreise_anzahl`, `grundbuch.hinweis` und `grundbuch.hinweis_code` (mehrere_kreise). Dazu `vermessung.geometer_firma`, `.geometer_adresse`, `.geometer_telefon`, `.geometer_email`. Alle Confidence 1. |
 | TTL | 90 Tage |
 | Status | verifiziert 16.10.2026 (Live-Test an den fünf goldenen Adressen) · Fixtures `stellen-wabern.json`, `stellen-zuerich.json`, `stellen-baden.json` (echte Antworten vom 15.10.2026) |
 

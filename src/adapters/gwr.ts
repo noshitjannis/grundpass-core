@@ -78,12 +78,13 @@ export const gwr: Adapter = {
     yields: ['egrid', 'lv95_bau', 'bfs_nr', 'kanton', 'parzelle_nr'],
     provides: ['gebaeude.', 'wohnung.', 'wohnungen.', 'adresse.gemeinde', 'adresse.kanton', 'parzelle.nummer', 'parzelle.egrid'],
     ttlDays: 30,
+    version: 2, // 16.10.2026: Code-Fakten zu jedem Textfakt (heizung.kurz_code, heizung2.*_code, warmwasser.*_code, wohnung.<ewid>.status_code), damit die View in jeder Sprache aus dem Code rendert
     timeoutMs: 8000,
     license: 'OGD, Quellenangabe Pflicht',
     attribution: '© BFS, Gebäude- und Wohnungsregister (GWR)',
     endpoint: 'https://api3.geo.admin.ch/rest/services/api/MapServer/find?layer=ch.bfs.gebaeude_wohnungs_register',
     status: 'verifiziert',
-    notes: 'Codes nach Merkmalskatalog 4.2. Unbekannte Codes bleiben roh. Baujahr fehlt oft, dann gibt es nur die Bauperiode.',
+    notes: 'Codes nach Merkmalskatalog 4.2 (de), 4.3 (fr, it, en). Unbekannte Codes bleiben roh. Jeder Textfakt hat einen Code-Fakt daneben. Baujahr fehlt oft, dann gibt es nur die Bauperiode.',
   },
 
   async resolve(ctx): Promise<AdapterOutput> {
@@ -140,13 +141,18 @@ export const gwr: Adapter = {
     push('gebaeude.heizung.energietraeger', codes.energietraeger(a.genh1));
     push('gebaeude.heizung.energietraeger_code', a.genh1);
     push('gebaeude.heizung.kurz', codes.heizungKurz(a.gwaerzh1, a.genh1));
+    push('gebaeude.heizung.kurz_code', codes.heizungKurzCode(a.gwaerzh1, a.genh1));
     if (a.gwaerdath1) push('gebaeude.heizung.stand', chDateToIso(a.gwaerdath1) ?? a.gwaerdath1);
     if (a.gwaerzh2 != null) {
       push('gebaeude.heizung2.erzeuger', codes.waermeerzeugerHeizung(a.gwaerzh2));
+      push('gebaeude.heizung2.erzeuger_code', a.gwaerzh2);
       push('gebaeude.heizung2.energietraeger', codes.energietraeger(a.genh2));
+      push('gebaeude.heizung2.energietraeger_code', a.genh2);
     }
     push('gebaeude.warmwasser.erzeuger', codes.waermeerzeugerWarmwasser(a.gwaerzw1));
+    push('gebaeude.warmwasser.erzeuger_code', a.gwaerzw1);
     push('gebaeude.warmwasser.energietraeger', codes.energietraeger(a.genw1));
+    push('gebaeude.warmwasser.energietraeger_code', a.genw1);
 
     // Parzelle laut GWR
     if (a.egrid) push('parzelle.egrid', a.egrid);
@@ -162,6 +168,7 @@ export const gwr: Adapter = {
       push(`${p}.stockwerk`, codes.stockwerk(a.wstwk?.[i] ?? null));
       push(`${p}.stockwerk_code`, a.wstwk?.[i] ?? null);
       push(`${p}.status`, codes.wohnungStatus(a.wstat?.[i] ?? null));
+      push(`${p}.status_code`, a.wstat?.[i] ?? null);
       push(`${p}.zimmer`, a.wazim?.[i] ?? null);
       push(`${p}.flaeche_m2`, a.warea?.[i] ?? null, 'm2');
       push(`${p}.baujahr`, a.wbauj?.[i] ?? null);

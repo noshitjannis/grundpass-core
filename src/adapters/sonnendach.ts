@@ -74,6 +74,7 @@ export const sonnendach: Adapter = {
     yields: [],
     provides: ['solar.'],
     ttlDays: 180,
+    version: 2, // 16.10.2026: Einheit der Ausrichtung ist «°» statt «° (0 = Süd)», der Zusatz steht in der Erklärung des Feldkatalogs (vier Sprachen)
     timeoutMs: 10_000,
     license: 'OGD, Quellenangabe Pflicht',
     attribution: '© BFE, swisstopo (Sonnendach.ch)',
@@ -136,7 +137,7 @@ export const sonnendach: Adapter = {
     push('solar.stromertrag_winter_kwh_a', sum((s) => s.stromertrag_winterhalbjahr), 'kWh/a');
     push('solar.finanzertrag_chf_a', sum((s) => s.finanzertrag), 'CHF/a');
     push('solar.waermeertrag_kwh_a', sum((s) => s.waermeertrag), 'kWh/a');
-    push('solar.bestes_segment.ausrichtung_grad', best.ausrichtung, '° (0 = Süd)');
+    push('solar.bestes_segment.ausrichtung_grad', best.ausrichtung, '°');
     push('solar.bestes_segment.neigung_grad', best.neigung, '°');
     push('solar.bestes_segment.flaeche_m2', best.flaeche != null ? Math.round(best.flaeche) : null, 'm2');
     // Gebäudeebene (identisch auf allen Segmenten)
