@@ -4,13 +4,19 @@ import { readFileSync, writeFileSync } from 'node:fs';
 /**
  * Verkleinert eine rohe ÖREB-Aufzeichnung zu einer Fixture, Struktur erhalten:
  *
- *   tsx scripts/oereb-fixture.ts <quelle.json> <ziel.json> "<Hinweis: Adresse, Datum, URL, Besonderheit>"
+ *   tsx scripts/oereb-fixture.ts <quelle.json|xml> <ziel.json|xml> "<Hinweis: Adresse, Datum, URL, Besonderheit>"
  *
- * Weg: Geometrien, Bilder und Logos (auch Base64 und Symbol-URLs), Glossar, allgemeine Informationen, Disclaimer, WMS-Verweise
- * (tragen bei FR ein Token), Pläne fürs Grundbuch, Erweiterungen, Codelisten. Rechtsvorschriften bleiben pro Beschränkung genau
- * eine: die, deren Titel nach Baureglement aussieht (der Adapter liest sie als zone.baureglement_url), sonst die erste.
- * `Map.OtherLegend` bleibt nur bei GeoShop-Diensten (UR, OW, NW, Hülle mit «?xml»), weil sie die Zonenbezeichnung dort führen; sonst fällt `Map` weg. Die Hülle (GetExtractByIdResponse,
- * «?xml», Item) bleibt, damit der Adapter die Form erkennt. `_hinweis` kommt als erster Schlüssel dazu.
+ * JSON: Weg sind Geometrien, Bilder und Logos (auch Base64 und Symbol-URLs), Glossar, allgemeine Informationen, Disclaimer,
+ * WMS-Verweise (tragen bei FR ein Token), Pläne fürs Grundbuch, Erweiterungen, Codelisten. Rechtsvorschriften bleiben pro
+ * Beschränkung genau eine: die, deren Titel nach Baureglement aussieht (der Adapter liest sie als zone.baureglement_url), sonst die
+ * erste. `Map.OtherLegend` bleibt nur bei GeoShop-Diensten (UR, OW, NW, Hülle mit «?xml»), weil sie die Zonenbezeichnung dort
+ * führen; sonst fällt `Map` weg. Die Hülle (GetExtractByIdResponse, «?xml», Item) bleibt, damit der Adapter die Form erkennt.
+ * `_hinweis` kommt als erster Schlüssel dazu.
+ *
+ * XML (SO, SH): dieselben Elemente fallen als `<ns3:…>…</ns3:…>` weg (Geometry, Glossary, GeneralInformation, Disclaimer, Logos,
+ * SymbolRef, Map samt ReferenceWMS und OtherLegend, PlanForLandRegister); pro RestrictionOnLandownership bleibt eine
+ * LegalProvisions. Der Hinweis steht als XML-Kommentar `<!-- _hinweis: … -->` direkt nach der XML-Deklaration; die Namensräume und
+ * die Hülle GetExtractByIdResponse bleiben, damit der Adapter den Weg über parseXml nimmt.
  */
 const WEG = new Set([
   'Glossary', 'GeneralInformation', 'Disclaimer',
@@ -60,16 +66,51 @@ function kuerze(value: unknown, key = ''): unknown {
   return out;
 }
 
+/** Ein Element samt Inhalt entfernen; die Elemente verschachteln sich nicht mit sich selbst, darum reicht ein nicht gieriges Muster. */
+function ohneElement(xml: string, name: string): string {
+  return xml.replace(new RegExp(`<ns3:${name}(?:\\s[^>]*)?>[\\s\\S]*?</ns3:${name}>`, 'g'), '').replace(new RegExp(`<ns3:${name}(?:\\s[^>]*)?/>`, 'g'), '');
+}
+
+const XML_WEG = ['Geometry', 'Glossary', 'GeneralInformation', 'Disclaimer', 'LogoPLRCadastreRef', 'FederalLogoRef', 'CantonalLogoRef', 'MunicipalityLogoRef', 'QRCodeRef', 'Image', 'SymbolRef', 'Map', 'PlanForLandRegister', 'PlanForLandRegisterMainPage'];
+
+function kuerzeXml(roh: string, hinweis: string): string {
+  let xml = roh;
+  for (const name of XML_WEG) xml = ohneElement(xml, name);
+  // Pro Beschränkung eine Rechtsvorschrift: die mit Baureglement im Titel, sonst die erste
+  xml = xml.replace(/<ns3:RestrictionOnLandownership>[\s\S]*?<\/ns3:RestrictionOnLandownership>/g, (block) => {
+    const alle = block.match(/<ns3:LegalProvisions>[\s\S]*?<\/ns3:LegalProvisions>/g) ?? [];
+    if (alle.length <= 1) return block;
+    const titel = (lp: string) => lp.match(/<ns3:Title>[\s\S]*?<ns3:Text>([^<]*)<\/ns3:Text>/)?.[1] ?? '';
+    const behalten = alle.find((lp) => BAUREGLEMENT.test(titel(lp))) ?? alle[0]!;
+    let erstes = true;
+    return block.replace(/<ns3:LegalProvisions>[\s\S]*?<\/ns3:LegalProvisions>/g, (lp) => {
+      if (lp === behalten && erstes) {
+        erstes = false;
+        return lp;
+      }
+      return '';
+    });
+  });
+  const kommentar = `<!-- _hinweis: ${hinweis.replace(/--/g, '-')} -->`;
+  return xml.replace(/^(<\?xml[^>]*\?>)/, `$1\n${kommentar}\n`);
+}
+
 const [quelle, ziel, hinweis] = process.argv.slice(2);
 if (!quelle || !ziel || !hinweis) {
-  console.error('Verwendung: tsx scripts/oereb-fixture.ts <quelle.json> <ziel.json> "<Hinweis>"');
+  console.error('Verwendung: tsx scripts/oereb-fixture.ts <quelle.json|xml> <ziel.json|xml> "<Hinweis>"');
   process.exit(2);
 }
 const roh = readFileSync(quelle, 'utf8');
-const geparst = JSON.parse(roh) as Record<string, unknown>;
-geoshop = '?xml' in geparst;
-const klein = kuerze(geparst) as Record<string, unknown>;
-const mitHinweis = { _hinweis: hinweis, ...klein };
-const text = JSON.stringify(mitHinweis, null, 1);
-writeFileSync(ziel, text + '\n');
-console.log(`${ziel}: ${roh.length} → ${text.length} Zeichen`);
+if (quelle.endsWith('.xml')) {
+  const text = kuerzeXml(roh, hinweis);
+  writeFileSync(ziel, text.endsWith('\n') ? text : text + '\n');
+  console.log(`${ziel}: ${roh.length} → ${text.length} Zeichen`);
+} else {
+  const geparst = JSON.parse(roh) as Record<string, unknown>;
+  geoshop = '?xml' in geparst;
+  const klein = kuerze(geparst) as Record<string, unknown>;
+  const mitHinweis = { _hinweis: hinweis, ...klein };
+  const text = JSON.stringify(mitHinweis, null, 1);
+  writeFileSync(ziel, text + '\n');
+  console.log(`${ziel}: ${roh.length} → ${text.length} Zeichen`);
+}

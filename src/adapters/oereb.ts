@@ -1,31 +1,60 @@
+import { XMLParser, XMLValidator } from 'fast-xml-parser';
 import { z } from 'zod';
 import { EmptyResultError, SchemaDriftError } from '../errors.ts';
 import type { Adapter, AdapterOutput } from '../types.ts';
-import { GRUNDNUTZUNG_HINWEIS, GRUNDNUTZUNG_KENNZEICHNUNG, NUTZUNGSPLANUNG_THEMA, OEREB_KANTONE, OEREB_KANTONE_ANGEBUNDEN, oerebExtractUrl, type OerebKanton, type OerebSprache } from './oereb/kantone.ts';
+import {
+  GRUNDNUTZUNG_HINWEIS,
+  GRUNDNUTZUNG_KENNZEICHNUNG,
+  NUTZUNGSPLANUNG_OHNE_DATEN_HINWEIS,
+  NUTZUNGSPLANUNG_THEMA,
+  OEREB_KANTONE,
+  OEREB_KANTONE_ANGEBUNDEN,
+  OEREB_TIMEOUT_MAX_MS,
+  oerebExtractUrl,
+  oerebTimeoutMs,
+  type OerebKanton,
+  type OerebSprache,
+} from './oereb/kantone.ts';
 
 /**
  * ÖREB-Kataster: Zone (Grundnutzung), Lärm-Empfindlichkeitsstufe, amtliche Grundbuchfläche und die weiteren
- * Eigentumsbeschränkungen einer Parzelle. Datenextrakt extract-2.0 per EGRID vom kantonalen Webservice; Basis, Sprache,
- * Erkennungsregel und Status pro Kanton in oereb/kantone.ts (26 Einträge, 22 angebunden, Inventar vom 16.10.2026).
+ * Eigentumsbeschränkungen einer Parzelle. Datenextrakt extract-2.0 per EGRID vom kantonalen Webservice; Basis, Sprache, Format,
+ * Erkennungsregel, Timeout und Status pro Kanton in oereb/kantone.ts (26 Einträge, 24 angebunden, Inventar vom 16.10.2026).
  *
- * Antwortform: Drei JSON-Dialekte, alle auf die openoereb-Form gebracht (erkenneForm, normalisiereBaum), bevor das Zod-Schema
- * greift. Gemeinsam ist der Kern aus der Weisung: `RealEstate.{EGRID, Number, IdentDN, Canton, MunicipalityName,
+ * Antwortform: Drei JSON-Dialekte und XML (SO, SH), alle auf die openoereb-Form gebracht (parseXml, erkenneForm, normalisiereBaum),
+ * bevor das Zod-Schema greift. Gemeinsam ist der Kern aus der Weisung: `RealEstate.{EGRID, Number, IdentDN, Canton, MunicipalityName,
  * MunicipalityCode, LandRegistryArea, RestrictionOnLandownership[]}`, pro Beschränkung `Theme.{Code|code, SubCode?, Text}`,
  * `LegendText`, `TypeCode`, `Lawstatus.Code` (inForce, changeWithPreEffect, changeWithoutPreEffect), `PartInPercent`/`AreaShare`
  * bei Flächen, `LengthShare` bei Linien, `NrOfPoints` bei Punkten, `LegalProvisions[].{Title, TextAtWeb}`,
- * `ResponsibleOffice.{Name, OfficeAtWeb}`; am Extract `UpdateDateCS` und `PLRCadastreAuthority`. Texte sind Listen `{Language, Text}`
- * (textIn: Kantonssprache, dann de, fr, it, rm, sonst der erste). Antwort 204 ohne Inhalt heisst: EGRID in diesem Kataster unbekannt
- * (Lücke, kein Ausfall).
+ * `ResponsibleOffice.{Name, OfficeAtWeb}`; am Extract `UpdateDateCS`, `PLRCadastreAuthority` und `ThemeWithoutData` (Themen, zu denen
+ * der Kataster in dieser Gemeinde keine Daten führt). Texte sind Listen `{Language, Text}` (textIn: Kantonssprache, dann de, fr, it, rm,
+ * sonst der erste). Antwort 204 ohne Inhalt heisst: EGRID in diesem Kataster unbekannt (Lücke, kein Ausfall).
+ *
+ * Hinweistexte kommen mit Code: `zone.hinweis` trägt `zone.hinweis_code` (flaechenanteil, thema_ohne_daten), damit die View den Text in
+ * jeder Sprache aus dem Code bauen kann. Der deutsche Text bleibt als Fakt (Quellsprache, API-stabil).
  *
  * Nicht im Kataster und darum hier nicht erfunden: Ausnützungsziffer, Geschosszahl, Grenzabstände. Die stehen im
  * kommunalen Baureglement bzw. der BNO; wir liefern den Link darauf (`zone.baureglement_url`), wenn der Extract ihn nennt.
  */
 
 // ---------------------------------------------------------------------------
-// Dialekte: openoereb, GeoShop (XML nach JSON), .NET-Serialisierung
+// Dialekte: openoereb, GeoShop (XML nach JSON), .NET-Serialisierung, XML
 // ---------------------------------------------------------------------------
 
-export type OerebForm = 'openoereb' | 'geoshop' | 'dotnet';
+export type OerebForm = 'openoereb' | 'geoshop' | 'dotnet' | 'xml';
+
+/**
+ * XML-Extract (SO, SH) in einen Baum, wie ihn der JSON-Pfad kennt: Namensraum-Präfixe weg (`ns3:Extract` → `Extract`), Attribute als
+ * `@…` (normalisiereBaum streicht sie), Werte bleiben Strings (die Zahlen wandelt `anzahl` wie bei GeoShop), einzelne Elemente statt
+ * Arrays (die Listenfelder macht normalisiereBaum zu Arrays), Entitäten (`&amp;`) aufgelöst. Ungültiges XML (HTML-Fehlerseite,
+ * abgeschnittene Antwort) wirft, der Aufrufer macht daraus Schema-Drift.
+ */
+export function parseXml(text: string): unknown {
+  const ok = XMLValidator.validate(text);
+  if (ok !== true) throw new Error(`kein gültiges XML: ${ok.err.msg}`);
+  const parser = new XMLParser({ removeNSPrefix: true, ignoreAttributes: false, attributeNamePrefix: '@', parseTagValue: false, trimValues: true, processEntities: true });
+  return parser.parse(text) as unknown;
+}
 
 /** Reihenfolge der Enumerationen im Schema OeREBKRMtrsfr_V2_0; die .NET-Dienste (FR, VD, GE) liefern den Index statt des Namens. */
 const SPRACHEN_ENUM = ['de', 'fr', 'it', 'rm', 'en'];
@@ -36,8 +65,9 @@ const LISTEN = new Set(['RestrictionOnLandownership', 'LegalProvisions', 'Concer
 const UMBENENNEN: Record<string, string> = { RestrictionOnLandownership: 'LegendText', OtherLegend: 'LegendText', LegalProvisions: 'TextAtWeb', ResponsibleOffice: 'OfficeAtWeb', PLRCadastreAuthority: 'OfficeAtWeb' };
 
 /**
- * Erkennt die Hülle: openoereb `GetExtractByIdResponse.extract|Extract`, GeoShop `{"?xml", Extract}` (oder Extract mit
- * `@`-Attributen), .NET `{schemaLocation, Extract}` (LU) oder `{Item: {RealEstate…}}` (FR, VD, GE). Sonst null.
+ * Erkennt die Hülle: openoereb `GetExtractByIdResponse.extract|Extract`, XML (geparst) `{"?xml", GetExtractByIdResponse: {Extract}}`,
+ * GeoShop `{"?xml", Extract}` (oder Extract mit `@`-Attributen), .NET `{schemaLocation, Extract}` (LU) oder `{Item: {RealEstate…}}`
+ * (FR, VD, GE). Sonst null.
  */
 export function erkenneForm(raw: unknown): { form: OerebForm; extract: unknown } | null {
   if (!raw || typeof raw !== 'object') return null;
@@ -45,7 +75,7 @@ export function erkenneForm(raw: unknown): { form: OerebForm; extract: unknown }
   const resp = r.GetExtractByIdResponse;
   if (resp && typeof resp === 'object') {
     const ex = (resp as Record<string, unknown>).extract ?? (resp as Record<string, unknown>).Extract;
-    return ex && typeof ex === 'object' ? { form: 'openoereb', extract: ex } : null;
+    return ex && typeof ex === 'object' ? { form: '?xml' in r ? 'xml' : 'openoereb', extract: ex } : null;
   }
   if (r.Extract && typeof r.Extract === 'object') {
     const geoshop = '?xml' in r || Object.keys(r.Extract as object).some((k) => k.startsWith('@'));
@@ -129,6 +159,8 @@ export const extractSchema = z.object({
   CreationDate: z.string().nullable().optional(),
   RealEstate: liegenschaft,
   ConcernedTheme: z.array(thema).nullable().optional(),
+  /** Themen, zu denen der Kataster in dieser Gemeinde (noch) keine Daten führt. SO: Nutzungsplanung der Stadt Solothurn. */
+  ThemeWithoutData: z.array(thema).nullable().optional(),
   PLRCadastreAuthority: amt.nullable().optional(),
 });
 
@@ -300,7 +332,8 @@ function normalisiere(b: Beschraenkung, form: OerebForm, sprache: OerebSprache):
 /**
  * Dieselbe Festlegung kommt oft in mehreren Teilflächen (UR: Kernzone 1 in drei Stücken zu 19, 3 und 5 %; AR: 21 Einträge
  * für sechs Zonen). Gleiches Thema, gleicher SubCode, gleicher TypeCode und gleiche Legende werden ein Eintrag, Anteile,
- * Flächen und Längen summiert (Anteil auf eine Dezimale gerundet). Rechtsvorschriften und Stelle vom ersten Eintrag.
+ * Flächen und Längen summiert (Anteil auf eine Dezimale gerundet, höchstens 100: Olten führt zwei Gestaltungsplan-Perimeter
+ * mit gleicher Legende zu 100 und 20.4 %, die sich überlagern, statt sich zu ergänzen). Rechtsvorschriften und Stelle vom ersten Eintrag.
  */
 export function verschmelze(eintraege: Eintrag[]): Eintrag[] {
   const out: Eintrag[] = [];
@@ -314,11 +347,11 @@ export function verschmelze(eintraege: Eintrag[]): Eintrag[] {
       out.push(kopie);
       continue;
     }
-    if (e.anteil !== undefined) vorhanden.anteil = Math.round(((vorhanden.anteil ?? 0) + e.anteil) * 10) / 10;
+    if (e.anteil !== undefined) vorhanden.anteil = Math.min(100, Math.round(((vorhanden.anteil ?? 0) + e.anteil) * 10) / 10);
     if (e.flaeche !== undefined) vorhanden.flaeche = (vorhanden.flaeche ?? 0) + e.flaeche;
     if (e.laenge !== undefined) vorhanden.laenge = (vorhanden.laenge ?? 0) + e.laenge;
   }
-  for (const e of out) if (e.anteil !== undefined) e.anteil = Math.round(e.anteil * 10) / 10;
+  for (const e of out) if (e.anteil !== undefined) e.anteil = Math.min(100, Math.round(e.anteil * 10) / 10);
   return out;
 }
 
@@ -348,15 +381,16 @@ export const oereb: Adapter = {
     yields: [],
     provides: ['zone.', 'oereb.', 'laerm.empfindlichkeitsstufe', 'laerm.zustaendig', 'parzelle.flaeche_grundbuch_m2'],
     ttlDays: 14,
-    version: 3, // 16.10.2026: 22 Kantone, Regelkette mit zone.erkennung und zone.hinweis, Teilflächen summiert, Sprachen
-    timeoutMs: 30000,
+    version: 4, // 16.10.2026: 24 Kantone (SO, SH über XML), zone.hinweis_code, Hinweis thema_ohne_daten; 3: Regelkette, Teilflächen, Sprachen
+    // Harte Grenze des Resolvers = grösster Kantons-Timeout (GL 90 s wegen Kaltstart). Die wirksame Grenze pro Kanton setzt oerebTimeoutMs.
+    timeoutMs: OEREB_TIMEOUT_MAX_MS,
     cantons: OEREB_KANTONE_ANGEBUNDEN,
     license: 'Öffentlicher amtlicher Kataster (Art. 16a GeoIG, ÖREBKV), frei nutzbar mit Quellenangabe',
     attribution: '© ÖREB-Kataster der Kantone',
-    endpoint: '<kantonale Basis>/extract/json?EGRID=<EGRID>&GEOMETRY=false&WITHIMAGES=false&LANG=<sprache>, Basis und Regel pro Kanton in src/adapters/oereb/kantone.ts',
+    endpoint: '<kantonale Basis>/extract/<json|xml>?EGRID=<EGRID>&GEOMETRY=false&WITHIMAGES=false&LANG=<sprache>, Basis, Format und Regel pro Kanton in src/adapters/oereb/kantone.ts',
     status: 'verifiziert',
     notes:
-      'Grundnutzung als Hauptzone (grösster Anteil) nach Regelkette Kennzeichnung, TypeCode, Flächenanteil (zone.erkennung); weitere Grundnutzungen als zone.weitere.<n>.*, überlagernde Nutzungsplanung und alle anderen betroffenen Themen als oereb.<thema>.*. Lärm-Empfindlichkeitsstufe nur, wenn der Kataster sie führt. Ausnützungsziffer steht nicht im ÖREB-Kataster, sondern im Baureglement (Link, wenn vorhanden). Kantone ohne nutzbaren Dienst (SO, SH, VS, NE) stehen mit Grund in kantone.ts.',
+      'Grundnutzung als Hauptzone (grösster Anteil) nach Regelkette Kennzeichnung, TypeCode, Flächenanteil (zone.erkennung); weitere Grundnutzungen als zone.weitere.<n>.*, überlagernde Nutzungsplanung und alle anderen betroffenen Themen als oereb.<thema>.*. Lärm-Empfindlichkeitsstufe nur, wenn der Kataster sie führt. Ausnützungsziffer steht nicht im ÖREB-Kataster, sondern im Baureglement (Link, wenn vorhanden). SO und SH liefern XML statt JSON. Kantone ohne nutzbaren Dienst (VS, NE) stehen mit Grund in kantone.ts.',
   },
 
   async resolve(ctx): Promise<AdapterOutput> {
@@ -368,13 +402,21 @@ export const oereb: Adapter = {
     const sprache = k.sprache;
 
     const url = oerebExtractUrl(k, egrid);
-    const res = await ctx.http.text(url, { timeoutMs: this.manifest.timeoutMs });
+    const res = await ctx.http.text(url, { timeoutMs: oerebTimeoutMs(k) });
     if (res.status === 204 || !res.data.trim()) throw new EmptyResultError(url, `EGRID ${egrid} ist im ÖREB-Kataster ${k.kanton} nicht bekannt`);
     let raw: unknown;
-    try {
-      raw = JSON.parse(res.data);
-    } catch {
-      throw new SchemaDriftError(url, `Antwort ist kein JSON: ${res.data.slice(0, 120)}`);
+    if (k.format === 'xml') {
+      try {
+        raw = parseXml(res.data);
+      } catch (err) {
+        throw new SchemaDriftError(url, `Antwort ist kein XML-Extract: ${(err as Error).message.slice(0, 120)} · ${res.data.slice(0, 120)}`);
+      }
+    } else {
+      try {
+        raw = JSON.parse(res.data);
+      } catch {
+        throw new SchemaDriftError(url, `Antwort ist kein JSON: ${res.data.slice(0, 120)}`);
+      }
     }
     const form = erkenneForm(raw);
     if (!form) throw new SchemaDriftError(url, 'keine bekannte Hülle (GetExtractByIdResponse.extract, Extract, Item)');
@@ -416,11 +458,21 @@ export const oereb: Adapter = {
     }
     const istZone = new Set(zonen);
     const haupt = zonen[0];
+    // Kein Eintrag der Nutzungsplanung, und der Extract sagt selbst, dass der Kataster das Thema hier ohne Daten führt (SO, Stadt
+    // Solothurn): Das ist eine Lücke mit Hinweis, kein Rätsel. Text deutsch, Code für die View.
+    const nutzungsplanungOhneDaten = (ex.ThemeWithoutData ?? []).some((t) => (k.grundnutzungRegel.thema ?? NUTZUNGSPLANUNG_THEMA).test(t.Code ?? t.code ?? ''));
+    if (!nutzungsplanung.length && nutzungsplanungOhneDaten) {
+      push('zone.hinweis', NUTZUNGSPLANUNG_OHNE_DATEN_HINWEIS);
+      push('zone.hinweis_code', 'thema_ohne_daten');
+    }
     if (haupt && erkennung) {
       const zc = CONFIDENCE[erkennung];
       push('zone.bezeichnung', haupt.legende ?? null, { confidence: zc });
       push('zone.erkennung', erkennung, { confidence: zc });
-      if (erkennung === 'flaechenanteil') push('zone.hinweis', GRUNDNUTZUNG_HINWEIS, { confidence: zc });
+      if (erkennung === 'flaechenanteil') {
+        push('zone.hinweis', GRUNDNUTZUNG_HINWEIS, { confidence: zc });
+        push('zone.hinweis_code', 'flaechenanteil', { confidence: zc });
+      }
       if (haupt.typeCode) push('zone.code', haupt.typeCode, { confidence: zc });
       if (haupt.anteil !== undefined) push('zone.anteil_prozent', haupt.anteil, { unit: '%', confidence: zc });
       // Regel 3 kennt die Zahl der Grundnutzungen nicht, darum dort kein zone.anzahl

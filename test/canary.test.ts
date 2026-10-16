@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
 import { runCanary } from '../src/canary/run.ts';
-import { runKantonsCanary } from '../src/canary/kantone.ts';
+import { runKantonsCanary, vorueberGehend } from '../src/canary/kantone.ts';
 import { geocode, gwr, oereb } from '../src/adapters/index.ts';
 import { Core } from '../src/core.ts';
 import { silentLogger } from '../src/log.ts';
@@ -158,9 +158,10 @@ describe('kantons-canary', () => {
     expect(gesendet[0]?.[2]).toBe('warn');
     await leer.close();
 
+    // 500 ist vorübergehend: ein zweiter Versuch (hier ohne Wartezeit), erst dann der Alarm
     const kaputt = await coreMit([{ match: (u) => u.hostname === 'www.oereb2.apps.be.ch', body: 'kaputt', status: 500 }]);
-    const r2 = await runKantonsCanary(kaputt, { adressen: [wabern], sink: async (t, x, s) => void gesendet.push([t, x, s]) });
-    expect(r2.kantone[0]).toMatchObject({ befund: 'failed', error_kind: 'http' });
+    const r2 = await runKantonsCanary(kaputt, { adressen: [wabern], sink: async (t, x, s) => void gesendet.push([t, x, s]), retryNachMs: 0, warten: async () => {} });
+    expect(r2.kantone[0]).toMatchObject({ befund: 'failed', error_kind: 'http', versuche: 2 });
     expect(r2.alarme[0]).toMatch(/failed · http/);
     expect(gesendet[1]?.[2]).toBe('error');
     expect(gesendet[1]?.[0]).toBe('grundpass Kantone: 1 von 1 mit Befund');
@@ -182,10 +183,61 @@ describe('kantons-canary', () => {
 
     const ohneGwr = await coreMit([{ match: (u) => u.searchParams.get('layer') === 'ch.bfs.gebaeude_wohnungs_register', body: { results: [] } }]);
     const r3 = await runKantonsCanary(ohneGwr, { adressen: [wabern], sink: async () => {} });
-    expect(r3.kantone[0]).toMatchObject({ befund: 'vorgelagert', status: 'skipped' });
+    expect(r3.kantone[0]).toMatchObject({ befund: 'vorgelagert', status: 'skipped', versuche: 1 });
     expect(r3.kantone[0]?.fehler).toMatch(/^gwr: /);
     expect(r3.alarme[0]).toMatch(/vorgelagert · gwr:/);
     await ohneGwr.close();
+  });
+
+  it('vorübergehender Fehler (5xx, 429, Timeout): genau ein zweiter Versuch nach retryNachMs, erst dann Alarm; 404 bekommt keinen zweiten Versuch', async () => {
+    // ZG am 16.10.2026: HTTP 500, eine Minute später wieder da. Der zweite Versuch rettet den Lauf.
+    let kaputt = true;
+    const gewartet: number[] = [];
+    const warten = async (ms: number) => {
+      gewartet.push(ms);
+      kaputt = false; // der Dienst erholt sich während der Wartezeit
+    };
+    const erholt = await coreMit([{ match: (u) => kaputt && u.hostname === 'www.oereb2.apps.be.ch', body: 'kaputt', status: 500 }]);
+    const gesendet: string[] = [];
+    const r1 = await runKantonsCanary(erholt, { adressen: [wabern], sink: async (t) => void gesendet.push(t), retryNachMs: 0, warten });
+    expect(gewartet).toEqual([0]);
+    expect(r1.ok).toBe(true);
+    expect(r1.alarme).toEqual([]);
+    expect(gesendet).toEqual([]);
+    expect(r1.kantone[0]).toMatchObject({ befund: 'ok', versuche: 2, zone: 'Wohnzone (Art. 29 BauR), Bauklasse IIa (Art. 53 BauR)' });
+    expect(r1.kantone[0]?.erster_fehler).toMatch(/^http: HTTP 500/);
+    await erholt.close();
+
+    // Bleibt der Dienst kaputt, zählt der zweite Versuch, und die Meldung sagt es
+    const bleibtKaputt = await coreMit([{ match: (u) => u.hostname === 'www.oereb2.apps.be.ch', body: 'kaputt', status: 503 }]);
+    const gewartet2: number[] = [];
+    const r2 = await runKantonsCanary(bleibtKaputt, { adressen: [wabern], sink: async () => {}, retryNachMs: 0, warten: async (ms) => void gewartet2.push(ms) });
+    expect(gewartet2).toEqual([0]);
+    expect(r2.ok).toBe(false);
+    expect(r2.kantone[0]).toMatchObject({ befund: 'failed', error_kind: 'http', versuche: 2 });
+    expect(r2.alarme[0]).toMatch(/^BE \(Bern Rathaus\): failed · http · HTTP 503 · auch im 2\. Versuch nach 0 s$/);
+    await bleibtKaputt.close();
+
+    // 429 ist vorübergehend, 404 nicht
+    const limitiert = await coreMit([{ match: (u) => u.hostname === 'www.oereb2.apps.be.ch', body: 'zu viele', status: 429 }]);
+    const r3 = await runKantonsCanary(limitiert, { adressen: [wabern], sink: async () => {}, retryNachMs: 0, warten: async () => {} });
+    expect(r3.kantone[0]).toMatchObject({ befund: 'failed', versuche: 2 });
+    await limitiert.close();
+    const weg = await coreMit([{ match: (u) => u.hostname === 'www.oereb2.apps.be.ch', body: 'nicht da', status: 404 }]);
+    const r4 = await runKantonsCanary(weg, { adressen: [wabern], sink: async () => {}, retryNachMs: 0, warten: async () => { throw new Error('darf nicht warten'); } });
+    expect(r4.kantone[0]).toMatchObject({ befund: 'failed', error_kind: 'http', versuche: 1 });
+    expect(r4.kantone[0]?.erster_fehler).toBeUndefined();
+    expect(r4.alarme[0]).not.toMatch(/2\. Versuch/);
+    await weg.close();
+
+    // Die Regel selbst
+    expect(vorueberGehend({ befund: 'failed', error_kind: 'timeout', fehler: 'Timeout nach 30000 ms: https://x' })).toBe(true);
+    expect(vorueberGehend({ befund: 'failed', error_kind: 'http', fehler: 'HTTP 429' })).toBe(true);
+    expect(vorueberGehend({ befund: 'failed', error_kind: 'http', fehler: 'HTTP 502' })).toBe(true);
+    expect(vorueberGehend({ befund: 'failed', error_kind: 'http', fehler: 'HTTP 403' })).toBe(false);
+    expect(vorueberGehend({ befund: 'failed', error_kind: 'schema', fehler: 'Schema-Drift' })).toBe(false);
+    expect(vorueberGehend({ befund: 'leer', error_kind: 'empty' })).toBe(false);
+    expect(vorueberGehend({ befund: 'kein_dienst' })).toBe(false);
   });
 });
 

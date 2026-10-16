@@ -1,7 +1,7 @@
 import { describe, expect, it } from 'vitest';
 import { adapters, avParzelle, geocode, gwr, kulturgueter, laermBahn, laermStrasse, naturgefahren, oereb, oevGueteklasse, radon, sonnendach, zustaendigeStellen } from '../src/adapters/index.ts';
-import { amtAdresse, erkenneForm, erkenneGrundnutzung, isoDatum, normalisiereBaum, parseStufe, textIn, themaSlug, type Erkennung } from '../src/adapters/oereb.ts';
-import { GRUNDNUTZUNG_HINWEIS, OEREB_KANTONE, OEREB_KANTONE_ALLE, OEREB_KANTONE_ANGEBUNDEN, oerebExtractUrl, oerebKantoneZaehlung } from '../src/adapters/oereb/kantone.ts';
+import { amtAdresse, erkenneForm, erkenneGrundnutzung, isoDatum, normalisiereBaum, parseStufe, parseXml, textIn, themaSlug, type Erkennung } from '../src/adapters/oereb.ts';
+import { GRUNDNUTZUNG_HINWEIS, NUTZUNGSPLANUNG_OHNE_DATEN_HINWEIS, OEREB_KANTONE, OEREB_KANTONE_ALLE, OEREB_KANTONE_ANGEBUNDEN, OEREB_TIMEOUT_MAX_MS, OEREB_TIMEOUT_MS, oerebExtractUrl, oerebKantoneZaehlung, oerebTimeoutMs } from '../src/adapters/oereb/kantone.ts';
 import { adresseAusZeilen } from '../src/adapters/zustaendige-stellen.ts';
 import { geojsonAreaM2, pointInGeometry } from '../src/adapters/av-parzelle.ts';
 import { BAHN_HINWEIS } from '../src/adapters/laerm-bahn.ts';
@@ -13,7 +13,7 @@ import { buildSteckbrief } from '../src/views/steckbrief.ts';
 import { EmptyResultError, SchemaDriftError } from '../src/errors.ts';
 import { silentLogger } from '../src/log.ts';
 import type { AdapterContext, Keys, RunResult } from '../src/types.ts';
-import { fixture, fixtureText, httpFor, wabernRoutes } from './helpers/fixtures.ts';
+import { fixture, fixtureHinweis, fixtureRoh, fixtureText, httpFor, wabernRoutes } from './helpers/fixtures.ts';
 
 const ctxFor = (keys: Keys): AdapterContext => ({ keys, http: httpFor(wabernRoutes()), now: () => new Date('2026-10-15T10:00:00Z'), log: silentLogger });
 const fact = (out: { facts: Array<{ key: string; value: unknown }> }, key: string) => out.facts.find((f) => f.key === key)?.value;
@@ -346,16 +346,25 @@ describe('oereb', () => {
   const ctx = (datei: string, host: string, keys: Keys): AdapterContext => ({ keys, http: httpMit(datei, host), now: () => new Date('2026-10-15T10:00:00Z'), log: silentLogger });
   const feld = (out: Awaited<ReturnType<typeof oereb.resolve>>, key: string) => out.facts.find((f) => f.key === key);
 
-  it('Manifest: braucht egrid und kanton, gilt für alle Kantone mit Dienst (22 von 26, ohne SO, SH, VS, NE), 14 Tage TTL, 30 s Timeout', () => {
+  it('Manifest: braucht egrid und kanton, gilt für alle Kantone mit Dienst (24 von 26, ohne VS und NE), 14 Tage TTL, Timeout 30 s pro Kanton (GL 90 s), Manifest trägt das Maximum', () => {
     expect(oereb.manifest.needs).toEqual(['egrid', 'kanton']);
     expect(oereb.manifest.cantons).toEqual(OEREB_KANTONE_ANGEBUNDEN);
     expect(OEREB_KANTONE_ALLE).toHaveLength(26);
-    expect(OEREB_KANTONE_ANGEBUNDEN).toHaveLength(22);
-    for (const kt of ['SO', 'SH', 'VS', 'NE']) expect(oereb.manifest.cantons, kt).not.toContain(kt);
-    for (const kt of ['AG', 'ZH', 'BE', 'LU', 'UR', 'SZ', 'OW', 'NW', 'GL', 'ZG', 'FR', 'BS', 'BL', 'AR', 'AI', 'SG', 'GR', 'TG', 'TI', 'VD', 'GE', 'JU']) expect(oereb.manifest.cantons, kt).toContain(kt);
+    expect(OEREB_KANTONE_ANGEBUNDEN).toHaveLength(24);
+    for (const kt of ['VS', 'NE']) expect(oereb.manifest.cantons, kt).not.toContain(kt);
+    for (const kt of ['AG', 'ZH', 'BE', 'LU', 'UR', 'SZ', 'OW', 'NW', 'GL', 'ZG', 'FR', 'SO', 'BS', 'BL', 'SH', 'AR', 'AI', 'SG', 'GR', 'TG', 'TI', 'VD', 'GE', 'JU']) expect(oereb.manifest.cantons, kt).toContain(kt);
     expect(oereb.manifest.ttlDays).toBe(14);
-    expect(oereb.manifest.timeoutMs).toBe(30000);
-    expect(oerebKantoneZaehlung()).toEqual({ total: 26, angebunden: 22, verifiziert: 22, experimentell: 0, kein_dienst: 4 });
+    expect(OEREB_TIMEOUT_MS).toBe(30_000);
+    expect(oerebTimeoutMs(OEREB_KANTONE.BE!)).toBe(30_000);
+    expect(oerebTimeoutMs(OEREB_KANTONE.GL!)).toBe(90_000);
+    expect(oereb.manifest.timeoutMs).toBe(OEREB_TIMEOUT_MAX_MS);
+    expect(OEREB_TIMEOUT_MAX_MS).toBe(90_000);
+    expect(oerebKantoneZaehlung()).toEqual({ total: 26, angebunden: 24, verifiziert: 24, experimentell: 0, kein_dienst: 2 });
+    // Format pro Kanton: SO und SH liefern nur XML, alle anderen JSON
+    expect(OEREB_KANTONE_ALLE.filter((kt) => OEREB_KANTONE[kt]!.format === 'xml')).toEqual(['SO', 'SH']);
+    expect(oerebExtractUrl(OEREB_KANTONE.SO!, 'CH1')).toBe('https://geo.so.ch/api/oereb/extract/xml?EGRID=CH1&GEOMETRY=false&WITHIMAGES=false&LANG=de');
+    expect(oerebExtractUrl(OEREB_KANTONE.SO!, 'CH1', 'json')).toBe('https://geo.so.ch/api/oereb/extract/json?EGRID=CH1&GEOMETRY=false&WITHIMAGES=false&LANG=de');
+    expect(oerebExtractUrl(OEREB_KANTONE.BE!, 'CH1')).toBe('https://www.oereb2.apps.be.ch/extract/json?EGRID=CH1&GEOMETRY=false&WITHIMAGES=false&LANG=de');
   });
 
   it('BE Wabern: Grundnutzung per SubCode, Grundbuchfläche 761 m² mit Confidence 1, weitere Themen, Stand aus UpdateDateCS', async () => {
@@ -439,7 +448,7 @@ describe('oereb', () => {
   });
 
   it('Version 2: zuständige Stellen aus ResponsibleOffice und PLRCadastreAuthority, an allen vier Fixtures', async () => {
-    expect(oereb.manifest.version).toBe(3);
+    expect(oereb.manifest.version).toBe(4);
     const be = await oereb.resolve(ctx('oereb-be-wabern.json', 'www.oereb2.apps.be.ch', { egrid: 'CH586746359755', kanton: 'BE' }));
     expect(fact(be, 'zone.zustaendig')).toBe('Gemeinde Köniz');
     expect(fact(be, 'zone.zustaendig_url')).toBe('https://www.koeniz.ch');
@@ -509,7 +518,8 @@ describe('oereb', () => {
 });
 
 describe('oereb: alle Kantone mit Dienst, Fixtures der Referenzadressen vom 16.10.2026', () => {
-  const ctx = (datei: string, host: string, keys: Keys): AdapterContext => ({ keys, http: httpFor([{ match: (u) => u.hostname === host, body: fixture(datei) }]), now: () => new Date('2026-10-16T10:00:00Z'), log: silentLogger });
+  // JSON-Fixtures als Objekt, XML-Fixtures (SO, SH) als roher Text, so wie der Dienst sie liefert
+  const ctx = (datei: string, host: string, keys: Keys): AdapterContext => ({ keys, http: httpFor([{ match: (u) => u.hostname === host, body: datei.endsWith('.xml') ? fixtureRoh(datei) : fixture(datei) }]), now: () => new Date('2026-10-16T10:00:00Z'), log: silentLogger });
   const feld = (out: Awaited<ReturnType<typeof oereb.resolve>>, key: string) => out.facts.find((f) => f.key === key);
   const CONFIDENCE: Record<Erkennung, number> = { subcode: 1, typecode: 0.95, flaechenanteil: 0.8 };
 
@@ -525,8 +535,10 @@ describe('oereb: alle Kantone mit Dienst, Fixtures der Referenzadressen vom 16.1
     { kanton: 'GL', egrid: 'CH554622796907', host: 'map.geo.gl.ch', zone: 'Zone für öffentliche Bauten und Anlagen', erkennung: 'subcode', code: '1632.15-01-01', es: 'III', flaeche: 417, belastungen: 1 },
     { kanton: 'ZG', egrid: 'CH246506747623', host: 'oereb.zg.ch', zone: 'Zone des öffentlichen Interesses für Bauten Anlagen', erkennung: 'typecode', code: '150101', es: 'II', flaeche: 2253, belastungen: 1 },
     { kanton: 'FR', egrid: 'CH591091539487', host: 'maps.fr.ch', zone: "Zone de constructions d'intérêt général 1 (ZIG)", erkennung: 'subcode', es: 'III', flaeche: 237, belastungen: 0 },
+    { kanton: 'SO', egrid: 'CH768732065261', host: 'geo.so.ch', zone: 'Zone für öffentliche Bauten und Anlagen', erkennung: 'subcode', code: '1501', es: 'III', flaeche: 3864, belastungen: 1 },
     { kanton: 'BS', egrid: 'CH907067448984', host: 'api.oereb.bs.ch', zone: 'Stadt- und Dorfbild-Schutzzone', erkennung: 'subcode', code: 'SU', es: 'III', flaeche: 3523, belastungen: 4 },
     { kanton: 'BL', egrid: 'CH127089175910', host: 'oereb.geo.bl.ch', zone: 'Kernzone', erkennung: 'flaechenanteil', code: '104000', es: 'III', flaeche: 1723, belastungen: 2 },
+    { kanton: 'SH', egrid: 'CH581708547860', host: 'oereb.geo.sh.ch', zone: 'Altstadtzone [A]', erkennung: 'typecode', code: 'sh.sha.142.0.17_inKraft', es: 'III', flaeche: 1794, belastungen: 1 },
     { kanton: 'AR', egrid: 'CH967713352088', host: 'oereb.ar.ch', zone: 'übriges Gemeindegebiet ÜG', erkennung: 'flaechenanteil', anteil: 88.2, code: 'übriges Gemeindegebiet ÜG', es: 'III', flaeche: 19761, belastungen: 5 },
     { kanton: 'AI', egrid: 'CH527730594111', host: 'oereb.ai.ch', zone: 'Zone für öffentliche Bauten und Anlagen', erkennung: 'flaechenanteil', code: 'Oe', es: 'II', flaeche: 1698, belastungen: 2 },
     { kanton: 'SG', egrid: 'CH352187785981', host: 'oereb.geo.sg.ch', zone: 'BauG Zone für öffentliche Bauten und Anlagen', erkennung: 'typecode', code: '1504001', es: 'II', flaeche: 17673, belastungen: 4 },
@@ -539,15 +551,20 @@ describe('oereb: alle Kantone mit Dienst, Fixtures der Referenzadressen vom 16.1
     { kanton: 'JU', egrid: 'CH234478060309', host: 'geo.jura.ch', zone: 'Zone centre - CA', erkennung: 'typecode', code: 'r73_affectations_primaires_Centre_CA', es: 'III', flaeche: 1982, belastungen: 2 },
   ];
 
-  it('deckt genau die angebundenen Kantone ab, jede Fixture trägt einen Hinweis', () => {
+  /** Fixture pro Kanton: JSON oder XML, je nach Format des Dienstes. */
+  const fixtureVon = (kanton: string) => `oereb-${kanton.toLowerCase()}.${OEREB_KANTONE[kanton]!.format}`;
+
+  it('deckt genau die angebundenen Kantone ab, jede Fixture trägt einen Hinweis (JSON `_hinweis`, XML als Kommentar)', () => {
     expect(FAELLE.map((f) => f.kanton).sort()).toEqual([...OEREB_KANTONE_ANGEBUNDEN].sort());
-    for (const f of FAELLE) expect((fixture(`oereb-${f.kanton.toLowerCase()}.json`) as { _hinweis?: string })._hinweis, f.kanton).toContain('16.10.2026');
+    for (const f of FAELLE) expect(fixtureHinweis(fixtureVon(f.kanton)), f.kanton).toContain('16.10.2026');
+    expect(fixtureVon('SO')).toBe('oereb-so.xml');
+    expect(fixtureVon('BE')).toBe('oereb-be.json');
   });
 
   for (const f of FAELLE) {
     const k = OEREB_KANTONE[f.kanton]!;
-    it(`${f.kanton} (${k.status}): Zone «${f.zone}» per ${f.erkennung}, Grundbuchfläche ${f.flaeche} m², ES ${f.es ?? 'keine'}, ${f.belastungen} weitere Themen`, async () => {
-      const out = await oereb.resolve(ctx(`oereb-${f.kanton.toLowerCase()}.json`, f.host, { egrid: f.egrid, kanton: f.kanton }));
+    it(`${f.kanton} (${k.status}, ${k.format}): Zone «${f.zone}» per ${f.erkennung}, Grundbuchfläche ${f.flaeche} m², ES ${f.es ?? 'keine'}, ${f.belastungen} weitere Themen`, async () => {
+      const out = await oereb.resolve(ctx(fixtureVon(f.kanton), f.host, { egrid: f.egrid, kanton: f.kanton }));
       expect(fact(out, 'zone.bezeichnung')).toBe(f.zone);
       expect(fact(out, 'zone.erkennung')).toBe(f.erkennung);
       expect(feld(out, 'zone.bezeichnung')?.confidence).toBe(CONFIDENCE[f.erkennung]);
@@ -571,14 +588,81 @@ describe('oereb: alle Kantone mit Dienst, Fixtures der Referenzadressen vom 16.1
       expect(typeof fact(out, 'zone.zustaendig')).toBe('string');
       expect(fact(out, 'oereb.auszug_pdf_url')).toBe(`${k.base}/extract/pdf?EGRID=${f.egrid}`);
       const url = oerebExtractUrl(k, f.egrid);
-      expect(url).toBe(`${k.base}/extract/json?EGRID=${f.egrid}&GEOMETRY=false&WITHIMAGES=false&LANG=${k.sprache}`);
+      expect(url).toBe(`${k.base}/extract/${k.format}?EGRID=${f.egrid}&GEOMETRY=false&WITHIMAGES=false&LANG=${k.sprache}`);
       expect(out.facts.every((x) => x.request_url === url)).toBe(true);
+      // Hinweistexte nur mit Code daneben
+      if (fact(out, 'zone.hinweis') !== undefined) expect(['flaechenanteil', 'thema_ohne_daten']).toContain(fact(out, 'zone.hinweis_code'));
+      else expect(fact(out, 'zone.hinweis_code')).toBeUndefined();
     });
   }
 
-  it('Dialekte: erkenneForm unterscheidet openoereb, GeoShop und .NET an der Hülle, sonst null', () => {
+  it('SO (XML): Grundnutzung per SubCode ch.SO.NutzungsplanungGrundnutzung, zwei Gestaltungsplan-Perimeter zu 100 und 20.4 % werden ein Eintrag mit höchstens 100 %, ES III, Baureglement Olten, Stand aus UpdateDateCS', async () => {
+    const out = await oereb.resolve(ctx('oereb-so.xml', 'geo.so.ch', { egrid: 'CH768732065261', kanton: 'SO' }));
+    expect(out.source_date).toBe('2026-10-15');
+    expect(fact(out, 'zone.anzahl')).toBe(1);
+    expect(fact(out, 'zone.hinweis')).toBeUndefined();
+    expect(fact(out, 'zone.baureglement_titel')).toBe('Baureglement');
+    expect(fact(out, 'zone.baureglement_url')).toBe('https://planregister-data.so.ch/public/olten/92-BR.pdf');
+    expect(fact(out, 'zone.zustaendig')).toBe('Gemeinde Olten');
+    expect(fact(out, 'oereb.nutzungsplanung_ueberlagernd.text')).toBe('Perimeter kommunaler Gestaltungsplan');
+    expect(fact(out, 'oereb.nutzungsplanung_ueberlagernd.anteil_prozent')).toBe(100);
+    expect(fact(out, 'laerm.empfindlichkeitsstufe_text')).toBe('Empfindlichkeitsstufe III');
+    expect(fact(out, 'oereb.kataster_stelle')).toBe('Amt für Geoinformation');
+    expect(fact(out, 'oereb.kataster_adresse')).toBe('Werkhofstrasse 65, 4509 Solothurn');
+    expect(fact(out, 'oereb.kataster_url')).toBe('https://agi.so.ch');
+  });
+
+  it('SO, Stadt Solothurn (XML): Nutzungsplanung als ThemeWithoutData, darum keine Zone, aber zone.hinweis mit Code thema_ohne_daten; Einzelschutz aus drei Flächen und einem Punkt', async () => {
+    const out = await oereb.resolve(ctx('oereb-so-solothurn.xml', 'geo.so.ch', { egrid: 'CH693279640610', kanton: 'SO' }));
+    expect(fact(out, 'zone.bezeichnung')).toBeUndefined();
+    expect(fact(out, 'zone.erkennung')).toBeUndefined();
+    expect(fact(out, 'zone.hinweis')).toBe(NUTZUNGSPLANUNG_OHNE_DATEN_HINWEIS);
+    expect(fact(out, 'zone.hinweis_code')).toBe('thema_ohne_daten');
+    expect(fact(out, 'parzelle.flaeche_grundbuch_m2')).toBe(2186);
+    expect(fact(out, 'oereb.einzelschutz.betroffen')).toBe(true);
+    expect(fact(out, 'oereb.einzelschutz.text')).toBe('geschütztes historisches Kulturdenkmal; Naturschutzgebiete');
+    expect(fact(out, 'oereb.einzelschutz.anteil_prozent')).toBe(89.5);
+    expect(fact(out, 'oereb.einzelschutz.zustaendig')).toBe('Amt für Denkmalpflege und Archäologie');
+    expect(fact(out, 'oereb.belastungen_anzahl')).toBe(1);
+    expect(fact(out, 'laerm.empfindlichkeitsstufe')).toBeUndefined(); // ebenfalls ohne Daten
+  });
+
+  it('SH (XML): Regel 2 über die ARE-Systematik im dritten Segment des TypeCodes, Baulinienerfassung überlagernd, Teilrevision hängig, Bauordnung Schaffhausen', async () => {
+    const out = await oereb.resolve(ctx('oereb-sh.xml', 'oereb.geo.sh.ch', { egrid: 'CH581708547860', kanton: 'SH' }));
+    expect(out.source_date).toBe('2026-10-16');
+    expect(feld(out, 'zone.bezeichnung')?.confidence).toBe(0.95);
+    expect(fact(out, 'oereb.nutzungsplanung_ueberlagernd.text')).toBe('Stand Baulinienerfassung');
+    expect(fact(out, 'oereb.aenderungen_hangig_anzahl')).toBe(1); // Teilrevision Nutzungsplanung als changeWithoutPreEffect
+    expect(fact(out, 'zone.baureglement_titel')).toBe('Bauordnung Schaffhausen');
+    expect(fact(out, 'zone.zustaendig')).toBe('Kanton Schaffhausen, Planungs- und Naturschutzamt');
+    expect(fact(out, 'oereb.kataster_adresse')).toBe('Mühlentalstrasse 105, 8200 Schaffhausen');
+    expect(erkenneGrundnutzung({ code: 'ch.Nutzungsplanung', typeCode: 'sh.sha.142.0.17_inKraft' }, OEREB_KANTONE.SH!)).toBe('typecode');
+    expect(erkenneGrundnutzung({ code: 'ch.Nutzungsplanung', typeCode: 'sh.sha.181.0.37_inKraft' }, OEREB_KANTONE.SH!)).toBe('typecode'); // Strassenzone, Verkehrszone 18x
+    expect(erkenneGrundnutzung({ code: 'ch.Nutzungsplanung', typeCode: 'sh.sha.628.0.47_inKraft' }, OEREB_KANTONE.SH!)).toBeNull(); // Baulinien, 6x überlagernd
+    expect(erkenneGrundnutzung({ code: 'ch.Nutzungsplanung', typeCode: 'sh.sha.648.4.57_inKraft' }, OEREB_KANTONE.SH!)).toBeNull(); // Naturgefahrenzone
+  });
+
+  it('XML-Pfad: parseXml macht aus dem Extract die Baumform des JSON-Pfads (Präfixe weg, Strings, Hüllen), ungültiges XML und HTML sind Schema-Drift', async () => {
+    const baum = parseXml('<?xml version="1.0"?><ns5:GetExtractByIdResponse xmlns:ns5="x" xmlns:ns3="y"><ns3:Extract><ns3:RealEstate><ns3:Number>493</ns3:Number><ns3:LandRegistryArea>1794</ns3:LandRegistryArea><ns3:RestrictionOnLandownership><ns3:LegendText><ns3:LocalisedText><ns3:Language>de</ns3:Language><ns3:Text>Altstadtzone [A] &amp; mehr</ns3:Text></ns3:LocalisedText></ns3:LegendText></ns3:RestrictionOnLandownership></ns3:RealEstate></ns3:Extract></ns5:GetExtractByIdResponse>') as Record<string, unknown>;
+    expect(erkenneForm(baum)?.form).toBe('xml');
+    const ex = normalisiereBaum(erkenneForm(baum)!.extract) as { RealEstate: { Number: string; LandRegistryArea: string; RestrictionOnLandownership: Array<{ LegendText: { Language: string; Text: string } }> } };
+    expect(ex.RealEstate.Number).toBe('493'); // Strings wie bei GeoShop, `anzahl` wandelt
+    expect(ex.RealEstate.LandRegistryArea).toBe('1794');
+    expect(ex.RealEstate.RestrictionOnLandownership).toEqual([{ LegendText: { Language: 'de', Text: 'Altstadtzone [A] & mehr' } }]);
+    expect(() => parseXml('<a><b></a>')).toThrow(/XML/);
+    const html = httpFor([{ match: () => true, body: '<html><body>Server Error</body></html>' }]);
+    await expect(oereb.resolve({ keys: { egrid: 'CH1', kanton: 'SH' }, http: html, now: () => new Date(), log: silentLogger })).rejects.toBeInstanceOf(SchemaDriftError);
+    const kaputt = httpFor([{ match: () => true, body: '<?xml version="1.0"?><ns5:GetExtractByIdResponse><ns3:Extract></ns3:Extract>' }]);
+    await expect(oereb.resolve({ keys: { egrid: 'CH1', kanton: 'SO' }, http: kaputt, now: () => new Date(), log: silentLogger })).rejects.toBeInstanceOf(SchemaDriftError);
+    // JSON-Antwort auf einem XML-Kanton wäre ebenfalls Drift, keine stille Umschaltung
+    const json = httpFor([{ match: () => true, body: fixture('oereb-be.json') }]);
+    await expect(oereb.resolve({ keys: { egrid: 'CH1', kanton: 'SO' }, http: json, now: () => new Date(), log: silentLogger })).rejects.toBeInstanceOf(SchemaDriftError);
+  });
+
+  it('Dialekte: erkenneForm unterscheidet openoereb, XML, GeoShop und .NET an der Hülle, sonst null', () => {
     expect(erkenneForm({ GetExtractByIdResponse: { extract: { RealEstate: {} } } })?.form).toBe('openoereb');
     expect(erkenneForm({ GetExtractByIdResponse: { Extract: { RealEstate: {} } } })?.form).toBe('openoereb');
+    expect(erkenneForm({ '?xml': { '@version': '1.0' }, GetExtractByIdResponse: { '@xmlns:ns3': 'y', Extract: { RealEstate: {} } } })?.form).toBe('xml');
     expect(erkenneForm({ '?xml': {}, Extract: { '@xmlns': 'x', RealEstate: {} } })?.form).toBe('geoshop');
     expect(erkenneForm({ Extract: { '@xmlns': 'x', RealEstate: {} } })?.form).toBe('geoshop');
     expect(erkenneForm({ schemaLocation: 'x', Extract: { RealEstate: {} } })?.form).toBe('dotnet');

@@ -18,10 +18,12 @@ export const GOLDENE_ADRESSEN: GoldeneAdresse[] = [
 
 /**
  * Eine öffentliche Referenzadresse pro Kanton (Rathaus, Regierungsgebäude, Stadthaus des Hauptorts, kein Wohnhaus) für den
- * ÖREB-Kataster: Inventar der kantonalen Dienste (16.10.2026), Fixtures test/fixtures/oereb-<kanton>.json, Live-Test und der
+ * ÖREB-Kataster: Inventar der kantonalen Dienste (16.10.2026), Fixtures test/fixtures/oereb-<kanton>.json bzw. .xml, Live-Test und der
  * tägliche Kantons-Canary (src/canary/kantone.ts, nur geocode, gwr und oereb). Getrennt von den goldenen Adressen: keine Baseline,
  * kein Drift. Reihenfolge amtlich. Kantone ohne nutzbaren Dienst (kantone.ts, kein_dienst) stehen trotzdem hier, damit der Canary
  * meldet, sobald sich dort etwas ändert.
+ * Ausnahme SO: Der Kataster des Kantons führt die Nutzungsplanung der Stadt Solothurn noch als Thema ohne Daten (Rathaus,
+ * Barfüssergasse 24, und Hauptgasse 69, geprüft 16.10.2026), darum das Stadthaus Olten (GWR 1220 Bürogebäude), wo die Zone kommt.
  */
 export const KANTONS_ADRESSEN: GoldeneAdresse[] = [
   { name: 'Zürich Stadthaus', adresse: 'Stadthausquai 17, 8001 Zürich', kanton: 'ZH' },
@@ -34,7 +36,7 @@ export const KANTONS_ADRESSEN: GoldeneAdresse[] = [
   { name: 'Glarus Gemeindehaus', adresse: 'Gemeindehausplatz 5, 8750 Glarus', kanton: 'GL' },
   { name: 'Zug Regierungsgebäude', adresse: 'Seestrasse 2, 6300 Zug', kanton: 'ZG' },
   { name: 'Fribourg Hôtel de Ville', adresse: "Place de l'Hôtel-de-Ville 3, 1700 Fribourg", kanton: 'FR' },
-  { name: 'Solothurn Rathaus', adresse: 'Barfüssergasse 24, 4500 Solothurn', kanton: 'SO' },
+  { name: 'Olten Stadthaus', adresse: 'Dornacherstrasse 1, 4600 Olten', kanton: 'SO' },
   { name: 'Basel Rathaus', adresse: 'Marktplatz 9, 4001 Basel', kanton: 'BS' },
   { name: 'Liestal Regierungsgebäude', adresse: 'Rathausstrasse 2, 4410 Liestal', kanton: 'BL' },
   { name: 'Schaffhausen Regierungsgebäude', adresse: 'Beckenstube 7, 8200 Schaffhausen', kanton: 'SH' },

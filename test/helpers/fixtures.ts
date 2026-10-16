@@ -10,6 +10,17 @@ export function fixture(name: string): unknown {
   return JSON.parse(readFileSync(join(here, '..', 'fixtures', name), 'utf8'));
 }
 
+/** Fixture als roher Text, z.B. ein XML-Extract (oereb-so.xml). */
+export function fixtureRoh(name: string): string {
+  return readFileSync(join(here, '..', 'fixtures', name), 'utf8');
+}
+
+/** Der Hinweis einer Fixture: `_hinweis` im JSON, bei XML der Kommentar `<!-- _hinweis: … -->` nach der Deklaration. */
+export function fixtureHinweis(name: string): string | undefined {
+  if (name.endsWith('.xml')) return fixtureRoh(name).match(/<!--\s*_hinweis:\s*([\s\S]*?)\s*-->/)?.[1];
+  return (fixture(name) as { _hinweis?: string })._hinweis;
+}
+
 type Route = { match: (url: URL) => boolean; body: unknown | string | null; status?: number };
 
 /**

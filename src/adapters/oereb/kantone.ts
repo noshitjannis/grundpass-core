@@ -3,44 +3,56 @@
  *
  * Jeder Kanton betreibt einen eigenen Webservice nach der Weisung «ÖREB-Webservice (Aufruf eines Auszugs)», Version
  * extract-2.0 (Transferstruktur OeREBKRMtrsfr_V2_0). `<base>/versions/json` nennt die Basis selbst,
- * `<base>/extract/json?EGRID=<EGRID>&GEOMETRY=false&WITHIMAGES=false&LANG=<sprache>` liefert den Datenextrakt ohne
- * Geometrie und ohne Bilder (beides erlaubt die Weisung). Die Basis stammt aus dem swisstopo-Layer
- * `ch.swisstopo-vd.stand-oerebkataster` (Attribut `oereb_extract_url`, alles vor `/extract/`), bestätigt über `versions/json`.
+ * `<base>/extract/<format>?EGRID=<EGRID>&GEOMETRY=false&WITHIMAGES=false&LANG=<sprache>` liefert den Datenextrakt ohne
+ * Geometrie und ohne Bilder (beides erlaubt die Weisung). `format` ist pro Kanton json oder xml: Die Weisung verlangt beide,
+ * SO und SH liefern nur XML. Die Basis stammt aus dem swisstopo-Layer `ch.swisstopo-vd.stand-oerebkataster` (Attribut
+ * `oereb_extract_url`, alles vor `/extract/`), bestätigt über `versions/json` bzw. `versions/xml`.
  *
  * Inventar vom 16.10.2026 an je einer öffentlichen Referenzadresse pro Kanton (src/canary/adressen.ts, KANTONS_ADRESSEN).
- * Drei JSON-Formen sind im Umlauf, der Adapter erkennt sie an der Hülle (oereb.ts, erkenneForm):
+ * Drei JSON-Formen und eine XML-Form sind im Umlauf, der Adapter erkennt sie an der Hülle (oereb.ts, erkenneForm):
  *  - openoereb (pyramid_oereb und Verwandte): `GetExtractByIdResponse.extract` (ZH: `Extract`, `Theme.code` klein).
  *  - GeoShop (Infogrips, UR, OW, NW): XML mechanisch nach JSON (`?xml`, `@xmlns`, `{LocalisedText: …}`-Hüllen, Zahlen als
  *    Strings); die Zonenbezeichnung steht in `Map.OtherLegend` unter demselben TypeCode, die Legende am Eintrag ist der Layer-Titel.
  *  - .NET-Serialisierung (LU: `{schemaLocation, Extract}`; FR, VD, GE «RdppfSVC.svc»: `{Item: …}`): Feldnamen von
  *    LocalisedText-Listen gehen verloren (`LocalisedText` statt LegendText, TextAtWeb, OfficeAtWeb), Sprache und Lawstatus
  *    als Zahl (0 = de bzw. inForce), Datum als `/Date(ms)/`.
- * Nur XML liefern SO und SH (extract/json: 415 bzw. 500); VS antwortet nicht; NE gibt JSON und XML nur registrierten Nutzern
- * (403). Diese vier sind `kein_dienst`: der Adapter läuft dort nicht (ausser_kanton), die App sagt, was fehlt. GR lieferte am
- * Vormittag des 16.10.2026 ein TLS-Zertifikat für *.gr.ch (deckt oereb.geo.gr.ch nicht ab), am Mittag eines für *.geo.gr.ch;
- * seither angebunden.
+ *  - XML (SO, SH, gleiche Software): `ns5:GetExtractByIdResponse/ns3:Extract` mit den Namensräumen der Weisung. Der Adapter
+ *    parst es mit fast-xml-parser (Präfixe weg, Attribute als `@…`, Werte als Strings) und bekommt dieselbe Baumform wie bei
+ *    GeoShop (`{LocalisedText: …}`-Hüllen, einzelne Elemente statt Arrays), aber mit der Legende am Eintrag wie bei openoereb.
+ * VS antwortet nicht; NE gibt JSON und XML nur registrierten Nutzern (403). Diese zwei sind `kein_dienst`: der Adapter läuft dort
+ * nicht (ausser_kanton), die App sagt, was fehlt. GR lieferte am Vormittag des 16.10.2026 ein TLS-Zertifikat für *.gr.ch (deckt
+ * oereb.geo.gr.ch nicht ab), am Mittag eines für *.geo.gr.ch; seither angebunden.
  *
  * Grundnutzung erkennen (Regelkette, Reihenfolge immer gleich, pro Kanton nur die Muster):
  *  1. Kennzeichnung durch den Kanton: `Theme.SubCode` oder der Subthema-Text (`Theme.Text`, bei GeoShop der Layer-Titel) passt
  *     auf `grundnutzungRegel.kennzeichnung` (Standard GRUNDNUTZUNG_KENNZEICHNUNG) → zone.erkennung «subcode», Confidence 1.
- *     Beobachtet: BE `ch.NutzungsplanungGrundnutzung…`, TG `ch.TG.NutzungsplanungGrundnutzung`, FR/VD `ch.XX.Affectationsprimaires`,
- *     GE `ch.GE.Zonedaffectationprimaire`, ZH und GL im Theme.Text («…: Grundnutzungen» / «…: Grundnutzung»), UR/OW/NW im
- *     Layer-Titel («Grundnutzung (Sarnen)»), BS mit eigenem Muster (`ch.BS.Zonenplan`), TI mit eigenem Muster («Piano zone»).
+ *     Beobachtet: BE `ch.NutzungsplanungGrundnutzung…`, SO `ch.SO.NutzungsplanungGrundnutzung`, TG `ch.TG.NutzungsplanungGrundnutzung`,
+ *     FR/VD `ch.XX.Affectationsprimaires`, GE `ch.GE.Zonedaffectationprimaire`, ZH und GL im Theme.Text («…: Grundnutzungen» /
+ *     «…: Grundnutzung»), UR/OW/NW im Layer-Titel («Grundnutzung (Sarnen)»), BS mit eigenem Muster (`ch.BS.Zonenplan`), TI mit
+ *     eigenem Muster («Piano zone»).
  *  2. `TypeCode` passt auf `grundnutzungRegel.typeCode` → «typecode», Confidence 0.95. Code-Systematik des minimalen
  *     Geodatenmodells Nutzungsplanung (ARE, Katalog Hauptnutzung_CH): 1x Bauzonen (11 Wohn-, 12 Arbeits-, 13 Misch-,
- *     14 Zentrums-, 15 Zonen für öffentliche Nutzungen …), 2x Landwirtschafts-, 3x Schutz-, 4x weitere Zonen; 5x und 6x sind
- *     überlagernde Festlegungen und Sondernutzungspläne. AG 145101, ZG 150101, SG 1504001, ZH mit «C» davor (C150101);
- *     JU kennzeichnet im TypeCode (`r73_affectations_primaires_…`).
+ *     14 Zentrums-, 15 Zonen für öffentliche Nutzungen, 18 Verkehrszonen …), 2x Landwirtschafts-, 3x Schutz-, 4x weitere Zonen;
+ *     5x und 6x sind überlagernde Festlegungen und Sondernutzungspläne. AG 145101, ZG 150101, SG 1504001, ZH mit «C» davor
+ *     (C150101), SH im dritten Segment des TypeCodes (sh.sha.142.0.17_inKraft); JU kennzeichnet im TypeCode
+ *     (`r73_affectations_primaires_…`).
  *  3. Fallback im Adapter: unter ch.Nutzungsplanung der Eintrag mit dem grössten Flächenanteil → «flaechenanteil», Confidence 0.8,
  *     Fakt zone.hinweis. Gilt für LU, SZ, BL, AR, AI (Kataster kennzeichnet nichts, TypeCodes ohne erkennbare Systematik).
- *  Keine Beschränkung ch.Nutzungsplanung → keine Zone (Lücke), nie geraten.
+ *  Keine Beschränkung ch.Nutzungsplanung → keine Zone (Lücke), nie geraten. Führt der Extract das Thema in `ThemeWithoutData`
+ *  (SO: Stadt Solothurn), sagt zone.hinweis mit Code thema_ohne_daten, dass der Kataster für diese Gemeinde noch keine
+ *  Nutzungsplanung führt.
  *
  * Sprache: `sprache` ist LANG der Anfrage und die erste Wahl beim Lesen mehrsprachiger Texte (Reihenfolge Kantonssprache, de, fr,
  * it, rm, erster Eintrag). FR und VS fragen de an und fallen auf fr zurück, BE de, GR de, TI it. Zonenbezeichnungen bleiben in der
  * Sprache des Dienstes.
+ *
+ * Timeout: OEREB_TIMEOUT_MS (30 s) für alle, `timeoutMs` pro Kanton, wenn ein Dienst nach Ruhe länger braucht (GL: Kaltstart 58 s,
+ * darum 90 s). Das Manifest trägt das Maximum als harte Grenze des Resolvers; die wirksame Grenze ist die des Kantons.
  */
 export type OerebSprache = 'de' | 'fr' | 'it';
 export type OerebStatus = 'verifiziert' | 'experimentell' | 'kein_dienst';
+/** Format des Extract-Aufrufs: `extract/json` oder `extract/xml`. */
+export type OerebFormat = 'json' | 'xml';
 
 export type GrundnutzungRegel = {
   /** Themencode der Nutzungsplanung. Standard NUTZUNGSPLANUNG_THEMA (Bundesthema ch.Nutzungsplanung); GR führt den Zonenplan als kantonales Thema. */
@@ -56,31 +68,41 @@ export type OerebKanton = {
   /** serviceEndpointBase laut `<base>/versions/json`, ohne Schrägstrich am Ende. */
   base: string;
   sprache: OerebSprache;
+  /** json oder xml, je nachdem, was der Dienst liefert. */
+  format: OerebFormat;
   grundnutzungRegel: GrundnutzungRegel;
   status: OerebStatus;
   /** Tag der letzten Live-Prüfung (ISO-Datum). */
   geprueft_am: string;
   /** Form des Dienstes, Besonderheiten, bei kein_dienst: was genau fehlt. Die App zeigt die Notiz bei kein_dienst. */
   notizen: string;
+  /** Timeout des Extract-Aufrufs in Millisekunden, wenn der Dienst mehr braucht als OEREB_TIMEOUT_MS. */
+  timeoutMs?: number;
 };
 
 /** Das Bundesthema der Nutzungsplanung; alle Kantone ausser GR führen die Zone darunter. */
 export const NUTZUNGSPLANUNG_THEMA = /^ch\.Nutzungsplanung$/;
 
-/** Regel 1, kantonsübergreifend: de «Grundnutzung» (BE, TG, ZH, GL, UR, OW, NW), fr «affectation(s) primaire(s)» (FR, VD, GE). it nicht beobachtet. */
+/** Regel 1, kantonsübergreifend: de «Grundnutzung» (BE, SO, TG, ZH, GL, UR, OW, NW), fr «affectation(s) primaire(s)» (FR, VD, GE). it nicht beobachtet. */
 export const GRUNDNUTZUNG_KENNZEICHNUNG = /Grundnutzung|affectations?\s*primaires?/i;
 
 /** ARE-Systematik: 1x bis 4x sind Grundnutzung, 5x und 6x überlagernd. Mindestens vierstellig, damit kurze Codes nicht zufällig passen. */
 const ARE_TYPECODE = /^[1-4]\d{3,}/;
 
-/** Der Text, den der Adapter als zone.hinweis setzt, wenn Regel 3 greift. */
+/** Der Text, den der Adapter als zone.hinweis setzt, wenn Regel 3 greift (Code flaechenanteil). */
 export const GRUNDNUTZUNG_HINWEIS = 'Grundnutzung aus dem grössten Flächenanteil abgeleitet, nicht aus einer Kennzeichnung des Kantons';
+/** Der Text, den der Adapter als zone.hinweis setzt, wenn der Extract die Nutzungsplanung als Thema ohne Daten führt (Code thema_ohne_daten). */
+export const NUTZUNGSPLANUNG_OHNE_DATEN_HINWEIS = 'Der ÖREB-Kataster des Kantons führt für diese Gemeinde noch keine Daten zur Nutzungsplanung';
+
+/** Timeout des Extract-Aufrufs, wenn der Kanton keinen eigenen Wert hat. */
+export const OEREB_TIMEOUT_MS = 30_000;
 
 export const OEREB_KANTONE: Record<string, OerebKanton> = {
   ZH: {
     kanton: 'ZH',
     base: 'https://maps.zh.ch/oereb/v2',
     sprache: 'de',
+    format: 'json',
     grundnutzungRegel: { typeCode: /^C[1-4]\d{3,}/ },
     status: 'verifiziert',
     geprueft_am: '2026-10-16',
@@ -90,6 +112,7 @@ export const OEREB_KANTONE: Record<string, OerebKanton> = {
     kanton: 'BE',
     base: 'https://www.oereb2.apps.be.ch',
     sprache: 'de',
+    format: 'json',
     grundnutzungRegel: {},
     status: 'verifiziert',
     geprueft_am: '2026-10-16',
@@ -99,6 +122,7 @@ export const OEREB_KANTONE: Record<string, OerebKanton> = {
     kanton: 'LU',
     base: 'https://svc.geo.lu.ch/oereb',
     sprache: 'de',
+    format: 'json',
     grundnutzungRegel: {},
     status: 'verifiziert',
     geprueft_am: '2026-10-16',
@@ -108,6 +132,7 @@ export const OEREB_KANTONE: Record<string, OerebKanton> = {
     kanton: 'UR',
     base: 'https://prozessor-oereb.ur.ch/oereb',
     sprache: 'de',
+    format: 'json',
     grundnutzungRegel: {},
     status: 'verifiziert',
     geprueft_am: '2026-10-16',
@@ -117,6 +142,7 @@ export const OEREB_KANTONE: Record<string, OerebKanton> = {
     kanton: 'SZ',
     base: 'https://map.geo.sz.ch/oereb',
     sprache: 'de',
+    format: 'json',
     grundnutzungRegel: {},
     status: 'verifiziert',
     geprueft_am: '2026-10-16',
@@ -126,6 +152,7 @@ export const OEREB_KANTONE: Record<string, OerebKanton> = {
     kanton: 'OW',
     base: 'https://www.gis-daten.ch/oereb',
     sprache: 'de',
+    format: 'json',
     grundnutzungRegel: {},
     status: 'verifiziert',
     geprueft_am: '2026-10-16',
@@ -135,6 +162,7 @@ export const OEREB_KANTONE: Record<string, OerebKanton> = {
     kanton: 'NW',
     base: 'https://www.gis-daten.ch/oereb',
     sprache: 'de',
+    format: 'json',
     grundnutzungRegel: {},
     status: 'verifiziert',
     geprueft_am: '2026-10-16',
@@ -144,24 +172,28 @@ export const OEREB_KANTONE: Record<string, OerebKanton> = {
     kanton: 'GL',
     base: 'https://map.geo.gl.ch/oereb',
     sprache: 'de',
+    format: 'json',
     grundnutzungRegel: {},
     status: 'verifiziert',
     geprueft_am: '2026-10-16',
-    notizen: 'openoereb. Theme.Text «Nutzungsplanung (kantonal/kommunal): Grundnutzung» greift als Regel 1; Überlagerungen und Linien sind eigene Themen ch.GL.*. versions/json nennt die Basis mit http, der Dienst läuft über https. Erster Abruf nach Ruhe dauerte 58 s (Kaltstart), danach 4 s.',
+    notizen: 'openoereb. Theme.Text «Nutzungsplanung (kantonal/kommunal): Grundnutzung» greift als Regel 1; Überlagerungen und Linien sind eigene Themen ch.GL.*. versions/json nennt die Basis mit http, der Dienst läuft über https. Erster Abruf nach Ruhe dauerte 58 s (Kaltstart), danach 4 s; darum eigener Timeout von 90 s.',
+    timeoutMs: 90_000,
   },
   ZG: {
     kanton: 'ZG',
     base: 'https://oereb.zg.ch/oereb',
     sprache: 'de',
+    format: 'json',
     grundnutzungRegel: { typeCode: ARE_TYPECODE },
     status: 'verifiziert',
     geprueft_am: '2026-10-16',
-    notizen: 'openoereb. ARE-Systematik im TypeCode (150101 Zone des öffentlichen Interesses, 512001 Ortsbildschutz, 532201 Gefahrenzone, 691001 Fundstätte): Regel 2. Der swisstopo-Layer nennt /ors als Basis, versions/json /oereb; beide liefern dasselbe.',
+    notizen: 'openoereb. ARE-Systematik im TypeCode (150101 Zone des öffentlichen Interesses, 512001 Ortsbildschutz, 532201 Gefahrenzone, 691001 Fundstätte): Regel 2. Der swisstopo-Layer nennt /ors als Basis, versions/json /oereb; beide liefern dasselbe. Am 16.10.2026 antwortete der Dienst zweimal vorübergehend mit HTTP 500 (Kantons-Canary 07:11 und 07:33 UTC), danach normal.',
   },
   FR: {
     kanton: 'FR',
     base: 'https://maps.fr.ch/RDPPF_ws/RdppfSVC.svc',
     sprache: 'de',
+    format: 'json',
     grundnutzungRegel: {},
     status: 'verifiziert',
     geprueft_am: '2026-10-16',
@@ -171,15 +203,18 @@ export const OEREB_KANTONE: Record<string, OerebKanton> = {
     kanton: 'SO',
     base: 'https://geo.so.ch/api/oereb',
     sprache: 'de',
+    format: 'xml',
     grundnutzungRegel: {},
-    status: 'kein_dienst',
+    status: 'verifiziert',
     geprueft_am: '2026-10-16',
-    notizen: 'Der Dienst liefert nur XML: extract/json antwortet 415 Unsupported Media Type, versions/json 500; extract/xml und versions/xml funktionieren (126 KB). Ein XML-Pfad fehlt im Adapter.',
+    notizen:
+      'Nur XML: extract/json antwortet 415 Unsupported Media Type, versions/json 500; extract/xml liefert den Auszug (Namensraum ns3, 126 bis 131 KB), der Adapter parst ihn in die openoereb-Form. SubCode ch.SO.NutzungsplanungGrundnutzung greift als Regel 1 (Olten, Grenchen), Sondernutzungspläne und Überlagerungen tragen eigene SubCodes (…Sondernutzungsplaene, …Ueberlagernd). Die Stadt Solothurn führt die Nutzungsplanung noch als ThemeWithoutData (Rathaus und Hauptgasse 69, 16.10.2026): dort keine Zone, dafür zone.hinweis mit Code thema_ohne_daten; Referenzadresse ist darum das Stadthaus Olten.',
   },
   BS: {
     kanton: 'BS',
     base: 'https://api.oereb.bs.ch',
     sprache: 'de',
+    format: 'json',
     grundnutzungRegel: { kennzeichnung: /^ch\.BS\.Zonenplan$/ },
     status: 'verifiziert',
     geprueft_am: '2026-10-16',
@@ -189,6 +224,7 @@ export const OEREB_KANTONE: Record<string, OerebKanton> = {
     kanton: 'BL',
     base: 'https://oereb.geo.bl.ch',
     sprache: 'de',
+    format: 'json',
     grundnutzungRegel: {},
     status: 'verifiziert',
     geprueft_am: '2026-10-16',
@@ -198,15 +234,18 @@ export const OEREB_KANTONE: Record<string, OerebKanton> = {
     kanton: 'SH',
     base: 'https://oereb.geo.sh.ch',
     sprache: 'de',
-    grundnutzungRegel: {},
-    status: 'kein_dienst',
+    format: 'xml',
+    grundnutzungRegel: { typeCode: /^sh\.sha\.[1-4]\d{2}\./ },
+    status: 'verifiziert',
     geprueft_am: '2026-10-16',
-    notizen: 'Gleiche Software wie SO, nur XML: extract/json und versions/json antworten 500 (Server Error), extract/xml und versions/xml funktionieren (128 KB). Ein XML-Pfad fehlt im Adapter.',
+    notizen:
+      'Gleiche Software wie SO, nur XML: extract/json und versions/json antworten 500, extract/xml liefert den Auszug (128 KB). Kein SubCode; der TypeCode heisst sh.sha.<Code>.<Nr>.<Nr>_inKraft, und die ersten zwei Ziffern des Codes folgen der ARE-Systematik (142 Altstadtzone als Zentrumszone 14x, 181 Strassenzone als Verkehrszone 18x, 628 Baulinienerfassung und 648 Naturgefahrenzone als 6x überlagernd; belegt an der Referenzparzelle mit vier Codes): Regel 2 mit sh.sha.[1-4]xx. Eine Teilrevision der Nutzungsplanung steht als changeWithoutPreEffect im Extract und zählt als hängig.',
   },
   AR: {
     kanton: 'AR',
     base: 'https://oereb.ar.ch/ktar/wsgi/oereb',
     sprache: 'de',
+    format: 'json',
     grundnutzungRegel: {},
     status: 'verifiziert',
     geprueft_am: '2026-10-16',
@@ -216,6 +255,7 @@ export const OEREB_KANTONE: Record<string, OerebKanton> = {
     kanton: 'AI',
     base: 'https://oereb.ai.ch/ktai/wsgi/oereb',
     sprache: 'de',
+    format: 'json',
     grundnutzungRegel: {},
     status: 'verifiziert',
     geprueft_am: '2026-10-16',
@@ -225,6 +265,7 @@ export const OEREB_KANTONE: Record<string, OerebKanton> = {
     kanton: 'SG',
     base: 'https://oereb.geo.sg.ch/ktsg/wsgi/oereb',
     sprache: 'de',
+    format: 'json',
     grundnutzungRegel: { typeCode: ARE_TYPECODE },
     status: 'verifiziert',
     geprueft_am: '2026-10-16',
@@ -234,6 +275,7 @@ export const OEREB_KANTONE: Record<string, OerebKanton> = {
     kanton: 'GR',
     base: 'https://oereb.geo.gr.ch/oereb',
     sprache: 'de',
+    format: 'json',
     grundnutzungRegel: { thema: /^ch\.GR\.NutzungsplanungZpGgp$/, typeCode: /^\d{4}[A-Z]-f[14]\d{4}-/ },
     status: 'verifiziert',
     geprueft_am: '2026-10-16',
@@ -243,6 +285,7 @@ export const OEREB_KANTONE: Record<string, OerebKanton> = {
     kanton: 'AG',
     base: 'https://api.geo.ag.ch/v2/oereb',
     sprache: 'de',
+    format: 'json',
     grundnutzungRegel: { typeCode: ARE_TYPECODE },
     status: 'verifiziert',
     geprueft_am: '2026-10-16',
@@ -252,6 +295,7 @@ export const OEREB_KANTONE: Record<string, OerebKanton> = {
     kanton: 'TG',
     base: 'https://map.geo.tg.ch/services/oereb',
     sprache: 'de',
+    format: 'json',
     grundnutzungRegel: {},
     status: 'verifiziert',
     geprueft_am: '2026-10-16',
@@ -261,6 +305,7 @@ export const OEREB_KANTONE: Record<string, OerebKanton> = {
     kanton: 'TI',
     base: 'https://crdpp.geo.ti.ch/oereb2',
     sprache: 'it',
+    format: 'json',
     grundnutzungRegel: { kennzeichnung: /Piano (delle )?zone\b/i },
     status: 'verifiziert',
     geprueft_am: '2026-10-16',
@@ -270,6 +315,7 @@ export const OEREB_KANTONE: Record<string, OerebKanton> = {
     kanton: 'VD',
     base: 'https://www.rdppf.vd.ch/ws/RdppfSVC.svc',
     sprache: 'fr',
+    format: 'json',
     grundnutzungRegel: {},
     status: 'verifiziert',
     geprueft_am: '2026-10-16',
@@ -279,6 +325,7 @@ export const OEREB_KANTONE: Record<string, OerebKanton> = {
     kanton: 'VS',
     base: 'https://rdppf.apps.vs.ch',
     sprache: 'de',
+    format: 'json',
     grundnutzungRegel: {},
     status: 'kein_dienst',
     geprueft_am: '2026-10-16',
@@ -288,6 +335,7 @@ export const OEREB_KANTONE: Record<string, OerebKanton> = {
     kanton: 'NE',
     base: 'https://sitn.ne.ch/crdppf',
     sprache: 'fr',
+    format: 'json',
     grundnutzungRegel: {},
     status: 'kein_dienst',
     geprueft_am: '2026-10-16',
@@ -297,6 +345,7 @@ export const OEREB_KANTONE: Record<string, OerebKanton> = {
     kanton: 'GE',
     base: 'https://ge.ch/terecadastrews/RdppfSVC.svc',
     sprache: 'fr',
+    format: 'json',
     grundnutzungRegel: {},
     status: 'verifiziert',
     geprueft_am: '2026-10-16',
@@ -306,6 +355,7 @@ export const OEREB_KANTONE: Record<string, OerebKanton> = {
     kanton: 'JU',
     base: 'https://geo.jura.ch/crdppf_server',
     sprache: 'fr',
+    format: 'json',
     grundnutzungRegel: { typeCode: /^r73_affectations_primaires_/ },
     status: 'verifiziert',
     geprueft_am: '2026-10-16',
@@ -319,7 +369,7 @@ export const OEREB_KANTONE_ALLE = Object.keys(OEREB_KANTONE);
 /** Kantone, in denen der Adapter läuft (verifiziert oder experimentell). Steht im Manifest als `cantons`. */
 export const OEREB_KANTONE_ANGEBUNDEN = OEREB_KANTONE_ALLE.filter((k) => OEREB_KANTONE[k]!.status !== 'kein_dienst');
 
-/** Zählung für Doku und App («ÖREB-Kataster in 22 Kantonen»), nie hartcodiert. */
+/** Zählung für Doku und App («ÖREB-Kataster in 24 Kantonen»), nie hartcodiert. */
 export function oerebKantoneZaehlung(): { total: number; angebunden: number; verifiziert: number; experimentell: number; kein_dienst: number } {
   const z = { total: OEREB_KANTONE_ALLE.length, angebunden: 0, verifiziert: 0, experimentell: 0, kein_dienst: 0 };
   for (const k of Object.values(OEREB_KANTONE)) {
@@ -329,10 +379,19 @@ export function oerebKantoneZaehlung(): { total: number; angebunden: number; ver
   return z;
 }
 
+/** Timeout des Extract-Aufrufs für einen Kanton: eigener Wert, sonst OEREB_TIMEOUT_MS. */
+export function oerebTimeoutMs(k: Pick<OerebKanton, 'timeoutMs'>): number {
+  return k.timeoutMs ?? OEREB_TIMEOUT_MS;
+}
+
+/** Grösster Timeout über alle Kantone; steht im Manifest als harte Grenze des Resolvers (die wirksame Grenze setzt der Kanton). */
+export const OEREB_TIMEOUT_MAX_MS = Math.max(OEREB_TIMEOUT_MS, ...Object.values(OEREB_KANTONE).map(oerebTimeoutMs));
+
 /**
- * Extract-URL. JSON (und XML) ohne Geometrie und Bilder, in der Kantonssprache; der PDF-Auszug ist der amtliche und kommt ohne Parameter.
+ * Extract-URL. JSON oder XML (Standard: das Format des Kantons) ohne Geometrie und Bilder, in der Kantonssprache; der PDF-Auszug
+ * ist der amtliche und kommt ohne Parameter.
  */
-export function oerebExtractUrl(k: OerebKanton, egrid: string, format: 'json' | 'xml' | 'pdf' = 'json'): string {
+export function oerebExtractUrl(k: OerebKanton, egrid: string, format: OerebFormat | 'pdf' = k.format): string {
   if (format === 'pdf') return `${k.base}/extract/pdf?EGRID=${encodeURIComponent(egrid)}`;
   const p = new URLSearchParams({ EGRID: egrid, GEOMETRY: 'false', WITHIMAGES: 'false', LANG: k.sprache });
   return `${k.base}/extract/${format}?${p}`;
