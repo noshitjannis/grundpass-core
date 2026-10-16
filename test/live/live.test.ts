@@ -243,7 +243,7 @@ describe.skipIf(!live)('live: oereb, alle 26 Kantone', () => {
   }
 
   it('versions/json: jeder angebundene Kanton nennt extract-2.0 (VD und GE schreiben «2.0»), mit oder ohne Hülle GetVersionsResponse, Liste oder einzelnes Objekt', async () => {
-    const http = createHttpClient({ retries: 0 });
+    const http = createHttpClient({ retries: 1 }); // ein Netzfehler (ECONNRESET, 16.10.2026) soll nicht 22 Kantone rot machen
     const eintrag = z.object({ version: z.string(), serviceEndpointBase: z.string() });
     const liste = z.union([z.array(eintrag), eintrag]);
     const schema = z.union([z.object({ GetVersionsResponse: z.object({ supportedVersion: liste }) }), z.object({ supportedVersion: liste })]);
