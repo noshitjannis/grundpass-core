@@ -30,7 +30,12 @@ export function fakeFetch(routes: Route[], calls: string[] = []): FetchLike {
   }) as FetchLike;
 }
 
-/** Standard-Routen für den Wabern-Fall, alle neun Adapter. */
+/** Text-Antwort (z.B. WMS GetFeatureInfo als text/plain) aus einer Fixture mit `_hinweis` und `body`. */
+export function fixtureText(name: string): string {
+  return (fixture(name) as { body: string }).body;
+}
+
+/** Standard-Routen für den Wabern-Fall, alle zwölf Adapter. */
 export function wabernRoutes(): Route[] {
   const oevRadon = fixture('oev-radon.json') as { results: Array<{ layerBodId: string }> };
   return [
@@ -76,12 +81,37 @@ export function wabernRoutes(): Route[] {
       body: { results: oevRadon.results.filter((r) => r.layerBodId === 'ch.bag.radonkarte') },
     },
     {
-      match: (u) => u.hostname === 'wms.geo.admin.ch' && (u.searchParams.get('LAYERS') ?? '').includes('_tag'),
+      match: (u) => u.hostname === 'wms.geo.admin.ch' && u.searchParams.get('LAYERS') === 'ch.bafu.laerm-strassenlaerm_tag',
       body: fixture('laerm-wms.json'),
     },
     {
-      match: (u) => u.hostname === 'wms.geo.admin.ch' && (u.searchParams.get('LAYERS') ?? '').includes('_nacht'),
+      match: (u) => u.hostname === 'wms.geo.admin.ch' && u.searchParams.get('LAYERS') === 'ch.bafu.laerm-strassenlaerm_nacht',
       body: fixture('laerm-wms-nacht.json'),
+    },
+    {
+      match: (u) => u.hostname === 'wms.geo.admin.ch' && u.searchParams.get('LAYERS') === 'ch.bafu.laerm-bahnlaerm_tag',
+      body: fixture('laerm-bahn-tag-wabern.json'),
+    },
+    {
+      match: (u) => u.hostname === 'wms.geo.admin.ch' && u.searchParams.get('LAYERS') === 'ch.bafu.laerm-bahnlaerm_nacht',
+      body: fixture('laerm-bahn-nacht-wabern.json'),
+    },
+    // Naturgefahren: text/plain, Wabern liegt in keiner Fläche, Erdbebenzone Z1b
+    {
+      match: (u) => u.hostname === 'wms.geo.admin.ch' && u.searchParams.get('LAYERS') === 'ch.bafu.gefaehrdungskarte-oberflaechenabfluss',
+      body: fixtureText('naturgefahren-oberflaechenabfluss-wabern.json'),
+    },
+    {
+      match: (u) => u.hostname === 'wms.geo.admin.ch' && u.searchParams.get('LAYERS') === 'ch.bafu.aquaprotect_100',
+      body: fixtureText('naturgefahren-aquaprotect-100-wabern.json'),
+    },
+    {
+      match: (u) => u.hostname === 'wms.geo.admin.ch' && u.searchParams.get('LAYERS') === 'ch.bafu.gefahren-gefaehrdungszonen',
+      body: fixtureText('naturgefahren-erdbeben-wabern.json'),
+    },
+    {
+      match: (u) => u.pathname.endsWith('/identify') && u.searchParams.get('layers') === 'all:ch.babs.kulturgueter',
+      body: fixture('kulturgueter-wabern.json'),
     },
     {
       match: (u) => u.hostname === 'www.oereb2.apps.be.ch' && u.pathname === '/extract/json' && u.searchParams.get('EGRID') === 'CH586746359755',

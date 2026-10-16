@@ -1,0 +1,39 @@
+{
+  "_hinweis": "Echte Antwort vom 16.10.2026, WMS GetFeatureInfo ch.bafu.laerm-bahnlaerm_nacht, Zürich Bahnhofstrasse-Gegend (2683400/1247900), 3x3 px, I=1 J=1, INFO_FORMAT application/json",
+  "type": "FeatureCollection",
+  "name": "ch.bafu.laerm-bahnlaerm_nacht_full",
+  "crs": {
+    "type": "name",
+    "properties": {
+      "name": "urn:ogc:def:crs:EPSG::2056"
+    }
+  },
+  "xy_coordinate_resolution": 0.001,
+  "bbox": [
+    2683400.0,
+    1247900.0,
+    2683400.0,
+    1247900.0
+  ],
+  "features": [
+    {
+      "type": "Feature",
+      "properties": {
+        "value_0": "11.9"
+      },
+      "bbox": [
+        2683400.0,
+        1247900.0,
+        2683400.0,
+        1247900.0
+      ],
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          2683400.0,
+          1247900.0
+        ]
+      }
+    }
+  ]
+}

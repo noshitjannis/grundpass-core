@@ -1,4 +1,5 @@
 import { z } from 'zod';
+import { SchemaDriftError } from '../errors.ts';
 import type { LV95 } from '../types.ts';
 
 /**
@@ -17,6 +18,9 @@ import type { LV95 } from '../types.ts';
  *    Darum zwei Schemas: geoResultsSchema (Esri-Form) und geoJsonResultsSchema (GeoJSON-Form).
  *  - find kann dasselbe: mit returnGeometry=true und geometryFormat=geojson kommen GeoJSON-Features, Form identisch zu identify
  *    (amtliche Vermessung per egris_egrid, Baden und Wabern). Unbekannter Suchwert gibt `{"results": []}` mit HTTP 200.
+ *  - WMS GetFeatureInfo mit INFO_FORMAT=text/plain (16.10.2026): Flächenlayer wie die Erdbebenzonen liefern als
+ *    application/json die ganze Zonengeometrie mit (5 bis 8 MB pro Antwort). text/plain nennt nur Layer, Feature-ID und
+ *    Attribute («Erdbebenzone_SIA_261 = 'Z1b'»), ohne Treffer «Search returned no results.». Parser: parseWmsFeatureInfoText.
  */
 
 export const API3 = 'https://api3.geo.admin.ch/rest/services/api';
@@ -162,3 +166,49 @@ export const nullableString = z.preprocess((v) => {
   if (v === null || v === undefined || v === '' || v === '-') return null;
   return typeof v === 'number' ? String(v) : v;
 }, z.string().nullable());
+
+// ---------------------------------------------------------------------------
+// WMS GetFeatureInfo als text/plain
+// ---------------------------------------------------------------------------
+
+/**
+ * Form von wms.geo.admin.ch (MapServer), verifiziert 16.10.2026 an Erdbebenzonen, Oberflächenabfluss und Aquaprotect:
+ *
+ *   GetFeatureInfo results:
+ *
+ *   Layer 'ch.bafu.gefahren-gefaehrdungszonen'
+ *     Feature 12:
+ *       Erdbebenzone_SIA_261 = 'Z1b'
+ *
+ * Ohne Treffer steht statt der Layer-Zeilen «Search returned no results.». Ein Feature ohne Attributzeilen (Oberflächenabfluss,
+ * Aquaprotect) heisst: Der Punkt liegt in einer Fläche des Layers, mehr gibt der Dienst nicht heraus.
+ */
+export const wmsTextLayerSchema = z.object({
+  layer: z.string(),
+  features: z.array(z.object({ id: z.string(), attributes: z.record(z.string(), z.string()) })),
+});
+export type WmsTextLayer = z.infer<typeof wmsTextLayerSchema>;
+
+export function parseWmsFeatureInfoText(text: string, url: string): WmsTextLayer[] {
+  if (!/^\s*GetFeatureInfo results:/.test(text)) throw new SchemaDriftError(url, 'kein GetFeatureInfo-Text (text/plain)');
+  const layers: WmsTextLayer[] = [];
+  let layer: WmsTextLayer | undefined;
+  let feature: WmsTextLayer['features'][number] | undefined;
+  for (const roh of text.split(/\r?\n/)) {
+    const line = roh.trim();
+    let m: RegExpMatchArray | null;
+    if ((m = line.match(/^Layer '(.+)'$/))) {
+      layer = { layer: m[1]!, features: [] };
+      layers.push(layer);
+      feature = undefined;
+    } else if ((m = line.match(/^Feature (\S+):$/))) {
+      if (!layer) throw new SchemaDriftError(url, 'Feature ohne Layer-Zeile');
+      feature = { id: m[1]!, attributes: {} };
+      layer.features.push(feature);
+    } else if ((m = line.match(/^(\S+) = '(.*)'$/))) {
+      if (!feature) throw new SchemaDriftError(url, 'Attribut ohne Feature-Zeile');
+      feature.attributes[m[1]!] = m[2]!;
+    }
+  }
+  return z.array(wmsTextLayerSchema).parse(layers);
+}

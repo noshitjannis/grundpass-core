@@ -1,0 +1,4 @@
+{
+  "_hinweis": "Echte Antwort vom 16.10.2026, WMS GetFeatureInfo ch.bafu.gefaehrdungskarte-oberflaechenabfluss, INFO_FORMAT text/plain, 3x3 px, I=1 J=1, Zürich Bahnhofstrasse-Gegend (2683400/1247900). Ein Feature ohne Attribute heisst: Punkt liegt in einer Oberflächenabfluss-Fläche. Die Fliesstiefen-Klasse der Legende gibt der Dienst nicht heraus (auch nicht als JSON oder GML).",
+  "body": "GetFeatureInfo results:\n\nLayer 'ch.bafu.gefaehrdungskarte-oberflaechenabfluss'\n  Feature 8688: \n"
+}

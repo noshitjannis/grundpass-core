@@ -1,13 +1,17 @@
 import { describe, expect, it } from 'vitest';
-import { avParzelle, geocode, gwr, laermStrasse, oereb, oevGueteklasse, radon, sonnendach, zustaendigeStellen } from '../src/adapters/index.ts';
+import { adapters, avParzelle, geocode, gwr, kulturgueter, laermBahn, laermStrasse, naturgefahren, oereb, oevGueteklasse, radon, sonnendach, zustaendigeStellen } from '../src/adapters/index.ts';
 import { amtAdresse, parseStufe, themaSlug } from '../src/adapters/oereb.ts';
 import { adresseAusZeilen } from '../src/adapters/zustaendige-stellen.ts';
 import { geojsonAreaM2, pointInGeometry } from '../src/adapters/av-parzelle.ts';
+import { BAHN_HINWEIS } from '../src/adapters/laerm-bahn.ts';
+import { KGS_UMKREIS_M, kgsKategorie, kgsNummer } from '../src/adapters/kulturgueter.ts';
+import { parseWmsFeatureInfoText } from '../src/http/geoadmin.ts';
 import { FELDER } from '../src/views/felder.ts';
+import { buildSteckbrief } from '../src/views/steckbrief.ts';
 import { EmptyResultError, SchemaDriftError } from '../src/errors.ts';
 import { silentLogger } from '../src/log.ts';
-import type { AdapterContext, Keys } from '../src/types.ts';
-import { fixture, httpFor, wabernRoutes } from './helpers/fixtures.ts';
+import type { AdapterContext, Keys, RunResult } from '../src/types.ts';
+import { fixture, fixtureText, httpFor, wabernRoutes } from './helpers/fixtures.ts';
 
 const ctxFor = (keys: Keys): AdapterContext => ({ keys, http: httpFor(wabernRoutes()), now: () => new Date('2026-10-15T10:00:00Z'), log: silentLogger });
 const fact = (out: { facts: Array<{ key: string; value: unknown }> }, key: string) => out.facts.find((f) => f.key === key)?.value;
@@ -568,5 +572,199 @@ describe('zustaendige-stellen', () => {
     expect(adresseAusZeilen('# ')).toBeNull();
     expect(adresseAusZeilen(null)).toBeNull();
     expect(adresseAusZeilen('Weberstrasse 5#8004 Zürich#')).toBe('Weberstrasse 5, 8004 Zürich');
+  });
+});
+
+describe('laerm-bahn', () => {
+  const wabern = { e: 2601737, n: 1197338.426 };
+  type Route = Parameters<typeof httpFor>[0];
+  const ctxMit = (routes: Route, calls: string[] = []): AdapterContext => ({ keys: { lv95_bau: wabern }, http: httpFor(routes, calls), now: () => new Date(), log: silentLogger });
+
+  it('liest Lr Tag und Nacht aus features[0].properties.value_0 (Wabern 16.4/6.2), Confidence 1, zwei WMS-Anfragen', async () => {
+    const calls: string[] = [];
+    const out = await laermBahn.resolve(ctxMit(wabernRoutes(), calls));
+    expect(calls).toHaveLength(2);
+    expect(calls[0]).toContain('LAYERS=ch.bafu.laerm-bahnlaerm_tag');
+    expect(calls[1]).toContain('LAYERS=ch.bafu.laerm-bahnlaerm_nacht');
+    expect(calls.every((c) => c.includes('INFO_FORMAT=application%2Fjson'))).toBe(true);
+    expect(out.facts.find((f) => f.key === 'laerm.bahn.tag_db')).toMatchObject({ value: 16.4, unit: 'dB', confidence: 1 });
+    expect(out.facts.find((f) => f.key === 'laerm.bahn.nacht_db')).toMatchObject({ value: 6.2, unit: 'dB', confidence: 1 });
+    expect(fact(out, 'laerm.bahn.hinweis')).toBeUndefined();
+    expect(out.facts.map((f) => f.key)).toEqual(['laerm.bahn.tag_db', 'laerm.bahn.nacht_db']);
+  });
+
+  it('Zürich-Fixture: 16.6/11.9', async () => {
+    const routes: Route = [
+      { match: (u) => (u.searchParams.get('LAYERS') ?? '').endsWith('_tag'), body: fixture('laerm-bahn-tag-zuerich.json') },
+      { match: (u) => (u.searchParams.get('LAYERS') ?? '').endsWith('_nacht'), body: fixture('laerm-bahn-nacht-zuerich.json') },
+    ];
+    const out = await laermBahn.resolve(ctxMit(routes));
+    expect(fact(out, 'laerm.bahn.tag_db')).toBe(16.6);
+    expect(fact(out, 'laerm.bahn.nacht_db')).toBe(11.9);
+  });
+
+  it('ohne kartierten Bahnlärm (features leer): kein Wert, kein Default, sondern der Hinweis «keine Bahnlärm-Belastung kartiert»', async () => {
+    const out = await laermBahn.resolve(ctxMit([{ match: () => true, body: fixture('laerm-wms-leer.json') }]));
+    expect(out.facts.map((f) => f.key)).toEqual(['laerm.bahn.hinweis']);
+    expect(fact(out, 'laerm.bahn.hinweis')).toBe(BAHN_HINWEIS);
+    expect(out.facts[0]?.request_url).toContain('LAYERS=ch.bafu.laerm-bahnlaerm_tag');
+  });
+
+  it('nur ein Pegel kartiert: der andere fehlt mit Hinweis, der vorhandene bleibt', async () => {
+    const routes: Route = [
+      { match: (u) => (u.searchParams.get('LAYERS') ?? '').endsWith('_tag'), body: fixture('laerm-bahn-tag-wabern.json') },
+      { match: () => true, body: fixture('laerm-wms-leer.json') },
+    ];
+    const out = await laermBahn.resolve(ctxMit(routes));
+    expect(fact(out, 'laerm.bahn.tag_db')).toBe(16.4);
+    expect(fact(out, 'laerm.bahn.nacht_db')).toBeUndefined();
+    expect(fact(out, 'laerm.bahn.hinweis')).toBe(`${BAHN_HINWEIS} (Nacht)`);
+  });
+
+  it('der Hinweis wird im Steckbrief zur Lücke von laerm.bahn.tag_db mit dem Text als Grund', () => {
+    const run: RunResult = {
+      run_id: 'r', subject: 'egid:1', input: { egid: 1 }, keys: { egid: 1 },
+      facts: [{ subject: 'egid:1', key: 'laerm.bahn.hinweis', value: BAHN_HINWEIS, source: 'laerm-bahn', fetched_at: '2026-10-16T10:00:00.000Z', confidence: 1, run_id: 'r', request_url: 'https://wms.geo.admin.ch/?x' }],
+      adapters: [{ adapter: 'laerm-bahn', status: 'ok', ms: 1, facts_count: 1, stage: 2 }],
+      partial: false, started_at: '2026-10-16T10:00:00.000Z', finished_at: '2026-10-16T10:00:01.000Z', ms: 1000,
+    };
+    const s = buildSteckbrief(run, adapters);
+    expect(s.luecken.find((l) => l.key === 'laerm.bahn.tag_db')).toMatchObject({ grund: 'hinweis', detail: BAHN_HINWEIS, quelle: 'laerm-bahn' });
+    expect(s.luecken.filter((l) => l.key.startsWith('laerm.bahn.'))).toHaveLength(1); // nacht_db ist nicht erwartet, eine Lücke reicht
+    expect(s.abschnitte.find((a) => a.id === 'laerm')).toBeUndefined(); // der Hinweis selbst ist kein Feld
+  });
+
+  it('andere Antwortform (kein value_0) ist Schema-Drift', async () => {
+    const http = httpFor([{ match: () => true, body: { type: 'FeatureCollection', features: [{ type: 'Feature', properties: { GRAY_INDEX: 52 } }] } }]);
+    await expect(laermBahn.resolve({ keys: { lv95_bau: wabern }, http, now: () => new Date(), log: silentLogger })).rejects.toBeInstanceOf(SchemaDriftError);
+  });
+});
+
+describe('naturgefahren', () => {
+  const wabern = { e: 2601737, n: 1197338.426 };
+  type Route = Parameters<typeof httpFor>[0];
+  const ctxMit = (routes: Route, calls: string[] = []): AdapterContext => ({ keys: { lv95_bau: wabern }, http: httpFor(routes, calls), now: () => new Date(), log: silentLogger });
+  const zuerichRoutes = (): Route => [
+    { match: (u) => u.searchParams.get('LAYERS') === 'ch.bafu.gefaehrdungskarte-oberflaechenabfluss', body: fixtureText('naturgefahren-oberflaechenabfluss-zuerich.json') },
+    { match: (u) => u.searchParams.get('LAYERS') === 'ch.bafu.aquaprotect_100', body: fixtureText('naturgefahren-aquaprotect-100-zuerich.json') },
+    { match: (u) => u.searchParams.get('LAYERS') === 'ch.bafu.gefahren-gefaehrdungszonen', body: fixtureText('naturgefahren-erdbeben-zuerich.json') },
+  ];
+
+  it('Wabern: in keiner Fläche, Erdbebenzone Z1b; drei text/plain-Anfragen am Gebäudepunkt', async () => {
+    const calls: string[] = [];
+    const out = await naturgefahren.resolve(ctxMit(wabernRoutes(), calls));
+    expect(calls).toHaveLength(3);
+    expect(calls.every((c) => c.includes('INFO_FORMAT=text%2Fplain') && c.includes('REQUEST=GetFeatureInfo'))).toBe(true);
+    expect(out.facts.map((f) => [f.key, f.value])).toEqual([
+      ['naturgefahr.oberflaechenabfluss.betroffen', false],
+      ['naturgefahr.hochwasser.aquaprotect_100', false],
+      ['naturgefahr.erdbeben.zone', 'Z1b'],
+    ]);
+    expect(out.facts.every((f) => f.confidence === 1 && f.request_url?.startsWith('https://wms.geo.admin.ch/?'))).toBe(true);
+  });
+
+  it('Zürich: Oberflächenabfluss und Aquaprotect betroffen (Feature ohne Attribute), Erdbebenzone Z1a', async () => {
+    const out = await naturgefahren.resolve(ctxMit(zuerichRoutes()));
+    expect(fact(out, 'naturgefahr.oberflaechenabfluss.betroffen')).toBe(true);
+    expect(fact(out, 'naturgefahr.hochwasser.aquaprotect_100')).toBe(true);
+    expect(fact(out, 'naturgefahr.erdbeben.zone')).toBe('Z1a');
+    // Keine Klasse: Der Dienst liefert sie nicht, also wird keine erfunden
+    expect(out.facts.some((f) => f.key.includes('klasse') || f.key.includes('code'))).toBe(false);
+  });
+
+  it('ohne Erdbebenzonen-Treffer gibt es keinen Zonen-Fakt (Lücke), die Flächen bleiben', async () => {
+    const routes: Route = [{ match: () => true, body: 'GetFeatureInfo results:\n\n  Search returned no results.\n' }];
+    const out = await naturgefahren.resolve(ctxMit(routes));
+    expect(out.facts.map((f) => f.key)).toEqual(['naturgefahr.oberflaechenabfluss.betroffen', 'naturgefahr.hochwasser.aquaprotect_100']);
+    expect(FELDER['naturgefahr.erdbeben.zone']?.erwartet).toBe(true);
+  });
+
+  it('Erdbebenzonen-Treffer ohne das Attribut ist Schema-Drift, kein Raten', async () => {
+    const routes: Route = [
+      { match: (u) => u.searchParams.get('LAYERS') === 'ch.bafu.gefahren-gefaehrdungszonen', body: "GetFeatureInfo results:\n\nLayer 'ch.bafu.gefahren-gefaehrdungszonen'\n  Feature 12: \n    zone = 'Z1b'\n" },
+      { match: () => true, body: 'GetFeatureInfo results:\n\n  Search returned no results.\n' },
+    ];
+    await expect(naturgefahren.resolve(ctxMit(routes))).rejects.toBeInstanceOf(SchemaDriftError);
+  });
+
+  it('HTML oder JSON statt GetFeatureInfo-Text ist Schema-Drift', async () => {
+    await expect(naturgefahren.resolve(ctxMit([{ match: () => true, body: '<html>Fehler</html>' }]))).rejects.toBeInstanceOf(SchemaDriftError);
+    await expect(naturgefahren.resolve(ctxMit([{ match: () => true, body: { type: 'FeatureCollection', features: [] } }]))).rejects.toBeInstanceOf(SchemaDriftError);
+  });
+
+  it('parseWmsFeatureInfoText: Layer, Features, Attribute; leere Antwort gibt keine Layer', () => {
+    const text = fixtureText('naturgefahren-erdbeben-wabern.json');
+    expect(parseWmsFeatureInfoText(text, 'u')).toEqual([{ layer: 'ch.bafu.gefahren-gefaehrdungszonen', features: [{ id: '12', attributes: { Erdbebenzone_SIA_261: 'Z1b' } }] }]);
+    expect(parseWmsFeatureInfoText(fixtureText('naturgefahren-oberflaechenabfluss-zuerich.json'), 'u')).toEqual([{ layer: 'ch.bafu.gefaehrdungskarte-oberflaechenabfluss', features: [{ id: '8688', attributes: {} }] }]);
+    expect(parseWmsFeatureInfoText(fixtureText('naturgefahren-aquaprotect-100-wabern.json'), 'u')).toEqual([]);
+    expect(() => parseWmsFeatureInfoText('irgendwas', 'u')).toThrow(SchemaDriftError);
+    expect(() => parseWmsFeatureInfoText("GetFeatureInfo results:\n  Feature 1:\n", 'u')).toThrow(SchemaDriftError);
+  });
+});
+
+describe('kulturgueter', () => {
+  const wabern = { e: 2601737, n: 1197338.426 };
+  const zytglogge = { e: 2600698.025, n: 1199652.118 }; // GWR-Gebäudepunkt Bim Zytglogge 3, Bern
+  type Route = Parameters<typeof httpFor>[0];
+  const ctxMit = (keys: Keys, routes: Route, calls: string[] = []): AdapterContext => ({ keys, http: httpFor(routes, calls), now: () => new Date(), log: silentLogger });
+
+  it('Manifest: braucht den Gebäudepunkt, liefert kulturgut.*, 180 Tage', () => {
+    expect(kulturgueter.manifest).toMatchObject({ id: 'kulturgueter', needs: ['lv95_bau'], provides: ['kulturgut.'], ttlDays: 180, version: 1 });
+  });
+
+  it('Wabern: kein Kulturgut im Umkreis von 15 m: betroffen false als Fakt, sonst nichts, keine Lücke', async () => {
+    const calls: string[] = [];
+    const out = await kulturgueter.resolve(ctxMit({ lv95_bau: wabern }, wabernRoutes(), calls));
+    expect(calls).toHaveLength(1);
+    expect(calls[0]).toContain('layers=all%3Ach.babs.kulturgueter');
+    expect(calls[0]).toContain(`tolerance=${KGS_UMKREIS_M}`);
+    expect(calls[0]).toContain('returnGeometry=true');
+    expect(calls[0]).toContain('imageDisplay=100%2C100%2C96');
+    expect(out.facts.map((f) => [f.key, f.value])).toEqual([['kulturgut.kgs.betroffen', false]]);
+    const run: RunResult = {
+      run_id: 'r', subject: 'egid:1', input: { egid: 1 }, keys: { egid: 1 },
+      facts: out.facts.map((f) => ({ ...f, subject: 'egid:1', source: 'kulturgueter', fetched_at: '2026-10-16T10:00:00.000Z', confidence: f.confidence ?? 1, run_id: 'r' })),
+      adapters: [{ adapter: 'kulturgueter', status: 'ok', ms: 1, facts_count: 1, stage: 2 }],
+      partial: false, started_at: '2026-10-16T10:00:00.000Z', finished_at: '2026-10-16T10:00:01.000Z', ms: 1000,
+    };
+    const s = buildSteckbrief(run, adapters);
+    expect(s.luecken.some((l) => l.key.startsWith('kulturgut.'))).toBe(false);
+    expect(s.abschnitte.find((a) => a.id === 'ortsbild')?.felder.map((f) => [f.label, f.value])).toEqual([['KGS-Inventar (Kulturgüterschutz)', false]]);
+  });
+
+  it('Zytglogge: nächster Treffer Zeitglockenturm in 1 m, Kategorie A aus A.A, KGS-Nummer 665, das zweite Objekt in 9 m wird gezählt', async () => {
+    const out = await kulturgueter.resolve(ctxMit({ lv95_bau: zytglogge }, [{ match: () => true, body: fixture('kulturgueter-zytglogge.json') }]));
+    expect(fact(out, 'kulturgut.kgs.betroffen')).toBe(true);
+    expect(fact(out, 'kulturgut.kgs.name')).toBe('Zeitglockenturm');
+    expect(out.facts.find((f) => f.key === 'kulturgut.kgs.kategorie')).toMatchObject({ value: 'A (national)', confidence: 0.8 });
+    expect(fact(out, 'kulturgut.kgs.kategorie_code')).toBe('A.A');
+    expect(fact(out, 'kulturgut.kgs.nummer')).toBe(665);
+    expect(fact(out, 'kulturgut.kgs.objektart')).toBe('Militärische Anlagen und Wehrbauten,Stadt- und Ortsbefestigungen');
+    expect(out.facts.find((f) => f.key === 'kulturgut.kgs.distanz_m')).toMatchObject({ value: 1, unit: 'm', confidence: 0.95 });
+    expect(fact(out, 'kulturgut.kgs.weitere_im_umkreis')).toBe(1);
+    expect(out.facts.every((f) => f.request_url?.includes('identify'))).toBe(true);
+  });
+
+  it('Treffer der API ausserhalb von 15 m werden nicht übernommen (Toleranz ist in Pixeln, die Distanz rechnen wir selbst)', async () => {
+    const weitWeg = { e: zytglogge.e + 40, n: zytglogge.n };
+    const out = await kulturgueter.resolve(ctxMit({ lv95_bau: weitWeg }, [{ match: () => true, body: fixture('kulturgueter-zytglogge.json') }]));
+    expect(out.facts.map((f) => [f.key, f.value])).toEqual([['kulturgut.kgs.betroffen', false]]);
+  });
+
+  it('Treffer ohne Punktgeometrie ist Schema-Drift', async () => {
+    const ohne = fixture('kulturgueter-zytglogge.json') as { results: Array<Record<string, unknown>> };
+    const body = { results: ohne.results.map((r) => ({ ...r, geometry: undefined })) };
+    await expect(kulturgueter.resolve(ctxMit({ lv95_bau: zytglogge }, [{ match: () => true, body }]))).rejects.toBeInstanceOf(SchemaDriftError);
+  });
+
+  it('kgsKategorie und kgsNummer: nur Eindeutiges', () => {
+    expect(kgsKategorie('A.A')).toBe('A (national)');
+    expect(kgsKategorie('A')).toBe('A (national)');
+    expect(kgsKategorie('B.X')).toBe('B (regional)');
+    expect(kgsKategorie('C')).toBeNull();
+    expect(kgsKategorie(null)).toBeNull();
+    expect(kgsNummer('KGS_NR665')).toBe(665);
+    expect(kgsNummer('665')).toBeNull();
+    expect(kgsNummer(null)).toBeNull();
   });
 });

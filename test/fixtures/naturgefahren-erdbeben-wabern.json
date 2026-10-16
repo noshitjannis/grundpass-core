@@ -1,0 +1,4 @@
+{
+  "_hinweis": "Echte Antwort vom 16.10.2026, WMS GetFeatureInfo ch.bafu.gefahren-gefaehrdungszonen, INFO_FORMAT text/plain, 3x3 px, I=1 J=1, Gebäudepunkt Maygutstrasse 26, Wabern (2601737/1197338). Attribut Erdbebenzone_SIA_261 ist die Zone. Als application/json liefert der Dienst dieselbe Zone in properties.zone, aber mit der ganzen Zonengeometrie (5 bis 8 MB), darum text/plain.",
+  "body": "GetFeatureInfo results:\n\nLayer 'ch.bafu.gefahren-gefaehrdungszonen'\n  Feature 12: \n    Erdbebenzone_SIA_261 = 'Z1b'\n"
+}

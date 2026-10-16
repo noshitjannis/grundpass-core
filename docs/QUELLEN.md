@@ -17,6 +17,8 @@ Allgemeine Erkenntnisse (15.10.2026):
 - Reine Raster-Layer sind per `identify` nicht abfragbar (4xx). Nur WMS GetFeatureInfo.
 - Bei Fehlern antwortet api3 teils mit HTML, nicht JSON. Der Client wirft dann `SchemaDriftError`.
 - WMS GetFeatureInfo (wms.geo.admin.ch) kann `application/json`, `text/plain` und `application/vnd.ogc.gml`, aber kein `text/html` (ServiceException InvalidFormat). Raster-Werte stehen in `features[0].properties.value_0`, als String.
+- WMS GetFeatureInfo auf Flächenlayer (16.10.2026): `application/json` schickt die ganze Geometrie des getroffenen Polygons mit (Erdbebenzonen: 5 bis 8 MB pro Antwort, Aquaprotect 80 KB). `text/plain` nennt nur Layer, Feature-ID und Attribute («Erdbebenzone_SIA_261 = 'Z1b'»), ohne Treffer «Search returned no results.». Parser `parseWmsFeatureInfoText` in `src/http/geoadmin.ts`. Layer, die als Treffer nur «Feature <id>:» ohne Attribute liefern (Oberflächenabfluss, Aquaprotect), sagen nur «drin oder nicht drin».
+- `layersConfig?lang=de` (api3) nennt pro Layer `tooltip` (identify möglich) und `type` (`wmts` = Raster oder Vektor-Kacheln, `wms`). Ein Layer kann unter einem irreführenden Namen laufen: `ch.bfe.fernwaerme-angebot` ist «Potenzial Wärmenutzung ARA», nicht Fernwärme (siehe Kandidaten).
 
 ---
 
@@ -198,6 +200,78 @@ je Empfindlichkeitsstufe, Tag/Nacht: ES I 55/45, ES II 60/50, ES III 65/55, ES I
 
 ---
 
+## laerm-bahn · Eisenbahnlärm Tag/Nacht
+
+| | |
+|---|---|
+| Datenhalter | BAFU (Emissionskataster 2021, EK2021). Geobasisdatensatz 120.3 |
+| Endpoint | WMS GetFeatureInfo wie laerm-strasse (3×3 px um den Gebäudepunkt, `INFO_FORMAT=application/json`, `FEATURE_COUNT=1`) für `ch.bafu.laerm-bahnlaerm_tag` und `ch.bafu.laerm-bahnlaerm_nacht` |
+| braucht | `lv95_bau` |
+| Fakten | `laerm.bahn.tag_db`, `.nacht_db` (Confidence 1). Ohne kartierten Bahnlärm statt der Pegel `laerm.bahn.hinweis` = «keine Bahnlärm-Belastung kartiert» (fehlt nur einer: «… (Nacht)»). Grenzwerte `laerm.bahn.grenzwert_tag_db`, `.grenzwert_nacht_db` sind derived aus der Empfindlichkeitsstufe (LSV Anhang 4), nur wenn ein Bahnpegel da ist. |
+| Datenstand | 31.12.2021 laut Layer-Legende (Emissionsdaten 2021, berechnet durch die SBB für SBB, BLS, SOB, SZU, Zentralbahn, RhB; rund 4165 von 5800 km Trassen). GetFeatureInfo liefert kein Datum, darum kein `source_date`. |
+| TTL | 180 Tage |
+| Status | verifiziert 16.10.2026 (Live-Test an den fünf goldenen Adressen) · Fixtures `laerm-bahn-tag-wabern.json`, `laerm-bahn-nacht-wabern.json`, `laerm-bahn-tag-zuerich.json`, `laerm-bahn-nacht-zuerich.json` (echte Antworten vom 16.10.2026) |
+
+**Antwortform** identisch zu laerm-strasse (`features[0].properties.value_0` als String, Geometrie = Mittelpunkt der Rasterzelle). Wabern (2601737/1197338): Tag 16.4, Nacht 6.2 dB. Zürich Bahnhofstrasse-Gegend (2683400/1247900): Tag 16.6, Nacht 11.9 dB. Die Karte liefert auch weit weg von Gleisen kleine Werte; wo gar nichts kartiert ist, ist `features` leer. Das ist bewusst keine `EmptyResultError` (der Adapter läuft `ok`), sondern der Fakt `laerm.bahn.hinweis`; die Steckbrief-View macht daraus die Lücke von `laerm.bahn.tag_db` (`erwartet`) mit Grund `hinweis` und dem Text als `detail`. Kein Default, keine Zahl.
+
+**Bedeutung:** Beurteilungspegel Lr Tag (6 bis 22 Uhr) und Lr Nacht (22 bis 6 Uhr) in dB(A) für Eisenbahnlärm, gesetzlich nicht verbindlich (verbindlich: BAV). Lärm von Bahnen auf Strassen (Trams) gilt laut LSV Anhang 4 Ziff. 1 Abs. 2 als Strassenverkehrslärm und ist hier nicht drin. Immissionsgrenzwerte: LSV Anhang 4 Ziff. 2, je Empfindlichkeitsstufe Tag/Nacht: ES I 55/45, ES II 60/50, ES III 65/55, ES IV 70/60 dB (gegengeprüft am 16.10.2026 im konsolidierten Text vom 1.4.2026, fedlex ELI cc/1987/338_338_338/20260401; Fundstelle im Kommentar von `src/resolver/derive.ts`).
+
+---
+
+## naturgefahren · Oberflächenabfluss, Aquaprotect, Erdbebenzonen
+
+| | |
+|---|---|
+| Datenhalter | BAFU |
+| Endpoint | WMS GetFeatureInfo (3×3 px um den Gebäudepunkt, `INFO_FORMAT=text/plain`, `FEATURE_COUNT=1`) für `ch.bafu.gefaehrdungskarte-oberflaechenabfluss`, `ch.bafu.aquaprotect_100`, `ch.bafu.gefahren-gefaehrdungszonen`; drei Anfragen parallel. api3 `identify` geht bei allen drei nicht («No GeoTable was found»). |
+| braucht | `lv95_bau` |
+| Fakten | `naturgefahr.oberflaechenabfluss.betroffen` (bool), `naturgefahr.hochwasser.aquaprotect_100` (bool), `naturgefahr.erdbeben.zone` (Z1a, Z1b, Z2, Z3a, Z3b, roh). Alle Confidence 1. Kein Treffer bei den Erdbebenzonen (ausserhalb der Karte): kein Zonen-Fakt, Lücke. |
+| Datenstand | Oberflächenabfluss 22.05.2018, Aquaprotect 18.12.2008, Erdbebenzonen 13.04.2026 (Layer-Legenden). GetFeatureInfo liefert kein Datum, kein `source_date`. |
+| TTL | 365 Tage |
+| Status | verifiziert 16.10.2026 (Live-Test an den fünf goldenen Adressen) · Fixtures `naturgefahren-{oberflaechenabfluss,aquaprotect-100,erdbeben}-{wabern,zuerich}.json` (echte text/plain-Antworten vom 16.10.2026 im Feld `body`, mit `_hinweis`) |
+
+**Antwortform** (`text/plain`), Zürich Bahnhofstrasse-Gegend (2683400/1247900):
+
+```
+GetFeatureInfo results:
+
+Layer 'ch.bafu.gefahren-gefaehrdungszonen'
+  Feature 11:
+    Erdbebenzone_SIA_261 = 'Z1a'
+```
+
+Oberflächenabfluss und Aquaprotect liefern bei einem Treffer nur `Feature 8688:` bzw. `Feature 2286:` ohne Attributzeile, ohne Treffer «Search returned no results.» (Wabern bei beiden). Die drei Fliesstiefen-Klassen der Oberflächenabfluss-Legende (0 bis 0.1 m, 0.1 bis 0.25 m, ab 0.25 m) sind nur im Kartenbild; weder JSON noch GML noch text/plain tragen ein Attribut. Darum gibt es `naturgefahr.oberflaechenabfluss.klasse` nicht: Wir lesen keine Farbe aus dem Bild und raten keine Klasse. Belege: Wabern Z1b, nichts drin; Zürich Z1a, Oberflächenabfluss und HQ100 betroffen (Limmat).
+
+**Bedeutung für Laien** (so auch im Feldkatalog): Oberflächenabfluss ist Regenwasser, das bei Starkregen über das Gelände fliesst, unabhängig von Bächen; die Karte ist eine Modellrechnung ohne Prüfung im Gelände für Ereignisse seltener als alle 100 Jahre, nicht rechtsverbindlich. Aquaprotect ist eine grobe, alte (2008) Übersicht der bei HQ100 potenziell überschwemmten Gebiete ohne Schutzbauten, gedacht für Gebiete ohne Gefahrenkarte; «nein» heisst nicht «keine Gefahr». Die Erdbebenzone (SIA 261) bestimmt die Bemessung von Tragwerken, Z1a/Z1b gering, Z3b am höchsten.
+
+**Bewusste Lücke:** Die kantonalen Gefahrenkarten (Hochwasser, Rutschung, Sturz, Lawine) mit Gefahrenstufen gibt es nicht schweizweit in einem Layer; sie liegen bei den Kantonen (teils im ÖREB-Kataster als kantonales Thema, z.B. BE). Sie fehlen hier, das sagt die Erklärung zum Aquaprotect-Feld.
+
+**Probiert 16.10.2026:** Erdbebenzonen als `application/json` liefern `properties.zone` plus die ganze Zonengeometrie (Wabern 8.5 MB, Zürich 5 MB), darum text/plain. `ch.bafu.gefahren-baugrundklassen` (seismische Baugrundklassen, identify-fähig, Wabern «C» nach SIA261:2003) ist nicht schweizweit (Zürich: nichts) und bleibt draussen. Die Aquaprotect-Layer 50, 250 und 500 Jahre existieren ebenfalls; wir fragen nur HQ100.
+
+---
+
+## kulturgueter · KGS-Inventar (Kulturgüterschutz)
+
+| | |
+|---|---|
+| Datenhalter | BABS (Kulturgüterschutzinventar 2021, Objekte von nationaler Bedeutung). Geobasisdatensatz 65.1 |
+| Endpoint | `GET …/MapServer/identify?geometry=<E>,<N>&geometryType=esriGeometryPoint&layers=all:ch.babs.kulturgueter&tolerance=15&sr=2056&returnGeometry=true&lang=de&imageDisplay=100,100,96&mapExtent=<100 m um den Punkt>` (1 px = 1 m, Toleranz also 15 m) |
+| braucht | `lv95_bau` |
+| Fakten | `kulturgut.kgs.betroffen` (bool, immer). Bei einem Treffer innerhalb 15 m zusätzlich `kulturgut.kgs.name`, `.kategorie` («A (national)» / «B (regional)», Confidence 0.8), `.kategorie_code` (roh, z.B. «A.A»), `.nummer` (aus «KGS_NR665»), `.objektart`, `.distanz_m` (Confidence 0.95), bei mehreren `.weitere_im_umkreis`. Nächster Punkt gewinnt. |
+| source_date | keines; Datenstand 30.06.2026 laut Layer-Legende |
+| TTL | 180 Tage |
+| Status | verifiziert 16.10.2026 (Live-Test an den fünf goldenen Adressen, positiv am Zytglogge) · Fixtures `kulturgueter-wabern.json`, `kulturgueter-zuerich.json` (leer), `kulturgueter-zytglogge.json` (zwei Treffer, echte Antworten vom 16.10.2026) |
+
+**Gelesene Felder:** `kgs_nr`, `beschreibung`, `kgs_kategorie`, `gemeinde`, `kanton`, `objektart_de_list`; Geometrie `{x, y}` (Esri-Form). Nicht gelesen: `adresse_list`, `weblinks_list`, `bemerkung_list`, `bild_nr_list`, `ehemaligegemeinde`, die fr/it-Listen. Nicht betroffen ist ein Fakt mit `false`, keine Lücke. Treffer, die die API wegen der Pixel-Toleranz liefert, aber rechnerisch weiter als 15 m liegen, fallen weg.
+
+**Kategorie:** `kgs_kategorie` ist im ganzen Layer «A.A» (`find` auf A.A trifft, auf A.S, B.A, B, A nichts). Der erste Buchstabe ist die KGS-Kategorie (A national, B regional); der Layer enthält laut Legende nur A-Objekte. Was der zweite Teil bedeutet, ist nicht dokumentiert und wird nicht gedeutet.
+
+**Belege 16.10.2026:** Wabern und Zürich Bahnhofstrasse-Gegend ohne Treffer. Gebäudepunkt Bim Zytglogge 3, Bern (2600698.025/1199652.118): Zeitglockenturm (KGS_NR665, 1 m) und das Haus Bim Zytglogge 1 (KGS_NR696, 9 m). Grenze des Verfahrens: Der Inventarpunkt sitzt irgendwo auf dem Objekt, der GWR-Punkt auch; beim Bundeshaus liegen sie 31 m auseinander, es wäre «nicht betroffen». Weitere Paare mit Distanz unter 15 m: Helmhaus/Wasserkirche, Rathaus und Zunfthaus zur Zimmerleuten in Zürich, Stadthaus Baden, Hauptwache und Käfigturm in Bern.
+
+**Bewusste Lücken** (stehen so in der Erklärung des Felds): Das ISOS (Bundesinventar der schützenswerten Ortsbilder) wirkt bei Baubewilligungen über die kantonale Planung, ist über geo.admin aber nicht parzellenscharf abfragbar (siehe Kandidaten). Der kommunale oder kantonale Denkmalschutz des Gebäudes selbst steht in keinem Bundeslayer. Kulturgüterschutz ist kein Denkmalschutz im engen Sinn.
+
+---
+
 ## oereb · ÖREB-Kataster (AG, ZH, BE)
 
 | | |
@@ -316,7 +390,8 @@ Datenstand: AG und ZH setzen `UpdateDateCS` auf den Abruftag, BE auf den letzten
 ## derived · berechnet
 
 Keine externe Quelle. Siehe ARCHITEKTUR.md Abschnitt 7. Seit 15.10.2026 auch: Lärm-Grenzwerte aus der Empfindlichkeitsstufe
-(LSV Anhang 3) und bebauter Anteil bevorzugt mit der Grundbuchfläche.
+(LSV Anhang 3) und bebauter Anteil bevorzugt mit der Grundbuchfläche. Seit 16.10.2026: Bahn-Grenzwerte aus derselben Stufe
+(LSV Anhang 4 Ziff. 2, gegengeprüft im Gesetzestext), nur wenn ein Bahnpegel am Punkt kartiert ist.
 
 ---
 
@@ -325,13 +400,13 @@ Keine externe Quelle. Siehe ARCHITEKTUR.md Abschnitt 7. Seit 15.10.2026 auch: L�
 | Quelle | Layer / API | Hinweis |
 |---|---|---|
 | ÖREB-Kataster weitere Kantone | gleiche Norm, Basis-URL je Kanton in `kantone.ts` eintragen und Fixture aufnehmen | AG, ZH, BE sind drin. Verzeichnis: cadastre.ch/oereb-webservice |
-| Gefährdungskarte Oberflächenabfluss | `ch.bafu.gefaehrdungskarte-oberflaechenabfluss` | Raster, nur WMS GetFeatureInfo (identify gibt Fehler). |
-| Naturgefahren (Hochwasser, Rutsch) | kantonal | kein Bundeslayer mit Gebäudeauflösung |
+| Naturgefahren (Hochwasser, Rutsch, Sturz, Lawine) mit Gefahrenstufen | kantonal | kein Bundeslayer mit Gebäudeauflösung; Oberflächenabfluss, Aquaprotect und Erdbebenzonen sind seit 16.10.2026 drin (Adapter naturgefahren) |
 | swissBUILDINGS3D | swisstopo | Gebäudehöhe, Dachform, Volumen |
-| Denkmalschutz / ISOS | `ch.bak.bundesinventar-schuetzenswerte-ortsbilder` + kantonal | |
+| ISOS (Ortsbilder) | `ch.bak.bundesinventar-schuetzenswerte-ortsbilder` | Geprüft 16.10.2026, ausgelassen: api3 `identify` liefert nur Ortsbild-Punkte (ein Punkt pro Ortsbild, Felder name, nummer, siedlungskategorie, url; Bern Altstadt tolerance 0 leer, erst bei 2000 m «Bern, Stadt»), WMS GetFeatureInfo gibt für die Perimeter einen Serverfehler (GEOJSON-Treiber auf `…ortsbilder_perimeter`) bzw. leer. Punkt-in-Fläche ist damit nicht möglich; rechtsgültig sind laut BAK ohnehin nur die PDFs. Kantonaler Denkmalschutz: kein Bundeslayer. |
+| Fernwärme-Angebot | `ch.bfe.fernwaerme-angebot`, `ch.bfe.thermische-netze` | Geprüft 16.10.2026, ausgelassen: `ch.bfe.fernwaerme-angebot` heisst «Potenzial Wärmenutzung ARA» (Wärmepotenzial der Abwasserreinigungsanlagen, Felder name, heatpotential, Datenstand 2017), nicht Fernwärme. `ch.bfe.thermische-netze` (Datenstand 14.10.2026) ist eine Punktliste der Netze (name, operator, place, energysource, power, energy, houseconnections; z.B. Holzenergieverbund Sennhof, Stadtwerk Winterthur) ohne Versorgungsgebiet; identify und GetFeatureInfo treffen am Gebäudepunkt nie. Kein Bundeslayer sagt, ob ein Gebäude Fernwärme bekommen kann. Ein «verfügbar: nein» aus einem Punktlayer wäre ein stiller Fehlwert, darum kein Adapter. |
 | Altlasten | kantonale Kataster, teils Bund (`ch.bafu.kataster-belasteter-standorte*`) | |
 | Erdwärmesonden-Zulässigkeit | kantonale Wärmenutzungskarten | |
-| Thermische Netze | `ch.bfe.thermische-netze` | Fernwärme in der Nähe |
+| Seismische Baugrundklassen | `ch.bafu.gefahren-baugrundklassen` | identify-fähig, aber nicht schweizweit (Wabern «C», Zürich nichts) |
 | Amtsblattportal | amtsblattportal.ch API | Baugesuche, Handänderungen (kantonsabhängig) |
 | BFS Gemeindedaten | BFS STAT-TAB / opendata.swiss | Steuerfuss, Leerwohnungsziffer |
 | Zeitreise Luftbilder | swisstopo WMTS | nur Bild, Fun Fact |

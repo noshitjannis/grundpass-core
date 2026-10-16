@@ -1,7 +1,7 @@
 import { mkdirSync, writeFileSync } from 'node:fs';
 import { describe, expect, it } from 'vitest';
 import { z } from 'zod';
-import { adapters, gwr, oereb } from '../../src/adapters/index.ts';
+import { adapters, gwr, kulturgueter, oereb } from '../../src/adapters/index.ts';
 import { GOLDENE_ADRESSEN } from '../../src/canary/adressen.ts';
 import { OEREB_KANTONE, oerebExtractUrl } from '../../src/adapters/oereb/kantone.ts';
 import { Core } from '../../src/core.ts';
@@ -39,8 +39,59 @@ describe.skipIf(!live)('live: geo.admin', () => {
     expect(typeof v('solar.stromertrag_kwh_a')).toBe('number');
     expect(typeof v('laerm.strasse.tag_db')).toBe('number');
     expect(typeof v('laerm.strasse.nacht_db')).toBe('number');
+    expect(typeof v('laerm.bahn.tag_db')).toBe('number');
+    expect(typeof v('naturgefahr.oberflaechenabfluss.betroffen')).toBe('boolean');
+    expect(typeof v('naturgefahr.hochwasser.aquaprotect_100')).toBe('boolean');
+    expect(v('naturgefahr.erdbeben.zone')).toMatch(/^Z[123][ab]?$/);
+    expect(v('kulturgut.kgs.betroffen')).toBe(false);
+    const ids = steckbrief.abschnitte.map((a) => a.id);
+    expect(ids).toContain('naturgefahren');
+    expect(ids).toContain('ortsbild');
     await core.close();
   }, 60_000);
+
+  it('neue Quellen an den fünf goldenen Adressen: laerm-bahn, naturgefahren und kulturgueter laufen ok, Werte festgehalten', async () => {
+    const core = await Core.create({ store: 'memory', log: silentLogger, breaker: new CircuitBreaker() });
+    type Eintrag = { status: Record<string, string>; fehler: Record<string, string>; facts: Record<string, unknown> };
+    const ergebnis: Record<string, Eintrag> = {};
+    const neue = ['laerm-bahn', 'naturgefahren', 'kulturgueter'];
+    for (const g of GOLDENE_ADRESSEN) {
+      const { run } = await core.steckbrief({ adresse: g.adresse }, { useCache: false });
+      const e: Eintrag = { status: {}, fehler: {}, facts: {} };
+      for (const id of neue) {
+        const r = run.adapters.find((a) => a.adapter === id);
+        if (r?.status) e.status[id] = r.status;
+        if (r?.error) e.fehler[id] = r.error;
+      }
+      for (const f of run.facts) if (neue.includes(f.source) || f.key.startsWith('laerm.bahn.')) e.facts[f.key] = f.value;
+      ergebnis[g.name] = e;
+    }
+    mkdirSync('test/live/aufzeichnungen', { recursive: true });
+    writeFileSync('test/live/aufzeichnungen/neue-quellen-golden.json', JSON.stringify(ergebnis, null, 2));
+    for (const g of GOLDENE_ADRESSEN) {
+      for (const id of neue) expect(ergebnis[g.name]?.status[id], `${g.name} ${id}`).toBe('ok');
+      const f = ergebnis[g.name]!.facts;
+      expect(typeof f['naturgefahr.oberflaechenabfluss.betroffen'], g.name).toBe('boolean');
+      expect(typeof f['naturgefahr.hochwasser.aquaprotect_100'], g.name).toBe('boolean');
+      expect(f['naturgefahr.erdbeben.zone'], g.name).toMatch(/^Z[123][ab]?$/);
+      expect(typeof f['kulturgut.kgs.betroffen'], g.name).toBe('boolean');
+      // Bahnlärm: entweder beide Pegel oder der Hinweis, nie ein Default
+      const pegel = typeof f['laerm.bahn.tag_db'] === 'number' && typeof f['laerm.bahn.nacht_db'] === 'number';
+      expect(pegel || typeof f['laerm.bahn.hinweis'] === 'string', `${g.name} Bahnlärm`).toBe(true);
+      console.log(`${g.name}: Bahn ${String(f['laerm.bahn.tag_db'])}/${String(f['laerm.bahn.nacht_db'])} dB · Abfluss ${String(f['naturgefahr.oberflaechenabfluss.betroffen'])} · HQ100 ${String(f['naturgefahr.hochwasser.aquaprotect_100'])} · ${String(f['naturgefahr.erdbeben.zone'])} · KGS ${String(f['kulturgut.kgs.betroffen'])}`);
+    }
+    await core.close();
+  }, 300_000);
+
+  it('kulturgueter: Zytglogge (Bim Zytglogge 3, Bern) trifft den Zeitglockenturm innerhalb von 15 m', async () => {
+    const http = createHttpClient({ retries: 0 });
+    const out = await kulturgueter.resolve({ keys: { lv95_bau: { e: 2600698.025, n: 1199652.118 } }, http, now: () => new Date(), log: silentLogger });
+    const v = (k: string) => out.facts.find((f) => f.key === k)?.value;
+    expect(v('kulturgut.kgs.betroffen')).toBe(true);
+    expect(v('kulturgut.kgs.name')).toBe('Zeitglockenturm');
+    expect(v('kulturgut.kgs.nummer')).toBe(665);
+    expect(v('kulturgut.kgs.distanz_m')).toBeLessThanOrEqual(15);
+  }, 30_000);
 
   it('Baden, Rütistrasse 1: av-parzelle findet per EGRID die Register-Parzelle 3258, der Gebäudepunkt liegt auf 3827', async () => {
     const core = await Core.create({ store: 'memory', log: silentLogger, breaker: new CircuitBreaker() });

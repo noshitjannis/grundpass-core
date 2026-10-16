@@ -1,0 +1,87 @@
+{
+  "_hinweis": "Echte Antwort vom 16.10.2026, identify ch.babs.kulturgueter, tolerance 15 (imageDisplay 100,100,96, mapExtent 100 m), returnGeometry=true, am GWR-Gebäudepunkt Bim Zytglogge 3, Bern (2600698.025/1199652.118, EGID 2246933). Zwei Treffer: Zeitglockenturm (KGS_NR665, 1.4 m) und das Haus Bim Zytglogge 1 (KGS_NR696, 9.4 m).",
+  "results": [
+    {
+      "featureId": "665",
+      "bbox": [
+        2600697.0,
+        1199653.0,
+        2600697.0,
+        1199653.0
+      ],
+      "layerBodId": "ch.babs.kulturgueter",
+      "layerName": "KGS Inventar",
+      "id": "665",
+      "geometry": {
+        "x": 2600697.0,
+        "y": 1199653.0,
+        "spatialReference": {
+          "wkid": 2056
+        }
+      },
+      "attributes": {
+        "kgs_nr": "KGS_NR665",
+        "beschreibung": "Zeitglockenturm",
+        "x": 2600697.0,
+        "y": 1199653.0,
+        "gemeinde": "Bern",
+        "kanton": "BE",
+        "kgs_kategorie": "A.A",
+        "ehemaligegemeinde": "Bern",
+        "adresse_list": "Ohne Adresse",
+        "objektart_de_list": "Militärische Anlagen und Wehrbauten,Stadt- und Ortsbefestigungen",
+        "objektart_fr_list": "installations militaires et de défense,fortifications d'agglomération, lignes fortifiées",
+        "objektart_it_list": "Impianti militari e costruzioni di difesa,Fortificazioni di città e località",
+        "weblinks_list": "http://bern-altstadt.ch/htm/zytgloggeturm.htm,http://de.wikipedia.org/wiki/Zytglogge",
+        "bemerkung_list": "Zeitglockenturm,Wikipedia: Zytglogge",
+        "bild_nr_list": "0001,0002,0004,0005,0007,0014,0015,0016,0017,0018,0019",
+        "bild_url_list": "https://data.geo.admin.ch/ch.babs.kulturgueter/image/kgs_00665_0001.jpg,https://data.geo.admin.ch/ch.babs.kulturgueter/image/kgs_00665_0002.jpg,https://data.geo.admin.ch/ch.babs.kulturgueter/image/kgs_00665_0004.jpg,https://data.geo.admin.ch/ch.babs.kulturgueter/image/kgs_00665_0005.jpg,https://data.geo.admin.ch/ch.babs.kulturgueter/image/kgs_00665_0007.jpg,https://data.geo.admin.ch/ch.babs.kulturgueter/image/kgs_00665_0014.jpg,https://data.geo.admin.ch/ch.babs.kulturgueter/image/kgs_00665_0015.jpg,https://data.geo.admin.ch/ch.babs.kulturgueter/image/kgs_00665_0016.jpg,https://data.geo.admin.ch/ch.babs.kulturgueter/image/kgs_00665_0017.jpg,https://data.geo.admin.ch/ch.babs.kulturgueter/image/kgs_00665_0018.jpg,https://data.geo.admin.ch/ch.babs.kulturgueter/image/kgs_00665_0019.jpg",
+        "copyright": "© Büro ADB",
+        "fotograf": "Arpad Boa",
+        "kurztext": null,
+        "label": "Zeitglockenturm"
+      }
+    },
+    {
+      "featureId": "696",
+      "bbox": [
+        2600706.0,
+        1199647.0,
+        2600706.0,
+        1199647.0
+      ],
+      "layerBodId": "ch.babs.kulturgueter",
+      "layerName": "KGS Inventar",
+      "id": "696",
+      "geometry": {
+        "x": 2600706.0,
+        "y": 1199647.0,
+        "spatialReference": {
+          "wkid": 2056
+        }
+      },
+      "attributes": {
+        "kgs_nr": "KGS_NR696",
+        "beschreibung": "Haus",
+        "x": 2600706.0,
+        "y": 1199647.0,
+        "gemeinde": "Bern",
+        "kanton": "BE",
+        "kgs_kategorie": "A.A",
+        "ehemaligegemeinde": "Bern",
+        "adresse_list": "Bim Zytglogge 1",
+        "objektart_de_list": "Einkaufszentren, Warenhäuser, Läden,Bürgerhäuser,Städt. Wohnhäuser",
+        "objektart_fr_list": "centres commerciaux, grands magasins, magasins,maisons  bourgeoises,immeubles résidentiels",
+        "objektart_it_list": "Centri commerciali, grandi magazzini, negozi,case cittadine,Edifici cittadini d'abitazione",
+        "weblinks_list": "",
+        "bemerkung_list": "",
+        "bild_nr_list": "0001,0002,0004,0006,0010,0011",
+        "bild_url_list": "https://data.geo.admin.ch/ch.babs.kulturgueter/image/kgs_00696_0001.jpg,https://data.geo.admin.ch/ch.babs.kulturgueter/image/kgs_00696_0002.jpg,https://data.geo.admin.ch/ch.babs.kulturgueter/image/kgs_00696_0004.jpg,https://data.geo.admin.ch/ch.babs.kulturgueter/image/kgs_00696_0006.jpg,https://data.geo.admin.ch/ch.babs.kulturgueter/image/kgs_00696_0010.jpg,https://data.geo.admin.ch/ch.babs.kulturgueter/image/kgs_00696_0011.jpg",
+        "copyright": "© Büro ADB",
+        "fotograf": "Samuel Bauhofer",
+        "kurztext": null,
+        "label": "Haus"
+      }
+    }
+  ]
+}

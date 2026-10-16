@@ -5,7 +5,7 @@
  * Erklärungen sind kurz und sachlich. Keine Bewertung, keine Empfehlung. Das macht die App.
  */
 
-export type AbschnittId = 'adresse' | 'gebaeude' | 'heizung' | 'wohnungen' | 'parzelle' | 'zone' | 'solar' | 'oev' | 'laerm' | 'radon' | 'stellen' | 'abgeleitet';
+export type AbschnittId = 'adresse' | 'gebaeude' | 'heizung' | 'wohnungen' | 'parzelle' | 'zone' | 'ortsbild' | 'solar' | 'oev' | 'laerm' | 'naturgefahren' | 'radon' | 'stellen' | 'abgeleitet';
 
 export const ABSCHNITTE: Array<{ id: AbschnittId; titel: string }> = [
   { id: 'adresse', titel: 'Adresse' },
@@ -14,9 +14,11 @@ export const ABSCHNITTE: Array<{ id: AbschnittId; titel: string }> = [
   { id: 'wohnungen', titel: 'Wohnungen' },
   { id: 'parzelle', titel: 'Parzelle' },
   { id: 'zone', titel: 'Zone und Kataster' },
+  { id: 'ortsbild', titel: 'Ortsbild und Denkmal' },
   { id: 'solar', titel: 'Sonne und Dach' },
   { id: 'oev', titel: 'Öffentlicher Verkehr' },
   { id: 'laerm', titel: 'Lärm' },
+  { id: 'naturgefahren', titel: 'Naturgefahren' },
   { id: 'radon', titel: 'Radon' },
   { id: 'stellen', titel: 'Zuständige Stellen' },
   { id: 'abgeleitet', titel: 'Berechnet' },
@@ -82,6 +84,14 @@ export const FELDER: Record<string, FeldDef> = {
   'oereb.aenderungen_hangig_anzahl': { label: 'Hängige Änderungen', abschnitt: 'zone', format: 'int', erklaerung: 'Einträge im Kataster, die noch nicht rechtskräftig sind (laufende Planänderungen mit Vorwirkung).' },
   'oereb.auszug_pdf_url': { label: 'Amtlicher Auszug (PDF)', abschnitt: 'zone', erklaerung: 'Der offizielle ÖREB-Katasterauszug des Kantons zu dieser Parzelle, mit allen Rechtsgrundlagen.' },
 
+  'kulturgut.kgs.betroffen': { label: 'KGS-Inventar (Kulturgüterschutz)', abschnitt: 'ortsbild', erwartet: true, format: 'bool', erklaerung: 'Ob am Gebäudepunkt ein Objekt des Kulturgüterschutz-Inventars des Bundes liegt (Objekte von nationaler Bedeutung, Inventar 2021 des BABS). Der Kulturgüterschutz sichert Objekte für Katastrophen und Konflikte, er ist kein Denkmalschutz im engen Sinn. Geprüft werden Inventarpunkte im Umkreis von 15 m um den Gebäudepunkt; bei grossen Objekten kann der Punkt weiter weg liegen. Ob das Gebäude unter kommunalem oder kantonalem Denkmalschutz steht und ob es im ISOS (Bundesinventar der schützenswerten Ortsbilder) liegt, steht nicht in diesen Daten: Das ISOS ist über geo.admin nur als Ortsbild-Punkt abfragbar, nicht parzellenscharf, und fehlt hier.' },
+  'kulturgut.kgs.name': { label: 'Objekt', abschnitt: 'ortsbild' },
+  'kulturgut.kgs.kategorie': { label: 'KGS-Kategorie', abschnitt: 'ortsbild', erklaerung: 'A = nationale Bedeutung, B = regionale Bedeutung. Der Bundeslayer führt nur die Objekte von nationaler Bedeutung.' },
+  'kulturgut.kgs.objektart': { label: 'Objektart', abschnitt: 'ortsbild' },
+  'kulturgut.kgs.nummer': { label: 'KGS-Nummer', abschnitt: 'ortsbild', format: 'id' },
+  'kulturgut.kgs.distanz_m': { label: 'Distanz zum Inventarpunkt', abschnitt: 'ortsbild', format: 'int', erklaerung: 'Abstand zwischen dem Gebäudepunkt des Gebäuderegisters und dem Inventarpunkt des KGS.' },
+  'kulturgut.kgs.weitere_im_umkreis': { label: 'Weitere KGS-Objekte im Umkreis', abschnitt: 'ortsbild', format: 'int', erklaerung: 'Weitere Inventarpunkte innerhalb von 15 m, zum Beispiel in dicht bebauten Altstädten.' },
+
   'solar.klasse_text': { label: 'Solareignung', abschnitt: 'solar', erwartet: true, erklaerung: 'Eignung der besten Dachfläche nach Sonnendach.ch: gering, mittel, gut, sehr gut, hervorragend.' },
   'solar.dachflaeche_m2': { label: 'Dachfläche', abschnitt: 'solar', format: 'int' },
   'solar.segmente': { label: 'Dachflächen', abschnitt: 'solar', format: 'int', erklaerung: 'Anzahl Teilflächen des Dachs im Datensatz.' },
@@ -98,11 +108,19 @@ export const FELDER: Record<string, FeldDef> = {
 
   'laerm.strasse.tag_db': { label: 'Strassenlärm Tag', abschnitt: 'laerm', format: 'dezimal', erklaerung: 'Beurteilungspegel Lr des Strassenverkehrs am Tag (6 bis 22 Uhr) am Gebäudepunkt. Modellrechnung des BAFU (sonBASE, Stand 2021), keine Messung. Zum Vergleich: In einer reinen Wohnzone (ES II) gilt tags ein Grenzwert von 60 dB.' },
   'laerm.strasse.nacht_db': { label: 'Strassenlärm Nacht', abschnitt: 'laerm', format: 'dezimal', erklaerung: 'Beurteilungspegel Lr in der Nacht (22 bis 6 Uhr), gleiche Quelle. In einer reinen Wohnzone (ES II) gilt nachts 50 dB.' },
-  'laerm.empfindlichkeitsstufe': { label: 'Empfindlichkeitsstufe', abschnitt: 'laerm', erwartet: true, erklaerung: 'ES I bis IV aus dem ÖREB-Kataster. Sie legt fest, wie viel Lärm an diesem Ort zulässig ist: ES I Erholungszonen, ES II Wohnzonen, ES III Misch- und Gewerbezonen, ES IV Industrie. Daraus ergeben sich die Grenzwerte unten.' },
-  'laerm.strasse.grenzwert_tag_db': { label: 'Grenzwert Tag', abschnitt: 'laerm', format: 'int', erklaerung: 'Immissionsgrenzwert der Lärmschutz-Verordnung (Anhang 3, Strassenverkehr) für die Empfindlichkeitsstufe dieser Parzelle. Liegt der Pegel darüber, gilt der Ort als lärmbelastet.' },
-  'laerm.strasse.grenzwert_nacht_db': { label: 'Grenzwert Nacht', abschnitt: 'laerm', format: 'int' },
+  'laerm.bahn.tag_db': { label: 'Bahnlärm Tag', abschnitt: 'laerm', erwartet: true, format: 'dezimal', erklaerung: 'Beurteilungspegel Lr des Eisenbahnverkehrs am Tag (6 bis 22 Uhr) am Gebäudepunkt, aus dem Emissionskataster 2021 des BAFU (SBB, BLS, SOB, SZU, Zentralbahn, RhB), keine Messung. Trams zählen nicht dazu, sie gelten als Strassenverkehr. Wo die Karte nichts kartiert, steht das als Lücke «keine Bahnlärm-Belastung kartiert», nicht als Wert.' },
+  'laerm.bahn.nacht_db': { label: 'Bahnlärm Nacht', abschnitt: 'laerm', format: 'dezimal', erklaerung: 'Beurteilungspegel Lr des Eisenbahnverkehrs in der Nacht (22 bis 6 Uhr), gleiche Quelle. Nachts zählen vor allem Güterzüge.' },
+  'laerm.empfindlichkeitsstufe': { label: 'Empfindlichkeitsstufe', abschnitt: 'laerm', erwartet: true, erklaerung: 'ES I bis IV aus dem ÖREB-Kataster. Sie legt fest, wie viel Lärm an diesem Ort zulässig ist: ES I Erholungszonen, ES II Wohnzonen, ES III Misch- und Gewerbezonen, ES IV Industrie. Daraus ergeben sich die Grenzwerte unten, je einer für Strasse und Bahn.' },
+  'laerm.strasse.grenzwert_tag_db': { label: 'Grenzwert Strasse Tag', abschnitt: 'laerm', format: 'int', erklaerung: 'Immissionsgrenzwert der Lärmschutz-Verordnung (Anhang 3, Strassenverkehr) für die Empfindlichkeitsstufe dieser Parzelle. Liegt der Strassenlärm darüber, gilt der Ort als lärmbelastet.' },
+  'laerm.strasse.grenzwert_nacht_db': { label: 'Grenzwert Strasse Nacht', abschnitt: 'laerm', format: 'int' },
+  'laerm.bahn.grenzwert_tag_db': { label: 'Grenzwert Bahn Tag', abschnitt: 'laerm', format: 'int', erklaerung: 'Immissionsgrenzwert der Lärmschutz-Verordnung (Anhang 4, Eisenbahn) für die Empfindlichkeitsstufe dieser Parzelle; die Zahlen sind dieselben wie für die Strasse, aber der Bahnlärm wird separat beurteilt. Steht nur, wenn am Punkt Bahnlärm kartiert ist.' },
+  'laerm.bahn.grenzwert_nacht_db': { label: 'Grenzwert Bahn Nacht', abschnitt: 'laerm', format: 'int' },
   'laerm.empfindlichkeitsstufe_text': { label: 'Eintrag im Kataster', abschnitt: 'laerm' },
   'laerm.zustaendig': { label: 'Zuständig', abschnitt: 'laerm', erklaerung: 'Stelle, die laut Kataster die Empfindlichkeitsstufe festlegt, meist die Gemeinde.' },
+
+  'naturgefahr.oberflaechenabfluss.betroffen': { label: 'Oberflächenabfluss', abschnitt: 'naturgefahren', erwartet: true, format: 'bool', erklaerung: 'Regenwasser, das bei Starkregen über das Gelände fliesst, unabhängig von Bächen und Flüssen. Die Gefährdungskarte des BAFU (schweizweit, Modellrechnung ohne Prüfung im Gelände, Ereignisse seltener als alle 100 Jahre, Stand 2018) sagt, ob der Gebäudepunkt in einer potenziell betroffenen Fläche liegt. Ihre drei Klassen nach Fliesstiefe (bis 10 cm, 10 bis 25 cm, über 25 cm) gibt der Dienst nicht heraus, darum nur ja oder nein. Nicht rechtsverbindlich.' },
+  'naturgefahr.hochwasser.aquaprotect_100': { label: 'Hochwasser (Aquaprotect, 100 Jahre)', abschnitt: 'naturgefahren', erwartet: true, format: 'bool', erklaerung: 'Grobe schweizweite Übersicht des BAFU (Aquaprotect, Stand 2008) der Gebiete, die ein Hochwasser mit Wiederkehrperiode 100 Jahre potenziell überschwemmt. Einfache Methode, ohne Schutzbauten, nur für Gebiete ohne kantonale Gefahrenkarte gedacht. «nein» heisst nicht, dass keine Hochwassergefahr besteht. Die kantonalen Gefahrenkarten (Hochwasser, Rutschung, Sturz, Lawine) gibt es nicht schweizweit in einem Dienst, sie fehlen hier.' },
+  'naturgefahr.erdbeben.zone': { label: 'Erdbebenzone (SIA 261)', abschnitt: 'naturgefahren', erwartet: true, erklaerung: 'Erdbebenzone nach der Baunorm SIA 261, Karte des BAFU. Z1a und Z1b sind die Zonen mit der geringsten, Z3b mit der höchsten Erdbebengefährdung in der Schweiz (Wallis, Basel). Die Zone gibt vor, für welche Bodenbeschleunigung Tragwerke bemessen werden; über das einzelne Gebäude sagt sie nichts.' },
 
   'radon.wahrscheinlichkeit_prozent': { label: 'Radon-Wahrscheinlichkeit', abschnitt: 'radon', erwartet: true, format: 'int', erklaerung: 'Wahrscheinlichkeit laut BAG-Karte, dass in einem Gebäude an diesem Ort der Referenzwert von 300 Bq/m³ überschritten wird. Keine Messung an diesem Haus.' },
   'radon.einstufung': { label: 'Einstufung', abschnitt: 'radon', erklaerung: 'Unsere Lesehilfe: unter 10 % gering, unter 20 % mittel, ab 20 % erhöht. Bei erhöht lohnt sich eine Messung im Keller, besonders vor einem Umbau.' },

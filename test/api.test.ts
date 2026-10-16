@@ -38,8 +38,15 @@ describe('GET /v1/steckbrief', () => {
     expect(typ.url).toContain('find?layer=ch.bfs.gebaeude_wohnungs_register');
     // Baujahr fehlt im Register: Lücke, kein erfundener Wert
     expect(s.luecken.find((l) => l.key === 'gebaeude.baujahr')).toMatchObject({ grund: 'fehlt_im_register', quelle: 'gwr' });
-    // Alle neun Adapter sind verifiziert (Lärm und ÖREB seit 15.10.2026, zuständige Stellen seit 16.10.2026), darum nirgends das experimentell-Flag
-    expect(s.quellen.map((q) => q.experimentell)).toEqual([false, false, false, false, false, false, false, false, false]);
+    // Alle zwölf Adapter sind verifiziert (Lärm und ÖREB seit 15.10.2026, zuständige Stellen, Bahnlärm, Naturgefahren und KGS seit 16.10.2026), darum nirgends das experimentell-Flag
+    expect(s.quellen).toHaveLength(12);
+    expect(s.quellen.map((q) => q.experimentell)).toEqual(new Array(12).fill(false));
+    const idsAlle = s.abschnitte.map((a) => a.id);
+    expect(idsAlle).toContain('naturgefahren');
+    expect(idsAlle).toContain('ortsbild');
+    expect(idsAlle.indexOf('ortsbild')).toBeGreaterThan(idsAlle.indexOf('zone'));
+    expect(idsAlle.indexOf('naturgefahren')).toBeGreaterThan(idsAlle.indexOf('laerm'));
+    expect(s.abschnitte.find((a) => a.id === 'ortsbild')?.felder.map((f) => [f.key, f.value])).toEqual([['kulturgut.kgs.betroffen', false]]);
     expect(s.attribution.some((a) => a.includes('BFS'))).toBe(true);
     // Text-Ausgabe läuft durch
     const text = steckbriefAlsText(s);

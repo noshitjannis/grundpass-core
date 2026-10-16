@@ -1,0 +1,4 @@
+{
+  "_hinweis": "Echte Antwort vom 16.10.2026, WMS GetFeatureInfo ch.bafu.aquaprotect_100, INFO_FORMAT text/plain, 3x3 px, I=1 J=1, Zürich Bahnhofstrasse-Gegend (2683400/1247900). Ein Feature ohne Attribute heisst: Punkt liegt im Überschwemmungsgebiet HQ100 (Aquaprotect, Datenstand 18.12.2008).",
+  "body": "GetFeatureInfo results:\n\nLayer 'ch.bafu.aquaprotect_100'\n  Feature 2286: \n"
+}

@@ -199,7 +199,7 @@ describe('resolve', () => {
 });
 
 describe('resolve, Ende zu Ende mit Fixtures (Wabern)', () => {
-  it('Adresse rein, alle neun Adapter plus derived, Subject egid:1271632', async () => {
+  it('Adresse rein, alle zwölf Adapter plus derived, Subject egid:1271632', async () => {
     const calls: string[] = [];
     const h = createHttpClient({ fetch: fakeFetch(wabernRoutes(), calls), retries: 0 });
     const registry = new AdapterRegistry(adapters, { disabledFromEnv: false });
@@ -209,7 +209,7 @@ describe('resolve, Ende zu Ende mit Fixtures (Wabern)', () => {
     expect(r.subject).toBe('egid:1271632');
     expect(r.partial).toBe(false);
     expect(r.adapters.filter((a) => a.status === 'ok').map((a) => a.adapter).sort()).toEqual(
-      ['av-parzelle', 'geocode', 'gwr', 'laerm-strasse', 'oereb', 'oev-gueteklasse', 'radon', 'sonnendach', 'zustaendige-stellen'],
+      ['av-parzelle', 'geocode', 'gwr', 'kulturgueter', 'laerm-bahn', 'laerm-strasse', 'naturgefahren', 'oereb', 'oev-gueteklasse', 'radon', 'sonnendach', 'zustaendige-stellen'],
     );
     const stageOf = Object.fromEntries(r.adapters.map((a) => [a.adapter, a.stage]));
     expect(stageOf.geocode).toBe(0);
@@ -229,6 +229,13 @@ describe('resolve, Ende zu Ende mit Fixtures (Wabern)', () => {
     expect(v('zone.bezeichnung')).toBe('Wohnzone (Art. 29 BauR), Bauklasse IIa (Art. 53 BauR)');
     expect(v('laerm.empfindlichkeitsstufe')).toBeUndefined(); // Köniz führt die Stufe nicht im Kataster, es wird keine erfunden
     expect(v('laerm.strasse.grenzwert_tag_db')).toBeUndefined();
+    expect(v('laerm.bahn.tag_db')).toBe(16.4);
+    expect(v('laerm.bahn.nacht_db')).toBe(6.2);
+    expect(v('laerm.bahn.grenzwert_tag_db')).toBeUndefined(); // ohne Stufe kein Grenzwert, auch nicht für die Bahn
+    expect(v('naturgefahr.oberflaechenabfluss.betroffen')).toBe(false);
+    expect(v('naturgefahr.hochwasser.aquaprotect_100')).toBe(false);
+    expect(v('naturgefahr.erdbeben.zone')).toBe('Z1b');
+    expect(v('kulturgut.kgs.betroffen')).toBe(false);
     expect(v('gebaeude.alter_jahre')).toBeTypeOf('number');
     expect(v('wohnungen.flaeche_total_m2')).toBe(150);
     expect(r.facts.find((f) => f.key === 'parzelle.bebauter_anteil_prozent')?.derived_from).toEqual(['gebaeude.grundflaeche_m2', 'parzelle.flaeche_grundbuch_m2']);
