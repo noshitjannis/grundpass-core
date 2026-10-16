@@ -32,6 +32,8 @@ export type CanaryReport = {
   /** Pro Adapter: wie viele der Adressen ok/cached waren. */
   adapter_gesundheit: Record<string, { ok: number; total: number }>;
   benachrichtigt: boolean;
+  /** Adressen (Namen), deren Baseline in diesem Lauf auf Anweisung neu gesetzt wurde (Option baselineErneuern). */
+  baseline_erneuert: string[];
 };
 
 type Baseline = Record<string, Fact['value']>;
@@ -48,10 +50,15 @@ function stabile(facts: Fact[]): Baseline {
 /**
  * Der Canary: alle goldenen Adressen ohne Cache durch den Resolver, Ergebnis gegen Baseline prüfen,
  * Alarme sammeln, einmal benachrichtigen (dedupliziert über einen Hash der Alarmliste).
+ *
+ * `baselineErneuern`: true für alle Adressen oder eine Liste von Namen (`GoldeneAdresse.name`, auch die Adresse selbst gilt).
+ * Für diese Adressen wird die Baseline mit den aktuellen stabilen Fakten überschrieben, es gibt in diesem Lauf keinen
+ * Drift-Alarm, im Report steht `baseline_neu: true`. Nötig, wenn ein Register oder ein Adapter einen stabilen Fakt
+ * korrigiert hat (Baden: av-parzelle meldete nach Version 3 die Register-Parzelle 3258 statt 3827, bei jedem Lauf).
  */
 export async function runCanary(
   core: Core,
-  opts: { adressen?: GoldeneAdresse[]; sink?: AlertSink; notify?: boolean } = {},
+  opts: { adressen?: GoldeneAdresse[]; sink?: AlertSink; notify?: boolean; baselineErneuern?: boolean | string[] } = {},
 ): Promise<CanaryReport> {
   const adressen = opts.adressen ?? GOLDENE_ADRESSEN;
   const sink = opts.sink ?? createNtfySink({ log: core.log });
@@ -60,6 +67,9 @@ export async function runCanary(
   const alarme: Alarm[] = [];
   const reports: CanaryAdresseReport[] = [];
   const gesundheit: Record<string, { ok: number; total: number }> = {};
+  const erneuert: string[] = [];
+  const sollErneuern = (g: GoldeneAdresse) =>
+    opts.baselineErneuern === true || (Array.isArray(opts.baselineErneuern) && (opts.baselineErneuern.includes(g.name) || opts.baselineErneuern.includes(g.adresse)));
 
   for (const g of adressen) {
     const run = await core.resolve({ adresse: g.adresse }, { useCache: false });
@@ -94,7 +104,14 @@ export async function runCanary(
     const baseline = await core.store.getSnapshot<Baseline>(key);
     const drift: CanaryAdresseReport['drift'] = [];
     let baselineNeu = false;
-    if (!baseline) {
+    if (sollErneuern(g)) {
+      // Auf Anweisung: aktueller Stand wird die neue Baseline, keine Drift-Prüfung in diesem Lauf
+      if (Object.keys(jetzt).length) {
+        await core.store.setSnapshot(key, jetzt);
+        baselineNeu = true;
+        erneuert.push(g.name);
+      }
+    } else if (!baseline) {
       if (Object.keys(jetzt).length) {
         await core.store.setSnapshot(key, jetzt);
         baselineNeu = true;
@@ -119,6 +136,7 @@ export async function runCanary(
     alarme,
     adapter_gesundheit: gesundheit,
     benachrichtigt: false,
+    baseline_erneuert: erneuert,
   };
 
   // Benachrichtigen, aber nicht jede Stunde dasselbe.
@@ -137,6 +155,6 @@ export async function runCanary(
   }
 
   await core.store.setSnapshot('canary:last', report);
-  core.log.info('canary fertig', { ok: report.ok, alarme: alarme.length, dauer_ms: report.dauer_ms });
+  core.log.info('canary fertig', { ok: report.ok, alarme: alarme.length, dauer_ms: report.dauer_ms, baseline_erneuert: erneuert });
   return report;
 }

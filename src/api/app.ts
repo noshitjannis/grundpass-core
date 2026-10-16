@@ -12,7 +12,7 @@ import type { CanaryReport } from '../canary/run.ts';
  *   GET  /v1/lauf/:run_id            kompletter Lauf (Debug, Diff)
  *   GET  /v1/sources                 Manifeste, Plan, Schalter, Breaker
  *   GET  /v1/status                  Gesundheit: letzter Canary, Breaker
- *   POST /internal/canary            Canary auslösen (Bearer CANARY_TOKEN)
+ *   POST /internal/canary            Canary auslösen (Bearer CANARY_TOKEN); ?baseline=erneuern[&adresse=Name] setzt die Baseline neu
  *   POST /internal/adapters/:id/:on  Adapter ein/aus (Bearer CANARY_TOKEN)
  */
 export function createApp(core: Core) {
@@ -92,7 +92,13 @@ export function createApp(core: Core) {
 
   app.post('/internal/canary', async (c) => {
     if (!auth(c)) return c.json({ error: 'nicht erlaubt' }, 401);
-    const report = await runCanary(core);
+    // ?baseline=erneuern setzt die Baseline aller Adressen neu, mit &adresse=Name (mehrfach möglich) nur die genannten
+    const opts: Parameters<typeof runCanary>[1] = {};
+    if (c.req.query('baseline') === 'erneuern') {
+      const namen = c.req.queries('adresse') ?? [];
+      opts.baselineErneuern = namen.length ? namen : true;
+    }
+    const report = await runCanary(core, opts);
     return c.json(report, report.ok ? 200 : 500);
   });
 
