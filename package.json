@@ -24,6 +24,7 @@
     "start": "tsx src/api/server.ts",
     "gp": "tsx src/cli.ts",
     "canary": "tsx src/canary/cli.ts",
+    "canary:kantone": "tsx src/canary/kantone-cli.ts",
     "typecheck": "tsc --noEmit",
     "test": "vitest run",
     "test:watch": "vitest",

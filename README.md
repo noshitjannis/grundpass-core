@@ -54,6 +54,7 @@ pnpm dev                                  # API auf http://localhost:3000/v1/ste
 pnpm check                                # Typecheck + 40 Offline-Tests
 pnpm test:live                            # gegen die echten APIs (braucht Netz)
 pnpm canary                               # goldene Adressen durchlaufen
+pnpm canary:kantone                       # 26 Kantons-Referenzadressen durch geocode, gwr und oereb
 ```
 
 Konfiguration über `.env` (siehe `.env.example`). Ohne `.env` läuft alles lokal mit PGlite.

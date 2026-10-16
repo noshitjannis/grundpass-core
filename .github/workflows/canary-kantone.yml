@@ -1,0 +1,25 @@
+name: canary-kantone
+
+# Täglich alle 26 Kantons-Referenzadressen durch geocode, gwr und oereb (pnpm canary:kantone). Meldet per ntfy, wenn ein
+# angebundener Kanton keine Zone liefert. NTFY_TOPIC ist ein Repository-Secret; fehlt es, wird nur geloggt.
+on:
+  schedule:
+    - cron: '41 5 * * *'
+  workflow_dispatch:
+
+jobs:
+  kantone:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 10
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm canary:kantone
+        env:
+          NTFY_TOPIC: ${{ secrets.NTFY_TOPIC }}

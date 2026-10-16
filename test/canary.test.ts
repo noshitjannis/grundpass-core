@@ -1,9 +1,11 @@
 import { describe, expect, it } from 'vitest';
 import { runCanary } from '../src/canary/run.ts';
+import { runKantonsCanary } from '../src/canary/kantone.ts';
+import { geocode, gwr, oereb } from '../src/adapters/index.ts';
 import { Core } from '../src/core.ts';
 import { silentLogger } from '../src/log.ts';
 import { CircuitBreaker } from '../src/resolver/breaker.ts';
-import { fakeFetch, wabernRoutes } from './helpers/fixtures.ts';
+import { fakeFetch, fixture, wabernRoutes } from './helpers/fixtures.ts';
 import { createHttpClient } from '../src/http/client.ts';
 
 const adressen = [{ name: 'Wabern', adresse: 'Maygutstrasse 26, 3084 Wabern', kanton: 'BE' }];
@@ -124,3 +126,66 @@ describe('canary', () => {
     await core.close();
   });
 });
+
+describe('kantons-canary', () => {
+  const wabern = { name: 'Bern Rathaus', adresse: 'Maygutstrasse 26, 3084 Wabern', kanton: 'BE' };
+  const gwrMit = (kanton: string) => {
+    const copy = JSON.parse(JSON.stringify((fixture('gwr-1271632.json')))) as { results: Array<{ attributes: Record<string, unknown> }> };
+    copy.results[0]!.attributes.gdekt = kanton;
+    return copy;
+  };
+  const coreMit = async (routen: Parameters<typeof fakeFetch>[0]) =>
+    Core.create({ store: 'memory', adapters: [geocode, gwr, oereb], http: createHttpClient({ fetch: fakeFetch([...routen, ...wabernRoutes()]), retries: 0 }), log: silentLogger, breaker: new CircuitBreaker({ threshold: 99 }) });
+
+  it('ok, wenn der angebundene Kanton eine Zone liefert: kein Alarm, keine Nachricht, nur drei Adapter im Lauf', async () => {
+    const core = await coreMit([]);
+    const gesendet: string[] = [];
+    const r = await runKantonsCanary(core, { adressen: [wabern], sink: async (t) => void gesendet.push(t) });
+    expect(r.ok).toBe(true);
+    expect(r.alarme).toEqual([]);
+    expect(gesendet).toEqual([]);
+    expect(r.kantone[0]).toMatchObject({ kanton: 'BE', erwartet: 'verifiziert', status: 'ok', befund: 'ok', zone: 'Wohnzone (Art. 29 BauR), Bauklasse IIa (Art. 53 BauR)', erkennung: 'subcode' });
+    await core.close();
+  });
+
+  it('leer bei 204 (EGRID unbekannt), failed bei 500 mit Fehlerart, Nachricht mit Kanton und Befund, Exit über ok', async () => {
+    const leer = await coreMit([{ match: (u) => u.hostname === 'www.oereb2.apps.be.ch', body: null, status: 204 }]);
+    const gesendet: Array<[string, string, string]> = [];
+    const r1 = await runKantonsCanary(leer, { adressen: [wabern], sink: async (t, x, s) => void gesendet.push([t, x, s]) });
+    expect(r1.ok).toBe(false);
+    expect(r1.kantone[0]).toMatchObject({ befund: 'leer', status: 'failed', error_kind: 'empty' });
+    expect(r1.alarme[0]).toMatch(/^BE \(Bern Rathaus\): leer · empty/);
+    expect(gesendet[0]?.[2]).toBe('warn');
+    await leer.close();
+
+    const kaputt = await coreMit([{ match: (u) => u.hostname === 'www.oereb2.apps.be.ch', body: 'kaputt', status: 500 }]);
+    const r2 = await runKantonsCanary(kaputt, { adressen: [wabern], sink: async (t, x, s) => void gesendet.push([t, x, s]) });
+    expect(r2.kantone[0]).toMatchObject({ befund: 'failed', error_kind: 'http' });
+    expect(r2.alarme[0]).toMatch(/failed · http/);
+    expect(gesendet[1]?.[2]).toBe('error');
+    expect(gesendet[1]?.[0]).toBe('grundpass Kantone: 1 von 1 mit Befund');
+    await kaputt.close();
+  });
+
+  it('kein_dienst (NE): Adapter ausser_kanton, Befund kein_dienst, kein Alarm; falscher Kanton und vorgelagerter Ausfall werden gemeldet', async () => {
+    const ne = await coreMit([{ match: (u) => u.searchParams.get('layer') === 'ch.bfs.gebaeude_wohnungs_register', body: gwrMit('NE') }]);
+    const r1 = await runKantonsCanary(ne, { adressen: [{ ...wabern, kanton: 'NE', name: 'Neuchâtel Hôtel de Ville' }], sink: async () => {} });
+    expect(r1.ok).toBe(true);
+    expect(r1.kantone[0]).toMatchObject({ befund: 'kein_dienst', status: 'ausser_kanton', erwartet: 'kein_dienst' });
+    await ne.close();
+
+    const falsch = await coreMit([]);
+    const r2 = await runKantonsCanary(falsch, { adressen: [{ ...wabern, kanton: 'ZH' }], sink: async () => {} });
+    expect(r2.kantone[0]).toMatchObject({ befund: 'falscher_kanton', fehler: 'GWR nennt Kanton BE' });
+    expect(r2.ok).toBe(false);
+    await falsch.close();
+
+    const ohneGwr = await coreMit([{ match: (u) => u.searchParams.get('layer') === 'ch.bfs.gebaeude_wohnungs_register', body: { results: [] } }]);
+    const r3 = await runKantonsCanary(ohneGwr, { adressen: [wabern], sink: async () => {} });
+    expect(r3.kantone[0]).toMatchObject({ befund: 'vorgelagert', status: 'skipped' });
+    expect(r3.kantone[0]?.fehler).toMatch(/^gwr: /);
+    expect(r3.alarme[0]).toMatch(/vorgelagert · gwr:/);
+    await ohneGwr.close();
+  });
+});
+
