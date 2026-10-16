@@ -199,7 +199,7 @@ describe('resolve', () => {
 });
 
 describe('resolve, Ende zu Ende mit Fixtures (Wabern)', () => {
-  it('Adresse rein, alle acht Adapter plus derived, Subject egid:1271632', async () => {
+  it('Adresse rein, alle neun Adapter plus derived, Subject egid:1271632', async () => {
     const calls: string[] = [];
     const h = createHttpClient({ fetch: fakeFetch(wabernRoutes(), calls), retries: 0 });
     const registry = new AdapterRegistry(adapters, { disabledFromEnv: false });
@@ -209,7 +209,7 @@ describe('resolve, Ende zu Ende mit Fixtures (Wabern)', () => {
     expect(r.subject).toBe('egid:1271632');
     expect(r.partial).toBe(false);
     expect(r.adapters.filter((a) => a.status === 'ok').map((a) => a.adapter).sort()).toEqual(
-      ['av-parzelle', 'geocode', 'gwr', 'laerm-strasse', 'oereb', 'oev-gueteklasse', 'radon', 'sonnendach'],
+      ['av-parzelle', 'geocode', 'gwr', 'laerm-strasse', 'oereb', 'oev-gueteklasse', 'radon', 'sonnendach', 'zustaendige-stellen'],
     );
     const stageOf = Object.fromEntries(r.adapters.map((a) => [a.adapter, a.stage]));
     expect(stageOf.geocode).toBe(0);
@@ -217,8 +217,12 @@ describe('resolve, Ende zu Ende mit Fixtures (Wabern)', () => {
     expect(stageOf['av-parzelle']).toBe(2);
     expect(stageOf.sonnendach).toBe(2);
     expect(stageOf.oereb).toBe(2); // braucht egrid und kanton, beide aus dem GWR
+    expect(stageOf['zustaendige-stellen']).toBe(2);
 
     const v = (key: string) => r.facts.find((f) => f.key === key)?.value;
+    expect(v('grundbuch.kreis')).toBe('Bern-Mittelland');
+    expect(v('vermessung.geometer_firma')).toBe('bbp geomatik ag');
+    expect(v('zone.zustaendig')).toBe('Gemeinde Köniz');
     expect(v('parzelle.flaeche_m2')).toBe(764); // echte Geometrie, Shoelace 764.39 m²
     expect(v('parzelle.flaeche_grundbuch_m2')).toBe(761); // amtlich, aus dem ÖREB-Kataster
     expect(v('parzelle.bebauter_anteil_prozent')).toBe(18.3); // 139 / 761, Grundbuchfläche vor Geometrie

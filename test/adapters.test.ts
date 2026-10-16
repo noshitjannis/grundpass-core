@@ -1,6 +1,7 @@
 import { describe, expect, it } from 'vitest';
-import { avParzelle, geocode, gwr, laermStrasse, oereb, oevGueteklasse, radon, sonnendach } from '../src/adapters/index.ts';
-import { parseStufe, themaSlug } from '../src/adapters/oereb.ts';
+import { avParzelle, geocode, gwr, laermStrasse, oereb, oevGueteklasse, radon, sonnendach, zustaendigeStellen } from '../src/adapters/index.ts';
+import { amtAdresse, parseStufe, themaSlug } from '../src/adapters/oereb.ts';
+import { adresseAusZeilen } from '../src/adapters/zustaendige-stellen.ts';
 import { geojsonAreaM2, pointInGeometry } from '../src/adapters/av-parzelle.ts';
 import { FELDER } from '../src/views/felder.ts';
 import { EmptyResultError, SchemaDriftError } from '../src/errors.ts';
@@ -420,6 +421,45 @@ describe('oereb', () => {
     expect(fact(out, 'parzelle.flaeche_grundbuch_m2')).toBe(26087);
   });
 
+  it('Version 2: zuständige Stellen aus ResponsibleOffice und PLRCadastreAuthority, an allen vier Fixtures', async () => {
+    expect(oereb.manifest.version).toBe(2);
+    const be = await oereb.resolve(ctx('oereb-be-wabern.json', 'www.oereb2.apps.be.ch', { egrid: 'CH586746359755', kanton: 'BE' }));
+    expect(fact(be, 'zone.zustaendig')).toBe('Gemeinde Köniz');
+    expect(fact(be, 'zone.zustaendig_url')).toBe('https://www.koeniz.ch');
+    expect(fact(be, 'laerm.zustaendig')).toBeUndefined(); // Köniz führt keine Lärmstufe im Kataster
+    expect(fact(be, 'oereb.sicherheitszonenplan.zustaendig')).toBe('Bundesamt für Zivilluftfahrt BAZL');
+    expect(fact(be, 'oereb.sicherheitszonenplan.zustaendig_url')).toBe('https://www.bazl.admin.ch/de');
+    expect(fact(be, 'oereb.gewaesserschutzbereiche.zustaendig')).toBe('Amt für Wasser und Abfall des Kantons Bern');
+    expect(fact(be, 'oereb.kataster_stelle')).toBe('Amt für Geoinformation');
+    expect(fact(be, 'oereb.kataster_adresse')).toBe('Reiterstrasse 11, 3013 Bern');
+    expect(fact(be, 'oereb.kataster_url')).toBe('https://www.be.ch/oerebk');
+
+    const ag = await oereb.resolve(ctx('oereb-ag-baden.json', 'api.geo.ag.ch', { egrid: 'CH959983779505', kanton: 'AG' }));
+    expect(fact(ag, 'zone.zustaendig')).toBe('Baden');
+    expect(fact(ag, 'zone.zustaendig_url')).toBe('https://www.baden.ch');
+    expect(fact(ag, 'laerm.zustaendig')).toBe('Baden');
+    expect(fact(ag, 'laerm.zustaendig_url')).toBe('https://www.baden.ch');
+    expect(fact(ag, 'oereb.kataster_stelle')).toBe('Vermessungsamt');
+    expect(fact(ag, 'oereb.kataster_adresse')).toBe('Bahnhofplatz 3c, 5001 Aarau');
+
+    const zh = await oereb.resolve(ctx('oereb-zh-zuerich.json', 'maps.zh.ch', { egrid: 'CH139977917088', kanton: 'ZH' }));
+    expect(fact(zh, 'zone.zustaendig')).toBe('Stadt Zürich');
+    expect(fact(zh, 'laerm.zustaendig')).toBe('Stadt Zürich');
+    expect(fact(zh, 'oereb.baulinien.zustaendig')).toBe('Stadt Zürich');
+    expect(fact(zh, 'oereb.kataster_stelle')).toBe('Amt für Raumentwicklung');
+    expect(fact(zh, 'oereb.kataster_adresse')).toBe('Stampfenbachstrasse 12, 8090 Zürich'); // Line1/Line2 (Baudirektion) bleiben weg
+
+    const wi = await oereb.resolve(ctx('oereb-zh-winterthur.json', 'maps.zh.ch', { egrid: 'CH807306583219', kanton: 'ZH' }));
+    expect(fact(wi, 'zone.zustaendig')).toBe('Stadt Winterthur');
+    expect(fact(wi, 'laerm.zustaendig')).toBe('Stadt Winterthur');
+    expect(fact(wi, 'oereb.belastete_standorte.zustaendig')).toBe('Amt für Abfall, Wasser, Energie und Luft');
+    expect(fact(wi, 'oereb.belastete_standorte.zustaendig_url')).toBe('http://www.altlasten.zh.ch'); // Leerzeichen am Ende der Quelle getrimmt
+    // amtAdresse: nur, was da ist
+    expect(amtAdresse({ Street: 'Stadthaus', Number: null, PostalCode: '8021', City: 'Zürich' })).toBe('Stadthaus, 8021 Zürich');
+    expect(amtAdresse({ City: 'Bern' })).toBe('Bern');
+    expect(amtAdresse(undefined)).toBeNull();
+  });
+
   it('204 ohne Inhalt heisst EGRID unbekannt: Lücke (EmptyResultError), kein Ausfall', async () => {
     const http = httpFor([{ match: () => true, body: null, status: 204 }]);
     await expect(oereb.resolve({ keys: { egrid: 'CH586746359755', kanton: 'ZH' }, http, now: () => new Date(), log: silentLogger })).rejects.toBeInstanceOf(EmptyResultError);
@@ -447,5 +487,86 @@ describe('oereb', () => {
     expect(themaSlug('ch.BelasteteStandorte')).toBe('belastete_standorte');
     expect(themaSlug('ch.ZH.Baulinien')).toBe('baulinien');
     expect(themaSlug('ch.Grundwasserschutzzonen')).toBe('grundwasserschutzzonen');
+  });
+});
+
+describe('zustaendige-stellen', () => {
+  const punkt = { e: 2601737, n: 1197338 };
+  const mit = (datei: string, calls: string[] = []): AdapterContext => ({ keys: { lv95_bau: punkt }, http: httpFor([{ match: (u) => u.pathname.endsWith('/identify'), body: fixture(datei) }], calls), now: () => new Date(), log: silentLogger });
+  const feld = (out: { facts: Array<{ key: string }> }, key: string) => out.facts.find((f) => f.key === key);
+
+  it('Manifest: braucht den Gebäudepunkt, liefert grundbuch.* und vermessung.geometer_*, 90 Tage', () => {
+    expect(zustaendigeStellen.manifest.needs).toEqual(['lv95_bau']);
+    expect(zustaendigeStellen.manifest.provides).toEqual(['grundbuch.', 'vermessung.geometer_']);
+    expect(zustaendigeStellen.manifest.ttlDays).toBe(90);
+  });
+
+  it('Wabern: genau ein Grundbuchkreis mit Kontakt, Geometer ohne Personenname, ein Request auf beide Layer', async () => {
+    const calls: string[] = [];
+    const out = await zustaendigeStellen.resolve(mit('stellen-wabern.json', calls));
+    expect(calls).toHaveLength(1);
+    expect(calls[0]).toContain('layers=all%3Ach.swisstopo-vd.geometa-grundbuch%2Cch.swisstopo-vd.geometa-nfgeom');
+    expect(calls[0]).toContain('tolerance=0');
+    expect(calls[0]).toContain('returnGeometry=false');
+    expect(fact(out, 'grundbuch.kreis')).toBe('Bern-Mittelland');
+    expect(fact(out, 'grundbuch.ortsteil')).toBe('Köniz');
+    expect(fact(out, 'grundbuch.fuehrung')).toBe('eidg. Grundbuch ganz eingeführt');
+    expect(fact(out, 'grundbuch.adresse')).toBe('Poststrasse 25, 3071 Ostermundigen');
+    expect(fact(out, 'grundbuch.telefon')).toBe('031 635 93 00');
+    expect(fact(out, 'grundbuch.email')).toBe('gba.bemi@be.ch');
+    expect(fact(out, 'grundbuch.hinweis')).toBeUndefined();
+    expect(fact(out, 'grundbuch.kreise_anzahl')).toBeUndefined();
+    expect(fact(out, 'vermessung.geometer_firma')).toBe('bbp geomatik ag');
+    expect(fact(out, 'vermessung.geometer_adresse')).toBe('Könizstrasse 161, 3097 Liebefeld');
+    expect(fact(out, 'vermessung.geometer_telefon')).toBe('031 970 30 50');
+    expect(fact(out, 'vermessung.geometer_email')).toBe('bbp@geozen.ch');
+    // Der Name des Geometers ist eine Person: taucht in keinem Fakt auf
+    expect(out.facts.some((f) => f.key.includes('name') || String(f.value).includes('Tschudi'))).toBe(false);
+    expect(out.facts.every((f) => f.request_url === calls[0] && f.confidence === 1)).toBe(true);
+    expect(out.keys).toEqual({});
+  });
+
+  it('Zürich: 21 Ortsteil-Einträge mit 11 Kreisen plus ein leerer Eintrag: nur Anzahl und Hinweis, kein Telefon, kein erster Treffer', async () => {
+    const out = await zustaendigeStellen.resolve(mit('stellen-zuerich.json'));
+    expect(fact(out, 'grundbuch.kreise_anzahl')).toBe(11);
+    expect(fact(out, 'grundbuch.hinweis')).toBe('Die Gemeinde hat 11 Grundbuchkreise. Die Amtliche Vermessung löst sie nicht räumlich auf, zuständig ist das Grundbuchamt bzw. Notariat des Quartiers.');
+    for (const k of ['grundbuch.kreis', 'grundbuch.ortsteil', 'grundbuch.adresse', 'grundbuch.telefon', 'grundbuch.email', 'grundbuch.fuehrung']) expect(feld(out, k), k).toBeUndefined();
+    expect(fact(out, 'vermessung.geometer_firma')).toBe('Stadt Zürich, Geomatik + Vermessung');
+    expect(fact(out, 'vermessung.geometer_email')).toBe('vermessung@zuerich.ch');
+  });
+
+  it('Baden: Ortsteile Baden und Turgi mit demselben Kreis und Kontakt zählen als einer, Ortsteil bleibt offen', async () => {
+    const out = await zustaendigeStellen.resolve(mit('stellen-baden.json'));
+    expect(fact(out, 'grundbuch.kreis')).toBe('Baden');
+    expect(fact(out, 'grundbuch.ortsteil')).toBeUndefined(); // zwei Ortsteile am selben Punkt, der Layer sagt nicht, welcher gilt
+    expect(fact(out, 'grundbuch.adresse')).toBe('Bahnhofstrasse 40, 5400 Baden');
+    expect(fact(out, 'grundbuch.telefon')).toBe('056 200 09 40');
+    expect(fact(out, 'grundbuch.hinweis')).toBeUndefined();
+    expect(fact(out, 'vermessung.geometer_firma')).toBe('Steinmann Ingenieure und Planer AG');
+  });
+
+  it('nur leere Grundbuch-Einträge: Lücke (EmptyResultError), auch wenn ein Geometer da ist', async () => {
+    const z = fixture('stellen-zuerich.json') as { results: Array<{ layerBodId: string; attributes: Record<string, unknown> }> };
+    const nurLeer = { results: z.results.filter((r) => r.layerBodId !== 'ch.swisstopo-vd.geometa-grundbuch' || !r.attributes.grundbuchkreis) };
+    expect(nurLeer.results.filter((r) => r.layerBodId === 'ch.swisstopo-vd.geometa-grundbuch')).toHaveLength(1);
+    const http = httpFor([{ match: () => true, body: nurLeer }]);
+    await expect(zustaendigeStellen.resolve({ keys: { lv95_bau: punkt }, http, now: () => new Date(), log: silentLogger })).rejects.toBeInstanceOf(EmptyResultError);
+  });
+
+  it('Geometer: der ordentliche vor dem Stellvertreter', async () => {
+    const w = fixture('stellen-wabern.json') as { results: Array<{ layerBodId: string; attributes: Record<string, unknown> }> };
+    const geometer = w.results.find((r) => r.layerBodId === 'ch.swisstopo-vd.geometa-nfgeom')!;
+    const vertreter = { ...geometer, attributes: { ...geometer.attributes, stellvertreter: true, firmenname: 'Vertretung AG', name: 'Muster Hans' } };
+    const body = { results: [...w.results.filter((r) => r !== geometer), vertreter, geometer] };
+    const http = httpFor([{ match: () => true, body }]);
+    const out = await zustaendigeStellen.resolve({ keys: { lv95_bau: punkt }, http, now: () => new Date(), log: silentLogger });
+    expect(fact(out, 'vermessung.geometer_firma')).toBe('bbp geomatik ag');
+  });
+
+  it('adresseAusZeilen: # wird Komma, leere Teile fallen weg', () => {
+    expect(adresseAusZeilen('Poststrasse 25#3071 Ostermundigen')).toBe('Poststrasse 25, 3071 Ostermundigen');
+    expect(adresseAusZeilen('# ')).toBeNull();
+    expect(adresseAusZeilen(null)).toBeNull();
+    expect(adresseAusZeilen('Weberstrasse 5#8004 Zürich#')).toBe('Weberstrasse 5, 8004 Zürich');
   });
 });

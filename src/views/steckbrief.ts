@@ -24,7 +24,8 @@ export type SteckbriefAbschnitt = {
 export type Luecke = {
   key: string;
   label: string;
-  grund: 'fehlt_im_register' | 'quelle_nicht_erreichbar' | 'quelle_uebersprungen' | 'quelle_abgeschaltet' | 'quelle_ausser_kanton';
+  /** `hinweis`: Die Quelle hat statt des Werts einen Hinweis geliefert (Text in `detail`), z.B. grundbuch.hinweis bei mehreren Grundbuchkreisen. */
+  grund: 'fehlt_im_register' | 'quelle_nicht_erreichbar' | 'quelle_uebersprungen' | 'quelle_abgeschaltet' | 'quelle_ausser_kanton' | 'hinweis';
   quelle?: string;
   detail?: string;
 };
@@ -172,6 +173,14 @@ export function buildSteckbrief(run: RunResult, adapters: Adapter[]): Steckbrief
     } else if (f && f.value === null) {
       l.detail = 'Feld im Register leer';
     }
+    // Die Quelle hat statt des Werts einen Hinweis geliefert (grundbuch.kreis fehlt, grundbuch.hinweis sagt warum): Der Hinweis ist der Grund, nicht «fehlt».
+    if (l.grund === 'fehlt_im_register') {
+      const hinweis = bestFact(run.facts, key.replace(/\.[^.]+$/, '.hinweis'));
+      if (hinweis && hinweis.key !== key && typeof hinweis.value === 'string' && hinweis.value) {
+        l.grund = 'hinweis';
+        l.detail = hinweis.value;
+      }
+    }
     // Eine Lücke pro Quelle und Grund reicht, wenn die Quelle ganz ausgefallen ist.
     if (l.grund !== 'fehlt_im_register' && luecken.some((x) => x.quelle === l.quelle && x.grund === l.grund)) continue;
     luecken.push(l);
@@ -267,6 +276,7 @@ export function steckbriefAlsText(s: Steckbrief, opts: { quellen?: boolean } = {
         : l.grund === 'quelle_nicht_erreichbar' ? 'Quelle nicht erreichbar'
         : l.grund === 'quelle_uebersprungen' ? 'Quelle übersprungen'
         : l.grund === 'quelle_ausser_kanton' ? 'Quelle für diesen Kanton nicht angeschlossen'
+        : l.grund === 'hinweis' ? 'siehe Hinweis'
         : 'Quelle abgeschaltet';
       lines.push(`  ${l.label}: ${grund}${l.quelle ? ` (${l.quelle})` : ''}${l.detail ? ` · ${l.detail}` : ''}`);
     }

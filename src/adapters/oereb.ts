@@ -12,7 +12,9 @@ import { GRUNDNUTZUNG_SUBCODE, OEREB_KANTONE, OEREB_KANTONE_LISTE, oerebExtractU
  * Canton, MunicipalityName, MunicipalityCode, LandRegistryArea, RestrictionOnLandownership[]}`. Jede Beschränkung:
  * `Theme.{Code|code, SubCode?, Text[]}` (ZH schreibt `code` klein), `LegendText[]`, `TypeCode`, `Lawstatus.Code`
  * (inForce, changeWithPreEffect …), `PartInPercent`/`AreaShare` bei Flächen, `LengthShare` bei Linien (Baulinien),
- * `LegalProvisions[].{Title[], TextAtWeb[]}`. Texte sind Listen `{Language, Text}`, wir nehmen `de`, sonst den ersten.
+ * `LegalProvisions[].{Title[], TextAtWeb[]}`, `ResponsibleOffice.{Name[], OfficeAtWeb[]}` (zuständige Stelle, meist die Gemeinde;
+ * seit Version 2 als zone.zustaendig, laerm.zustaendig, oereb.<slug>.zustaendig). `PLRCadastreAuthority.{Name, OfficeAtWeb, Street,
+ * Number, PostalCode, City}` ist die Katasterstelle (ZH zusätzlich Line1/Line2). Texte sind Listen `{Language, Text}`, wir nehmen `de`, sonst den ersten.
  * Antwort 204 ohne Inhalt heisst: EGRID in diesem Kataster unbekannt (Lücke, kein Ausfall).
  *
  * Nicht im Kataster und darum hier nicht erfunden: Ausnützungsziffer, Geschosszahl, Grenzabstände. Die stehen im
@@ -27,6 +29,15 @@ const textEintrag = z.object({ Language: z.string().optional(), Text: z.string()
 const texte = z.union([z.array(textEintrag), textEintrag, z.string()]);
 const thema = z.object({ Code: z.string().optional(), code: z.string().optional(), SubCode: z.string().optional(), Text: texte.optional() });
 const rechtsvorschrift = z.object({ Title: texte.optional(), TextAtWeb: texte.optional() });
+/** Zuständige Stelle: ResponsibleOffice einer Beschränkung oder PLRCadastreAuthority des Katasters. Alles optional, ZH liefert dazu Line1/Line2 und UID (nicht gelesen). */
+const amt = z.object({
+  Name: texte.optional(),
+  OfficeAtWeb: texte.optional(),
+  Street: z.string().nullable().optional(),
+  Number: z.union([z.string(), z.number()]).nullable().optional(),
+  PostalCode: z.union([z.string(), z.number()]).nullable().optional(),
+  City: z.string().nullable().optional(),
+});
 const beschraenkung = z.object({
   LegendText: texte.optional(),
   Theme: thema,
@@ -37,6 +48,7 @@ const beschraenkung = z.object({
   LengthShare: z.number().optional(),
   NrOfPoints: z.number().optional(),
   LegalProvisions: z.array(rechtsvorschrift).optional(),
+  ResponsibleOffice: amt.optional(),
 });
 const liegenschaft = z.object({
   EGRID: z.string().optional(),
@@ -55,13 +67,14 @@ const extract = z.object({
   ConcernedTheme: z.array(thema).optional(),
   NotConcernedTheme: z.array(thema).optional(),
   ThemeWithoutData: z.array(thema).optional(),
-  PLRCadastreAuthority: z.object({ Name: texte.optional(), OfficeAtWeb: texte.optional() }).optional(),
+  PLRCadastreAuthority: amt.optional(),
 });
 export const extractResponseSchema = z.object({
   GetExtractByIdResponse: z.object({ extract: extract.optional(), Extract: extract.optional() }),
 });
 
 type Texte = z.infer<typeof texte>;
+type Amt = z.infer<typeof amt>;
 type Beschraenkung = z.infer<typeof beschraenkung>;
 
 /** Deutscher Text aus einer mehrsprachigen Liste, sonst der erste. */
@@ -70,6 +83,14 @@ export function textDe(t: Texte | undefined): string | undefined {
   if (typeof t === 'string') return t;
   if (!Array.isArray(t)) return t.Text;
   return (t.find((x) => x.Language === 'de') ?? t[0])?.Text;
+}
+
+/** «Reiterstrasse 11, 3013 Bern» aus Street, Number, PostalCode, City einer Stelle; nur, was da ist. Line1/Line2 (ZH) bleiben weg. */
+export function amtAdresse(a: Pick<Amt, 'Street' | 'Number' | 'PostalCode' | 'City'> | undefined): string | null {
+  if (!a) return null;
+  const teil = (xs: Array<string | number | null | undefined>) => xs.filter((x) => x != null && String(x).trim()).map((x) => String(x).trim()).join(' ');
+  const teile = [teil([a.Street, a.Number]), teil([a.PostalCode, a.City])].filter(Boolean);
+  return teile.length ? teile.join(', ') : null;
 }
 
 /** `ch.BE.Gewaesserschutzbereiche` → `gewaesserschutzbereiche`, `ch.BelasteteStandorte` → `belastete_standorte`. */
@@ -112,6 +133,8 @@ type Eintrag = {
   flaeche?: number;
   laenge?: number;
   rechtsvorschriften: Array<{ titel?: string; url?: string }>;
+  zustaendig?: string;
+  zustaendigUrl?: string;
 };
 
 function normalisiere(b: Beschraenkung): Eintrag {
@@ -133,6 +156,10 @@ function normalisiere(b: Beschraenkung): Eintrag {
   const lg = textDe(b.LegendText);
   if (lg) e.legende = lg;
   if (b.TypeCode) e.typeCode = b.TypeCode;
+  const amtName = textDe(b.ResponsibleOffice?.Name)?.trim();
+  const amtUrl = textDe(b.ResponsibleOffice?.OfficeAtWeb)?.trim();
+  if (amtName) e.zustaendig = amtName;
+  if (amtUrl) e.zustaendigUrl = amtUrl;
   if (typeof b.PartInPercent === 'number') e.anteil = b.PartInPercent;
   if (typeof b.AreaShare === 'number') e.flaeche = b.AreaShare;
   if (typeof b.LengthShare === 'number') e.laenge = b.LengthShare;
@@ -156,8 +183,9 @@ export const oereb: Adapter = {
     provider: 'Kantone (ÖREB-Kataster)',
     needs: ['egrid', 'kanton'],
     yields: [],
-    provides: ['zone.', 'oereb.', 'laerm.empfindlichkeitsstufe', 'parzelle.flaeche_grundbuch_m2'],
+    provides: ['zone.', 'oereb.', 'laerm.empfindlichkeitsstufe', 'laerm.zustaendig', 'parzelle.flaeche_grundbuch_m2'],
     ttlDays: 14,
+    version: 2, // 16.10.2026: zuständige Stellen (zone.zustaendig, laerm.zustaendig, oereb.<slug>.zustaendig, oereb.kataster_stelle/_adresse)
     timeoutMs: 20000,
     cantons: OEREB_KANTONE_LISTE,
     license: 'Öffentlicher amtlicher Kataster (Art. 16a GeoIG, ÖREBKV), frei nutzbar mit Quellenangabe',
@@ -224,6 +252,9 @@ export const oereb: Adapter = {
         push('zone.baureglement_url', reglement.url, { confidence: zc });
         if (reglement.titel) push('zone.baureglement_titel', reglement.titel, { confidence: zc });
       }
+      // Zuständige Stelle der Grundnutzung (ResponsibleOffice), meist die Gemeinde
+      if (haupt.zustaendig) push('zone.zustaendig', haupt.zustaendig, { confidence: zc });
+      if (haupt.zustaendigUrl) push('zone.zustaendig_url', haupt.zustaendigUrl, { confidence: zc });
     }
 
     // Lärm-Empfindlichkeitsstufe: Eintrag mit grösstem Anteil, der eine Stufe I bis IV nennt
@@ -237,9 +268,12 @@ export const oereb: Adapter = {
       // Kataster führt das Thema, nennt aber keine Stufe I bis IV (z.B. «keine»): Text zeigen, Stufe offen lassen.
       push('laerm.empfindlichkeitsstufe_text', stufen[0].legende);
     }
+    const laermStelle = mitStufe?.e ?? stufen[0];
+    if (laermStelle?.zustaendig) push('laerm.zustaendig', laermStelle.zustaendig);
+    if (laermStelle?.zustaendigUrl) push('laerm.zustaendig_url', laermStelle.zustaendigUrl);
 
     // Weitere Themen: alles ausser Grundnutzung und Lärmstufen, gruppiert nach Thema
-    type Gruppe = { thema: string; texte: string[]; anteil?: number; laenge: number; anzahl: number };
+    type Gruppe = { thema: string; texte: string[]; anteil?: number; laenge: number; anzahl: number; zustaendig?: string; zustaendigUrl?: string };
     const gruppen = new Map<string, Gruppe>();
     for (const e of inKraft) {
       if (istGrundnutzung(e, k) || istLaermStufe(e)) continue;
@@ -249,6 +283,10 @@ export const oereb: Adapter = {
       if (e.legende && !g.texte.includes(e.legende)) g.texte.push(e.legende);
       if (e.anteil != null) g.anteil = Math.max(g.anteil ?? 0, e.anteil);
       if (e.laenge != null) g.laenge += e.laenge;
+      if (!g.zustaendig && e.zustaendig) {
+        g.zustaendig = e.zustaendig;
+        if (e.zustaendigUrl) g.zustaendigUrl = e.zustaendigUrl;
+      }
       g.anzahl++;
       gruppen.set(slug, g);
     }
@@ -258,14 +296,22 @@ export const oereb: Adapter = {
       if (g.texte.length) push(`oereb.${slug}.text`, g.texte.join('; '));
       if (g.anteil != null) push(`oereb.${slug}.anteil_prozent`, g.anteil, { unit: '%' });
       if (g.laenge > 0) push(`oereb.${slug}.laenge_m`, Math.round(g.laenge), { unit: 'm' });
+      if (g.zustaendig) push(`oereb.${slug}.zustaendig`, g.zustaendig);
+      if (g.zustaendigUrl) push(`oereb.${slug}.zustaendig_url`, g.zustaendigUrl);
     }
     push('oereb.belastungen_anzahl', gruppen.size);
     if (gruppen.size) push('oereb.belastungen', [...gruppen.values()].map((g) => g.thema).join('; '));
     if (haengig > 0) push('oereb.aenderungen_hangig_anzahl', haengig);
 
     push('oereb.auszug_pdf_url', oerebExtractUrl(k, egrid, 'pdf'));
-    const katasterUrl = textDe(ex.PLRCadastreAuthority?.OfficeAtWeb);
+    // Katasterstelle (PLRCadastreAuthority): Name, Website, Postadresse
+    const ka = ex.PLRCadastreAuthority;
+    const katasterUrl = textDe(ka?.OfficeAtWeb)?.trim();
     if (katasterUrl) push('oereb.kataster_url', katasterUrl);
+    const katasterStelle = textDe(ka?.Name)?.trim();
+    if (katasterStelle) push('oereb.kataster_stelle', katasterStelle);
+    const katasterAdresse = amtAdresse(ka);
+    if (katasterAdresse) push('oereb.kataster_adresse', katasterAdresse);
 
     const out: AdapterOutput = { facts, keys: {} };
     const stand = ex.UpdateDateCS?.slice(0, 10);

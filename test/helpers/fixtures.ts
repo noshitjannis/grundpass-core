@@ -30,7 +30,7 @@ export function fakeFetch(routes: Route[], calls: string[] = []): FetchLike {
   }) as FetchLike;
 }
 
-/** Standard-Routen für den Wabern-Fall, alle acht Adapter. */
+/** Standard-Routen für den Wabern-Fall, alle neun Adapter. */
 export function wabernRoutes(): Route[] {
   const oevRadon = fixture('oev-radon.json') as { results: Array<{ layerBodId: string }> };
   return [
@@ -62,6 +62,10 @@ export function wabernRoutes(): Route[] {
         u.searchParams.get('layers') === 'all:ch.bfe.solarenergie-eignung-daecher' &&
         u.searchParams.get('tolerance') !== '0',
       body: fixture('sonnendach-wide.json'),
+    },
+    {
+      match: (u) => u.pathname.endsWith('/identify') && u.searchParams.get('layers') === 'all:ch.swisstopo-vd.geometa-grundbuch,ch.swisstopo-vd.geometa-nfgeom',
+      body: fixture('stellen-wabern.json'),
     },
     {
       match: (u) => u.pathname.endsWith('/identify') && u.searchParams.get('layers') === 'all:ch.are.gueteklassen_oev',

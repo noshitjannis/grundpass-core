@@ -1,0 +1,40 @@
+{
+  "_hinweis": "Echte Antwort vom 15.10.2026: identify am Gebäudepunkt Maygutstrasse 26, Wabern (2601737/1197338) auf die Layer ch.swisstopo-vd.geometa-grundbuch und ch.swisstopo-vd.geometa-nfgeom, tolerance=0, returnGeometry=false. Genau ein Grundbuch-Eintrag (Kreis Bern-Mittelland, Ortsteil Köniz) und ein Nachführungsgeometer (bbp geomatik ag, stellvertreter false). Das Feld name des Geometers ist eine Person und wird vom Adapter nicht gespeichert. URL: https://api3.geo.admin.ch/rest/services/api/MapServer/identify?geometry=2601737,1197338&geometryType=esriGeometryPoint&sr=2056&layers=all:ch.swisstopo-vd.geometa-grundbuch,ch.swisstopo-vd.geometa-nfgeom&tolerance=0&returnGeometry=false&lang=de",
+  "results": [
+    {
+      "layerBodId": "ch.swisstopo-vd.geometa-grundbuch",
+      "layerName": "Grundbuchinformationen",
+      "featureId": 2747,
+      "id": 2747,
+      "attributes": {
+        "fid": "72422",
+        "ortsteil_grundbuch": "Köniz",
+        "grundbuchfuehrung_d": "eidg. Grundbuch ganz eingeführt",
+        "grundbuchfuehrung_f": "Registre foncier féd. complet",
+        "grundbuchfuehrung_i": "Registro fondiario fed. completo",
+        "grundbuchkreis": "Bern-Mittelland",
+        "adresse": "Poststrasse 25#3071 Ostermundigen",
+        "telefon": "031 635 93 00",
+        "email": "gba.bemi@be.ch",
+        "bgdi_created": "15.10.2026",
+        "label": "Köniz"
+      }
+    },
+    {
+      "layerBodId": "ch.swisstopo-vd.geometa-nfgeom",
+      "layerName": "Nachführungsgeometer/in",
+      "featureId": 1786,
+      "id": 1786,
+      "attributes": {
+        "stellvertreter": false,
+        "name": "Tschudi Stephan",
+        "firmenname": "bbp geomatik ag",
+        "adresse": "Könizstrasse 161#3097 Liebefeld",
+        "telefon": "031 970 30 50",
+        "email": "bbp@geozen.ch",
+        "bgdi_created": "15.10.2026",
+        "label": "Tschudi Stephan"
+      }
+    }
+  ]
+}

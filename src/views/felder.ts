@@ -5,7 +5,7 @@
  * Erklärungen sind kurz und sachlich. Keine Bewertung, keine Empfehlung. Das macht die App.
  */
 
-export type AbschnittId = 'adresse' | 'gebaeude' | 'heizung' | 'wohnungen' | 'parzelle' | 'zone' | 'solar' | 'oev' | 'laerm' | 'radon' | 'abgeleitet';
+export type AbschnittId = 'adresse' | 'gebaeude' | 'heizung' | 'wohnungen' | 'parzelle' | 'zone' | 'solar' | 'oev' | 'laerm' | 'radon' | 'stellen' | 'abgeleitet';
 
 export const ABSCHNITTE: Array<{ id: AbschnittId; titel: string }> = [
   { id: 'adresse', titel: 'Adresse' },
@@ -18,6 +18,7 @@ export const ABSCHNITTE: Array<{ id: AbschnittId; titel: string }> = [
   { id: 'oev', titel: 'Öffentlicher Verkehr' },
   { id: 'laerm', titel: 'Lärm' },
   { id: 'radon', titel: 'Radon' },
+  { id: 'stellen', titel: 'Zuständige Stellen' },
   { id: 'abgeleitet', titel: 'Berechnet' },
 ];
 
@@ -76,6 +77,7 @@ export const FELDER: Record<string, FeldDef> = {
   'zone.anteil_prozent': { label: 'Anteil an der Parzelle', abschnitt: 'zone', format: 'int', erklaerung: 'Wie viel der Parzellenfläche in dieser Zone liegt. Unter 100 % heisst: Die Parzelle hat mehrere Zonen, siehe weitere Zonen.' },
   'zone.anzahl': { label: 'Zonen auf der Parzelle', abschnitt: 'zone', format: 'int' },
   'zone.baureglement_url': { label: 'Baureglement', abschnitt: 'zone', erklaerung: 'Das kommunale Baureglement bzw. die Bau- und Nutzungsordnung. Dort stehen Ausnützungsziffer, Geschosszahl und Abstände. Der ÖREB-Kataster enthält sie nicht.' },
+  'zone.zustaendig': { label: 'Zuständig', abschnitt: 'zone', erklaerung: 'Stelle, die laut Kataster für die Grundnutzung zuständig ist, meist die Gemeinde. Dort fragt man nach Zone, Baureglement und Baubewilligung.' },
   'oereb.belastungen_anzahl': { label: 'Weitere Einträge im Kataster', abschnitt: 'zone', format: 'int', erklaerung: 'Andere öffentlich-rechtliche Eigentumsbeschränkungen, die diese Parzelle betreffen: überlagernde Pläne, Baulinien, Gewässerraum, Grundwasserschutz, belastete Standorte und Ähnliches. Jeder Eintrag steht einzeln darunter.' },
   'oereb.aenderungen_hangig_anzahl': { label: 'Hängige Änderungen', abschnitt: 'zone', format: 'int', erklaerung: 'Einträge im Kataster, die noch nicht rechtskräftig sind (laufende Planänderungen mit Vorwirkung).' },
   'oereb.auszug_pdf_url': { label: 'Amtlicher Auszug (PDF)', abschnitt: 'zone', erklaerung: 'Der offizielle ÖREB-Katasterauszug des Kantons zu dieser Parzelle, mit allen Rechtsgrundlagen.' },
@@ -100,9 +102,25 @@ export const FELDER: Record<string, FeldDef> = {
   'laerm.strasse.grenzwert_tag_db': { label: 'Grenzwert Tag', abschnitt: 'laerm', format: 'int', erklaerung: 'Immissionsgrenzwert der Lärmschutz-Verordnung (Anhang 3, Strassenverkehr) für die Empfindlichkeitsstufe dieser Parzelle. Liegt der Pegel darüber, gilt der Ort als lärmbelastet.' },
   'laerm.strasse.grenzwert_nacht_db': { label: 'Grenzwert Nacht', abschnitt: 'laerm', format: 'int' },
   'laerm.empfindlichkeitsstufe_text': { label: 'Eintrag im Kataster', abschnitt: 'laerm' },
+  'laerm.zustaendig': { label: 'Zuständig', abschnitt: 'laerm', erklaerung: 'Stelle, die laut Kataster die Empfindlichkeitsstufe festlegt, meist die Gemeinde.' },
 
   'radon.wahrscheinlichkeit_prozent': { label: 'Radon-Wahrscheinlichkeit', abschnitt: 'radon', erwartet: true, format: 'int', erklaerung: 'Wahrscheinlichkeit laut BAG-Karte, dass in einem Gebäude an diesem Ort der Referenzwert von 300 Bq/m³ überschritten wird. Keine Messung an diesem Haus.' },
   'radon.einstufung': { label: 'Einstufung', abschnitt: 'radon', erklaerung: 'Unsere Lesehilfe: unter 10 % gering, unter 20 % mittel, ab 20 % erhöht. Bei erhöht lohnt sich eine Messung im Keller, besonders vor einem Umbau.' },
+
+  'grundbuch.kreis': { label: 'Grundbuchamt', abschnitt: 'stellen', erwartet: true, erklaerung: 'Dort gibt es den Grundbuchauszug mit Eigentümer, Dienstbarkeiten, Grundpfandrechten und Anmerkungen. Kostenpflichtig, ein Interesse muss glaubhaft gemacht werden.' },
+  'grundbuch.adresse': { label: 'Adresse Grundbuchamt', abschnitt: 'stellen' },
+  'grundbuch.telefon': { label: 'Telefon Grundbuchamt', abschnitt: 'stellen' },
+  'grundbuch.email': { label: 'E-Mail Grundbuchamt', abschnitt: 'stellen' },
+  'grundbuch.fuehrung': { label: 'Grundbuchführung', abschnitt: 'stellen', erklaerung: 'Ob das eidgenössische Grundbuch hier ganz eingeführt ist. Wo nicht, gelten noch kantonale Register mit eingeschränkter Wirkung.' },
+  'grundbuch.hinweis': { label: 'Hinweis Grundbuch', abschnitt: 'stellen' },
+  'grundbuch.kreise_anzahl': { label: 'Grundbuchkreise der Gemeinde', abschnitt: 'stellen', format: 'int', erklaerung: 'In Städten mit mehreren Grundbuchkreisen sagt die Amtliche Vermessung nicht, welcher Kreis die Parzelle führt.' },
+  'vermessung.geometer_firma': { label: 'Nachführungsgeometer', abschnitt: 'stellen', erklaerung: 'Führt die amtliche Vermessung nach. Zuständig für Grenzpunkte, Katasterplan, Grenzfeststellung und Mutationen bei Teilung oder Neubau.' },
+  'vermessung.geometer_adresse': { label: 'Adresse Geometer', abschnitt: 'stellen' },
+  'vermessung.geometer_telefon': { label: 'Telefon Geometer', abschnitt: 'stellen' },
+  'vermessung.geometer_email': { label: 'E-Mail Geometer', abschnitt: 'stellen' },
+  'oereb.kataster_stelle': { label: 'ÖREB-Katasterstelle', abschnitt: 'stellen', erklaerung: 'Gibt den amtlichen Katasterauszug heraus und beantwortet Fragen dazu.' },
+  'oereb.kataster_adresse': { label: 'Adresse Katasterstelle', abschnitt: 'stellen' },
+  'oereb.kataster_url': { label: 'Website Katasterstelle', abschnitt: 'stellen' },
 
   'parzelle.bebauter_anteil_prozent': { label: 'Bebauter Anteil', abschnitt: 'abgeleitet', format: 'dezimal', erklaerung: 'Gebäudegrundfläche geteilt durch Parzellenfläche. Ein tiefer Wert heisst viel freie Fläche, sagt aber nichts über die erlaubte Ausnützung.' },
   'gebaeude.alter_jahre': { label: 'Gebäudealter', abschnitt: 'abgeleitet', format: 'int', erklaerung: 'Aus Baujahr oder Mitte der Bauperiode.' },

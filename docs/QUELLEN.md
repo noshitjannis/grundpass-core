@@ -205,7 +205,8 @@ je Empfindlichkeitsstufe, Tag/Nacht: ES I 55/45, ES II 60/50, ES III 65/55, ES I
 | Datenhalter | Kantone, katasterführende Stellen: AG Abteilung Geoinformation (AGIS), ZH Amt für Raumentwicklung (GIS-ZH), BE Amt für Geoinformation |
 | Endpoint | `GET <base>/extract/json?EGRID=<EGRID>`. Basis pro Kanton in `src/adapters/oereb/kantone.ts`: AG `https://api.geo.ag.ch/v2/oereb`, ZH `https://maps.zh.ch/oereb/v2`, BE `https://www.oereb2.apps.be.ch`. Daneben `<base>/versions/json` (nennt die Basis selbst) und `<base>/capabilities/json` (Themenliste). Norm: ÖREB-Webservice «Aufruf eines Auszugs», Version extract-2.0 (OeREBKRMtrsfr_V2_0), JSON nach openoereb-Schema. |
 | braucht | `egrid`, `kanton`. Manifest `cantons: AG, ZH, BE`; andere Kantone bekommen `ausser_kanton` und im Steckbrief die Lücke `quelle_ausser_kanton`. |
-| Fakten | `zone.bezeichnung`, `.code`, `.anteil_prozent`, `.anzahl`, `zone.weitere.<n>.{bezeichnung, code, anteil_prozent}`, `zone.baureglement_url`, `.baureglement_titel`, `parzelle.flaeche_grundbuch_m2` (Confidence 1), `laerm.empfindlichkeitsstufe` (I, II, III, IV), `.empfindlichkeitsstufe_text`, `.empfindlichkeitsstufe_anteil_prozent`, `oereb.<thema>.{betroffen, thema, text, anteil_prozent, laenge_m}`, `oereb.belastungen`, `.belastungen_anzahl`, `.aenderungen_hangig_anzahl`, `.auszug_pdf_url`, `.kataster_url` |
+| Fakten | `zone.bezeichnung`, `.code`, `.anteil_prozent`, `.anzahl`, `zone.weitere.<n>.{bezeichnung, code, anteil_prozent}`, `zone.baureglement_url`, `.baureglement_titel`, `parzelle.flaeche_grundbuch_m2` (Confidence 1), `laerm.empfindlichkeitsstufe` (I, II, III, IV), `.empfindlichkeitsstufe_text`, `.empfindlichkeitsstufe_anteil_prozent`, `oereb.<thema>.{betroffen, thema, text, anteil_prozent, laenge_m, zustaendig, zustaendig_url}`, `oereb.belastungen`, `.belastungen_anzahl`, `.aenderungen_hangig_anzahl`, `.auszug_pdf_url`, `.kataster_url`, `.kataster_stelle`, `.kataster_adresse`, `zone.zustaendig`, `.zustaendig_url`, `laerm.zustaendig`, `.zustaendig_url` |
+| Version | 2 (16.10.2026: zuständige Stellen aus ResponsibleOffice und PLRCadastreAuthority) |
 | source_date | `UpdateDateCS` (Stand des Katasters, nicht des Abrufs) |
 | TTL | 14 Tage |
 | Timeout | 20 s (Extracts brauchen 1 bis 2 s, PDFs bis 11 s, die holen wir aber nicht) |
@@ -257,6 +258,8 @@ Slug aus dem Themencode ohne `ch.` und Kantonspräfix (`ch.BE.Gewaesserschutzber
 `nutzungsplanung_ueberlagernd`. Pro Thema: `betroffen` true, `thema` (Name laut Kataster), `text` (Legenden, mit «; » verbunden),
 `anteil_prozent` (grösster Flächenanteil) oder `laenge_m` (Summe der Linienlängen).
 
+**Zuständige Stellen (Version 2, 16.10.2026).** Jede Beschränkung trägt `ResponsibleOffice {Name[], OfficeAtWeb[]}` (ZH zusätzlich `UID`, `Line1`, `Line2`, `Street`, `Number`, `PostalCode`, `City`), der Extract als Ganzes `PLRCadastreAuthority {Name[], OfficeAtWeb[], Street, Number, PostalCode, City}` (ZH mit `Line1`/`Line2`). Daraus: `zone.zustaendig`/`.zustaendig_url` (Stelle der Grundnutzung), `laerm.zustaendig`/`.zustaendig_url` (Stelle der Empfindlichkeitsstufe), `oereb.<thema>.zustaendig`/`.zustaendig_url` (erste Stelle der Gruppe), `oereb.kataster_stelle` und `oereb.kataster_adresse` (Street Number, PostalCode City; `Line1`/`Line2` bleiben weg; `Number` kann null sein). Alles optional im Schema, nichts bricht, wenn es fehlt. Belege: Wabern Grundnutzung → Gemeinde Köniz / koeniz.ch, Sicherheitszonenplan → Bundesamt für Zivilluftfahrt BAZL, Gewässerschutzbereiche → Amt für Wasser und Abfall des Kantons Bern; Baden → Baden / baden.ch (Zone und Lärm); Zürich → Stadt Zürich (Zone, Lärm, Baulinien); Winterthur → Stadt Winterthur, belastete Standorte und Gewässerraum → Amt für Abfall, Wasser, Energie und Luft (die Quelle hat ein Leerzeichen am Ende der URL, wird getrimmt). Katasterstellen: BE Amt für Geoinformation, Reiterstrasse 11, 3013 Bern; AG Vermessungsamt, Bahnhofplatz 3c, 5001 Aarau; ZH Amt für Raumentwicklung, Stampfenbachstrasse 12, 8090 Zürich.
+
 **Was nicht im Kataster steht und wir darum nicht liefern:** Ausnützungsziffer, Geschosszahl, Grenzabstände, Gebäudehöhen. Das
 regelt das kommunale Baureglement (BE), die Bau- und Nutzungsordnung (AG) bzw. die Bau- und Zonenordnung (ZH). Wenn der Extract
 sie unter `LegalProvisions` der Hauptzone nennt, geben wir den Link als `zone.baureglement_url` weiter. In der App bleibt
@@ -277,6 +280,36 @@ die AGI-Dokumentation nennt oereb2). AG liefert auch `extract/xml` (76 KB), nich
 allen drei Kantonen den amtlichen Auszug (BE 0.6 MB in 4.6 s, AG 0.7 MB in 5.8 s, ZH 1.1 MB in 10.7 s), das ist `oereb.auszug_pdf_url`.
 Falsche Pfade (`api.geo.ag.ch/oereb/…`, `www.ag.ch/app/oereb/…`, `www.oereb.apps.be.ch/oereb/v2/…`) geben 404.
 Datenstand: AG und ZH setzen `UpdateDateCS` auf den Abruftag, BE auf den letzten Datenimport (06.10.2026).
+
+---
+
+## zustaendige-stellen · Grundbuchamt und Nachführungsgeometer
+
+| | |
+|---|---|
+| Datenhalter | swisstopo, Amtliche Vermessung Schweiz (Geometa-Layer, Daten der Kantone) |
+| Endpoint | `GET …/MapServer/identify?geometry=<E>,<N>&geometryType=esriGeometryPoint&sr=2056&layers=all:ch.swisstopo-vd.geometa-grundbuch,ch.swisstopo-vd.geometa-nfgeom&tolerance=0&returnGeometry=false&lang=de` (ein Request, beide Layer) |
+| braucht | `lv95_bau` |
+| liefert Keys | keine |
+| Fakten | Bei genau einem Grundbuchkreis: `grundbuch.kreis`, `.ortsteil` (nur wenn eindeutig), `.fuehrung`, `.adresse`, `.telefon`, `.email`. Bei mehreren: nur `grundbuch.kreise_anzahl` und `grundbuch.hinweis`. Dazu `vermessung.geometer_firma`, `.geometer_adresse`, `.geometer_telefon`, `.geometer_email`. Alle Confidence 1. |
+| TTL | 90 Tage |
+| Status | verifiziert 16.10.2026 (Live-Test an den fünf goldenen Adressen) · Fixtures `stellen-wabern.json`, `stellen-zuerich.json`, `stellen-baden.json` (echte Antworten vom 15.10.2026) |
+
+**Gelesene Felder.** `ch.swisstopo-vd.geometa-grundbuch`: `ortsteil_grundbuch`, `grundbuchfuehrung_d`, `grundbuchkreis`, `adresse` (Zeilen mit «#» getrennt: «Poststrasse 25#3071 Ostermundigen» → «Poststrasse 25, 3071 Ostermundigen»), `telefon`, `email`. Nicht gelesen: `fid`, `grundbuchfuehrung_f/_i`, `bgdi_created`, `label`. `ch.swisstopo-vd.geometa-nfgeom`: `stellvertreter`, `firmenname`, `adresse`, `telefon`, `email`. Nicht gelesen: `name` (eine Person, bleibt draussen: keine Personendaten im Core), `bgdi_created`, `label`. Werte können null, «-» oder «# » sein (leere Einträge).
+
+**Regeln.** Grundbuch-Einträge ohne Kreis oder mit «-» fliegen raus. Gleicher Kreis mit gleichem Kontakt zählt als einer (Baden: Ortsteile Baden und Turgi am selben Punkt, ein Grundbuchamt). Bleibt genau einer: Kontaktdaten als Fakten, der Ortsteil nur, wenn alle Einträge denselben nennen. Bleiben mehrere (Zürich: 21 Ortsteil-Einträge mit 11 Kreisen; Winterthur: 3 Kreise): nur `grundbuch.kreise_anzahl` und `grundbuch.hinweis` («Die Gemeinde hat N Grundbuchkreise. Die Amtliche Vermessung löst sie nicht räumlich auf, zuständig ist das Grundbuchamt bzw. Notariat des Quartiers.»), keine Kontaktdaten, kein erster Treffer. Der Layer ist nur auf Gemeindeebene aufgelöst. Bleibt keiner: `EmptyResultError`. Geometer: der Eintrag mit `stellvertreter=false` vor dem Stellvertreter.
+
+**Belege 15./16.10.2026**
+
+| Adresse | Grundbuch | Geometer |
+|---|---|---|
+| Wabern BE | Bern-Mittelland, Poststrasse 25, 3071 Ostermundigen, 031 635 93 00, gba.bemi@be.ch, eidg. Grundbuch ganz eingeführt | bbp geomatik ag, Könizstrasse 161, 3097 Liebefeld |
+| Baden AG | Baden, Bahnhofstrasse 40, 5400 Baden, 056 200 09 40, gbabaden@ag.ch (zwei Ortsteil-Einträge, ein Amt) | Steinmann Ingenieure und Planer AG, Rütistrasse 2, 5400 Baden |
+| Klingnau AG | Baden (Ortsteil Klingnau), gleicher Kontakt wie Baden | Reto Porta Nachführungsgeometer Kreis Zurzach, Quellenstrasse 3, 5330 Bad Zurzach |
+| Zürich ZH | 11 Grundbuchkreise, Hinweis statt Kontakt | Stadt Zürich, Geomatik + Vermessung, Weberstrasse 5, 8004 Zürich |
+| Winterthur ZH | 3 Grundbuchkreise, Hinweis statt Kontakt | Stadt Winterthur, Departement Bau und Mobilität, Geomatik- und Vermessungsamt, Pionierstrasse 7, 8403 Winterthur |
+
+**Bekannt, bewusst nicht genutzt:** `ch.swisstopo-vd.stand-oerebkataster` (ÖREB-Fachstelle pro Kanton, mit Telefon). Der ÖREB-Extract nennt die Katasterstelle schon selbst (`oereb.kataster_stelle`, `.kataster_adresse`, `.kataster_url`), ein zweiter Layer dafür wäre doppelt.
 
 ---
 

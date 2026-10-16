@@ -1,0 +1,78 @@
+{
+  "_hinweis": "Echte Antwort vom 15.10.2026: identify am GWR-Gebäudepunkt Rütistrasse 1, Baden (2665322.862/1258605.675). Drei Grundbuch-Einträge: Ortsteile Baden und Turgi mit demselben Kreis «Baden» und identischem Kontakt (Bahnhofstrasse 40, 5400 Baden) plus ein leerer Eintrag; ein Geometer (Steinmann Ingenieure und Planer AG). Gleicher Kreis mit gleichem Kontakt zählt im Adapter als einer. URL: https://api3.geo.admin.ch/rest/services/api/MapServer/identify?geometry=2665322.862,1258605.675&geometryType=esriGeometryPoint&sr=2056&layers=all:ch.swisstopo-vd.geometa-grundbuch,ch.swisstopo-vd.geometa-nfgeom&tolerance=0&returnGeometry=false&lang=de",
+  "results": [
+    {
+      "layerBodId": "ch.swisstopo-vd.geometa-grundbuch",
+      "layerName": "Grundbuchinformationen",
+      "featureId": 1309,
+      "id": 1309,
+      "attributes": {
+        "fid": "70990",
+        "ortsteil_grundbuch": "Turgi",
+        "grundbuchfuehrung_d": "eidg. Grundbuch ganz eingeführt",
+        "grundbuchfuehrung_f": "Registre foncier féd. complet",
+        "grundbuchfuehrung_i": "Registro fondiario fed. completo",
+        "grundbuchkreis": "Baden",
+        "adresse": "Bahnhofstrasse 40#5400 Baden",
+        "telefon": "056 200 09 40",
+        "email": "gbabaden@ag.ch",
+        "bgdi_created": "15.10.2026",
+        "label": "Turgi"
+      }
+    },
+    {
+      "layerBodId": "ch.swisstopo-vd.geometa-grundbuch",
+      "layerName": "Grundbuchinformationen",
+      "featureId": 1312,
+      "id": 1312,
+      "attributes": {
+        "fid": "71010",
+        "ortsteil_grundbuch": "Baden",
+        "grundbuchfuehrung_d": "eidg. Grundbuch ganz eingeführt",
+        "grundbuchfuehrung_f": "Registre foncier féd. complet",
+        "grundbuchfuehrung_i": "Registro fondiario fed. completo",
+        "grundbuchkreis": "Baden",
+        "adresse": "Bahnhofstrasse 40#5400 Baden",
+        "telefon": "056 200 09 40",
+        "email": "gbabaden@ag.ch",
+        "bgdi_created": "15.10.2026",
+        "label": "Baden"
+      }
+    },
+    {
+      "layerBodId": "ch.swisstopo-vd.geometa-grundbuch",
+      "layerName": "Grundbuchinformationen",
+      "featureId": 3547,
+      "id": 3547,
+      "attributes": {
+        "fid": "5975818",
+        "ortsteil_grundbuch": "Baden",
+        "grundbuchfuehrung_d": null,
+        "grundbuchfuehrung_f": null,
+        "grundbuchfuehrung_i": null,
+        "grundbuchkreis": null,
+        "adresse": "# ",
+        "telefon": null,
+        "email": null,
+        "bgdi_created": "15.10.2026",
+        "label": "Baden"
+      }
+    },
+    {
+      "layerBodId": "ch.swisstopo-vd.geometa-nfgeom",
+      "layerName": "Nachführungsgeometer/in",
+      "featureId": 47,
+      "id": 47,
+      "attributes": {
+        "stellvertreter": false,
+        "name": "Steinmann David Samuel",
+        "firmenname": "Steinmann Ingenieure und Planer AG",
+        "adresse": "Rütistrasse 2#5400 Baden",
+        "telefon": "056 200 18 60",
+        "email": "baden@steinmann-ing.ch",
+        "bgdi_created": "15.10.2026",
+        "label": "Steinmann David Samuel"
+      }
+    }
+  ]
+}

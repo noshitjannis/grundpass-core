@@ -7,6 +7,7 @@ import { oereb } from './oereb.ts';
 import { oevGueteklasse } from './oev-gueteklasse.ts';
 import { radon } from './radon.ts';
 import { sonnendach } from './sonnendach.ts';
+import { zustaendigeStellen } from './zustaendige-stellen.ts';
 
 /**
  * Alle Adapter. Reihenfolge ist nur für die Anzeige und für Key-Konflikte (erster Schreiber gewinnt)
@@ -14,6 +15,6 @@ import { sonnendach } from './sonnendach.ts';
  *
  * Neuer Adapter: Datei daneben anlegen, hier eintragen, docs/QUELLEN.md ergänzen. Siehe docs/ADAPTER-SCHREIBEN.md.
  */
-export const adapters: Adapter[] = [geocode, gwr, avParzelle, sonnendach, oevGueteklasse, radon, laermStrasse, oereb];
+export const adapters: Adapter[] = [geocode, gwr, avParzelle, sonnendach, oevGueteklasse, radon, laermStrasse, oereb, zustaendigeStellen];
 
-export { avParzelle, geocode, gwr, laermStrasse, oereb, oevGueteklasse, radon, sonnendach };
+export { avParzelle, geocode, gwr, laermStrasse, oereb, oevGueteklasse, radon, sonnendach, zustaendigeStellen };

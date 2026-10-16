@@ -2,6 +2,7 @@ import { mkdirSync, writeFileSync } from 'node:fs';
 import { describe, expect, it } from 'vitest';
 import { z } from 'zod';
 import { adapters, gwr, oereb } from '../../src/adapters/index.ts';
+import { GOLDENE_ADRESSEN } from '../../src/canary/adressen.ts';
 import { OEREB_KANTONE, oerebExtractUrl } from '../../src/adapters/oereb/kantone.ts';
 import { Core } from '../../src/core.ts';
 import { createHttpClient } from '../../src/http/client.ts';
@@ -55,6 +56,38 @@ describe.skipIf(!live)('live: geo.admin', () => {
     expect(f('parzelle.hinweis_vermessung')?.value).toContain('3827');
     await core.close();
   }, 60_000);
+
+  it('zuständige Stellen an den fünf goldenen Adressen: Wabern und Baden eindeutig, Zürich mit Hinweis, Klingnau und Winterthur festgehalten', async () => {
+    const core = await Core.create({ store: 'memory', log: silentLogger, breaker: new CircuitBreaker() });
+    type Eintrag = { status?: string; fehler?: string; facts: Record<string, unknown> };
+    const ergebnis: Record<string, Eintrag> = {};
+    for (const g of GOLDENE_ADRESSEN) {
+      const { run } = await core.steckbrief({ adresse: g.adresse }, { useCache: false });
+      const r = run.adapters.find((a) => a.adapter === 'zustaendige-stellen');
+      const e: Eintrag = { facts: Object.fromEntries(run.facts.filter((f) => f.source === 'zustaendige-stellen').map((f) => [f.key, f.value])) };
+      if (r?.status) e.status = r.status;
+      if (r?.error) e.fehler = r.error;
+      ergebnis[g.name] = e;
+    }
+    mkdirSync('test/live/aufzeichnungen', { recursive: true });
+    writeFileSync('test/live/aufzeichnungen/stellen-golden.json', JSON.stringify(ergebnis, null, 2));
+    const v = (name: string, key: string) => ergebnis[name]?.facts[key];
+    for (const g of GOLDENE_ADRESSEN) expect(ergebnis[g.name]?.status, g.name).toBe('ok');
+    expect(v('Wabern EFH (Beispielobjekt)', 'grundbuch.kreis')).toBe('Bern-Mittelland');
+    expect(v('Wabern EFH (Beispielobjekt)', 'grundbuch.telefon')).toBe('031 635 93 00');
+    expect(v('Wabern EFH (Beispielobjekt)', 'vermessung.geometer_firma')).toBe('bbp geomatik ag');
+    expect(v('Baden Büro', 'grundbuch.kreis')).toBe('Baden');
+    expect(v('Baden Büro', 'grundbuch.hinweis')).toBeUndefined();
+    expect(v('Zürich City', 'grundbuch.hinweis')).toContain('Grundbuchkreise');
+    expect(v('Zürich City', 'grundbuch.telefon')).toBeUndefined();
+    expect(v('Zürich City', 'grundbuch.kreis')).toBeUndefined();
+    // Klingnau und Winterthur: nur festhalten, was kommt (Aufzeichnung), kein Erwartungswert
+    for (const name of ['Klingnau', 'Winterthur ZHAW']) {
+      const f = ergebnis[name]?.facts ?? {};
+      console.log(`stellen ${name}: ${String(f['grundbuch.kreis'] ?? f['grundbuch.hinweis'])} · Geometer ${String(f['vermessung.geometer_firma'])}`);
+    }
+    await core.close();
+  }, 180_000);
 
   it('zeichnet die rohen WMS-GetFeatureInfo-Antworten für Strassenlärm auf und prüft die Form', async () => {
     const http = createHttpClient({ retries: 0 });

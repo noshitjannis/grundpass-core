@@ -21,7 +21,8 @@ gwr ──────► EGRID, Gebäudepunkt LV95, BFS-Nr, Kanton, Parzellen-N
    ├──► oev-gueteklasse                            A bis D
    ├──► radon                                      Wahrscheinlichkeit in %
    ├──► laerm-strasse                              dB Tag/Nacht
-   └──► oereb         (braucht EGRID + Kanton; AG, ZH, BE)   Zone, Grundbuchfläche, Lärm-ES, weitere Beschränkungen
+   ├──► oereb         (braucht EGRID + Kanton; AG, ZH, BE)   Zone, Grundbuchfläche, Lärm-ES, weitere Beschränkungen, zuständige Stellen
+   └──► zustaendige-stellen (braucht Gebäudepunkt)   Grundbuchamt, Nachführungsgeometer
    │
    ▼
 derived ──► bebauter Anteil, Gebäudealter, Wohnfläche total, Lärm-Grenzwerte aus der Empfindlichkeitsstufe
@@ -159,7 +160,7 @@ Tabellen:
 | `runs` | kompletter `RunResult` als jsonb pro Lauf. Für Diffs und Debug. |
 | `snapshots` | Key-Value: Canary-Baselines, letzter Canary-Report, letzter Alarm-Hash. |
 
-**Cache-Regel:** `latestAdapterRun(subject, adapter)` liefert den jüngsten `ok`-Lauf mit seinen Fakten, Keys und seiner Adapter-Version. Ist er jünger als `ttlDays` und die Version gleich der im Manifest, wird der Adapter nicht aufgerufen. Wer einem Adapter neue Fakten gibt, erhöht `version` im Manifest (laerm-strasse steht seit 15.10.2026 auf 2, av-parzelle auf 3). Gecachte Fakten behalten ihre ursprüngliche `fetched_at` und `run_id` (Herkunft bleibt wahr).
+**Cache-Regel:** `latestAdapterRun(subject, adapter)` liefert den jüngsten `ok`-Lauf mit seinen Fakten, Keys und seiner Adapter-Version. Ist er jünger als `ttlDays` und die Version gleich der im Manifest, wird der Adapter nicht aufgerufen. Wer einem Adapter neue Fakten gibt, erhöht `version` im Manifest (laerm-strasse steht seit 15.10.2026 auf 2, av-parzelle auf 3, oereb seit 16.10.2026 auf 2). Gecachte Fakten behalten ihre ursprüngliche `fetched_at` und `run_id` (Herkunft bleibt wahr).
 
 **Aktueller Stand:** `latestFacts(subject)` = jüngster Fakt pro (key, source). Mehrere Quellen für denselben Key sind erlaubt (z.B. `parzelle.egrid` aus GWR und aus AV); die View wählt nach Confidence, dann Aktualität.
 
@@ -180,7 +181,7 @@ Nur Rechnung, keine Meinung. Baureserve, Preis, Empfehlungen gehören in die App
 
 Kleingeschrieben, Punkt-getrennt, Einheit im Namen. Präfixe:
 
-`adresse.` · `gebaeude.` · `gebaeude.heizung.` · `gebaeude.warmwasser.` · `wohnung.<ewid>.` · `wohnungen.` · `parzelle.` · `zone.` (mit `zone.weitere.<n>.`) · `oereb.<thema>.` · `solar.` · `oev.` · `radon.` · `laerm.strasse.` · `laerm.empfindlichkeitsstufe`
+`adresse.` · `gebaeude.` · `gebaeude.heizung.` · `gebaeude.warmwasser.` · `wohnung.<ewid>.` · `wohnungen.` · `parzelle.` · `zone.` (mit `zone.weitere.<n>.`, `zone.zustaendig`) · `oereb.<thema>.` (mit `.zustaendig`) · `oereb.kataster_` · `solar.` · `oev.` · `radon.` · `laerm.strasse.` · `laerm.empfindlichkeitsstufe` · `laerm.zustaendig` · `grundbuch.` · `vermessung.geometer_`
 
 Datengetriebene Keys (`wohnung.<ewid>.*`, `zone.weitere.<n>.*`, `oereb.<thema>.*`) stehen nicht im Feldkatalog, die Steckbrief-View bildet sie nach Muster. `parzelle.geometrie_geojson` steht bewusst nicht im Katalog: ein Fakt für Programme (Lageplan), nicht für die Lesefassung.
 
@@ -190,9 +191,9 @@ Codes aus Registern kommen doppelt: lesbar (`gebaeude.klasse`) und roh (`gebaeud
 
 `felder.ts` ist der Katalog: welcher Key unter welchem Label in welchem Abschnitt, mit Laien-Erklärung, und ob er `erwartet` ist. `buildSteckbrief(run, adapters)` baut daraus:
 
-- `abschnitte`: Adresse, Gebäude, Heizung, Wohnungen, Parzelle, Zone und Kataster, Sonne, ÖV, Lärm, Radon, Berechnet, plus eine Karte pro Wohnung. Im Abschnitt Zone hängt die View datengetriebene Zeilen an: weitere Grundnutzungen (`zone.weitere.<n>.*`, Label mit Anteil) und jedes betroffene ÖREB-Thema (`oereb.<thema>.betroffen`, Label aus `.thema`, Wert aus `.text`, Anteil oder Länge in Klammern).
+- `abschnitte`: Adresse, Gebäude, Heizung, Wohnungen, Parzelle, Zone und Kataster, Sonne, ÖV, Lärm, Radon, Zuständige Stellen (Grundbuchamt, Nachführungsgeometer, ÖREB-Katasterstelle), Berechnet, plus eine Karte pro Wohnung. Im Abschnitt Zone hängt die View datengetriebene Zeilen an: weitere Grundnutzungen (`zone.weitere.<n>.*`, Label mit Anteil) und jedes betroffene ÖREB-Thema (`oereb.<thema>.betroffen`, Label aus `.thema`, Wert aus `.text`, Anteil oder Länge in Klammern).
 - Jedes Feld: `value`, `unit`, `quelle`, `quelle_titel`, `stand` (= `source_date` der Quelle, sonst Abrufdatum), `url`, `confidence`.
-- `luecken`: jeder `erwartet`e Key ohne Wert, mit Grund: `fehlt_im_register`, `quelle_nicht_erreichbar`, `quelle_uebersprungen`, `quelle_abgeschaltet`, `quelle_ausser_kanton` (Adapter gilt nicht für diesen Kanton, `detail` nennt ihn). Welcher Adapter einen Key liefert, entscheidet das längste passende `provides`-Präfix (`parzelle.flaeche_grundbuch_m2` gehört zu oereb, nicht zu av-parzelle).
+- `luecken`: jeder `erwartet`e Key ohne Wert, mit Grund: `fehlt_im_register`, `quelle_nicht_erreichbar`, `quelle_uebersprungen`, `quelle_abgeschaltet`, `quelle_ausser_kanton` (Adapter gilt nicht für diesen Kanton, `detail` nennt ihn), `hinweis` (die Quelle liefert statt des Werts einen Hinweis: fehlt `grundbuch.kreis`, steht der Text von `grundbuch.hinweis` in `detail`; allgemein `<präfix>.hinweis` zum fehlenden Key). Welcher Adapter einen Key liefert, entscheidet das längste passende `provides`-Präfix (`parzelle.flaeche_grundbuch_m2` gehört zu oereb, nicht zu av-parzelle).
 - `quellen`: Status pro Adapter, Stand, ms, Fehler, `experimentell`-Flag.
 - `attribution`: Pflicht-Quellenangaben der genutzten Quellen, aus den Manifesten.
 
@@ -245,8 +246,8 @@ Auslösen: `pnpm canary` (Cron auf dem Server) oder `POST /internal/canary` (z.B
 
 ## 14. Tests
 
-- Offline (`pnpm test`): Fixtures aus `test/fixtures/`, `fakeFetch` bildet URLs auf Fixtures ab (Antwort ohne Inhalt per `body: null`, z.B. 204). 72 Tests: Adapter einzeln (av-parzelle per EGRID, Baden-Gegenprobe, Fallback am Punkt; ÖREB mit vier Kantons-Fixtures, 204, Drift, Kanton ohne Eintrag), Resolver (Stufen, Cache, Breaker, Kanton, Timeout, Ende-zu-Ende Wabern mit acht Adaptern), derived (Grenzwerte je ES, Grundbuchfläche vor Geometrie), Store (Memory und PGlite), API, Canary.
-- Live (`pnpm test:live`, braucht Netz): Wabern gegen echte APIs, zeichnet rohe Antworten nach `test/live/aufzeichnungen/` auf (gitignored), darunter die WMS-GetFeatureInfo-Antworten für Lärm in drei INFO_FORMATs und die ÖREB-Extracts von Wabern, Baden und Zürich; prüft `versions/json` der drei Kantone und den 204-Fall in ZH; Baden (Rütistrasse 1) belegt av-parzelle per EGRID: Parzelle 3258, 395 m², Hinweis auf 3827.
+- Offline (`pnpm test`): Fixtures aus `test/fixtures/`, `fakeFetch` bildet URLs auf Fixtures ab (Antwort ohne Inhalt per `body: null`, z.B. 204). 80 Tests: Adapter einzeln (av-parzelle per EGRID, Baden-Gegenprobe, Fallback am Punkt; ÖREB mit vier Kantons-Fixtures, 204, Drift, Kanton ohne Eintrag, zuständige Stellen aus dem Extract; zustaendige-stellen: Wabern eindeutig, Zürich mit Hinweis, Baden mit doppeltem Kreis, nur leere Einträge, Stellvertreter), Resolver (Stufen, Cache, Breaker, Kanton, Timeout, Ende-zu-Ende Wabern mit acht Adaptern), derived (Grenzwerte je ES, Grundbuchfläche vor Geometrie), Store (Memory und PGlite), API, Canary.
+- Live (`pnpm test:live`, braucht Netz): Wabern gegen echte APIs, zeichnet rohe Antworten nach `test/live/aufzeichnungen/` auf (gitignored), darunter die WMS-GetFeatureInfo-Antworten für Lärm in drei INFO_FORMATs und die ÖREB-Extracts von Wabern, Baden und Zürich; prüft `versions/json` der drei Kantone und den 204-Fall in ZH; Baden (Rütistrasse 1) belegt av-parzelle per EGRID: Parzelle 3258, 395 m², Hinweis auf 3827; die fünf goldenen Adressen belegen zustaendige-stellen (Wabern und Baden eindeutig, Zürich und Winterthur mit Hinweis, Aufzeichnung `stellen-golden.json`).
 
 ## 15. Konfiguration (Env)
 
@@ -274,6 +275,7 @@ Auslösen: `pnpm canary` (Cron auf dem Server) oder `POST /internal/canary` (z.B
 - **ÖREB: Zonentext der Gemeinde, keine Deutung.** `zone.bezeichnung` ist der Legendentext aus dem Kataster. Ob «W2» zwei Geschosse heisst, steht im Baureglement; wir verlinken es (`zone.baureglement_url`), statt es zu interpretieren. Die Ausnützungsziffer steht nicht im Kataster und bleibt eine Lücke.
 - **ÖREB: Grundnutzung per SubCode, sonst per Code-Systematik.** BE kennzeichnet sie, ZH und AG nicht. Dort entscheidet die MGDM-Systematik des Bundes (1x bis 4x Hauptnutzung), belegt an vier Extracts, mit Confidence 0.95 statt 1 (QUELLEN.md, Abschnitt oereb).
 - **AV per EGRID, Punkt nur als Fallback.** Das Gebäuderegister nennt die Parzelle; die amtliche Vermessung soll deren Geometrie liefern, nicht die unter einem Punkt, der auch mal daneben liegt (Baden). Der Widerspruch der Register bleibt als Hinweis sichtbar, statt still korrigiert zu werden.
+- **Zuständige Stellen ohne Raten.** Der Grundbuch-Layer ist auf Gemeindeebene aufgelöst. Nennt er mehrere Kreise (Zürich 11, Winterthur 3), gibt es nur die Zahl und einen Hinweis, keinen ersten Treffer. Der Name des Geometers ist eine Person und bleibt draussen; Firma, Adresse, Telefon und Mail sind Amtskontakte.
 - **AGPL für den Core, App privat.** Entscheid vom 15.10.2026.
 
 ## 17. Was bewusst noch fehlt
@@ -301,3 +303,4 @@ Auslösen: `pnpm canary` (Cron auf dem Server) oder `POST /internal/canary` (z.B
 - **2026-10-15 · av-parzelle: Geometrie als Fakt** `parzelle.geometrie_geojson` (GeoJSON-String in LV95, Confidence 1) für den Lageplan der App. Bewusst ohne Eintrag im Feldkatalog, darum nicht im Steckbrief, aber in `/v1/fakten` und im Store. 64 Tests.
 - **2026-10-15 · Commit-Regel in CLAUDE.md** Commit nur, wenn `pnpm check` mit Exit-Code 0 endet, nie per Ausgabetext wie «passed» (so rutschte am 15.10.2026 ein roter Test in einen Push). Dazu der Hinweis, dass `manifest.version` steigt, sobald ein Adapter seine Fakten-Keys oder deren Bedeutung ändert (Regel in ADAPTER-SCHREIBEN.md). Kein Code-Change.
 - **2026-10-15 · av-parzelle per EGRID (Version 3)** Hauptweg ist jetzt `find` auf `egris_egrid` (live bestätigt: das Feld ist durchsuchbar, Antwort in derselben GeoJSON-Form wie identify), der Punkt-identify nur noch Fallback ohne EGRID oder bei in der AV unbekannter EGRID. Anlass Baden, Rütistrasse 1: Der GWR-Gebäudepunkt liegt auf Parzelle 3827 (236 m²), das Register nennt 3258 (394 m²), der Lageplan zeichnete die falsche Parzelle. Jetzt kommt 3258 mit Geometrie (Shoelace 395 m²). Gegenprobe ohne Netz: Even-Odd-Test, ob der Gebäudepunkt in der Geometrie liegt; wenn nicht, eine identify-Abfrage, und `parzelle.hinweis_vermessung` benennt die Parzelle unter dem Punkt (Confidence der Fakten bleibt 1; im Fallback mit fremder Parzelle weiterhin 0.8). `needs` ist `egrid|lv95_bau`, `findUrl` kann `geometryFormat`. Drei neue Fixtures (find Baden, find Wabern, identify am Baden-Punkt), Live-Test mit Baden. 72 Tests. Der Canary wird für Baden einmal `parzelle.nummer` 3258 statt der Baseline melden, das ist die Korrektur.
+- **2026-10-16 · Zuständige Stellen** Neuer Adapter `zustaendige-stellen` (swisstopo, Amtliche Vermessung: Layer geometa-grundbuch und geometa-nfgeom, ein identify am Gebäudepunkt): Grundbuchamt mit Adresse, Telefon, E-Mail und Grundbuchführung, Nachführungsgeometer mit Firma und Kontakt (Personenname bleibt draussen). Mehrere Grundbuchkreise in der Gemeinde (Zürich 11, Winterthur 3): nur `grundbuch.kreise_anzahl` und `grundbuch.hinweis`; gleicher Kreis mit gleichem Kontakt zählt einmal (Baden). Live an den fünf goldenen Adressen bestätigt, darum verifiziert. ÖREB-Adapter Version 2: `zone.zustaendig`, `laerm.zustaendig`, `oereb.<thema>.zustaendig` (je mit `_url`) aus `ResponsibleOffice`, `oereb.kataster_stelle` und `.kataster_adresse` aus `PLRCadastreAuthority`. Steckbrief: neuer Abschnitt «Zuständige Stellen» zwischen Radon und Berechnet (auch `oereb.kataster_url` steht jetzt dort), `zone.zustaendig` und `laerm.zustaendig` als Zeile «Zuständig». Neuer Lücken-Grund `hinweis`: fehlt `grundbuch.kreis`, trägt die Lücke den Text von `grundbuch.hinweis`. Drei Fixtures, 80 Tests, Live-Test über alle fünf Adressen. Canary: `STABILE_KEYS` unverändert.

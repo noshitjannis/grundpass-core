@@ -1,0 +1,439 @@
+{
+  "_hinweis": "Echte Antwort vom 15.10.2026: identify am Punkt Bergstrasse 156, Zürich (2685138/1246660). 22 Grundbuch-Einträge: 21 Ortsteile der Stadt mit 11 verschiedenen Grundbuchkreisen (Notariate) plus ein leerer Eintrag «Zürich» (grundbuchkreis null, grundbuchfuehrung_d «-», adresse «# »), dazu ein Geometer (Stadt Zürich, Geomatik + Vermessung). Der Layer löst die Kreise nicht räumlich auf. URL: https://api3.geo.admin.ch/rest/services/api/MapServer/identify?geometry=2685138,1246660&geometryType=esriGeometryPoint&sr=2056&layers=all:ch.swisstopo-vd.geometa-grundbuch,ch.swisstopo-vd.geometa-nfgeom&tolerance=0&returnGeometry=false&lang=de",
+  "results": [
+    {
+      "layerBodId": "ch.swisstopo-vd.geometa-grundbuch",
+      "layerName": "Grundbuchinformationen",
+      "featureId": 2787,
+      "id": 2787,
+      "attributes": {
+        "fid": "72464",
+        "ortsteil_grundbuch": "Zürich",
+        "grundbuchfuehrung_d": "-",
+        "grundbuchfuehrung_f": null,
+        "grundbuchfuehrung_i": null,
+        "grundbuchkreis": null,
+        "adresse": "# ",
+        "telefon": null,
+        "email": null,
+        "bgdi_created": "15.10.2026",
+        "label": "Zürich"
+      }
+    },
+    {
+      "layerBodId": "ch.swisstopo-vd.geometa-grundbuch",
+      "layerName": "Grundbuchinformationen",
+      "featureId": 3000,
+      "id": 3000,
+      "attributes": {
+        "fid": "72663",
+        "ortsteil_grundbuch": "Zürich-Wipkingen (A)",
+        "grundbuchfuehrung_d": "eidg. Grundbuch ganz eingeführt",
+        "grundbuchfuehrung_f": "Registre foncier féd. complet",
+        "grundbuchfuehrung_i": "Registro fondiario fed. completo",
+        "grundbuchkreis": "Unterstrass und Wipkingen",
+        "adresse": "Schaffhauserstrasse 2#8006 Zürich",
+        "telefon": "044 752 37 37",
+        "email": "unterstrass-zuerich@notariate-zh.ch",
+        "bgdi_created": "15.10.2026",
+        "label": "Zürich-Wipkingen (A)"
+      }
+    },
+    {
+      "layerBodId": "ch.swisstopo-vd.geometa-grundbuch",
+      "layerName": "Grundbuchinformationen",
+      "featureId": 3001,
+      "id": 3001,
+      "attributes": {
+        "fid": "72664",
+        "ortsteil_grundbuch": "Zürich-Oberstrass (B)",
+        "grundbuchfuehrung_d": "eidg. Grundbuch ganz eingeführt",
+        "grundbuchfuehrung_f": "Registre foncier féd. complet",
+        "grundbuchfuehrung_i": "Registro fondiario fed. completo",
+        "grundbuchkreis": "Fluntern und Oberstrass",
+        "adresse": "Freiestrasse 15#8032 Zürich",
+        "telefon": "044 716 58 48",
+        "email": "fluntern-zuerich@notariate-zh.ch",
+        "bgdi_created": "15.10.2026",
+        "label": "Zürich-Oberstrass (B)"
+      }
+    },
+    {
+      "layerBodId": "ch.swisstopo-vd.geometa-grundbuch",
+      "layerName": "Grundbuchinformationen",
+      "featureId": 3002,
+      "id": 3002,
+      "attributes": {
+        "fid": "72665",
+        "ortsteil_grundbuch": "Zürich-Hirslanden (C)",
+        "grundbuchfuehrung_d": "eidg. Grundbuch ganz eingeführt",
+        "grundbuchfuehrung_f": "Registre foncier féd. complet",
+        "grundbuchfuehrung_i": "Registro fondiario fed. completo",
+        "grundbuchkreis": "Hottingen-Zürich, Hirslanden-Zürich und Witikon-Zürich",
+        "adresse": "Witikonerstrasse 15#8032 Zürich",
+        "telefon": "044 924 45 50",
+        "email": "hottingen-zuerich@notariate-zh.ch",
+        "bgdi_created": "15.10.2026",
+        "label": "Zürich-Hirslanden (C)"
+      }
+    },
+    {
+      "layerBodId": "ch.swisstopo-vd.geometa-grundbuch",
+      "layerName": "Grundbuchinformationen",
+      "featureId": 3003,
+      "id": 3003,
+      "attributes": {
+        "fid": "72666",
+        "ortsteil_grundbuch": "Zürich-Leimbach (D)",
+        "grundbuchfuehrung_d": "eidg. Grundbuch ganz eingeführt",
+        "grundbuchfuehrung_f": "Registre foncier féd. complet",
+        "grundbuchfuehrung_i": "Registro fondiario fed. completo",
+        "grundbuchkreis": "Enge, Wollishofen und Leimbach",
+        "adresse": "Bederstrasse 28#8002 Zürich",
+        "telefon": "044 446 57 60",
+        "email": "enge-zuerich@notariate-zh.ch",
+        "bgdi_created": "15.10.2026",
+        "label": "Zürich-Leimbach (D)"
+      }
+    },
+    {
+      "layerBodId": "ch.swisstopo-vd.geometa-grundbuch",
+      "layerName": "Grundbuchinformationen",
+      "featureId": 3004,
+      "id": 3004,
+      "attributes": {
+        "fid": "72667",
+        "ortsteil_grundbuch": "Zürich-Wollishofen (E)",
+        "grundbuchfuehrung_d": "eidg. Grundbuch ganz eingeführt",
+        "grundbuchfuehrung_f": "Registre foncier féd. complet",
+        "grundbuchfuehrung_i": "Registro fondiario fed. completo",
+        "grundbuchkreis": "Enge, Wollishofen und Leimbach",
+        "adresse": "Bederstrasse 28#8002 Zürich",
+        "telefon": "044 446 57 60",
+        "email": "enge-zuerich@notariate-zh.ch",
+        "bgdi_created": "15.10.2026",
+        "label": "Zürich-Wollishofen (E)"
+      }
+    },
+    {
+      "layerBodId": "ch.swisstopo-vd.geometa-grundbuch",
+      "layerName": "Grundbuchinformationen",
+      "featureId": 3005,
+      "id": 3005,
+      "attributes": {
+        "fid": "72668",
+        "ortsteil_grundbuch": "Zürich-Hottingen (F)",
+        "grundbuchfuehrung_d": "eidg. Grundbuch ganz eingeführt",
+        "grundbuchfuehrung_f": "Registre foncier féd. complet",
+        "grundbuchfuehrung_i": "Registro fondiario fed. completo",
+        "grundbuchkreis": "Hottingen-Zürich, Hirslanden-Zürich und Witikon-Zürich",
+        "adresse": "Witikonerstrasse 15#8032 Zürich",
+        "telefon": "044 924 45 50",
+        "email": "hottingen-zuerich@notariate-zh.ch",
+        "bgdi_created": "15.10.2026",
+        "label": "Zürich-Hottingen (F)"
+      }
+    },
+    {
+      "layerBodId": "ch.swisstopo-vd.geometa-grundbuch",
+      "layerName": "Grundbuchinformationen",
+      "featureId": 3006,
+      "id": 3006,
+      "attributes": {
+        "fid": "72669",
+        "ortsteil_grundbuch": "Zürich-Albisrieden (G)",
+        "grundbuchfuehrung_d": "eidg. Grundbuch ganz eingeführt",
+        "grundbuchfuehrung_f": "Registre foncier féd. complet",
+        "grundbuchfuehrung_i": "Registro fondiario fed. completo",
+        "grundbuchkreis": "Altstetten und Albisrieden",
+        "adresse": "Altstetterstrasse 142#8048 Zürich",
+        "telefon": "044 752 35 50",
+        "email": "altstetten-zuerich@notariate-zh.ch",
+        "bgdi_created": "15.10.2026",
+        "label": "Zürich-Albisrieden (G)"
+      }
+    },
+    {
+      "layerBodId": "ch.swisstopo-vd.geometa-grundbuch",
+      "layerName": "Grundbuchinformationen",
+      "featureId": 3007,
+      "id": 3007,
+      "attributes": {
+        "fid": "72670",
+        "ortsteil_grundbuch": "Zürich-Riesbach (H)",
+        "grundbuchfuehrung_d": "eidg. Grundbuch ganz eingeführt",
+        "grundbuchfuehrung_f": "Registre foncier féd. complet",
+        "grundbuchfuehrung_i": "Registro fondiario fed. completo",
+        "grundbuchkreis": "Riesbach-Zürich",
+        "adresse": "Kreuzstrasse 42#8008 Zürich",
+        "telefon": "044 752 35 35",
+        "email": "riesbach-zuerich@notariate-zh.ch",
+        "bgdi_created": "15.10.2026",
+        "label": "Zürich-Riesbach (H)"
+      }
+    },
+    {
+      "layerBodId": "ch.swisstopo-vd.geometa-grundbuch",
+      "layerName": "Grundbuchinformationen",
+      "featureId": 3008,
+      "id": 3008,
+      "attributes": {
+        "fid": "72671",
+        "ortsteil_grundbuch": "Zürich-Fluntern (I)",
+        "grundbuchfuehrung_d": "eidg. Grundbuch ganz eingeführt",
+        "grundbuchfuehrung_f": "Registre foncier féd. complet",
+        "grundbuchfuehrung_i": "Registro fondiario fed. completo",
+        "grundbuchkreis": "Fluntern und Oberstrass",
+        "adresse": "Freiestrasse 15#8032 Zürich",
+        "telefon": "044 716 58 48",
+        "email": "fluntern-zuerich@notariate-zh.ch",
+        "bgdi_created": "15.10.2026",
+        "label": "Zürich-Fluntern (I)"
+      }
+    },
+    {
+      "layerBodId": "ch.swisstopo-vd.geometa-grundbuch",
+      "layerName": "Grundbuchinformationen",
+      "featureId": 3009,
+      "id": 3009,
+      "attributes": {
+        "fid": "72672",
+        "ortsteil_grundbuch": "Zürich-Wiedikon (J)",
+        "grundbuchfuehrung_d": "eidg. Grundbuch ganz eingeführt",
+        "grundbuchfuehrung_f": "Registre foncier féd. complet",
+        "grundbuchfuehrung_i": "Registro fondiario fed. completo",
+        "grundbuchkreis": "Wiedikon-Zürich",
+        "adresse": "Weststrasse 70#8003 Zürich",
+        "telefon": "044 298 55 00",
+        "email": "wiedikon-zuerich@notariate-zh.ch",
+        "bgdi_created": "15.10.2026",
+        "label": "Zürich-Wiedikon (J)"
+      }
+    },
+    {
+      "layerBodId": "ch.swisstopo-vd.geometa-grundbuch",
+      "layerName": "Grundbuchinformationen",
+      "featureId": 3010,
+      "id": 3010,
+      "attributes": {
+        "fid": "72673",
+        "ortsteil_grundbuch": "Zürich-Aussersihl (K)",
+        "grundbuchfuehrung_d": "eidg. Grundbuch ganz eingeführt",
+        "grundbuchfuehrung_f": "Registre foncier féd. complet",
+        "grundbuchfuehrung_i": "Registro fondiario fed. completo",
+        "grundbuchkreis": "Aussersihl-Zürich",
+        "adresse": "Wengistrasse 7#8004 Zürich",
+        "telefon": "044 859 28 80",
+        "email": "aussersihl-zuerich@notariate-zh.ch",
+        "bgdi_created": "15.10.2026",
+        "label": "Zürich-Aussersihl (K)"
+      }
+    },
+    {
+      "layerBodId": "ch.swisstopo-vd.geometa-grundbuch",
+      "layerName": "Grundbuchinformationen",
+      "featureId": 3011,
+      "id": 3011,
+      "attributes": {
+        "fid": "72674",
+        "ortsteil_grundbuch": "Zürich-Enge (L)",
+        "grundbuchfuehrung_d": "eidg. Grundbuch ganz eingeführt",
+        "grundbuchfuehrung_f": "Registre foncier féd. complet",
+        "grundbuchfuehrung_i": "Registro fondiario fed. completo",
+        "grundbuchkreis": "Enge, Wollishofen und Leimbach",
+        "adresse": "Bederstrasse 28#8002 Zürich",
+        "telefon": "044 446 57 60",
+        "email": "enge-zuerich@notariate-zh.ch",
+        "bgdi_created": "15.10.2026",
+        "label": "Zürich-Enge (L)"
+      }
+    },
+    {
+      "layerBodId": "ch.swisstopo-vd.geometa-grundbuch",
+      "layerName": "Grundbuchinformationen",
+      "featureId": 3012,
+      "id": 3012,
+      "attributes": {
+        "fid": "72675",
+        "ortsteil_grundbuch": "Zürich-Unterstrass (M)",
+        "grundbuchfuehrung_d": "eidg. Grundbuch ganz eingeführt",
+        "grundbuchfuehrung_f": "Registre foncier féd. complet",
+        "grundbuchfuehrung_i": "Registro fondiario fed. completo",
+        "grundbuchkreis": "Unterstrass und Wipkingen",
+        "adresse": "Schaffhauserstrasse 2#8006 Zürich",
+        "telefon": "044 752 37 37",
+        "email": "unterstrass-zuerich@notariate-zh.ch",
+        "bgdi_created": "15.10.2026",
+        "label": "Zürich-Unterstrass (M)"
+      }
+    },
+    {
+      "layerBodId": "ch.swisstopo-vd.geometa-grundbuch",
+      "layerName": "Grundbuchinformationen",
+      "featureId": 3013,
+      "id": 3013,
+      "attributes": {
+        "fid": "72676",
+        "ortsteil_grundbuch": "Zürich-Seebach (N)",
+        "grundbuchfuehrung_d": "eidg. Grundbuch ganz eingeführt",
+        "grundbuchfuehrung_f": "Registre foncier féd. complet",
+        "grundbuchfuehrung_i": "Registro fondiario fed. completo",
+        "grundbuchkreis": "Oerlikon, Schwamendingen, Seebach und Affoltern",
+        "adresse": "Nansenstrasse 16#8050 Zürich",
+        "telefon": "044 859 29 50",
+        "email": "oerlikon-zuerich@notariate-zh.ch",
+        "bgdi_created": "15.10.2026",
+        "label": "Zürich-Seebach (N)"
+      }
+    },
+    {
+      "layerBodId": "ch.swisstopo-vd.geometa-grundbuch",
+      "layerName": "Grundbuchinformationen",
+      "featureId": 3014,
+      "id": 3014,
+      "attributes": {
+        "fid": "72677",
+        "ortsteil_grundbuch": "Zürich-Oerlikon (O)",
+        "grundbuchfuehrung_d": "eidg. Grundbuch ganz eingeführt",
+        "grundbuchfuehrung_f": "Registre foncier féd. complet",
+        "grundbuchfuehrung_i": "Registro fondiario fed. completo",
+        "grundbuchkreis": "Oerlikon, Schwamendingen, Seebach und Affoltern",
+        "adresse": "Nansenstrasse 16#8050 Zürich",
+        "telefon": "044 859 29 50",
+        "email": "oerlikon-zuerich@notariate-zh.ch",
+        "bgdi_created": "15.10.2026",
+        "label": "Zürich-Oerlikon (O)"
+      }
+    },
+    {
+      "layerBodId": "ch.swisstopo-vd.geometa-grundbuch",
+      "layerName": "Grundbuchinformationen",
+      "featureId": 3015,
+      "id": 3015,
+      "attributes": {
+        "fid": "72678",
+        "ortsteil_grundbuch": "Zürich-Schwamendingen (P)",
+        "grundbuchfuehrung_d": "eidg. Grundbuch ganz eingeführt",
+        "grundbuchfuehrung_f": "Registre foncier féd. complet",
+        "grundbuchfuehrung_i": "Registro fondiario fed. completo",
+        "grundbuchkreis": "Oerlikon, Schwamendingen, Seebach und Affoltern",
+        "adresse": "Nansenstrasse 16#8050 Zürich",
+        "telefon": "044 859 29 50",
+        "email": "oerlikon-zuerich@notariate-zh.ch",
+        "bgdi_created": "15.10.2026",
+        "label": "Zürich-Schwamendingen (P)"
+      }
+    },
+    {
+      "layerBodId": "ch.swisstopo-vd.geometa-grundbuch",
+      "layerName": "Grundbuchinformationen",
+      "featureId": 3016,
+      "id": 3016,
+      "attributes": {
+        "fid": "72679",
+        "ortsteil_grundbuch": "Zürich-Höngg (Q)",
+        "grundbuchfuehrung_d": "eidg. Grundbuch ganz eingeführt",
+        "grundbuchfuehrung_f": "Registre foncier féd. complet",
+        "grundbuchfuehrung_i": "Registro fondiario fed. completo",
+        "grundbuchkreis": "Höngg-Zürich",
+        "adresse": "Frankentalerstrasse 3#8049 Zürich",
+        "telefon": "044 752 34 50",
+        "email": "hoengg-zuerich@notariate-zh.ch",
+        "bgdi_created": "15.10.2026",
+        "label": "Zürich-Höngg (Q)"
+      }
+    },
+    {
+      "layerBodId": "ch.swisstopo-vd.geometa-grundbuch",
+      "layerName": "Grundbuchinformationen",
+      "featureId": 3017,
+      "id": 3017,
+      "attributes": {
+        "fid": "72680",
+        "ortsteil_grundbuch": "Zürich-Altstetten (R)",
+        "grundbuchfuehrung_d": "eidg. Grundbuch ganz eingeführt",
+        "grundbuchfuehrung_f": "Registre foncier féd. complet",
+        "grundbuchfuehrung_i": "Registro fondiario fed. completo",
+        "grundbuchkreis": "Altstetten und Albisrieden",
+        "adresse": "Altstetterstrasse 142#8048 Zürich",
+        "telefon": "044 752 35 50",
+        "email": "altstetten-zuerich@notariate-zh.ch",
+        "bgdi_created": "15.10.2026",
+        "label": "Zürich-Altstetten (R)"
+      }
+    },
+    {
+      "layerBodId": "ch.swisstopo-vd.geometa-grundbuch",
+      "layerName": "Grundbuchinformationen",
+      "featureId": 3018,
+      "id": 3018,
+      "attributes": {
+        "fid": "72681",
+        "ortsteil_grundbuch": "Zürich-Affoltern (S)",
+        "grundbuchfuehrung_d": "eidg. Grundbuch ganz eingeführt",
+        "grundbuchfuehrung_f": "Registre foncier féd. complet",
+        "grundbuchfuehrung_i": "Registro fondiario fed. completo",
+        "grundbuchkreis": "Oerlikon, Schwamendingen, Seebach und Affoltern",
+        "adresse": "Nansenstrasse 16#8050 Zürich",
+        "telefon": "044 859 29 50",
+        "email": "oerlikon-zuerich@notariate-zh.ch",
+        "bgdi_created": "15.10.2026",
+        "label": "Zürich-Affoltern (S)"
+      }
+    },
+    {
+      "layerBodId": "ch.swisstopo-vd.geometa-grundbuch",
+      "layerName": "Grundbuchinformationen",
+      "featureId": 3019,
+      "id": 3019,
+      "attributes": {
+        "fid": "72682",
+        "ortsteil_grundbuch": "Zürich-Witikon (T)",
+        "grundbuchfuehrung_d": "eidg. Grundbuch ganz eingeführt",
+        "grundbuchfuehrung_f": "Registre foncier féd. complet",
+        "grundbuchfuehrung_i": "Registro fondiario fed. completo",
+        "grundbuchkreis": "Hottingen-Zürich, Hirslanden-Zürich und Witikon-Zürich",
+        "adresse": "Witikonerstrasse 15#8032 Zürich",
+        "telefon": "044 924 45 50",
+        "email": "hottingen-zuerich@notariate-zh.ch",
+        "bgdi_created": "15.10.2026",
+        "label": "Zürich-Witikon (T)"
+      }
+    },
+    {
+      "layerBodId": "ch.swisstopo-vd.geometa-grundbuch",
+      "layerName": "Grundbuchinformationen",
+      "featureId": 3020,
+      "id": 3020,
+      "attributes": {
+        "fid": "72683",
+        "ortsteil_grundbuch": "Zürich-Altstadt (U)",
+        "grundbuchfuehrung_d": "eidg. Grundbuch ganz eingeführt",
+        "grundbuchfuehrung_f": "Registre foncier féd. complet",
+        "grundbuchfuehrung_i": "Registro fondiario fed. completo",
+        "grundbuchkreis": "Zürich (Altstadt)",
+        "adresse": "Löwenstrasse 11#8001 Zürich",
+        "telefon": "044 752 36 00",
+        "email": "zuerich-altstadt@notariate-zh.ch",
+        "bgdi_created": "15.10.2026",
+        "label": "Zürich-Altstadt (U)"
+      }
+    },
+    {
+      "layerBodId": "ch.swisstopo-vd.geometa-nfgeom",
+      "layerName": "Nachführungsgeometer/in",
+      "featureId": 1895,
+      "id": 1895,
+      "attributes": {
+        "stellvertreter": false,
+        "name": "Graeff Bastian",
+        "firmenname": "Stadt Zürich, Geomatik + Vermessung",
+        "adresse": "Weberstrasse 5#8004 Zürich",
+        "telefon": "044 412 42 56",
+        "email": "vermessung@zuerich.ch",
+        "bgdi_created": "15.10.2026",
+        "label": "Graeff Bastian"
+      }
+    }
+  ]
+}
