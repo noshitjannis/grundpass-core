@@ -9,7 +9,8 @@ import { runKantonsCanary } from './kantone.ts';
 /**
  * `pnpm canary:kantone [--no-notify] [ZH BE …]` – alle Kantons-Referenzadressen durch geocode, gwr und oereb, Memory-Store,
  * keine Baseline. Bei Timeout, 429 oder 5xx ein zweiter Versuch nach 60 s. Exit 1, sobald ein angebundener Kanton keine Zone
- * liefert. Läuft täglich als GitHub Action (canary-kantone.yml).
+ * liefert. Läuft täglich als GitHub Action (canary-kantone.yml); dort zählen ZG und TI (Cloud-Sperre, kantone.ts sperrt_cloud_ips) als
+ * runner_gesperrt statt als Fehler.
  */
 const argv = process.argv.slice(2);
 const nur = argv.filter((a) => /^[A-Z]{2}$/.test(a));
@@ -22,13 +23,13 @@ const core = await Core.create({
 try {
   const r = await runKantonsCanary(core, { notify: !argv.includes('--no-notify'), ...(nur.length ? { adressen: KANTONS_ADRESSEN.filter((a) => nur.includes(a.kanton)) } : {}) });
   for (const e of r.kantone) {
-    const zeichen = e.befund === 'ok' ? '✓' : e.befund === 'kein_dienst' ? '·' : '✗';
+    const zeichen = e.befund === 'ok' ? '✓' : e.befund === 'kein_dienst' || e.befund === 'runner_gesperrt' ? '·' : '✗';
     const zone = e.zone ? `${e.zone}${e.erkennung ? ` (${e.erkennung})` : ''}` : '';
     const versuch = e.versuche === 2 ? `  [2. Versuch, zuerst ${e.erster_fehler?.slice(0, 80) ?? '?'}]` : '';
     console.log(`${zeichen} ${e.kanton} ${e.name.padEnd(30)} ${String(e.ms).padStart(6)} ms  ${e.befund.padEnd(14)} ${zone}${e.fehler ? `  ${e.fehler.slice(0, 120)}` : ''}${versuch}`);
   }
   const zaehl = (b: string) => r.kantone.filter((e) => e.befund === b).length;
-  console.log(`\nok ${zaehl('ok')} · leer ${zaehl('leer')} · failed ${zaehl('failed')} · vorgelagert ${zaehl('vorgelagert')} · falscher Kanton ${zaehl('falscher_kanton')} · kein Dienst ${zaehl('kein_dienst')}`);
+  console.log(`\nok ${zaehl('ok')} · leer ${zaehl('leer')} · failed ${zaehl('failed')} · vorgelagert ${zaehl('vorgelagert')} · falscher Kanton ${zaehl('falscher_kanton')} · kein Dienst ${zaehl('kein_dienst')} · Runner gesperrt ${zaehl('runner_gesperrt')}`);
   if (r.alarme.length) {
     console.log('\nALARME');
     for (const a of r.alarme) console.log(`  ${a}`);

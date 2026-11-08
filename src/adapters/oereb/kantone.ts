@@ -19,8 +19,9 @@
  *  - XML (SO, SH, gleiche Software): `ns5:GetExtractByIdResponse/ns3:Extract` mit den Namensräumen der Weisung. Der Adapter
  *    parst es mit fast-xml-parser (Präfixe weg, Attribute als `@…`, Werte als Strings) und bekommt dieselbe Baumform wie bei
  *    GeoShop (`{LocalisedText: …}`-Hüllen, einzelne Elemente statt Arrays), aber mit der Legende am Eintrag wie bei openoereb.
- * VS antwortet nicht; NE gibt JSON und XML nur registrierten Nutzern (403). Diese zwei sind `kein_dienst`: der Adapter läuft dort
- * nicht (ausser_kanton), die App sagt, was fehlt. GR lieferte am Vormittag des 16.10.2026 ein TLS-Zertifikat für *.gr.ch (deckt
+ * NE gibt JSON und XML nur registrierten Nutzern (403) und ist `kein_dienst`: der Adapter läuft dort nicht (ausser_kanton), die App
+ * sagt, was fehlt. VS antwortete am 16.10.2026 gar nicht (Timeout) und war darum kein_dienst; seit 08.11.2026 läuft der Dienst wieder
+ * (openoereb-Form, Regel 3) und ist angebunden. GR lieferte am Vormittag des 16.10.2026 ein TLS-Zertifikat für *.gr.ch (deckt
  * oereb.geo.gr.ch nicht ab), am Mittag eines für *.geo.gr.ch; seither angebunden.
  *
  * Grundnutzung erkennen (Regelkette, Reihenfolge immer gleich, pro Kanton nur die Muster):
@@ -45,6 +46,11 @@
  * Sprache: `sprache` ist LANG der Anfrage und die erste Wahl beim Lesen mehrsprachiger Texte (Reihenfolge Kantonssprache, de, fr,
  * it, rm, erster Eintrag). FR und VS fragen de an und fallen auf fr zurück, BE de, GR de, TI it. Zonenbezeichnungen bleiben in der
  * Sprache des Dienstes.
+ *
+ * Cloud-Sperre (`sperrt_cloud_ips`): ZG und TI sperren Anfragen aus Cloud-Netzen. Vom GitHub-Runner (Azure, USA) antwortet ZG mit HTTP 500
+ * und einer WAF-Blockseite («Web Page Blocked!», attack_ID 20000018, client_IP 4.154.167.162), TI läuft in den Connect-Timeout; aus dem
+ * Schweizer Netz antworten beide in unter 2 s mit 200 (bestätigt 08.11.2026). Der Adapter ändert daran nichts (die App fragt aus
+ * Frankfurt), aber Kantons-Canary und Live-Test auf dem Runner werten so einen Fehler als `runner_gesperrt` statt als Alarm.
  *
  * Timeout: OEREB_TIMEOUT_MS (30 s) für alle, `timeoutMs` pro Kanton, wenn ein Dienst nach Ruhe länger braucht (GL: Kaltstart 58 s,
  * darum 90 s). Das Manifest trägt das Maximum als harte Grenze des Resolvers; die wirksame Grenze ist die des Kantons.
@@ -78,6 +84,11 @@ export type OerebKanton = {
   notizen: string;
   /** Timeout des Extract-Aufrufs in Millisekunden, wenn der Dienst mehr braucht als OEREB_TIMEOUT_MS. */
   timeoutMs?: number;
+  /**
+   * Gesetzt, wenn der Dienst Anfragen aus Cloud-Netzen sperrt (Befund mit Datum). Kantons-Canary und Live-Test auf dem GitHub-Runner
+   * werten einen Fehler dieses Kantons dann als `runner_gesperrt`, nicht als Alarm. Aus der Schweiz und aus Frankfurt läuft der Dienst.
+   */
+  sperrt_cloud_ips?: string;
 };
 
 /** Das Bundesthema der Nutzungsplanung; alle Kantone ausser GR führen die Zone darunter. */
@@ -188,6 +199,7 @@ export const OEREB_KANTONE: Record<string, OerebKanton> = {
     status: 'verifiziert',
     geprueft_am: '2026-10-16',
     notizen: 'openoereb. ARE-Systematik im TypeCode (150101 Zone des öffentlichen Interesses, 512001 Ortsbildschutz, 532201 Gefahrenzone, 691001 Fundstätte): Regel 2. Der swisstopo-Layer nennt /ors als Basis, versions/json /oereb; beide liefern dasselbe. Am 16.10.2026 antwortete der Dienst zweimal vorübergehend mit HTTP 500 (Kantons-Canary 07:11 und 07:33 UTC), danach normal.',
+    sperrt_cloud_ips: 'WAF-Blockseite «Web Page Blocked!» (attack_ID 20000018) als HTTP 500 für den GitHub-Runner (Azure, USA); aus der Schweiz 200 in 1.7 s. Bestätigt 08.11.2026, Läufe vom 16.10. bis 05.11.2026 zeigten dasselbe Bild.',
   },
   FR: {
     kanton: 'FR',
@@ -310,6 +322,7 @@ export const OEREB_KANTONE: Record<string, OerebKanton> = {
     status: 'verifiziert',
     geprueft_am: '2026-10-16',
     notizen: 'openoereb, alles unter ch.Nutzungsplanung mit einem SubCode pro Plan (ch.TI.ch08d8qu…), Theme.Text «PR <Gemeinde> / Piano zone», «/ Piano traffico», «/ Piano paesaggio» …: eigenes Muster «Piano zone» für Regel 1. Bellinzona Altstadt: «Comparto soggetto a Piano Particolareggiato» (300 KB Extract).',
+    sperrt_cloud_ips: 'Connect-Timeout vom GitHub-Runner (crdpp.geo.ti.ch:443, auch nach 60 s im zweiten Versuch); aus der Schweiz 200 in 1.5 s. Beobachtet 05. und 08.11.2026.',
   },
   VD: {
     kanton: 'VD',
@@ -327,9 +340,9 @@ export const OEREB_KANTONE: Record<string, OerebKanton> = {
     sprache: 'de',
     format: 'json',
     grundnutzungRegel: {},
-    status: 'kein_dienst',
-    geprueft_am: '2026-10-16',
-    notizen: 'rdppf.apps.vs.ch antwortet nicht: versions/json und / laufen in den Timeout (60 s, auch mit HTTP/1.1 und Browser-User-Agent), HTTP/2 bricht nach 79 s mit INTERNAL_ERROR ab. DNS zeigt auf csvslb-oinfra.vs.ch. Später erneut prüfen.',
+    status: 'verifiziert',
+    geprueft_am: '2026-11-08',
+    notizen: 'openoereb (GetExtractByIdResponse.extract). Nutzungsplanung ohne SubCode und ohne ARE-Systematik (TypeCode 1 für «Vieille ville»), darum Regel 3. Themen und Ämter kommen mit LANG=de deutsch, die Legenden der Nutzungsplanung nur französisch (Sion: «Vieille ville (1)»). Kantonales Thema ch.VS.UeberlagerndeNutzungsplanung (Zone archéologique). Am 16.10.2026 lief der Dienst in den Timeout (60 s, HTTP/2 INTERNAL_ERROR nach 79 s) und war kein_dienst; seit 08.11.2026 antwortet er in 2 bis 3 s.',
   },
   NE: {
     kanton: 'NE',
@@ -369,7 +382,7 @@ export const OEREB_KANTONE_ALLE = Object.keys(OEREB_KANTONE);
 /** Kantone, in denen der Adapter läuft (verifiziert oder experimentell). Steht im Manifest als `cantons`. */
 export const OEREB_KANTONE_ANGEBUNDEN = OEREB_KANTONE_ALLE.filter((k) => OEREB_KANTONE[k]!.status !== 'kein_dienst');
 
-/** Zählung für Doku und App («ÖREB-Kataster in 24 Kantonen»), nie hartcodiert. */
+/** Zählung für Doku und App («ÖREB-Kataster in 25 Kantonen»), nie hartcodiert. */
 export function oerebKantoneZaehlung(): { total: number; angebunden: number; verifiziert: number; experimentell: number; kein_dienst: number } {
   const z = { total: OEREB_KANTONE_ALLE.length, angebunden: 0, verifiziert: 0, experimentell: 0, kein_dienst: 0 };
   for (const k of Object.values(OEREB_KANTONE)) {

@@ -11,8 +11,10 @@ import { createNtfySink, type AlertSink } from './alert.ts';
  *  - vorgelagert: geocode oder gwr lieferten nichts, der ÖREB-Adapter kam nicht dran (skipped)
  *  - falscher_kanton: die Referenzadresse geocodiert in einen anderen Kanton als eingetragen
  *  - kein_dienst: Kanton steht in kantone.ts als kein_dienst, der Adapter läuft dort nicht (ausser_kanton), kein Alarm
+ *  - runner_gesperrt: Kanton sperrt Cloud-IPs (kantone.ts, sperrt_cloud_ips) und der Lauf kommt von einem Cloud-Runner (GitHub Actions):
+ *    ein failed dort sagt nichts über den Dienst, kein Alarm, kein zweiter Versuch. Aus der Schweiz zählt derselbe Fehler als failed.
  */
-export type KantonsBefund = 'ok' | 'leer' | 'failed' | 'vorgelagert' | 'falscher_kanton' | 'kein_dienst';
+export type KantonsBefund = 'ok' | 'leer' | 'failed' | 'vorgelagert' | 'falscher_kanton' | 'kein_dienst' | 'runner_gesperrt';
 
 export type KantonsCanaryEintrag = {
   kanton: string;
@@ -53,7 +55,12 @@ export type KantonsCanaryOptions = {
   retryNachMs?: number;
   /** Warten, injizierbar für Tests. */
   warten?: (ms: number) => Promise<void>;
+  /** Läuft der Canary auf einem Cloud-Runner? Standard: GITHUB_ACTIONS gesetzt. Dann wird ein failed in Kantonen mit `sperrt_cloud_ips` zu runner_gesperrt. */
+  cloudRunner?: boolean;
 };
+
+/** Standard für `cloudRunner`: GitHub Actions setzt GITHUB_ACTIONS=true auf jedem Runner. */
+export const aufCloudRunner = (): boolean => process.env.GITHUB_ACTIONS === 'true';
 
 export const RETRY_NACH_MS = 60_000;
 
@@ -70,7 +77,7 @@ export function vorueberGehend(e: Pick<KantonsCanaryEintrag, 'befund' | 'error_k
   return false;
 }
 
-async function pruefe(core: Core, g: GoldeneAdresse): Promise<KantonsCanaryEintrag> {
+async function pruefe(core: Core, g: GoldeneAdresse, cloudRunner: boolean): Promise<KantonsCanaryEintrag> {
   const erwartet = OEREB_KANTONE[g.kanton]?.status ?? 'kein_dienst';
   const e: KantonsCanaryEintrag = { kanton: g.kanton, name: g.name, adresse: g.adresse, erwartet, status: '?', befund: 'failed', ms: 0, versuche: 1 };
   try {
@@ -104,6 +111,7 @@ async function pruefe(core: Core, g: GoldeneAdresse): Promise<KantonsCanaryEintr
     e.befund = 'failed';
     e.fehler = String(err).slice(0, 300);
   }
+  if (e.befund === 'failed' && cloudRunner && OEREB_KANTONE[g.kanton]?.sperrt_cloud_ips) e.befund = 'runner_gesperrt';
   return e;
 }
 
@@ -114,7 +122,7 @@ async function pruefe(core: Core, g: GoldeneAdresse): Promise<KantonsCanaryEintr
  * liefert. Scheitert ein Kanton an Timeout, 429 oder 5xx, folgt nach `retryNachMs` (60 s) genau ein zweiter Versuch; erst wenn auch
  * der scheitert, zählt der Kanton als Alarm (`versuche` 2, `erster_fehler`). Alarm (ntfy, NTFY_TOPIC) mit Kanton und Fehlerart, sobald
  * ein Kanton failed, leer, vorgelagert oder im falschen Kanton ist; error, wenn ein Dienst kaputt ist, warn, wenn nur Zonen fehlen.
- * Kantone mit Status kein_dienst erzeugen nie einen Alarm. Keine Deduplikation: Der Lauf ist täglich (GitHub Action canary-kantone.yml),
+ * Kantone mit Status kein_dienst erzeugen nie einen Alarm, runner_gesperrt (Cloud-Sperre, nur auf dem Runner) auch nicht. Keine Deduplikation: Der Lauf ist täglich (GitHub Action canary-kantone.yml),
  * eine Meldung pro Tag ist gewollt.
  */
 export async function runKantonsCanary(core: Core, opts: KantonsCanaryOptions = {}): Promise<KantonsCanaryReport> {
@@ -122,23 +130,24 @@ export async function runKantonsCanary(core: Core, opts: KantonsCanaryOptions = 
   const sink = opts.sink ?? createNtfySink({ log: core.log });
   const retryNachMs = opts.retryNachMs ?? RETRY_NACH_MS;
   const warten = opts.warten ?? ((ms: number) => new Promise<void>((r) => setTimeout(r, ms)));
+  const cloudRunner = opts.cloudRunner ?? aufCloudRunner();
   const t0 = Date.now();
   const gestartet = new Date().toISOString();
   const kantone: KantonsCanaryEintrag[] = [];
   const alarme: string[] = [];
 
   for (const g of adressen) {
-    let e = await pruefe(core, g);
+    let e = await pruefe(core, g, cloudRunner);
     if (vorueberGehend(e)) {
       core.log.warn('kantons-canary: vorübergehender Fehler, zweiter Versuch', { kanton: g.kanton, error_kind: e.error_kind, fehler: e.fehler, nach_ms: retryNachMs });
       await warten(retryNachMs);
       const erster = e;
-      e = await pruefe(core, g);
+      e = await pruefe(core, g, cloudRunner);
       e.versuche = 2;
       e.erster_fehler = `${erster.error_kind ?? erster.befund}: ${erster.fehler ?? ''}`.trim();
     }
     kantone.push(e);
-    if (e.befund !== 'ok' && e.befund !== 'kein_dienst') {
+    if (e.befund !== 'ok' && e.befund !== 'kein_dienst' && e.befund !== 'runner_gesperrt') {
       const zweiter = e.versuche === 2 ? ` · auch im 2. Versuch nach ${Math.round(retryNachMs / 1000)} s` : '';
       alarme.push(`${e.kanton} (${e.name}): ${e.befund}${e.error_kind ? ` · ${e.error_kind}` : ''}${e.fehler ? ` · ${e.fehler.slice(0, 160)}` : ''}${zweiter}`);
     }

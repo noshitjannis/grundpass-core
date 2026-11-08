@@ -168,6 +168,38 @@ describe('kantons-canary', () => {
     await kaputt.close();
   });
 
+  it('runner_gesperrt: ZG antwortet dem Cloud-Runner mit 500 (WAF-Blockseite), auf dem Runner kein Alarm und kein zweiter Versuch, aus der Schweiz derselbe Fehler als failed', async () => {
+    const block = { page_title: 'Web Page Blocked!', display_message: 'The page cannot be displayed.', client_IP: '4.154.167.162', attack_ID: '20000018' };
+    const zug = { ...wabern, kanton: 'ZG', name: 'Zug Regierungsgebäude' };
+    const routen = [
+      { match: (u: URL) => u.searchParams.get('layer') === 'ch.bfs.gebaeude_wohnungs_register', body: gwrMit('ZG') },
+      { match: (u: URL) => u.hostname === 'oereb.zg.ch', body: block, status: 500 },
+    ];
+    const runner = await coreMit(routen);
+    const gesendet: string[] = [];
+    const gewartet: number[] = [];
+    const r1 = await runKantonsCanary(runner, { adressen: [zug], sink: async (t) => void gesendet.push(t), cloudRunner: true, retryNachMs: 0, warten: async (ms) => void gewartet.push(ms) });
+    expect(r1.ok).toBe(true);
+    expect(r1.alarme).toEqual([]);
+    expect(gesendet).toEqual([]);
+    expect(gewartet).toEqual([]);
+    expect(r1.kantone[0]).toMatchObject({ kanton: 'ZG', erwartet: 'verifiziert', status: 'failed', befund: 'runner_gesperrt', error_kind: 'http', versuche: 1 });
+    expect(r1.kantone[0]?.fehler).toMatch(/^HTTP 500/);
+    await runner.close();
+
+    const schweiz = await coreMit(routen);
+    const r2 = await runKantonsCanary(schweiz, { adressen: [zug], sink: async () => {}, cloudRunner: false, retryNachMs: 0, warten: async () => {} });
+    expect(r2.ok).toBe(false);
+    expect(r2.kantone[0]).toMatchObject({ befund: 'failed', error_kind: 'http', versuche: 2 });
+    await schweiz.close();
+
+    // Ein Kanton ohne Cloud-Sperre bleibt auf dem Runner ein echter Fehler
+    const bern = await coreMit([{ match: (u) => u.hostname === 'www.oereb2.apps.be.ch', body: 'kaputt', status: 500 }]);
+    const r3 = await runKantonsCanary(bern, { adressen: [wabern], sink: async () => {}, cloudRunner: true, retryNachMs: 0, warten: async () => {} });
+    expect(r3.kantone[0]).toMatchObject({ befund: 'failed', versuche: 2 });
+    await bern.close();
+  });
+
   it('kein_dienst (NE): Adapter ausser_kanton, Befund kein_dienst, kein Alarm; falscher Kanton und vorgelagerter Ausfall werden gemeldet', async () => {
     const ne = await coreMit([{ match: (u) => u.searchParams.get('layer') === 'ch.bfs.gebaeude_wohnungs_register', body: gwrMit('NE') }]);
     const r1 = await runKantonsCanary(ne, { adressen: [{ ...wabern, kanton: 'NE', name: 'Neuchâtel Hôtel de Ville' }], sink: async () => {} });

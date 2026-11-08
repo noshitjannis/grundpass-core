@@ -19,6 +19,9 @@ import { httpFor } from '../helpers/fixtures.ts';
  *        2. rohe Antworten aufzeichnen (test/live/aufzeichnungen/, gitignored) als Beleg für Fixtures und Doku.
  */
 const live = !!process.env.LIVE;
+/** GitHub-Runner (Azure, USA): ZG und TI sperren Cloud-IPs (kantone.ts, sperrt_cloud_ips); ihre Extract- und Versions-Aufrufe laufen dort nicht. */
+const cloudRunner = process.env.GITHUB_ACTIONS === 'true';
+const gesperrtAufRunner = (kanton: string) => cloudRunner && Boolean(OEREB_KANTONE[kanton]?.sperrt_cloud_ips);
 
 describe.skipIf(!live)('live: geo.admin', () => {
   it('Wabern: alle verifizierten Adapter liefern', async () => {
@@ -212,7 +215,8 @@ describe.skipIf(!live)('live: oereb, alle 26 Kantone', () => {
   // und Themenzahl liefern; kein_dienst-Kantone bleiben ausser_kanton.
   for (const g of KANTONS_ADRESSEN) {
     const k = OEREB_KANTONE[g.kanton]!;
-    it(`${g.kanton} ${g.name} (${k.status}, ${k.format}): ${k.status === 'kein_dienst' ? 'Adapter läuft nicht (ausser_kanton)' : 'Extract liefert Zone, Grundbuchfläche und Themen, Rohantwort aufgezeichnet'}`, async () => {
+    // ZG und TI sperren den GitHub-Runner (Cloud-Sperre): dort übersprungen, aus der Schweiz Pflicht.
+    it.skipIf(gesperrtAufRunner(g.kanton))(`${g.kanton} ${g.name} (${k.status}, ${k.format}): ${k.status === 'kein_dienst' ? 'Adapter läuft nicht (ausser_kanton)' : 'Extract liefert Zone, Grundbuchfläche und Themen, Rohantwort aufgezeichnet'}${k.sperrt_cloud_ips ? ' (Cloud-Sperre: nicht vom GitHub-Runner)' : ''}`, async () => {
       const core = await Core.create({ store: 'memory', adapters: [geocode, gwr, oereb], log: silentLogger, breaker: new CircuitBreaker({ threshold: 99 }) });
       try {
         core.registry.disable('oereb');
@@ -244,12 +248,13 @@ describe.skipIf(!live)('live: oereb, alle 26 Kantone', () => {
   }
 
   it('versions/<format>: jeder angebundene Kanton nennt extract-2.0 (VD und GE schreiben «2.0»), JSON mit oder ohne Hülle GetVersionsResponse, Liste oder einzelnes Objekt; SO und SH als XML', async () => {
-    const http = createHttpClient({ retries: 1 }); // ein Netzfehler (ECONNRESET, 16.10.2026) soll nicht 24 Kantone rot machen
+    const http = createHttpClient({ retries: 1 }); // ein Netzfehler (ECONNRESET, 16.10.2026) soll nicht 25 Kantone rot machen
     const eintrag = z.object({ version: z.string(), serviceEndpointBase: z.string() });
     const liste = z.union([z.array(eintrag), eintrag]);
     const schema = z.union([z.object({ GetVersionsResponse: z.object({ supportedVersion: liste }) }), z.object({ supportedVersion: liste })]);
     for (const kt of OEREB_KANTONE_ANGEBUNDEN) {
       const k = OEREB_KANTONE[kt]!;
+      if (gesperrtAufRunner(kt)) continue; // ZG, TI: Cloud-Sperre gegen den GitHub-Runner
       if (k.format === 'xml') {
         // SO und SH beantworten versions/xml je nach Accept-Header: XML, oder mit Accept application/json ein JAXB-Abbild
         // ({"name":"{…}GetVersionsResponse","value":{"supportedVersion":[{"version":"extract-2.0"}]}}). extract/xml bleibt immer XML.
@@ -264,13 +269,14 @@ describe.skipIf(!live)('live: oereb, alle 26 Kantone', () => {
     }
   }, 180_000);
 
-  it('Kantone ohne Dienst scheitern noch auf die bekannte Art (sonst wäre es Zeit, sie anzubinden): NE 403, VS Timeout; SO und SH liefern weiterhin kein JSON (415, 500), darum bleibt dort XML', async () => {
+  it('Kantone ohne Dienst scheitern noch auf die bekannte Art (sonst wäre es Zeit, sie anzubinden): NE 403; SO und SH liefern weiterhin kein JSON (415, 500), darum bleibt dort XML', async () => {
+    // VS stand hier bis 08.11.2026 mit «Timeout»; seit der Dienst antwortet, ist der Kanton angebunden und läuft oben mit.
     const http = createHttpClient({ retries: 0 });
-    const egrid: Record<string, string> = { SO: 'CH693279640610', SH: 'CH581708547860', NE: 'CH467949877161', VS: 'CH235206308395' };
+    const egrid: Record<string, string> = { SO: 'CH693279640610', SH: 'CH581708547860', NE: 'CH467949877161' };
     const befund: Record<string, string> = {};
     for (const [kt, e] of Object.entries(egrid)) {
       try {
-        const r = await http.text(oerebExtractUrl(OEREB_KANTONE[kt]!, e, 'json'), { timeoutMs: kt === 'VS' ? 15_000 : 30_000 });
+        const r = await http.text(oerebExtractUrl(OEREB_KANTONE[kt]!, e, 'json'), { timeoutMs: 30_000 });
         befund[kt] = `HTTP ${r.status}`;
       } catch (err) {
         befund[kt] = err instanceof HttpError ? `HTTP ${err.status}` : err instanceof TimeoutError ? 'timeout' : String(err).slice(0, 80);
@@ -280,7 +286,6 @@ describe.skipIf(!live)('live: oereb, alle 26 Kantone', () => {
     expect(befund.SO).toBe('HTTP 415');
     expect(befund.SH).toBe('HTTP 500');
     expect(befund.NE).toBe('HTTP 403');
-    expect(befund.VS).toMatch(/timeout|fetch failed/);
   }, 180_000);
 
   it('SO, Stadt Solothurn: der Kataster führt die Nutzungsplanung noch als ThemeWithoutData (sonst kann die Referenzadresse zurück aufs Rathaus)', async () => {

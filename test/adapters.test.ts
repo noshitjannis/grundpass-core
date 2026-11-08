@@ -346,20 +346,23 @@ describe('oereb', () => {
   const ctx = (datei: string, host: string, keys: Keys): AdapterContext => ({ keys, http: httpMit(datei, host), now: () => new Date('2026-10-15T10:00:00Z'), log: silentLogger });
   const feld = (out: Awaited<ReturnType<typeof oereb.resolve>>, key: string) => out.facts.find((f) => f.key === key);
 
-  it('Manifest: braucht egrid und kanton, gilt für alle Kantone mit Dienst (24 von 26, ohne VS und NE), 14 Tage TTL, Timeout 30 s pro Kanton (GL 90 s), Manifest trägt das Maximum', () => {
+  it('Manifest: braucht egrid und kanton, gilt für alle Kantone mit Dienst (25 von 26, ohne NE), 14 Tage TTL, Timeout 30 s pro Kanton (GL 90 s), Manifest trägt das Maximum', () => {
     expect(oereb.manifest.needs).toEqual(['egrid', 'kanton']);
     expect(oereb.manifest.cantons).toEqual(OEREB_KANTONE_ANGEBUNDEN);
     expect(OEREB_KANTONE_ALLE).toHaveLength(26);
-    expect(OEREB_KANTONE_ANGEBUNDEN).toHaveLength(24);
-    for (const kt of ['VS', 'NE']) expect(oereb.manifest.cantons, kt).not.toContain(kt);
-    for (const kt of ['AG', 'ZH', 'BE', 'LU', 'UR', 'SZ', 'OW', 'NW', 'GL', 'ZG', 'FR', 'SO', 'BS', 'BL', 'SH', 'AR', 'AI', 'SG', 'GR', 'TG', 'TI', 'VD', 'GE', 'JU']) expect(oereb.manifest.cantons, kt).toContain(kt);
+    expect(OEREB_KANTONE_ANGEBUNDEN).toHaveLength(25);
+    expect(oereb.manifest.cantons).not.toContain('NE');
+    for (const kt of ['AG', 'ZH', 'BE', 'LU', 'UR', 'SZ', 'OW', 'NW', 'GL', 'ZG', 'FR', 'SO', 'BS', 'BL', 'SH', 'AR', 'AI', 'SG', 'GR', 'TG', 'TI', 'VD', 'VS', 'GE', 'JU']) expect(oereb.manifest.cantons, kt).toContain(kt);
+    // Cloud-Sperre: nur ZG und TI, mit Befund und Datum; sie bleiben angebunden
+    expect(OEREB_KANTONE_ALLE.filter((kt) => OEREB_KANTONE[kt]!.sperrt_cloud_ips)).toEqual(['ZG', 'TI']);
+    for (const kt of ['ZG', 'TI']) expect(OEREB_KANTONE[kt]!.sperrt_cloud_ips, kt).toMatch(/2026/);
     expect(oereb.manifest.ttlDays).toBe(14);
     expect(OEREB_TIMEOUT_MS).toBe(30_000);
     expect(oerebTimeoutMs(OEREB_KANTONE.BE!)).toBe(30_000);
     expect(oerebTimeoutMs(OEREB_KANTONE.GL!)).toBe(90_000);
     expect(oereb.manifest.timeoutMs).toBe(OEREB_TIMEOUT_MAX_MS);
     expect(OEREB_TIMEOUT_MAX_MS).toBe(90_000);
-    expect(oerebKantoneZaehlung()).toEqual({ total: 26, angebunden: 24, verifiziert: 24, experimentell: 0, kein_dienst: 2 });
+    expect(oerebKantoneZaehlung()).toEqual({ total: 26, angebunden: 25, verifiziert: 25, experimentell: 0, kein_dienst: 1 });
     // Format pro Kanton: SO und SH liefern nur XML, alle anderen JSON
     expect(OEREB_KANTONE_ALLE.filter((kt) => OEREB_KANTONE[kt]!.format === 'xml')).toEqual(['SO', 'SH']);
     expect(oerebExtractUrl(OEREB_KANTONE.SO!, 'CH1')).toBe('https://geo.so.ch/api/oereb/extract/xml?EGRID=CH1&GEOMETRY=false&WITHIMAGES=false&LANG=de');
@@ -547,6 +550,7 @@ describe('oereb: alle Kantone mit Dienst, Fixtures der Referenzadressen vom 16.1
     { kanton: 'TG', egrid: 'CH507729918047', host: 'map.geo.tg.ch', zone: 'Kernzone Altstadt (KA)', erkennung: 'subcode', code: '1405', es: 'III', flaeche: 199, belastungen: 1, weitere: ['Ortsbild-/ Umgebungsschutzzone (Os)'] },
     { kanton: 'TI', egrid: 'CH990287070740', host: 'crdpp.geo.ti.ch', zone: 'Comparto soggetto a Piano Particolareggiato', erkennung: 'subcode', code: 'S_14_047_0015_4175', es: null, flaeche: 2685, belastungen: 1 },
     { kanton: 'VD', egrid: 'CH907857723624', host: 'www.rdppf.vd.ch', zone: 'Zone centrale 15 LAT', erkennung: 'subcode', anteil: 99.9, es: 'III', flaeche: 2864, belastungen: 2, weitere: ['Zone de desserte 15 LAT'] },
+    { kanton: 'VS', egrid: 'CH235206308395', host: 'rdppf.apps.vs.ch', zone: 'Vieille ville (1)', erkennung: 'flaechenanteil', anteil: 99.7, code: '1', es: 'II', flaeche: 303, belastungen: 1 },
     { kanton: 'GE', egrid: 'CH328197656307', host: 'ge.ch', zone: 'Zone 1', erkennung: 'subcode', es: 'II', flaeche: 1851, belastungen: 1 },
     { kanton: 'JU', egrid: 'CH234478060309', host: 'geo.jura.ch', zone: 'Zone centre - CA', erkennung: 'typecode', code: 'r73_affectations_primaires_Centre_CA', es: 'III', flaeche: 1982, belastungen: 2 },
   ];
@@ -556,7 +560,7 @@ describe('oereb: alle Kantone mit Dienst, Fixtures der Referenzadressen vom 16.1
 
   it('deckt genau die angebundenen Kantone ab, jede Fixture trägt einen Hinweis (JSON `_hinweis`, XML als Kommentar)', () => {
     expect(FAELLE.map((f) => f.kanton).sort()).toEqual([...OEREB_KANTONE_ANGEBUNDEN].sort());
-    for (const f of FAELLE) expect(fixtureHinweis(fixtureVon(f.kanton)), f.kanton).toContain('16.10.2026');
+    for (const f of FAELLE) expect(fixtureHinweis(fixtureVon(f.kanton)), f.kanton).toMatch(/\b(16\.10|08\.11)\.2026\b/); // Inventar 16.10.2026, VS seit 08.11.2026
     expect(fixtureVon('SO')).toBe('oereb-so.xml');
     expect(fixtureVon('BE')).toBe('oereb-be.json');
   });
