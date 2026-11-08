@@ -4,7 +4,7 @@ export type Alarm = {
   schwere: 'warn' | 'error';
   adapter: string;
   adresse: string;
-  art: 'failed' | 'schema' | 'empty' | 'timeout' | 'open_circuit' | 'skipped' | 'latenz' | 'drift';
+  art: 'failed' | 'schema' | 'empty' | 'timeout' | 'open_circuit' | 'skipped' | 'latenz' | 'drift' | 'baseline_nachgezogen';
   text: string;
 };
 

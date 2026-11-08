@@ -21,6 +21,8 @@ export type CanaryAdresseReport = {
   adapters: CanaryAdapterStatus[];
   drift: Array<{ key: string; vorher: unknown; nachher: unknown }>;
   baseline_neu: boolean;
+  /** Stabile Fakten, deren Baseline in diesem Lauf nachgezogen wurde, weil der liefernde Adapter seit der Baseline eine höhere Version hat. */
+  baseline_nachgezogen: Array<{ key: string; vorher: unknown; nachher: unknown; adapter: string; version_vorher?: number; version_nachher: number }>;
 };
 
 export type CanaryReport = {
@@ -37,14 +39,21 @@ export type CanaryReport = {
 };
 
 type Baseline = Record<string, Fact['value']>;
+/** Adapter-Version je stabilem Key zur Zeit der Baseline (Snapshot `canary:baseline-versionen:<adresse>`). */
+type BaselineVersionen = Record<string, number>;
 
-function stabile(facts: Fact[]): Baseline {
-  const out: Baseline = {};
+/** Stabile Fakten mit dem Adapter, der sie geliefert hat (höchste Confidence gewinnt). */
+function stabile(facts: Fact[]): { werte: Baseline; quelle: Record<string, string> } {
+  const werte: Baseline = {};
+  const quelle: Record<string, string> = {};
   for (const k of STABILE_KEYS) {
     const f = facts.filter((x) => x.key === k).sort((a, b) => b.confidence - a.confidence)[0];
-    if (f && f.value !== null) out[k] = f.value;
+    if (f && f.value !== null) {
+      werte[k] = f.value;
+      quelle[k] = f.source;
+    }
   }
-  return out;
+  return { werte, quelle };
 }
 
 /**
@@ -98,34 +107,59 @@ export async function runCanary(
       }
     }
 
-    // Drift gegen Baseline
+    // Drift gegen Baseline. Neben den Werten liegt der Versionsstand der liefernden Adapter (canary:baseline-versionen:<adresse>):
+    // Hat ein Adapter seit der Baseline eine höhere Version (oder fehlt sein Stand, Baselines von vor dem 08.11.2026), ist ein anderer
+    // Wert kein Drift des Registers, sondern eine Korrektur des Adapters (Baden: av-parzelle Version 3 nennt die Register-Parzelle
+    // 3258 statt 3827). Dann wird die Baseline für diesen Key nachgezogen und einmal gewarnt, statt jeden Tag Drift zu melden.
     const key = `canary:baseline:${g.adresse}`;
-    const jetzt = stabile(run.facts);
+    const versionenKey = `canary:baseline-versionen:${g.adresse}`;
+    const { werte: jetzt, quelle } = stabile(run.facts);
+    const versionenJetzt: BaselineVersionen = {};
+    for (const adapterId of Object.values(quelle)) versionenJetzt[adapterId] = core.registry.get(adapterId)?.manifest.version ?? 1;
     const baseline = await core.store.getSnapshot<Baseline>(key);
     const drift: CanaryAdresseReport['drift'] = [];
+    const nachgezogen: CanaryAdresseReport['baseline_nachgezogen'] = [];
     let baselineNeu = false;
     if (sollErneuern(g)) {
       // Auf Anweisung: aktueller Stand wird die neue Baseline, keine Drift-Prüfung in diesem Lauf
       if (Object.keys(jetzt).length) {
         await core.store.setSnapshot(key, jetzt);
+        await core.store.setSnapshot(versionenKey, versionenJetzt);
         baselineNeu = true;
         erneuert.push(g.name);
       }
     } else if (!baseline) {
       if (Object.keys(jetzt).length) {
         await core.store.setSnapshot(key, jetzt);
+        await core.store.setSnapshot(versionenKey, versionenJetzt);
         baselineNeu = true;
       }
     } else {
+      const versionenAlt = (await core.store.getSnapshot<BaselineVersionen>(versionenKey)) ?? {};
+      const neueBaseline: Baseline = { ...baseline };
+      let geaendert = false;
       for (const [k, v] of Object.entries(baseline)) {
-        if (k in jetzt && JSON.stringify(jetzt[k]) !== JSON.stringify(v)) {
+        if (!(k in jetzt) || JSON.stringify(jetzt[k]) === JSON.stringify(v)) continue;
+        const adapterId = quelle[k]!;
+        const alt = versionenAlt[adapterId];
+        const neu = versionenJetzt[adapterId]!;
+        if (alt === undefined || neu > alt) {
+          neueBaseline[k] = jetzt[k]!;
+          geaendert = true;
+          const n: CanaryAdresseReport['baseline_nachgezogen'][number] = { key: k, vorher: v, nachher: jetzt[k], adapter: adapterId, version_nachher: neu };
+          if (alt !== undefined) n.version_vorher = alt;
+          nachgezogen.push(n);
+          alarme.push({ schwere: 'warn', adapter: 'drift', adresse: g.name, art: 'baseline_nachgezogen', text: `${k}: ${JSON.stringify(v)} → ${JSON.stringify(jetzt[k])} (${adapterId} Version ${alt ?? 'unbekannt'} → ${neu}, Baseline nachgezogen)` });
+        } else {
           drift.push({ key: k, vorher: v, nachher: jetzt[k] });
           alarme.push({ schwere: 'warn', adapter: 'drift', adresse: g.name, art: 'drift', text: `${k}: ${JSON.stringify(v)} → ${JSON.stringify(jetzt[k])}` });
         }
       }
+      if (geaendert) await core.store.setSnapshot(key, neueBaseline);
+      if (geaendert || JSON.stringify(versionenAlt) !== JSON.stringify(versionenJetzt)) await core.store.setSnapshot(versionenKey, versionenJetzt);
     }
 
-    reports.push({ name: g.name, adresse: g.adresse, subject: run.subject, ms: run.ms, partial: run.partial, adapters, drift, baseline_neu: baselineNeu });
+    reports.push({ name: g.name, adresse: g.adresse, subject: run.subject, ms: run.ms, partial: run.partial, adapters, drift, baseline_neu: baselineNeu, baseline_nachgezogen: nachgezogen });
   }
 
   const report: CanaryReport = {

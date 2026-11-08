@@ -78,6 +78,54 @@ describe('canary', () => {
     await core.close();
   });
 
+  it('zieht die Baseline nach statt Drift zu melden, wenn der liefernde Adapter seit der Baseline eine höhere Version hat oder sein Stand fehlt; danach ist Ruhe', async () => {
+    const gwrFixture = JSON.parse(JSON.stringify((await import('./helpers/fixtures.ts')).fixture('gwr-1271632.json'))) as { results: Array<{ attributes: Record<string, unknown> }> };
+    let parzelle = '5711';
+    const fetch = fakeFetch([
+      {
+        match: (u) => u.searchParams.get('layer') === 'ch.bfs.gebaeude_wohnungs_register',
+        get body() {
+          const copy = JSON.parse(JSON.stringify(gwrFixture)) as typeof gwrFixture;
+          copy.results[0]!.attributes.lparz = parzelle;
+          return copy;
+        },
+      },
+      ...wabernRoutes(),
+    ]);
+    const core = await Core.create({ store: 'memory', http: createHttpClient({ fetch, retries: 0 }), log: silentLogger, breaker: new CircuitBreaker() });
+    const versionenKey = 'canary:baseline-versionen:Maygutstrasse 26, 3084 Wabern';
+    const gwrVersion = core.registry.get('gwr')!.manifest.version ?? 1;
+    await runCanary(core, { adressen, sink: async () => {} });
+    expect(await core.store.getSnapshot<Record<string, number>>(versionenKey)).toMatchObject({ gwr: gwrVersion });
+
+    // Baseline stammt von einer älteren gwr-Version: anderer Wert ist eine Adapter-Korrektur, nicht Drift
+    await core.store.setSnapshot(versionenKey, { gwr: gwrVersion - 1 });
+    parzelle = '9999';
+    const r1 = await runCanary(core, { adressen, sink: async () => {} });
+    expect(r1.adressen[0]?.drift).toEqual([]);
+    expect(r1.adressen[0]?.baseline_nachgezogen).toEqual([{ key: 'parzelle.nummer', vorher: '5711', nachher: '9999', adapter: 'gwr', version_vorher: gwrVersion - 1, version_nachher: gwrVersion }]);
+    expect(r1.alarme.filter((a) => a.art === 'baseline_nachgezogen').map((a) => a.text)).toEqual([`parzelle.nummer: "5711" → "9999" (gwr Version ${gwrVersion - 1} → ${gwrVersion}, Baseline nachgezogen)`]);
+    expect(r1.alarme.some((a) => a.art === 'drift')).toBe(false);
+    expect(await core.store.getSnapshot(versionenKey)).toMatchObject({ gwr: gwrVersion });
+
+    // Gleicher Stand, gleiche Version: nichts zu melden
+    const r2 = await runCanary(core, { adressen, sink: async () => {} });
+    expect(r2.alarme).toEqual([]);
+    expect(r2.adressen[0]?.baseline_nachgezogen).toEqual([]);
+
+    // Baseline ohne Versionsstand (vor dem 08.11.2026): einmal nachziehen mit Warnung, danach echter Drift wieder Drift
+    await core.store.setSnapshot(versionenKey, {});
+    parzelle = '4711';
+    const r3 = await runCanary(core, { adressen, sink: async () => {} });
+    expect(r3.adressen[0]?.baseline_nachgezogen.map((n) => [n.key, n.nachher, n.version_vorher])).toEqual([['parzelle.nummer', '4711', undefined]]);
+    expect(r3.alarme[0]?.text).toContain('Version unbekannt →');
+    parzelle = '0815';
+    const r4 = await runCanary(core, { adressen, sink: async () => {} });
+    expect(r4.adressen[0]?.drift).toEqual([{ key: 'parzelle.nummer', vorher: '4711', nachher: '0815' }]);
+    expect(r4.adressen[0]?.baseline_nachgezogen).toEqual([]);
+    await core.close();
+  });
+
   it('baselineErneuern überschreibt die Baseline mit dem aktuellen Stand, ohne Drift-Alarm; danach gilt der neue Stand', async () => {
     const gwrFixture = JSON.parse(JSON.stringify((await import('./helpers/fixtures.ts')).fixture('gwr-1271632.json'))) as { results: Array<{ attributes: Record<string, unknown> }> };
     let parzelle = '5711';
