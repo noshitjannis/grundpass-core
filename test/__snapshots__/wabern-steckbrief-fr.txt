@@ -100,7 +100,7 @@ SERVICES COMPÉTENTS
 
 CALCULÉ
   Part bâtie       18,3 %   derived · consulté le 16.10.2026
-  Age du bâtiment  73 Jahre   derived · consulté le 16.10.2026
+  Age du bâtiment  73 ans   derived · consulté le 16.10.2026
 
 LOGEMENT
   Etage                  Rez-de-chaussée   gwr · données du 12.10.2026 · consulté le 16.10.2026

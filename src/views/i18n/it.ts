@@ -157,6 +157,7 @@ export const it: Texte = {
     },
   },
   formate: { ja: 'sì', nein: 'no', betroffen: 'interessato', nichtBetroffen: 'non interessato', keineAngabe: 'nessuna indicazione', leer: '–' },
+  einheiten: { Jahre: 'anni' },
   luecken: {
     grund: {
       fehlt_im_register: 'manca nel registro',

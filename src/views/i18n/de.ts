@@ -36,6 +36,8 @@ export type Texte = {
   };
   /** Formate: Bool-Werte, leere Werte. */
   formate: { ja: string; nein: string; betroffen: string; nichtBetroffen: string; keineAngabe: string; leer: string };
+  /** Einheiten, die ein Wort sind (Fakt `unit`, heute nur «Jahre» aus derive); Symbole wie m², dB und % bleiben unübersetzt. */
+  einheiten: Record<'Jahre', string>;
   /** Lückengründe und ihre Details (`{keys}`, `{kanton}`). */
   luecken: { grund: Record<Luecke['grund'], string>; detail: { fehlendeSchluessel: string; ausserKanton: string; feldLeer: string } };
   /** Hinweistexte aus Adaptern, nach Code (die Adapter liefern `<key>_code` und Parameter als Fakten). */
@@ -102,6 +104,7 @@ export const de: Texte = {
     },
   },
   formate: { ja: 'ja', nein: 'nein', betroffen: 'betroffen', nichtBetroffen: 'nicht betroffen', keineAngabe: 'keine Angabe', leer: '–' },
+  einheiten: { Jahre: 'Jahre' },
   luecken: {
     grund: {
       fehlt_im_register: 'fehlt im Register',

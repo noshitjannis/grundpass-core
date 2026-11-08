@@ -108,7 +108,7 @@ function toFeld(f: Fact, def: Pick<FeldDef, 'label' | 'erklaerung'>, k: Kontext)
     confidence: f.confidence,
   };
   if (f.source_date) out.daten_vom = f.source_date;
-  if (f.unit) out.unit = f.unit;
+  if (f.unit) out.unit = (k.T.einheiten as Record<string, string>)[f.unit] ?? f.unit; // «Jahre» → ans, anni, years; Symbole bleiben
   if (def.erklaerung) out.erklaerung = def.erklaerung;
   if (f.request_url) out.url = f.request_url;
   if (f.derived_from) out.derived_from = f.derived_from;

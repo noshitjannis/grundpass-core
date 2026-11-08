@@ -156,6 +156,7 @@ export const fr: Texte = {
     },
   },
   formate: { ja: 'oui', nein: 'non', betroffen: 'concerné', nichtBetroffen: 'non concerné', keineAngabe: 'aucune indication', leer: '–' },
+  einheiten: { Jahre: 'ans' },
   luecken: {
     grund: {
       fehlt_im_register: 'absent du registre',

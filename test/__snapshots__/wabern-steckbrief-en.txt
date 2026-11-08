@@ -100,7 +100,7 @@ RESPONSIBLE OFFICES
 
 CALCULATED
   Built-up share  18.3 %   derived · retrieved 16.10.2026
-  Building age    73 Jahre   derived · retrieved 16.10.2026
+  Building age    73 years   derived · retrieved 16.10.2026
 
 DWELLING
   Floor                 Ground floor   gwr · data as of 12.10.2026 · retrieved 16.10.2026

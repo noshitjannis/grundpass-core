@@ -151,6 +151,7 @@ export const en: Texte = {
     },
   },
   formate: { ja: 'yes', nein: 'no', betroffen: 'affected', nichtBetroffen: 'not affected', keineAngabe: 'no data', leer: '–' },
+  einheiten: { Jahre: 'years' },
   luecken: {
     grund: {
       fehlt_im_register: 'not in the register',

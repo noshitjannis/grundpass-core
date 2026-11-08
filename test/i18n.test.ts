@@ -259,6 +259,10 @@ describe('i18n: Steckbrief Wabern in vier Sprachen', () => {
     const run = await wabern();
     const s = buildSteckbrief(run, adapters, { lang: 'fr' });
     expect(s.lang).toBe('fr');
+    // Einheit als Wort wird übersetzt («73 ans» statt «73 Jahre»), Symbole bleiben
+    const alleFelder = s.abschnitte.flatMap((a) => a.felder);
+    expect(alleFelder.find((f) => f.key === 'gebaeude.alter_jahre')?.unit).toBe('ans');
+    expect(alleFelder.find((f) => f.key === 'parzelle.flaeche_m2')?.unit).toBe('m2');
     const geb = s.abschnitte.find((a) => a.id === 'gebaeude')!;
     expect(geb.titel).toBe('Bâtiment');
     expect(geb.felder.find((f) => f.key === 'gebaeude.klasse_kurz')).toMatchObject({ label: 'Type de bâtiment', value: 'Maison individuelle', quelle_titel: 'RegBL bâtiments et logements' });
